@@ -16,7 +16,9 @@ export default function Profile() {
           }}
         >
           <Typography variant="h5">Profile</Typography>
-          <Button variant="contained">Edit</Button>
+          <Button variant="contained" color="primary">
+            Edit
+          </Button>
         </Box>
         <Paper sx={{ display: "flex", padding: 5, marginY: 3 }} elevation={5}>
           <Grid container>
