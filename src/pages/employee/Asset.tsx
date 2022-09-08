@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Table from "@mui/material/Table";
@@ -7,7 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+
 export default function Asset() {
   function createData(
     Id: number | string,
@@ -52,39 +52,39 @@ export default function Asset() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid item>
-        <Typography p={3} variant="h5">
-          Current Asset
-        </Typography>
-        <TableContainer sx={{ marginY: 3 }} component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Asset ID</TableCell>
-                <TableCell align="right">Name</TableCell>
-                <TableCell align="right">Model</TableCell>
-                <TableCell align="right">Type of Asset</TableCell>
-                <TableCell align="right">Date of Allocation</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.Id}
-                  </TableCell>
-                  <TableCell align="right">{row.name}</TableCell>
-                  <TableCell align="right">{row.model}</TableCell>
-                  <TableCell align="right">{row.typeofasset}</TableCell>
-                  <TableCell align="right">{row.date.toString()}</TableCell>
+      <Grid item xs={12} md={10.5} p={3}>
+        <Typography>Current Asset</Typography>
+        <Box sx={{ overflowX: "auto" }}>
+          <TableContainer sx={{ width: "auto" }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Asset ID</TableCell>
+                  <TableCell align="right">Name</TableCell>
+                  <TableCell align="right">Model</TableCell>
+                  <TableCell align="right">Type of Asset</TableCell>
+                  <TableCell align="right">Date of Allocation</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.Id}
+                    </TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.model}</TableCell>
+                    <TableCell align="right">{row.typeofasset}</TableCell>
+                    <TableCell align="right">{row.date.toString()}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Grid>
     </Grid>
   );

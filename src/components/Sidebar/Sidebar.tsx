@@ -1,59 +1,106 @@
+import React, { useState } from "react";
 import { Box, Button, Grid } from "@mui/material";
-import React from "react";
 import { Link } from "react-router-dom";
-import Typography from "@mui/material/Typography";
+import { useTheme, useMediaQuery } from "@mui/material";
+
+import {
+  Drawer,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
+
+import MenuIcon from "@mui/icons-material/Menu";
+
 export default function SideBar() {
-  const isAdmin = true;
-  return isAdmin ? <AdminSidebar /> : <EmployeeSidebar />;
-}
-const AdminSidebar = () => {
-  return (
-    <Grid item xs={1.5} sx={{ height: "88vh", bgcolor: "#0369A1" }}>
-      <Box display="flex" flexDirection="column" justifyContent="center">
-        <Button component={Link} to="/employee/profile">
-          <Typography p={3} variant="h5" color="white">
-            Dashboard
-          </Typography>
-        </Button>
-        <Button component={Link} to="/employee/asset">
-          <Typography p={3} variant="h5" color="white">
-            Employee
-          </Typography>
-        </Button>
-        <Button component={Link} to="/employee/ticket">
-          <Typography p={3} variant="h5" color="white">
-            Asset
-          </Typography>
-        </Button>
-        <Button component={Link} to="/employee/ticket">
-          <Typography p={3} variant="h5" color="white">
-            Service
-          </Typography>
-        </Button>
-      </Box>
-    </Grid>
-  );
-};
-const EmployeeSidebar = () => {
-  return (
-    <Grid item xs={1.5} sx={{ height: "88vh", bgcolor: "#0369A1" }}>
-      <Box display="flex" flexDirection="column" justifyContent="center">
-        <Button component={Link} to="/employee/profile">
-          <Typography p={3} variant="h5" color="white">
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+
+  const MobileNav = () => {
+    return (
+      <Toolbar>
+        <Drawer
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          anchor="right"
+        >
+          <List>
+            <ListItemButton component={Link} to="/employee/profile">
+              <ListItemText>Profile</ListItemText>
+            </ListItemButton>
+
+            <ListItemButton component={Link} to="/employee/asset">
+              <ListItemText>Assets</ListItemText>
+            </ListItemButton>
+
+            <ListItemButton component={Link} to="/employee/ticket">
+              <ListItemText>Ticket</ListItemText>
+            </ListItemButton>
+          </List>
+        </Drawer>
+        <IconButton
+          size="large"
+          sx={{ position: "fixed", right: 10, top: 30, color: "white" }}
+          onClick={() => setOpenDrawer(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
+    );
+  };
+
+  const SideNav = () => {
+    return (
+      <Grid
+        item
+        xs={12}
+        md={1.5}
+        sx={{
+          height: "88vh",
+          bgcolor: "#011E41",
+          borderTop: "solid white 2px",
+        }}
+      >
+        <Box display="flex" flexDirection="column" justifyContent="center">
+          <Button
+            sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+            variant="outlined"
+            color="secondary"
+            component={Link}
+            to="/employee/profile"
+          >
+
             Profile
-          </Typography>
-        </Button>
-        <Button component={Link} to="/employee/asset">
-          <Typography p={3} variant="h5" color="white">
+          </Button>
+          <Button
+            sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+            variant="outlined"
+            color="secondary"
+            component={Link}
+            to="/employee/asset"
+          >
             Asset
-          </Typography>
-        </Button>
-        <Button component={Link} to="/employee/ticket">
-          <Typography p={3} variant="h5" color="white">
+          </Button>
+          <Button
+            sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+            variant="outlined"
+            color="secondary"
+            component={Link}
+            to="/employee/ticket"
+          >
             Request
-          </Typography>
-        </Button>
-      </Box>
-    </Grid>
-  );
-};
+
+          </Button>
+        </Box>
+      </Grid>
+    );
+  };
+
+  return matches ? <MobileNav /> : <SideNav />;
+}
+
