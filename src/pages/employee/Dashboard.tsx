@@ -1,80 +1,59 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Grid, styled } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import WebAssetIcon from "@mui/icons-material/WebAsset";
 import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
+
+const StlyedGrid = styled(Grid)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "250px",
+  height: "244px",
+  border: "2px solid black",
+  backgroundColor: "#CBCBCB",
+  cursor: "pointer",
+});
+
 export default function Dashboard() {
+  let navigate = useNavigate();
   return (
     <Box>
       <Typography variant="h3" textAlign="center">
         Dashboard
       </Typography>
       <Grid container justifyContent="space-around" sx={{ marginTop: 12 }}>
-        <Button component={Link} to="/employee/profile">
-          <Grid
-            item
+        <StlyedGrid item onClick={() => navigate("/employee/profile")}>
+          <PersonIcon
+            color="primary"
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              width: "250px",
-              height: "244px",
-              border: "2px solid black",
-              backgroundColor: "#CBCBCB",
+              width: 100,
+              height: 100,
             }}
-          >
-            <PersonIcon
-              sx={{
-                width: 100,
-                height: 100,
-                marginTop: 7,
-              }}
-            ></PersonIcon>
-          </Grid>
-        </Button>
-        <Button component={Link} to="/employee/asset">
-          <Grid
-            item
+          />
+        </StlyedGrid>
+
+        <StlyedGrid item onClick={() => navigate("/employee/asset")}>
+          <WebAssetIcon
+            color="primary"
             sx={{
-              width: "250px",
-              height: "244px",
-              border: "2px solid black",
-              backgroundColor: "#CBCBCB",
-              display: "flex",
-              justifyContent: "center",
+              width: 100,
+              height: 100,
             }}
-          >
-            <WebAssetIcon
-              sx={{
-                width: 100,
-                height: 100,
-                marginTop: 7,
-              }}
-            ></WebAssetIcon>
-          </Grid>
-        </Button>
-        <Button component={Link} to="/employee/ticket">
-          <Grid
-            item
+          />
+        </StlyedGrid>
+
+        <StlyedGrid item onClick={() => navigate("/employee/ticket")}>
+          <DeviceUnknownIcon
+            color="primary"
             sx={{
-              width: "250px",
-              height: "244px",
-              border: "2px solid black",
-              backgroundColor: "#CBCBCB",
-              display: "flex",
-              justifyContent: "center",
+              width: 100,
+              height: 100,
             }}
-          >
-            <DeviceUnknownIcon
-              sx={{
-                width: 100,
-                height: 100,
-                marginTop: 7,
-              }}
-            ></DeviceUnknownIcon>
-          </Grid>
-        </Button>
+          />
+        </StlyedGrid>
       </Grid>
     </Box>
   );

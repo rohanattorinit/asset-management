@@ -6,6 +6,8 @@ import {
   styled,
   TextField,
   Divider,
+  Box,
+  Button,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -26,13 +28,9 @@ export const AddEmployee = () => {
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
-      <Grid item xs={12} md={10.5}>
-        <Container>
-          <Breadcrumbs
-            sx={{ margin: "1rem 3.5rem" }}
-            separator="›"
-            aria-label="breadcrumb"
-          >
+      <Grid item xs={12} md={10.5} p={3}>
+        <Box>
+          <Breadcrumbs separator="›" aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="#">
               Employee Details
             </Link>
@@ -42,9 +40,7 @@ export const AddEmployee = () => {
           </Breadcrumbs>
           <Card
             sx={{
-              margin: "1rem 3.5rem",
-              width: "75rem",
-              height: "31.25rem",
+              my: 2,
               borderRadius: "15px",
             }}
           >
@@ -52,55 +48,76 @@ export const AddEmployee = () => {
               <StyledTypography>Create Employee :</StyledTypography>
               <Grid container>
                 <Grid item xs={12} md={6}>
-                  <FlexContainer>
-                    <TextField
-                      margin="normal"
-                      required
-                      id="outlined-basic"
-                      label="Full Name"
-                      variant="outlined"
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      id="outlined-basic"
-                      label="E-mail"
-                      variant="outlined"
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      id="outlined-basic"
-                      label="Job Title"
-                      variant="outlined"
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      id="outlined-basic"
-                      label="Location"
-                      variant="outlined"
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      id="outlined-basic"
-                      label="Phone No"
-                      variant="outlined"
-                    />
-                  </FlexContainer>
+                  <form action="">
+                    <FlexContainer>
+                      <TextField
+                        margin="normal"
+                        required
+                        id="outlined-basic"
+                        label="Full Name"
+                        variant="outlined"
+                      />
+                      <TextField
+                        margin="normal"
+                        required
+                        id="outlined-basic"
+                        label="E-mail"
+                        variant="outlined"
+                      />
+                      <TextField
+                        margin="normal"
+                        required
+                        id="outlined-basic"
+                        label="Job Title"
+                        variant="outlined"
+                      />
+                      <TextField
+                        margin="normal"
+                        required
+                        id="outlined-basic"
+                        label="Location"
+                        variant="outlined"
+                      />
+                      <TextField
+                        margin="normal"
+                        required
+                        id="outlined-basic"
+                        label="Phone No"
+                        variant="outlined"
+                      />
+                      <Box sx={{ display: "flex", justifyContent: "center" }}>
+                        <Button
+                          color="info"
+                          size="large"
+                          type="submit"
+                          variant="outlined"
+                        >
+                          Submit
+                        </Button>
+                      </Box>
+                    </FlexContainer>
+                  </form>
                 </Grid>
                 <Grid item xs={12} md={1}>
                   <Divider orientation="vertical" />
                 </Grid>
 
                 <Grid item xs={12} md={5}>
-                  <img src={upload} alt="upload" />
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ marginY: "2rem" }}
+                  >
+                    <img src={upload} alt="upload" />
+                    <StyledTypography>Upload CSV</StyledTypography>
+                  </Box>
                 </Grid>
               </Grid>
             </CardContent>
           </Card>
-        </Container>
+        </Box>
       </Grid>
     </Grid>
   );
