@@ -31,11 +31,7 @@ function App() {
           <Route path="/admin/employee/create" element={<AddEmployee />} />
           <Route path="/admin/employee" element={<EmpList />} />
           <Route path="/admin/assets" element={<Assets />} />
-          <Route
-            path="/admin/
-          "
-            element={<Services />}
-          />
+          <Route path="/admin/services" element={<Services />} />
         </Routes>
       </BrowserRouter>
     </>
