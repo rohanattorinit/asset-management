@@ -3,7 +3,7 @@ import React from "react";
 import logo from "../../assets/logo.png";
 export default function Navbar() {
   return (
-    <Box sx={{ height: "12vh", bgcolor: "#0369A1 " }}>
+    <Box sx={{ height: "12vh", bgcolor: "#2f2fa2" }}>
       <Box
         component="img"
         sx={{
