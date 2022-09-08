@@ -8,19 +8,19 @@ export default function Profile() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid item xs={10.5}>
-        <Box p={3}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography variant="h5">Profile</Typography>
-            <Button variant="contained">Edit</Button>
-          </Box>
-          <Paper sx={{ display: "flex", padding: 5, marginY: 3 }} elevation={5}>
-            <Box sx={{ width: 450, height: 300 }}>
+      <Grid item xs={12} md={10.5} p={3}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography variant="h5">Profile</Typography>
+          <Button variant="contained">Edit</Button>
+        </Box>
+        <Paper sx={{ display: "flex", padding: 5, marginY: 3 }} elevation={5}>
+          <Grid container>
+            <Grid item xs={12} md={4}>
               <Typography
                 fontFamily="serif"
                 fontWeight="bold"
@@ -59,14 +59,9 @@ export default function Profile() {
                   archana.gangurde@toriit.ca
                 </Typography>
               </Typography>
-            </Box>
-            <Box
-              sx={{
-                width: 300,
-                height: 300,
-                backgroundColor: "white",
-              }}
-            >
+            </Grid>
+
+            <Grid item xs={12} md={8}>
               <Typography
                 fontFamily="serif"
                 fontWeight="bold"
@@ -84,50 +79,9 @@ export default function Profile() {
                 Location:
                 <Typography variant="body1">Pune</Typography>
               </Typography>
-            </Box>
-          </Paper>
-          {/* <h3>profile</h3>
-        <Grid container>
-          <Grid
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              width: "250px",
-              height: "244px",
-              border: "2px solid black",
-              backgroundColor: "#CBCBCB",
-              alignContent: "center",
-            }}
-          >
-            <PersonIcon
-              sx={{
-                width: 100,
-                height: 100,
-                marginTop: 7,
-              }}
-            ></PersonIcon>
+            </Grid>
           </Grid>
-          <Grid
-            sx={{
-              marginLeft: "20px",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="h6">Employee ID:{"21TCS259"}</Typography>
-            <Typography variant="h6">Name:{"ARCHANA"}</Typography>
-            <Typography variant="h6">
-              Job Title:{"Associate Software Engineer"}
-            </Typography>
-            <Typography variant="h6">
-              E-mail:{"archana.gangurde@toriit.ca"}
-            </Typography>
-            <Typography variant="h6">Phone:{"9783125154"}</Typography>
-            <Typography variant="h6">Location:{"Pune"}</Typography>
-          </Grid>
-          <Button variant="contained">Edit</Button>
-        </Grid>
-       */}
-        </Box>
+        </Paper>
       </Grid>
     </Grid>
   );
