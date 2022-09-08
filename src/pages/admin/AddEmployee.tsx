@@ -48,7 +48,7 @@ export const AddEmployee = () => {
               <StyledTypography>Create Employee :</StyledTypography>
               <Grid container>
                 <Grid item xs={12} md={6}>
-                  <form action="">
+                  <form>
                     <FlexContainer>
                       <TextField
                         margin="normal"
@@ -110,8 +110,13 @@ export const AddEmployee = () => {
                     alignItems="center"
                     sx={{ marginY: "2rem" }}
                   >
-                    <img src={upload} alt="upload" />
-                    <StyledTypography>Upload CSV</StyledTypography>
+                    <form>
+                      <img src={upload} alt="upload" />
+                      <label style={{ cursor: "pointer" }}>
+                        <StyledTypography>Upload CSV</StyledTypography>
+                        <input type="file" />
+                      </label>
+                    </form>
                   </Box>
                 </Grid>
               </Grid>
