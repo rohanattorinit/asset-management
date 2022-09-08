@@ -15,6 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 export default function SideBar() {
+
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const theme = useTheme();
@@ -73,6 +74,7 @@ export default function SideBar() {
             component={Link}
             to="/employee/profile"
           >
+
             Profile
           </Button>
           <Button
@@ -92,6 +94,7 @@ export default function SideBar() {
             to="/employee/ticket"
           >
             Request
+
           </Button>
         </Box>
       </Grid>
@@ -100,3 +103,4 @@ export default function SideBar() {
 
   return matches ? <MobileNav /> : <SideNav />;
 }
+
