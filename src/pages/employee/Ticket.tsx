@@ -15,7 +15,7 @@ export default function Ticket() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid item xs={10.5}>
+      <Grid item xs={12} md={10}>
         <Box
           p={3}
           sx={{

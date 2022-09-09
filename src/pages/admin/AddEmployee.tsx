@@ -28,7 +28,7 @@ export const AddEmployee = () => {
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
-      <Grid item xs={12} md={10.5} p={3}>
+      <Grid item xs={12} md={10} p={3}>
         <Box>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="#">

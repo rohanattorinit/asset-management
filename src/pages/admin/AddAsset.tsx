@@ -31,7 +31,7 @@ export const AddAsset = () => {
       <Grid
         item
         xs={12}
-        md={10.5}
+        md={10}
         p={3}
         sx={{ height: "88vh", overflowX: "auto" }}
       >

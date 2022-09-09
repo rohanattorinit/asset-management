@@ -22,33 +22,27 @@ function Assets() {
     <>
       <Grid container>
         <SideBar />
-        <Grid item xs={12} md={10.5} p={3}>
-          <Breadcrumbs
-            sx={{ margin: "10px", display: "inline" }}
-            separator="›"
-            aria-label="breadcrumb"
+        <Grid item xs={12} md={10} p={3}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
           >
-            <Link underline="hover" color="inherit" href="#">
-              Assets
-            </Link>
-            <Link underline="hover" color="inherit" href="#">
-              Hardware
-            </Link>
-          </Breadcrumbs>
+            <Breadcrumbs separator="›" aria-label="breadcrumb">
+              <Link underline="hover" color="inherit" href="#">
+                Assets
+              </Link>
+              <Link underline="hover" color="inherit" href="#">
+                Hardware
+              </Link>
+            </Breadcrumbs>
 
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              width: 355,
-              height: 50,
-              marginLeft: "74%",
-              marginTop: "-1%",
-            }}
-          >
-            Add new Asset
-          </Button>
-          <Box p={1}>
+            <Button variant="contained" color="primary">
+              Add new Asset
+            </Button>
+          </Box>
+
+          <Box my={2}>
             <Tabs variant="fullWidth" sx={{ background: "grey" }}>
               <Tab sx={{ fontSize: "1.1rem" }} label="Hardware"></Tab>
               <Tab sx={{ fontSize: "1.1rem" }} label="Software"></Tab>
