@@ -3,8 +3,23 @@ import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Box, Paper } from "@mui/material";
 import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
 
 export default function Profile() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Grid container>
       <Sidebar />
@@ -16,7 +31,8 @@ export default function Profile() {
           }}
         >
           <Typography variant="h5">Profile</Typography>
-          <Button variant="contained" color="primary">
+
+          <Button variant="outlined" onClick={handleClickOpen}>
             Edit
           </Button>
         </Box>
@@ -85,6 +101,56 @@ export default function Profile() {
           </Grid>
         </Paper>
       </Grid>
+
+      <Dialog open={open} onClose={handleClose}>
+        <form>
+          <DialogTitle>Edit Deatils</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="normal"
+              id="name"
+              label="Name"
+              type="email"
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              id="name"
+              label="Job Title"
+              type="email"
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              margin="dense"
+              id="name"
+              label="Email"
+              type="email"
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              margin="dense"
+              id="name"
+              label="Phone"
+              type="email"
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              margin="dense"
+              id="name"
+              label="Location"
+              type="email"
+              fullWidth
+              variant="outlined"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Submit</Button>
+          </DialogActions>
+        </form>
+      </Dialog>
     </Grid>
   );
 }
