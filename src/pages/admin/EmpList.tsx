@@ -20,7 +20,7 @@ function EmpList() {
     <>
       <Grid container>
         <SideBar />
-        <Grid item xs={10.5}>
+        <Grid item xs={12} md={10}>
           <Box m={3} sx={{ display: "flex", justifyContent: "space-between" }}>
             <TextField
               label="search here..."
