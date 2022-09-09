@@ -13,6 +13,7 @@ import {
   Paper,
   Breadcrumbs,
   Link,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -23,6 +24,7 @@ function Assets() {
       <Grid container>
         <SideBar />
         <Grid item xs={12} md={10.5} p={3}>
+          <Typography> Asset List</Typography>
           <Breadcrumbs
             sx={{ margin: "10px", display: "inline" }}
             separator="›"
