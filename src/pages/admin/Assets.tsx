@@ -11,6 +11,8 @@ import {
   TableRow,
   TableBody,
   Paper,
+  Breadcrumbs,
+  Link,
 } from "@mui/material";
 import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -21,18 +23,37 @@ function Assets() {
       <Grid container>
         <SideBar />
         <Grid item xs={12} md={10.5} p={3}>
+          <Breadcrumbs
+            sx={{ margin: "10px", display: "inline" }}
+            separator="›"
+            aria-label="breadcrumb"
+          >
+            <Link underline="hover" color="inherit" href="#">
+              Assets
+            </Link>
+            <Link underline="hover" color="inherit" href="#">
+              Hardware
+            </Link>
+          </Breadcrumbs>
+
           <Button
             variant="contained"
             color="primary"
-            sx={{ width: 300, height: 50, marginLeft: "80%" }}
+            sx={{
+              width: 355,
+              height: 50,
+              marginLeft: "74%",
+              marginTop: "-1%",
+            }}
           >
             Add new Asset
           </Button>
-
-          <Tabs>
-            <Tab sx={{ width: 800, height: 50 }} label="Hardware"></Tab>
-            <Tab sx={{ width: 800, height: 50 }} label="Software"></Tab>
-          </Tabs>
+          <Box p={1}>
+            <Tabs variant="fullWidth" sx={{ background: "grey" }}>
+              <Tab sx={{ fontSize: "1.1rem" }} label="Hardware"></Tab>
+              <Tab sx={{ fontSize: "1.1rem" }} label="Software"></Tab>
+            </Tabs>
+          </Box>
 
           <Box>
             <TableContainer sx={{ marginY: 3 }} component={Paper}>

@@ -21,36 +21,47 @@ function EmpList() {
       <Grid container>
         <SideBar />
         <Grid item xs={10.5}>
-          <TextField
-            label="search here..."
-            sx={{
-              width: 300,
-              height: 100,
-              margin: "2% auto",
-              marginLeft: "5%",
-            }}
-          >
-            {/* <Grid item> */}
-          </TextField>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ width: 300, height: 50, marginLeft: "50%", marginTop: "2%" }}
-          >
-            Add new Employee
-          </Button>
-
+          <Box m={3} sx={{ display: "flex", justifyContent: "space-between" }}>
+            <TextField
+              label="search here..."
+              sx={{
+                width: 300,
+                height: 100,
+              }}
+            >
+              {/* <Grid item> */}
+            </TextField>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ width: 300, height: 50 }}
+            >
+              Add new Employee
+            </Button>
+          </Box>
           <Typography variant="h5" align="center">
             Employee List
           </Typography>
-          <Box>
-            <TableContainer sx={{ marginY: 3 }} component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Box mx={20}>
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Employee ID</TableCell>
-                    <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Email</TableCell>
+                    <TableCell>
+                      <Typography align="center">Employee ID</Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography align="center">Name</Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography align="center">Email</Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography align="center">Contact No.</Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography align="center">Location</Typography>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -58,8 +69,19 @@ function EmpList() {
                     <TableCell component="th" scope="row">
                       100
                     </TableCell>
-                    <TableCell align="right">John Markel</TableCell>
-                    <TableCell align="right">john@torinit.ca</TableCell>
+                    <TableCell align="center">john@torinit.ca</TableCell>
+                    <TableCell align="center">John Markel</TableCell>
+                    <TableCell align="center">9000000000</TableCell>
+                    <TableCell align="center">Pune</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      100
+                    </TableCell>
+                    <TableCell align="center">John Markel</TableCell>
+                    <TableCell align="center">john@torinit.ca</TableCell>
+                    <TableCell align="center">9000000000</TableCell>
+                    <TableCell align="center">Pune</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
