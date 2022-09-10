@@ -20,7 +20,7 @@ function AdminDashboard() {
     <>
       <Grid container sx={{ display: "flex" }}>
         <SideBar />
-        <Grid item xs={10.5}>
+        <Grid item xs={12} md={10}>
           <TextField
             label="search here..."
             sx={{

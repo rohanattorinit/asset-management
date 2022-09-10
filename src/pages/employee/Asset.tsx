@@ -52,7 +52,7 @@ export default function Asset() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid item xs={12} md={10.5} p={3}>
+      <Grid item xs={12} md={10} p={3}>
         <Typography>Current Asset</Typography>
         <Box sx={{ overflowX: "auto" }}>
           <TableContainer sx={{ width: "auto" }}>

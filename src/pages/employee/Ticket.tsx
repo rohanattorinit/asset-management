@@ -15,7 +15,7 @@ export default function Ticket() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid item xs={10.5}>
+      <Grid item xs={12} md={10}>
         <Box
           p={3}
           sx={{
@@ -43,8 +43,6 @@ export default function Ticket() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              padding: 5,
-              textAlign: "center",
             }}
           >
             <TextField
@@ -68,7 +66,7 @@ export default function Ticket() {
               rows={4} //optional
             />
             <Box sx={{ mt: 3 }} textAlign="center">
-              <Button variant="contained">My button</Button>
+              <Button variant="contained">Create Request</Button>
             </Box>
           </Grid>
         </Grid>
