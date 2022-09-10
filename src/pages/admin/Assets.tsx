@@ -24,7 +24,7 @@ function Assets() {
       <Grid container>
         <SideBar />
         <Grid item xs={12} md={10.5} p={3}>
-          <Typography> Asset List</Typography>
+          <Typography variant="h6"> Asset List</Typography>
           <Breadcrumbs
             sx={{ margin: "10px", display: "inline" }}
             separator="›"
