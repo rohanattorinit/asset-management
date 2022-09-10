@@ -1,10 +1,9 @@
-import { Grid, Paper } from "@mui/material";
-import React, { useState } from "react";
+import { Grid } from "@mui/material";
+import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { textAlign } from "@mui/system";
 
 export default function Ticket() {
   const [textValue, setTextValue] = useState<string>("");
