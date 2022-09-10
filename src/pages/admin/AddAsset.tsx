@@ -14,6 +14,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import upload from "../../assets/upload.svg";
+import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
 
 export const AddAsset = () => {
   const StyledTypography = styled(Typography)({
@@ -137,13 +138,7 @@ export const AddAsset = () => {
                     alignItems="center"
                     sx={{ marginY: "2rem" }}
                   >
-                    <form>
-                      <img src={upload} alt="upload" />
-                      <label style={{ cursor: "pointer" }}>
-                        <StyledTypography>Upload CSV</StyledTypography>
-                        <input type="file" />
-                      </label>
-                    </form>
+                    <DragAndDrop />
                   </Box>
                 </Grid>
               </Grid>
