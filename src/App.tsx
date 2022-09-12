@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 import EmpList from "./pages/admin/EmpList";
 import Assets from "./pages/admin/Assets";
 import Services from "./pages/admin/Services";
+import { AddEmployee } from "./pages/admin/AddEmployee";
+import { AddAsset } from "./pages/admin/AddAsset";
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
           <Route path="/admin/employee" element={<EmpList />} />
           <Route path="/admin/assets" element={<Assets />} />
           <Route path="/admin/service" element={<Services />} />
+
+          <Route path="/admin/employee/create" element={<AddEmployee/>} />
+          <Route path="/admin/assets/create" element={<AddAsset />} />
         </Routes>
       </BrowserRouter>
     </>
