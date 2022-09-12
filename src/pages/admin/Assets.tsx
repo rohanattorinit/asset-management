@@ -40,10 +40,8 @@ function Assets() {
             variant="contained"
             color="primary"
             sx={{
-              width: 355,
+              width: 200,
               height: 50,
-              marginLeft: "74%",
-              marginTop: "-1%",
             }}
           >
             Add new Asset
