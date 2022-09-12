@@ -13,7 +13,6 @@ import {
   Paper,
   Breadcrumbs,
   Link,
-  Typography,
 } from "@mui/material";
 import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -31,7 +30,7 @@ function Assets() {
               Hardware
             </Link>
           </Breadcrumbs>
-          <Button variant="contained" color="primary">
+          <Button variant="outlined" color="primary">
             Add new Asset
           </Button>
         </Box>
