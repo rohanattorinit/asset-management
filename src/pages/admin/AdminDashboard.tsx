@@ -13,12 +13,13 @@ const StlyedGrid = styled(Grid)({
   border: "2px solid black",
   backgroundColor: "#CBCBCB",
   cursor: "pointer",
+  margin: 5,
 });
 
 function AdminDashboard() {
   return (
     <>
-      <Grid container sx={{ display: "flex" }}>
+      <Grid container>
         <SideBar />
         <Grid item xs={12} md={10}>
           <TextField
@@ -30,7 +31,7 @@ function AdminDashboard() {
               marginLeft: "30%",
             }}
           ></TextField>
-          <Grid container justifyContent="space-around" sx={{ marginTop: 12 }}>
+          <Grid container justifyContent="center">
             <StlyedGrid> Total Assets</StlyedGrid>
             <StlyedGrid> Total Employees</StlyedGrid>
             <StlyedGrid> Broken Assets</StlyedGrid>
