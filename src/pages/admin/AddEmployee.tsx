@@ -13,7 +13,6 @@ import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import upload from "../../assets/upload.svg";
 import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
 
 export const AddEmployee = () => {
