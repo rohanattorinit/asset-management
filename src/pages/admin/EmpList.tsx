@@ -15,7 +15,7 @@ import {
   Link,
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 
 function EmpList() {
@@ -41,7 +41,7 @@ function EmpList() {
             <Button
               variant="outlined"
               color="primary"
-              component={Link}
+              component={RouterLink}
               to="/admin/employee/create"
             >
               Add new Employee
