@@ -28,15 +28,15 @@ export default function Asset() {
     ),
     createData(64, "sf", 9.0, "jsbj", new Date("01 Jan 1970 00:00:00 GMT")),
     createData(
-      "Eclair",
-      "svxsh",
+      75834,
+      "HP Pavilion ",
       16.0,
-      "sxhsh",
+      "Laptop",
       new Date("01 Jan 1970 00:00:00 GMT")
     ),
     createData(
-      "Cupcake",
-      "xvaghv",
+      2343,
+      "Acer Aspire",
       3.7,
       "sxjs",
       new Date("01 Jan 1970 00:00:00 GMT")
