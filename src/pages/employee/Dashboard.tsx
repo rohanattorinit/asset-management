@@ -25,7 +25,7 @@ export default function Dashboard() {
         Dashboard
       </Typography>
       <Grid container justifyContent="space-around" sx={{ marginTop: 12 }}>
-        <StlyedGrid item onClick={() => navigate("/employee/profile")}>
+        <StlyedGrid item onClick={() => navigate("/profile")}>
           <PersonIcon
             color="primary"
             sx={{
@@ -35,7 +35,7 @@ export default function Dashboard() {
           />
         </StlyedGrid>
 
-        <StlyedGrid item onClick={() => navigate("/employee/asset")}>
+        <StlyedGrid item onClick={() => navigate("/asset")}>
           <WebAssetIcon
             color="primary"
             sx={{
@@ -45,7 +45,7 @@ export default function Dashboard() {
           />
         </StlyedGrid>
 
-        <StlyedGrid item onClick={() => navigate("/employee/ticket")}>
+        <StlyedGrid item onClick={() => navigate("/ticket")}>
           <DeviceUnknownIcon
             color="primary"
             sx={{
