@@ -16,7 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 export default function SideBar() {
   const [openDrawer, setOpenDrawer] = useState(false);
-
+  const isAdmin = true;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -28,19 +28,38 @@ export default function SideBar() {
           onClose={() => setOpenDrawer(false)}
           anchor="right"
         >
-          <List>
-            <ListItemButton component={Link} to="/employee/profile">
-              <ListItemText>Profile</ListItemText>
-            </ListItemButton>
+          {isAdmin ? (
+            <List>
+              <ListItemButton component={Link} to="/admin/dashboard">
+                <ListItemText>Dashboard</ListItemText>
+              </ListItemButton>
 
-            <ListItemButton component={Link} to="/employee/asset">
-              <ListItemText>Assets</ListItemText>
-            </ListItemButton>
+              <ListItemButton component={Link} to="/admin/employee">
+                <ListItemText>Employee</ListItemText>
+              </ListItemButton>
 
-            <ListItemButton component={Link} to="/employee/ticket">
-              <ListItemText>Ticket</ListItemText>
-            </ListItemButton>
-          </List>
+              <ListItemButton component={Link} to="/admin/assets">
+                <ListItemText>Assets</ListItemText>
+              </ListItemButton>
+              <ListItemButton component={Link} to="/admin/service">
+                <ListItemText>Services</ListItemText>
+              </ListItemButton>
+            </List>
+          ) : (
+            <List>
+              <ListItemButton component={Link} to="/employee/profile">
+                <ListItemText>Profile</ListItemText>
+              </ListItemButton>
+
+              <ListItemButton component={Link} to="/employee/asset">
+                <ListItemText>Assets</ListItemText>
+              </ListItemButton>
+
+              <ListItemButton component={Link} to="/employee/ticket">
+                <ListItemText>Ticket</ListItemText>
+              </ListItemButton>
+            </List>
+          )}
         </Drawer>
         <IconButton
           size="large"
@@ -65,35 +84,76 @@ export default function SideBar() {
           borderTop: "solid white 2px",
         }}
       >
-        <Box display="flex" flexDirection="column" justifyContent="center">
-          <Button
-            sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-            variant="outlined"
-            color="secondary"
-            component={Link}
-            to="/employee/profile"
-          >
-            Profile
-          </Button>
-          <Button
-            sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-            variant="outlined"
-            color="secondary"
-            component={Link}
-            to="/employee/asset"
-          >
-            Asset
-          </Button>
-          <Button
-            sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-            variant="outlined"
-            color="secondary"
-            component={Link}
-            to="/employee/ticket"
-          >
-            Request
-          </Button>
-        </Box>
+        {isAdmin ? (
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <Button
+              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Button>
+            <Button
+              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/admin/employee"
+            >
+              Employee
+            </Button>
+            <Button
+              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/admin/assets"
+            >
+              Assets
+            </Button>
+            <Button
+              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/admin/service"
+            >
+              Services
+            </Button>
+          </Box>
+        ) : (
+          <Box display="flex" flexDirection="column" justifyContent="center">
+            <Button
+              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/employee/profile"
+            >
+              Profile
+            </Button>
+            <Button
+              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/employee/asset"
+            >
+              Asset
+            </Button>
+            <Button
+              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/employee/ticket"
+            >
+              Request
+            </Button>
+          </Box>
+        )}
       </Grid>
     );
   };
