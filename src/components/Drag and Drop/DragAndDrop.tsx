@@ -22,7 +22,7 @@ export const DragAndDrop = () => {
       const response = await axios({
         method: "post",
 
-        url: "http://localhost:4000/api/admin/",
+        url: "http://localhost:4000/api/employees/create-bulk",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -62,6 +62,7 @@ export const DragAndDrop = () => {
         >
           <input
             id="file"
+            name="csv"
             onChange={handleChange}
             style={{ marginLeft: "5rem" }}
             type="file"

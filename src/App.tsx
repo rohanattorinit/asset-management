@@ -8,7 +8,7 @@ import Profile from "./pages/employee/Profile";
 import Asset from "./pages/employee/Asset";
 import Ticket from "./pages/employee/Ticket";
 import Login from "./pages/Login";
-import EmpList from "./pages/admin/EmpList";
+import EmpList from "./pages/admin/EmployeeList";
 import Assets from "./pages/admin/Assets";
 import Services from "./pages/admin/Services";
 import { AddEmployee } from "./pages/admin/AddEmployee";
@@ -31,7 +31,7 @@ function App() {
           <Route path="/admin/assets" element={<Assets />} />
           <Route path="/admin/service" element={<Services />} />
 
-          <Route path="/admin/employee/create" element={<AddEmployee/>} />
+          <Route path="/admin/employee/create" element={<AddEmployee />} />
           <Route path="/admin/assets/create" element={<AddAsset />} />
         </Routes>
       </BrowserRouter>
