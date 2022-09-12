@@ -18,11 +18,11 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/employee" element={<Dashboard />} />
-          <Route path="/employee/profile" element={<Profile />} />
-          <Route path="/employee/asset" element={<Asset />} />
-          <Route path="/employee/ticket" element={<Ticket />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="/asset" element={<Asset />} />
+          <Route path="/ticket" element={<Ticket />} />
 
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/employee" element={<EmpList />} />
