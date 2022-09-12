@@ -31,12 +31,14 @@ function Assets() {
               Hardware
             </Link>
           </Breadcrumbs>
+
           <Button
             variant="outlined"
             color="primary"
             component={RouterLink}
             to="/admin/assets/create"
           >
+
             Add new Asset
           </Button>
         </Box>
