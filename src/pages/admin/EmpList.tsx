@@ -20,29 +20,15 @@ function EmpList() {
     <>
       <Grid container>
         <SideBar />
-        <Grid item xs={12} md={10}>
-          <Box m={3} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <TextField
-              label="search here..."
-              sx={{
-                width: 300,
-                height: 100,
-              }}
-            >
-              {/* <Grid item> */}
-            </TextField>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ width: 300, height: 50 }}
-            >
+        <Grid item xs={12} md={10} p={3}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <TextField label="search here..."></TextField>
+            <Button variant="outlined" color="primary">
               Add new Employee
             </Button>
           </Box>
-          <Typography variant="h5" align="center">
-            Employee List
-          </Typography>
-          <Box mx={20}>
+
+          <Box my={3}>
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
