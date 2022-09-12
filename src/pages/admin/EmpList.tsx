@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 
 function EmpList() {
@@ -23,7 +24,12 @@ function EmpList() {
         <Grid item xs={12} md={10} p={3}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <TextField label="search here..."></TextField>
-            <Button variant="outlined" color="primary">
+            <Button
+              variant="outlined"
+              color="primary"
+              component={Link}
+              to="/admin/employee/create"
+            >
               Add new Employee
             </Button>
           </Box>

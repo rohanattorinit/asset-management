@@ -13,9 +13,9 @@ import {
   Paper,
   Breadcrumbs,
   Link,
-  Typography,
 } from "@mui/material";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 function Assets() {
   return (
@@ -31,7 +31,12 @@ function Assets() {
               Hardware
             </Link>
           </Breadcrumbs>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="outlined"
+            color="primary"
+            component={RouterLink}
+            to="/admin/assets/create"
+          >
             Add new Asset
           </Button>
         </Box>
