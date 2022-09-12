@@ -14,6 +14,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import upload from "../../assets/upload.svg";
+import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
 
 export const AddEmployee = () => {
   const StyledTypography = styled(Typography)({
@@ -28,7 +29,7 @@ export const AddEmployee = () => {
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
-      <Grid item xs={12} md={10.5} p={3}>
+      <Grid item xs={12} md={10} p={3}>
         <Box>
           <Breadcrumbs separator="›" aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="#">
@@ -102,21 +103,21 @@ export const AddEmployee = () => {
                   <Divider orientation="vertical" />
                 </Grid>
 
-                <Grid item xs={12} md={5}>
+                <Grid
+                  item
+                  xs={12}
+                  md={5}
+                  justifyContent="center"
+                  alignItems="center"
+                >
                   <Box
                     display="flex"
                     flexDirection="column"
                     justifyContent="center"
                     alignItems="center"
-                    sx={{ marginY: "2rem" }}
+                    sx={{ marginY: "6rem" }}
                   >
-                    <form>
-                      <img src={upload} alt="upload" />
-                      <label style={{ cursor: "pointer" }}>
-                        <StyledTypography>Upload CSV</StyledTypography>
-                        <input type="file" />
-                      </label>
-                    </form>
+                    <DragAndDrop />
                   </Box>
                 </Grid>
               </Grid>

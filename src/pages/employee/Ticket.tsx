@@ -1,10 +1,9 @@
-import { Grid, Paper } from "@mui/material";
-import React, { useState } from "react";
+import { Grid } from "@mui/material";
+import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { textAlign } from "@mui/system";
 
 export default function Ticket() {
   const [textValue, setTextValue] = useState<string>("");
@@ -15,7 +14,7 @@ export default function Ticket() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid item xs={10.5}>
+      <Grid item xs={12} md={10}>
         <Box
           p={3}
           sx={{

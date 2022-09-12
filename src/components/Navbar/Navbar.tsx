@@ -1,21 +1,21 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
-import logo from "../../assets/logo.png";
 export default function Navbar() {
   return (
-    <Box sx={{ height: "12vh", bgcolor: "#011E41" }}>
+    <Box
+      sx={{
+        height: "12vh",
+        bgcolor: "#011E41",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
       <Box
         component="img"
-        sx={{
-          height: 60,
-          marginY: 2,
-          marginX: 1,
-          width: 231,
-        }}
-        alt="1.png"
-        src={logo}
+        alt="logo"
+        style={{ marginLeft: 5 }}
+        src="https://torinit.com/static/media/logo.c2a69a4f.svg"
       />
-      <Typography textAlign="center" variant="h6"></Typography>
     </Box>
   );
 }
