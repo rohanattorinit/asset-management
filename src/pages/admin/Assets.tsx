@@ -17,13 +17,12 @@ import {
 } from "@mui/material";
 import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
-
 function Assets() {
   return (
     <>
       <Grid container>
         <SideBar />
-        <Grid item xs={12} md={10.5} p={3}>
+        <Grid item xs={12} md={10} p={3}>
           <Typography variant="h6"> Asset List</Typography>
           <Breadcrumbs
             sx={{ margin: "10px", display: "inline" }}
@@ -37,7 +36,6 @@ function Assets() {
               Hardware
             </Link>
           </Breadcrumbs>
-
           <Button
             variant="contained"
             color="primary"
@@ -56,7 +54,6 @@ function Assets() {
               <Tab sx={{ fontSize: "1.1rem" }} label="Software"></Tab>
             </Tabs>
           </Box>
-
           <Box>
             <TableContainer sx={{ marginY: 3 }} component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -88,5 +85,4 @@ function Assets() {
     </>
   );
 }
-
 export default Assets;
