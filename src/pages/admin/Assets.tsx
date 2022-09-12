@@ -19,16 +19,11 @@ import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
 function Assets() {
   return (
-    <>
-      <Grid container>
-        <SideBar />
-        <Grid item xs={12} md={10} p={3}>
-          <Typography variant="h6"> Asset List</Typography>
-          <Breadcrumbs
-            sx={{ margin: "10px", display: "inline" }}
-            separator="›"
-            aria-label="breadcrumb"
-          >
+    <Grid container>
+      <SideBar />
+      <Grid item xs={12} md={10} p={3}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Breadcrumbs separator="›" aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="#">
               Assets
             </Link>
@@ -36,51 +31,45 @@ function Assets() {
               Hardware
             </Link>
           </Breadcrumbs>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{
-              width: 200,
-              height: 50,
-            }}
-          >
+          <Button variant="contained" color="primary">
             Add new Asset
           </Button>
-          <Box p={1}>
-            <Tabs variant="fullWidth" sx={{ background: "grey" }}>
-              <Tab sx={{ fontSize: "1.1rem" }} label="Hardware"></Tab>
-              <Tab sx={{ fontSize: "1.1rem" }} label="Software"></Tab>
-            </Tabs>
-          </Box>
-          <Box>
-            <TableContainer sx={{ marginY: 3 }} component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell align="right">Serial No.</TableCell>
-                    <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Status</TableCell>
-                    <TableCell align="right">Usability</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      100
-                    </TableCell>
-                    <TableCell align="right">13425</TableCell>
-                    <TableCell align="right">Windows 10</TableCell>
-                    <TableCell align="right">Allocated</TableCell>
-                    <TableCell align="right">Usable</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
-        </Grid>
+        </Box>
+
+        <Box marginY={2}>
+          <Tabs variant="fullWidth" sx={{ background: "grey" }}>
+            <Tab sx={{ fontSize: "1.1rem" }} label="Hardware"></Tab>
+            <Tab sx={{ fontSize: "1.1rem" }} label="Software"></Tab>
+          </Tabs>
+        </Box>
+        <Box>
+          <TableContainer sx={{ marginY: 3 }} component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell align="right">Serial No.</TableCell>
+                  <TableCell align="right">Name</TableCell>
+                  <TableCell align="right">Status</TableCell>
+                  <TableCell align="right">Usability</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    100
+                  </TableCell>
+                  <TableCell align="right">13425</TableCell>
+                  <TableCell align="right">Windows 10</TableCell>
+                  <TableCell align="right">Allocated</TableCell>
+                  <TableCell align="right">Usable</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Grid>
-    </>
+    </Grid>
   );
 }
 export default Assets;
