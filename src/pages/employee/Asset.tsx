@@ -20,7 +20,7 @@ export default function Asset() {
     employee: { assets },
   } = useSelector((state: RootStore) => state);
 
-  let dispatch: Dispatch<any> = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
     dispatch(getEmployeeAssets(empId));

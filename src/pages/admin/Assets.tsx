@@ -12,10 +12,28 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
+import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
+import { getAssets } from "../../redux/actions/AdminActions";
+import { RootStore } from "../../redux/store";
 function Assets() {
+  const [value, setValue] = useState<number>(0);
+  const { assets } = useSelector((state: RootStore) => state.admin);
+
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
+
+  useEffect(() => {
+    dispatch(getAssets());
+  }, [dispatch]);
+
   return (
     <Grid container>
       <SideBar />
@@ -32,7 +50,7 @@ function Assets() {
         </Box>
 
         <Box marginY={2}>
-          <Tabs variant="fullWidth" sx={{ background: "grey" }}>
+          <Tabs value={value} onChange={handleChange} variant="fullWidth">
             <Tab sx={{ fontSize: "1.1rem" }} label="Hardware"></Tab>
             <Tab sx={{ fontSize: "1.1rem" }} label="Software"></Tab>
           </Tabs>
@@ -43,22 +61,22 @@ function Assets() {
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell align="right">Serial No.</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Status</TableCell>
-                  <TableCell align="right">Usability</TableCell>
+                  <TableCell align="center">Serial No.</TableCell>
+                  <TableCell align="center">Name</TableCell>
+                  <TableCell align="center">Status</TableCell>
+                  <TableCell align="center">Usability</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    100
-                  </TableCell>
-                  <TableCell align="right">13425</TableCell>
-                  <TableCell align="right">Windows 10</TableCell>
-                  <TableCell align="right">Allocated</TableCell>
-                  <TableCell align="right">Usable</TableCell>
-                </TableRow>
+                {assets.map((asset) => (
+                  <TableRow key={asset.assetId}>
+                    <TableCell align="center">{asset.assetId}</TableCell>
+                    <TableCell align="center">{asset.modelNo}</TableCell>
+                    <TableCell align="center">{asset.name}</TableCell>
+                    <TableCell align="center">{asset.status}</TableCell>
+                    <TableCell align="center">{asset.usability}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
