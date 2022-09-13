@@ -13,7 +13,8 @@ const StlyedGrid = styled(Grid)({
   border: "2px solid black",
   backgroundColor: "#CBCBCB",
   cursor: "pointer",
-  margin: 5,
+  margin: "10px",
+  borderRadius: "10px",
 });
 
 function AdminDashboard() {
@@ -26,12 +27,46 @@ function AdminDashboard() {
             {" "}
             Dashboard{" "}
           </Typography>
+<<<<<<< HEAD
           <Grid container justifyContent="center" marginY={5}>
             <StlyedGrid> Total Assets</StlyedGrid>
             <StlyedGrid> Total Employees</StlyedGrid>
             <StlyedGrid> Broken Assets</StlyedGrid>
             <StlyedGrid> Working Assets</StlyedGrid>
             <StlyedGrid> Spare Assets</StlyedGrid>
+=======
+          <Grid container justifyContent="center">
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Total Assets
+              </Typography>{" "}
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Total Employees
+              </Typography>{" "}
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Broken Assets
+              </Typography>{" "}
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Working Assets
+              </Typography>
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Spare Assets
+              </Typography>{" "}
+            </StlyedGrid>
+>>>>>>> main
           </Grid>
         </Grid>
       </Grid>

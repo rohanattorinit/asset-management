@@ -1,6 +1,5 @@
 import {
   Box,
-  Breadcrumbs,
   Button,
   Grid,
   Paper,
@@ -12,9 +11,9 @@ import {
   TableRow,
   TextField,
   Typography,
-  Link,
 } from "@mui/material";
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 
 function EmployeeList() {
@@ -25,14 +24,6 @@ function EmployeeList() {
 
         <Grid item xs={12} md={10} p={3}>
           <Box marginY={2}>
-            <Breadcrumbs separator="›" aria-label="breadcrumb">
-              <Link underline="hover" color="inherit" href="#">
-                Employee
-              </Link>
-              <Link underline="hover" color="inherit" href="#">
-                Employee details
-              </Link>
-            </Breadcrumbs>{" "}
           </Box>
 
           <Box
@@ -43,7 +34,12 @@ function EmployeeList() {
             }}
           >
             <TextField label="search here..."></TextField>
-            <Button variant="outlined" color="primary">
+            <Button
+              variant="outlined"
+              color="primary"
+              component={RouterLink}
+              to="/admin/employee/create"
+            >
               Add new Employee
             </Button>
           </Box>

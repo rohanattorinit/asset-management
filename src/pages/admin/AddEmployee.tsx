@@ -1,7 +1,5 @@
 import {
   Grid,
-  Breadcrumbs,
-  Link,
   Card,
   styled,
   TextField,
@@ -30,14 +28,6 @@ export const AddEmployee = () => {
       <SideBar />
       <Grid item xs={12} md={10} p={3}>
         <Box>
-          <Breadcrumbs separator="›" aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="#">
-              Employee Details
-            </Link>
-            <Link underline="hover" color="inherit" href="#">
-              Add new employee
-            </Link>
-          </Breadcrumbs>
           <Card
             sx={{
               my: 2,

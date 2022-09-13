@@ -9,8 +9,7 @@ export default function Ticket() {
   const [textValue, setTextValue] = useState<string>("");
 
   const onTextChange = (e: any) => setTextValue(e.target.value);
-  const handleSubmit = () => console.log(textValue);
-  const handleReset = () => setTextValue("");
+
   return (
     <Grid container>
       <Sidebar />
