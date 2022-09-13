@@ -109,6 +109,7 @@ export default function Profile() {
             <TextField
               margin="normal"
               id="name"
+              required
               label="Name"
               type="email"
               fullWidth
@@ -116,6 +117,7 @@ export default function Profile() {
             />
             <TextField
               id="name"
+              required
               label="Job Title"
               type="email"
               fullWidth
@@ -124,6 +126,7 @@ export default function Profile() {
             <TextField
               margin="dense"
               id="name"
+              required
               label="Email"
               type="email"
               fullWidth
@@ -132,6 +135,7 @@ export default function Profile() {
             <TextField
               margin="dense"
               id="name"
+              required
               label="Phone"
               type="email"
               fullWidth
@@ -140,6 +144,7 @@ export default function Profile() {
             <TextField
               margin="dense"
               id="name"
+              required
               label="Location"
               type="email"
               fullWidth
