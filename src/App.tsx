@@ -19,11 +19,11 @@ import { RootStore } from "./redux/store";
 import { AddEmployee } from "./pages/admin/AddEmployee";
 import { AddAsset } from "./pages/admin/AddAsset";
 
-
 function App() {
-  const { authenticated, isAdmin } = useSelector(
-    (state: RootStore) => state.login
-  );
+  const {
+    authenticated,
+    user: { isAdmin },
+  } = useSelector((state: RootStore) => state.login);
 
   const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
     authenticated: authenticated && !isAdmin,

@@ -5,12 +5,13 @@ export const SET_ERROR = "SET_ERROR";
 export const LOADING = "LOADING";
 
 export interface EmployeeType {
-  empId: number;
+  empId: string;
   name: string;
   email: string;
-  phone: number;
-  jobTitle: string;
+  phone?: number;
   location: string;
+  isAdmin: boolean;
+  jobTitle: string;
 }
 
 interface LoadingData {
@@ -35,10 +36,8 @@ interface SetAuthenticated {
   type: typeof SET_AUTHENTICATED;
   payload: {
     message: string;
-    data: {
-      isAdmin: boolean;
-      token: string;
-    };
+    user: EmployeeType;
+    token: string;
   };
 }
 
