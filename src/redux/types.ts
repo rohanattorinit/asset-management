@@ -3,6 +3,7 @@ export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 export const SET_ERROR = "SET_ERROR";
 export const LOADING = "LOADING";
+export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
 
 export interface EmployeeType {
   empId: string;
@@ -12,6 +13,14 @@ export interface EmployeeType {
   location: string;
   isAdmin: boolean;
   jobTitle: string;
+}
+
+export interface EmployeeAssetType {
+  assetId: number;
+  name: string;
+  category: string;
+  modelno: number;
+  allocationTime: string;
 }
 
 interface LoadingData {
@@ -41,9 +50,18 @@ interface SetAuthenticated {
   };
 }
 
+interface SetEmployeeAssets {
+  type: typeof SET_EMPLOYEE_ASSETS;
+  payload: {
+    message: string;
+    data: EmployeeAssetType[];
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
   | SetError
   | SetAuthenticated
-  | Loading;
+  | Loading
+  | SetEmployeeAssets;
