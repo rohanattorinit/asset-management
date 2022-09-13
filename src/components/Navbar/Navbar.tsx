@@ -6,15 +6,12 @@ import { RootStore } from "../../redux/store";
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  // const handleClick = (
-  //   event: OverridableComponent<AvatarTypeMap<{}, "div">>
-  // ) => {};
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const {
-    authenticated,
     user: { name },
   } = useSelector((state: RootStore) => state.login);
   return (
@@ -35,7 +32,7 @@ export default function Navbar() {
       />
       <Box display={{ xs: "none", md: "block" }}>
         <Avatar
-          sx={{ bgcolor: "#f8fafc", border: "2px solid white", boxShadow: 20 }}
+          sx={{ bgcolor: "#f8fafc", border: "5px solid white", boxShadow: 20 }}
           alt="User"
           src="/broken-image.jpg"
           style={{ marginRight: "2rem" }}
