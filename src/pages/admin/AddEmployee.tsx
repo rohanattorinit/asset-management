@@ -1,7 +1,5 @@
 import {
   Grid,
-  Breadcrumbs,
-  Link,
   Card,
   styled,
   TextField,
@@ -13,7 +11,6 @@ import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import upload from "../../assets/upload.svg";
 import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
 
 export const AddEmployee = () => {
@@ -31,14 +28,6 @@ export const AddEmployee = () => {
       <SideBar />
       <Grid item xs={12} md={10} p={3}>
         <Box>
-          <Breadcrumbs separator="›" aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="#">
-              Employee Details
-            </Link>
-            <Link underline="hover" color="inherit" href="#">
-              Add new employee
-            </Link>
-          </Breadcrumbs>
           <Card
             sx={{
               my: 2,
