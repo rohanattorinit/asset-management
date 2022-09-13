@@ -18,9 +18,12 @@ function Login() {
   const [loginCred, setLoginCred] = useState<credential>();
 
   const dispatch: Dispatch<any> = useDispatch();
-  const { error, loading, authenticated, isAdmin } = useSelector(
-    (state: RootStore) => state.login
-  );
+  const {
+    error,
+    loading,
+    authenticated,
+    user: { isAdmin },
+  } = useSelector((state: RootStore) => state.login);
   let navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

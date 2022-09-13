@@ -1,15 +1,29 @@
-import { DispatchTypes, LOADING, SET_AUTHENTICATED, SET_ERROR } from "../types";
+import {
+  DispatchTypes,
+  EmployeeType,
+  LOADING,
+  SET_AUTHENTICATED,
+  SET_ERROR,
+} from "../types";
 
 interface InitialState {
   authenticated: boolean;
-  isAdmin: boolean;
+  user: EmployeeType;
   loading: boolean;
   error?: string;
 }
 
 const initialState: InitialState = {
   authenticated: false,
-  isAdmin: false,
+  user: {
+    empId: "",
+    name: "",
+    email: "",
+    phone: undefined,
+    location: "",
+    isAdmin: false,
+    jobTitle: "",
+  },
   loading: false,
   error: "",
 };
@@ -28,7 +42,7 @@ const authReducer = (
       return {
         ...state,
         authenticated: true,
-        isAdmin: action.payload.data.isAdmin,
+        user: action.payload.user,
         loading: false,
         error: "",
       };

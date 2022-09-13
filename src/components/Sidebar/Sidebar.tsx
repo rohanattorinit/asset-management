@@ -21,7 +21,9 @@ export default function SideBar() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
-  const { isAdmin } = useSelector((state: RootStore) => state.login);
+  const {
+    user: { isAdmin },
+  } = useSelector((state: RootStore) => state.login);
 
   const MobileNav = () => {
     return (
