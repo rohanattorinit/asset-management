@@ -12,19 +12,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { Dispatch, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
+import { getEmployees } from "../../redux/actions/AdminActions";
+import { RootStore } from "../../redux/store";
 
 function EmpList() {
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const { employees } = useSelector((state: RootStore) => state.admin);
+
+  useEffect(() => {
+    dispatch(getEmployees());
+  }, [dispatch]);
+
   return (
     <>
       <Grid container>
         <SideBar />
 
         <Grid item xs={12} md={10} p={3}>
-          <Box marginY={2}>
-          </Box>
+          <Box marginY={2}></Box>
 
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <TextField label="search here..."></TextField>
@@ -61,24 +72,17 @@ function EmpList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      100
-                    </TableCell>
-                    <TableCell align="center">john@torinit.ca</TableCell>
-                    <TableCell align="center">John Markel</TableCell>
-                    <TableCell align="center">9000000000</TableCell>
-                    <TableCell align="center">Pune</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      100
-                    </TableCell>
-                    <TableCell align="center">John Markel</TableCell>
-                    <TableCell align="center">john@torinit.ca</TableCell>
-                    <TableCell align="center">9000000000</TableCell>
-                    <TableCell align="center">Pune</TableCell>
-                  </TableRow>
+                  {employees.map((employee) => (
+                    <TableRow key={employee.empId}>
+                      <TableCell component="th" scope="row">
+                        {employee.empId}
+                      </TableCell>
+                      <TableCell align="center">{employee.name}</TableCell>
+                      <TableCell align="center">{employee.email}</TableCell>
+                      <TableCell align="center">{employee.phone}</TableCell>
+                      <TableCell align="center">{employee.location}</TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
