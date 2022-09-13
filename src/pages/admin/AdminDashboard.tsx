@@ -27,14 +27,7 @@ function AdminDashboard() {
             {" "}
             Dashboard{" "}
           </Typography>
-<<<<<<< HEAD
-          <Grid container justifyContent="center" marginY={5}>
-            <StlyedGrid> Total Assets</StlyedGrid>
-            <StlyedGrid> Total Employees</StlyedGrid>
-            <StlyedGrid> Broken Assets</StlyedGrid>
-            <StlyedGrid> Working Assets</StlyedGrid>
-            <StlyedGrid> Spare Assets</StlyedGrid>
-=======
+
           <Grid container justifyContent="center">
             <StlyedGrid>
               <Typography variant="h5" color="primary">
@@ -66,7 +59,6 @@ function AdminDashboard() {
                 Spare Assets
               </Typography>{" "}
             </StlyedGrid>
->>>>>>> main
           </Grid>
         </Grid>
       </Grid>
