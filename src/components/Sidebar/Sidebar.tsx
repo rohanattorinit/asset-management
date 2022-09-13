@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Divider, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 
@@ -49,6 +49,9 @@ export default function SideBar() {
               <ListItemButton component={Link} to="/admin/service">
                 <ListItemText>Services</ListItemText>
               </ListItemButton>
+              <ListItemButton component={Link} to="/">
+                <ListItemText>logout</ListItemText>
+              </ListItemButton>
             </List>
           ) : (
             <List>
@@ -62,6 +65,10 @@ export default function SideBar() {
 
               <ListItemButton component={Link} to="/ticket">
                 <ListItemText>Ticket</ListItemText>
+              </ListItemButton>
+              <Divider />
+              <ListItemButton component={Link} to="/">
+                <ListItemText>Logout</ListItemText>
               </ListItemButton>
             </List>
           )}
