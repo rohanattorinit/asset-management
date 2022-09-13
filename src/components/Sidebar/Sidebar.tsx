@@ -16,7 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 export default function SideBar() {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const isAdmin = true;
+  const isAdmin = false;
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
