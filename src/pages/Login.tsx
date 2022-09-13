@@ -1,118 +1,83 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import PersonIcon from "@mui/icons-material/Person";
-import LockIcon from "@mui/icons-material/Lock";
 import Button from "@mui/material/Button";
-//import mainLogo from "../utils/1.png";
+import { Dispatch, useEffect, useState } from "react";
+import { Typography, CircularProgress } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/actions/AuthAction";
+import { useSelector } from "react-redux";
+import { RootStore } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-function Login(props: any) {
-  /*States Creation */
-  const [errMsg, setErrMsg] = useState(false);
-  const [credentials, setCredentials] = useState({
-    userName: "",
-    userPassword: "",
-  });
-  /*History Variable */
-  const navigate = useNavigate();
 
-  /*Onchange Handler */
-  const setDataToState = (e: any) => {
-    setCredentials((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value,
-      };
-    });
+interface credential {
+  email?: string;
+  password?: string;
+}
+
+function Login() {
+  const [loginCred, setLoginCred] = useState<credential>();
+
+  const dispatch: Dispatch<any> = useDispatch();
+  const { error, loading, authenticated, isAdmin } = useSelector(
+    (state: RootStore) => state.login
+  );
+  let navigate = useNavigate();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginCred((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  /*Submit handler function to handle data after form submission*/
-  const submitHandler = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch("https://mocki.io/v1/9410a329-3bfe-4b17-ad9b-2fc1427cb8be")
-      .then((response) => response.json())
-      .then((res) => {
-        // console.log(res)
-        //  console.log(history)
-        if (res.status === "200") {
-          setErrMsg(false);
-          // var credentialsObj = {
-          //   userName: "john",
-          //   isAdmin: false,
-          // };
-          // navigate(`/dash/${JSON.stringify(credentialsObj)}`);
-          navigate(`/employee`);
-        } else {
-          // alert("Login Get Fail")
-          setErrMsg(true);
-        }
-      });
+    dispatch(login(loginCred));
   };
+
+  useEffect(() => {
+    authenticated && !isAdmin && navigate("/");
+    authenticated && isAdmin && navigate("/admin");
+  }, [authenticated, isAdmin, navigate]);
 
   return (
-    <>
-      <Box
-        sx={{
-          width: "50%",
-          height: "600px",
-          backgroundColor: "#cbcbcb",
-          margin: "3% auto",
-        }}
-      >
-        <form
-          style={{
-            display: "flex",
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-          onSubmit={submitHandler}
+    <Box>
+      <Typography variant="h4" my={4} textAlign="center">
+        Login Details
+      </Typography>
+      <form className="box" onSubmit={handleSubmit}>
+        <TextField
+          label="Email"
+          type="email"
+          name="email"
+          required
+          fullWidth
+          onChange={handleChange}
+          sx={{ marginBottom: 3 }}
+        />
+        <TextField
+          label="Password"
+          type="password"
+          name="password"
+          required
+          fullWidth
+          onChange={handleChange}
+          sx={{ marginBottom: 3 }}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={loading}
         >
-          {/* <img
-            src={mainLogo}
-            alt=""
-            style={{ width: "280px", height: "77px", marginBottom: "55px" }}
-          /> */}
-          <div style={{ display: "flex", width: "500px" }}>
-            <PersonIcon style={{ fontSize: "50px", color: "grey" }} />
-            <TextField
-              id="demo-helper-text-misaligned-no-helper"
-              label="Name"
-              name="userName"
-              style={{ background: "white", outline: "none", width: "100%" }}
-              value={credentials.userName}
-              onChange={setDataToState}
-            />
-          </div>
-          <br />
-          <br />
-          <div style={{ display: "flex", width: "500px" }}>
-            <LockIcon style={{ fontSize: "50px", color: "grey" }} />
-            <TextField
-              type="password"
-              id="demo-helper-text-misaligned-no-helper"
-              label="Password"
-              name="userPassword"
-              style={{ background: "white", outline: "none", width: "100%" }}
-              value={credentials.userPassword}
-              onChange={setDataToState}
-            />
-          </div>
-          {errMsg ? (
-            <p style={{ color: "red" }}>Credentials didn't match</p>
-          ) : (
-            ""
-          )}
-          <div style={{ marginTop: "50px" }}>
-            <Button type="submit" variant="contained">
-              Log In
-            </Button>
-          </div>
-        </form>
-      </Box>
-    </>
+          {loading ? <CircularProgress color="secondary" size={25} /> : "Login"}
+        </Button>
+        <Typography mt={2} color="error">
+          {error}
+        </Typography>
+      </form>
+    </Box>
   );
 }
 

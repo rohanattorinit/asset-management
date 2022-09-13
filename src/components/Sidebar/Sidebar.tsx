@@ -13,12 +13,19 @@ import {
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
+import { useSelector } from "react-redux";
+import { RootStore } from "../../redux/store";
 
 export default function SideBar() {
   const [openDrawer, setOpenDrawer] = useState(false);
+<<<<<<< HEAD
   const isAdmin = false;
+=======
+>>>>>>> main
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
+
+  const { isAdmin } = useSelector((state: RootStore) => state.login);
 
   const MobileNav = () => {
     return (
@@ -30,7 +37,7 @@ export default function SideBar() {
         >
           {isAdmin ? (
             <List>
-              <ListItemButton component={Link} to="/admin/dashboard">
+              <ListItemButton component={Link} to="/admin">
                 <ListItemText>Dashboard</ListItemText>
               </ListItemButton>
 
@@ -47,15 +54,15 @@ export default function SideBar() {
             </List>
           ) : (
             <List>
-              <ListItemButton component={Link} to="/employee/profile">
+              <ListItemButton component={Link} to="/profile">
                 <ListItemText>Profile</ListItemText>
               </ListItemButton>
 
-              <ListItemButton component={Link} to="/employee/asset">
+              <ListItemButton component={Link} to="/asset">
                 <ListItemText>Assets</ListItemText>
               </ListItemButton>
 
-              <ListItemButton component={Link} to="/employee/ticket">
+              <ListItemButton component={Link} to="/ticket">
                 <ListItemText>Ticket</ListItemText>
               </ListItemButton>
             </List>
@@ -91,7 +98,7 @@ export default function SideBar() {
               variant="outlined"
               color="secondary"
               component={Link}
-              to="/admin/dashboard"
+              to="/admin"
             >
               Dashboard
             </Button>
@@ -130,7 +137,7 @@ export default function SideBar() {
               variant="outlined"
               color="secondary"
               component={Link}
-              to="/employee/profile"
+              to="/profile"
             >
               Profile
             </Button>
@@ -139,7 +146,7 @@ export default function SideBar() {
               variant="outlined"
               color="secondary"
               component={Link}
-              to="/employee/asset"
+              to="/asset"
             >
               Asset
             </Button>
@@ -148,7 +155,7 @@ export default function SideBar() {
               variant="outlined"
               color="secondary"
               component={Link}
-              to="/employee/ticket"
+              to="/ticket"
             >
               Request
             </Button>
