@@ -11,8 +11,6 @@ import {
   TableRow,
   TableBody,
   Paper,
-  Breadcrumbs,
-  Link,
 } from "@mui/material";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
@@ -23,22 +21,12 @@ function Assets() {
       <SideBar />
       <Grid item xs={12} md={10} p={3}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Breadcrumbs separator="›" aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="#">
-              Assets
-            </Link>
-            <Link underline="hover" color="inherit" href="#">
-              Hardware
-            </Link>
-          </Breadcrumbs>
-
           <Button
             variant="outlined"
             color="primary"
             component={RouterLink}
             to="/admin/assets/create"
           >
-
             Add new Asset
           </Button>
         </Box>
