@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Grid, TextField } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -13,7 +13,8 @@ const StlyedGrid = styled(Grid)({
   border: "2px solid black",
   backgroundColor: "#CBCBCB",
   cursor: "pointer",
-  margin: 5,
+  margin: "10px",
+  borderRadius: "10px",
 });
 
 function AdminDashboard() {
@@ -22,21 +23,41 @@ function AdminDashboard() {
       <Grid container>
         <SideBar />
         <Grid item xs={12} md={10}>
-          <TextField
-            label="search here..."
-            sx={{
-              width: 500,
-              height: 100,
-              margin: "2% auto",
-              marginLeft: "30%",
-            }}
-          ></TextField>
+          <Typography variant="h3" textAlign="center" marginY={5}>
+            {" "}
+            Dashboard{" "}
+          </Typography>
           <Grid container justifyContent="center">
-            <StlyedGrid> Total Assets</StlyedGrid>
-            <StlyedGrid> Total Employees</StlyedGrid>
-            <StlyedGrid> Broken Assets</StlyedGrid>
-            <StlyedGrid> Working Assets</StlyedGrid>
-            <StlyedGrid> Spare Assets</StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Total Assets
+              </Typography>{" "}
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Total Employees
+              </Typography>{" "}
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Broken Assets
+              </Typography>{" "}
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Working Assets
+              </Typography>
+            </StlyedGrid>
+            <StlyedGrid>
+              <Typography variant="h5" color="primary">
+                {" "}
+                Spare Assets
+              </Typography>{" "}
+            </StlyedGrid>
           </Grid>
         </Grid>
       </Grid>

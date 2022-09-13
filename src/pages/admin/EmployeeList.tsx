@@ -1,6 +1,5 @@
 import {
   Box,
-  Breadcrumbs,
   Button,
   Grid,
   Paper,
@@ -12,7 +11,6 @@ import {
   TableRow,
   TextField,
   Typography,
-  Link,
 } from "@mui/material";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
@@ -26,14 +24,6 @@ function EmpList() {
 
         <Grid item xs={12} md={10} p={3}>
           <Box marginY={2}>
-            <Breadcrumbs separator="›" aria-label="breadcrumb">
-              <Link underline="hover" color="inherit" href="#">
-                Employee
-              </Link>
-              <Link underline="hover" color="inherit" href="#">
-                Employee details
-              </Link>
-            </Breadcrumbs>{" "}
           </Box>
 
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
