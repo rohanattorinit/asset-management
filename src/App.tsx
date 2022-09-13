@@ -8,7 +8,7 @@ import Profile from "./pages/employee/Profile";
 import Asset from "./pages/employee/Asset";
 import Ticket from "./pages/employee/Ticket";
 import Login from "./pages/Login";
-import EmpList from "./pages/admin/EmpList";
+import EmployeeList from "./pages/admin/EmployeeList";
 import Assets from "./pages/admin/Assets";
 import Services from "./pages/admin/Services";
 
@@ -25,7 +25,7 @@ function App() {
           <Route path="/employee/ticket" element={<Ticket />} />
 
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/employee" element={<EmpList />} />
+          <Route path="/admin/employee" element={<EmployeeList />} />
           <Route path="/admin/assets" element={<Assets />} />
           <Route path="/admin/service" element={<Services />} />
         </Routes>

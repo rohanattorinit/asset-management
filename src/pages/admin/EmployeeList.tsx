@@ -17,7 +17,7 @@ import {
 import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
 
-function EmpList() {
+function EmployeeList() {
   return (
     <>
       <Grid container>
@@ -35,7 +35,13 @@ function EmpList() {
             </Breadcrumbs>{" "}
           </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <TextField label="search here..."></TextField>
             <Button variant="outlined" color="primary">
               Add new Employee
@@ -93,4 +99,4 @@ function EmpList() {
   );
 }
 
-export default EmpList;
+export default EmployeeList;
