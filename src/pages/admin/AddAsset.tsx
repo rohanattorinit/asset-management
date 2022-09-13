@@ -1,7 +1,5 @@
 import {
   Grid,
-  Breadcrumbs,
-  Link,
   Card,
   styled,
   TextField,
@@ -36,14 +34,6 @@ export const AddAsset = () => {
         sx={{ height: "88vh", overflowX: "auto" }}
       >
         <Box>
-          <Breadcrumbs separator="›" aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="#">
-              Assets
-            </Link>
-            <Link underline="hover" color="inherit" href="#">
-              Add new Asset
-            </Link>
-          </Breadcrumbs>
           <Card
             sx={{
               my: 2,

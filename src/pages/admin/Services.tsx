@@ -12,8 +12,6 @@ import {
   TextField,
   TableHead,
   Box,
-  Breadcrumbs,
-  Link,
 } from "@mui/material";
 
 import React from "react";
@@ -25,12 +23,6 @@ function Services() {
       <Grid container>
         <SideBar />
         <Grid item xs={12} md={10} p={3}>
-          <Breadcrumbs separator="›" aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="#">
-              Services
-            </Link>
-          </Breadcrumbs>
-
           <Box my={3} sx={{ display: "flex", justifyContent: "space-between" }}>
             <TextField label="search here..."></TextField>
             <FormControl sx={{ width: 300 }}>
