@@ -13,36 +13,27 @@ export default function Ticket() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid item xs={12} md={10}>
-        <Box
-          p={3}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            sx={{ width: 200, padding: 1, margin: 2 }}
-            variant="contained"
-          >
-            Ticket Request
-          </Button>
-          <Button
-            sx={{ width: 200, padding: 1, margin: 2 }}
-            variant="contained"
-          >
-            Ticket Status
-          </Button>
-        </Box>
+      <Grid item xs={12} md={10} p={3}>
         <Grid container justifyContent="center">
           <Grid
             item
-            xs={6}
+            xs={12}
+            md={6}
             sx={{
               display: "flex",
               flexDirection: "column",
             }}
           >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginY: 3,
+              }}
+            >
+              <Button variant="outlined">Ticket Request</Button>
+              <Button variant="outlined">Ticket Status</Button>
+            </Box>
             <TextField
               sx={{ marginTop: "5" }}
               onChange={onTextChange}
