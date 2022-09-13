@@ -18,10 +18,6 @@ import { RootStore } from "../../redux/store";
 
 export default function SideBar() {
   const [openDrawer, setOpenDrawer] = useState(false);
-<<<<<<< HEAD
-  const isAdmin = false;
-=======
->>>>>>> main
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
