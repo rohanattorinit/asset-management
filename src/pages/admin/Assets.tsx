@@ -12,10 +12,15 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 function Assets() {
+  const [value, setValue] = useState<number>(0);
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
+
   return (
     <Grid container>
       <SideBar />
@@ -32,7 +37,13 @@ function Assets() {
         </Box>
 
         <Box marginY={2}>
-          <Tabs variant="fullWidth" sx={{ background: "grey" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            variant="fullWidth"
+            sx={{}}
+          >
             <Tab sx={{ fontSize: "1.1rem" }} label="Hardware"></Tab>
             <Tab sx={{ fontSize: "1.1rem" }} label="Software"></Tab>
           </Tabs>
