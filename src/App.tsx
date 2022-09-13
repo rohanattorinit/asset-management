@@ -13,6 +13,10 @@ import Assets from "./pages/admin/Assets";
 import Services from "./pages/admin/Services";
 
 import ProtectedRoute, { ProtectedRouteProps } from "./utils/ProtectedRoute";
+import ProtectedAdminRoute, {
+  ProtectedAdminRouteProps,
+} from "./utils/ProtectedAdminRoute";
+
 import { useSelector } from "react-redux";
 import { RootStore } from "./redux/store";
 import { AddEmployee } from "./pages/admin/AddEmployee";
@@ -26,6 +30,14 @@ function App() {
 
   const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
     authenticated: authenticated && !isAdmin,
+    authenticationPath: "/login",
+  };
+
+  const defaultProtectedAdminRouteProps: Omit<
+    ProtectedAdminRouteProps,
+    "outlet"
+  > = {
+    authenticated: authenticated && isAdmin,
     authenticationPath: "/login",
   };
 
@@ -72,13 +84,61 @@ function App() {
             }
           />
 
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/employee" element={<EmpList />} />
-          <Route path="/admin/assets" element={<Assets />} />
-          <Route path="/admin/service" element={<Services />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<AdminDashboard />}
+              />
+            }
+          />
+          <Route
+            path="/admin/employee"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<EmpList />}
+              />
+            }
+          />
+          <Route
+            path="/admin/assets"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<Assets />}
+              />
+            }
+          />
+          <Route
+            path="/admin/service"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<Services />}
+              />
+            }
+          />
 
-          <Route path="/admin/employee/create" element={<AddEmployee />} />
-          <Route path="/admin/assets/create" element={<AddAsset />} />
+          <Route
+            path="/admin/employee/create"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<AddEmployee />}
+              />
+            }
+          />
+          <Route
+            path="/admin/assets/create"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<AddAsset />}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
