@@ -19,9 +19,11 @@ import ProtectedAdminRoute, {
 
 import { useSelector } from "react-redux";
 import { RootStore } from "./redux/store";
-
 import { AddEmployee } from "./pages/admin/AddEmployee";
 import { AddAsset } from "./pages/admin/AddAsset";
+import ProtectedLoginRoute, {
+  LoginRouteProps,
+} from "./utils/ProtectedLoginRoute";
 
 function App() {
   const {
@@ -33,7 +35,11 @@ function App() {
     authenticated: authenticated && !isAdmin,
     authenticationPath: "/login",
   };
-
+  console.log(authenticated);
+  const defaultLoginRouteProps: Omit<LoginRouteProps, "outlet"> = {
+    authenticated: authenticated,
+    authenticationPath: "/",
+  };
   const defaultProtectedAdminRouteProps: Omit<
     ProtectedAdminRouteProps,
     "outlet"
@@ -47,7 +53,15 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedLoginRoute
+                {...defaultLoginRouteProps}
+                outlet={<Login />}
+              />
+            }
+          />
           <Route
             path="/"
             element={

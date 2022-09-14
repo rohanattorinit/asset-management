@@ -21,7 +21,6 @@ export const DragAndDrop = () => {
     try {
       const response = await axios({
         method: "post",
-
         url: "http://localhost:4000/api/employees/create-bulk",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
