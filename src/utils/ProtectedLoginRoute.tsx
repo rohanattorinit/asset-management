@@ -2,17 +2,19 @@ import { Navigate } from "react-router-dom";
 
 export type LoginRouteProps = {
   authenticated: boolean;
-  authenticationPath: string;
   outlet: JSX.Element;
+  isAdmin: boolean;
 };
 
 export default function ProtectedLoginRoute({
   authenticated,
-  authenticationPath,
   outlet,
+  isAdmin,
 }: LoginRouteProps) {
-  if (authenticated) {
-    return <Navigate to={{ pathname: authenticationPath }} />;
+  if (authenticated && isAdmin) {
+    return <Navigate to={{ pathname: "/admin" }} />;
+  } else if (authenticated && !isAdmin) {
+    return <Navigate to={{ pathname: "/" }} />;
   } else {
     return outlet;
   }
