@@ -27,6 +27,7 @@ function AdminDashboard() {
             {" "}
             Dashboard{" "}
           </Typography>
+
           <Grid container justifyContent="center">
             <StlyedGrid>
               <Typography variant="h5" color="primary">
