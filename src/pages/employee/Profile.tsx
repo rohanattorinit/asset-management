@@ -107,9 +107,15 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
+                EmpId:
                 <Typography variant="body1">{employee.empId}</Typography>
               </Typography>
-              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+              <Typography
+                mt={2}
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+              >
                 Name:<Typography variant="body1">{employee.name}</Typography>
               </Typography>
               <Typography
