@@ -12,19 +12,17 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
-import React from "react";
+import React, { Dispatch } from "react";
+import { CreateAssetType } from "../../redux/types";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootStore } from "../../redux/store";
+import { addAsset } from "../../redux/actions/AdminActions";
 
 export const AddAsset = () => {
-  interface CreateAssetType {
-    brandName: string;
-    assetName: string;
-    assetType: string;
-    category: string;
-    modelNo: string;
-    description: string;
-    status: string;
-    usability: string;
-  }
+  const dispatch: Dispatch<any> = useDispatch();
+  const { message } = useSelector((state: RootStore) => state.admin);
+
   const assetDetails: CreateAssetType = {
     brandName: "",
     assetName: "",
@@ -38,6 +36,8 @@ export const AddAsset = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(addAsset(assetDetails));
+    alert(message);
   };
 
   const StyledTypography = styled(Typography)({
