@@ -37,7 +37,13 @@ function EmpList() {
         <Grid item xs={12} md={10} p={3}>
           <Box marginY={2}></Box>
 
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <TextField label="search here..."></TextField>
             <Button
               variant="outlined"

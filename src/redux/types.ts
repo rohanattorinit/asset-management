@@ -5,8 +5,11 @@ export const SET_ERROR = "SET_ERROR";
 export const LOADING = "LOADING";
 export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
 export const SET_ASSETS = "SET_ASSETS";
+
 export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
 export const SET_EMPLOYEE = "SET_EMPLOYEE";
+
+export const SET_LOGOUT = "SET_LOGOUT";
 
 export interface EmployeeType {
   empId: string;
@@ -76,6 +79,9 @@ interface SetAuthenticated {
   };
 }
 
+interface SetLogout {
+  type: typeof SET_LOGOUT;
+}
 interface SetEmployeeAssets {
   type: typeof SET_EMPLOYEE_ASSETS;
   payload: {
@@ -106,5 +112,9 @@ export type DispatchTypes =
   | Loading
   | SetEmployeeAssets
   | SetAssets
+
   | UpdateEmployeeDetails
   | SetEmployee;
+
+  | SetLogout;
+

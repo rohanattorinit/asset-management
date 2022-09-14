@@ -8,7 +8,9 @@ import Profile from "./pages/employee/Profile";
 import Asset from "./pages/employee/Asset";
 import Ticket from "./pages/employee/Ticket";
 import Login from "./pages/Login";
+
 import EmpList from "./pages/admin/EmployeeList";
+
 import Assets from "./pages/admin/Assets";
 import Services from "./pages/admin/Services";
 
@@ -21,6 +23,9 @@ import { useSelector } from "react-redux";
 import { RootStore } from "./redux/store";
 import { AddEmployee } from "./pages/admin/AddEmployee";
 import { AddAsset } from "./pages/admin/AddAsset";
+import ProtectedLoginRoute, {
+  LoginRouteProps,
+} from "./utils/ProtectedLoginRoute";
 
 function App() {
   const {
@@ -31,6 +36,11 @@ function App() {
   const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
     authenticated: authenticated && !isAdmin,
     authenticationPath: "/login",
+  };
+
+  const defaultLoginRouteProps: Omit<LoginRouteProps, "outlet"> = {
+    authenticated: authenticated,
+    isAdmin: isAdmin,
   };
 
   const defaultProtectedAdminRouteProps: Omit<
@@ -46,7 +56,15 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedLoginRoute
+                {...defaultLoginRouteProps}
+                outlet={<Login />}
+              />
+            }
+          />
           <Route
             path="/"
             element={
@@ -111,6 +129,7 @@ function App() {
               />
             }
           />
+
           <Route
             path="/admin/service"
             element={

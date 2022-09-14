@@ -107,16 +107,18 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Employee ID:
+
                 <Typography variant="body1">{employee.empId}</Typography>
+
               </Typography>
               <Typography
                 fontFamily="serif"
                 fontWeight="bold"
                 variant="h6"
-                mt={2}
-              >
+
                 Name:<Typography variant="body1">{employee.name}</Typography>
+
+
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -125,7 +127,9 @@ export default function Profile() {
                 mt={2}
               >
                 Job Title:
+
                 <Typography variant="body1">{employee.jobTitle}</Typography>
+
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -134,7 +138,9 @@ export default function Profile() {
                 mt={2}
               >
                 Email:
+
                 <Typography variant="body1">{employee.email}</Typography>
+
               </Typography>
             </Grid>
 
@@ -145,7 +151,9 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
+
                 Phone:<Typography variant="body1">{employee.phone}</Typography>
+
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -154,7 +162,9 @@ export default function Profile() {
                 mt={2}
               >
                 Location:
+
                 <Typography variant="body1">{employee.location}</Typography>
+
               </Typography>
             </Grid>
           </Grid>
@@ -229,3 +239,4 @@ export default function Profile() {
     </Grid>
   );
 }
+

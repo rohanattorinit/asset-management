@@ -1,3 +1,4 @@
+import { SET_LOGOUT } from "./../types";
 import axios from "axios";
 import { Dispatch } from "redux";
 import { DispatchTypes, LOADING, SET_AUTHENTICATED, SET_ERROR } from "../types";
@@ -24,3 +25,15 @@ export const login =
       });
     }
   };
+
+export const logout = () => async (dispatch: Dispatch<DispatchTypes>) => {
+  dispatch({ type: LOADING });
+  try {
+    dispatch({ type: SET_LOGOUT });
+  } catch (error) {
+    dispatch({
+      type: SET_ERROR,
+      payload: "Error while logging out",
+    });
+  }
+};
