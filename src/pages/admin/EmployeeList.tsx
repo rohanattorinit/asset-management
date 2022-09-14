@@ -20,7 +20,6 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { getEmployees } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
-
 function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
 
