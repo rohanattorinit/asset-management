@@ -16,7 +16,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -30,7 +30,7 @@ function Assets() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const [category, setCategory] = React.useState("hardware");
+  const [category, setCategory] = useState("hardware");
 
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -90,7 +90,7 @@ function Assets() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>ID</TableCell>
+                  <TableCell align="center">ID</TableCell>
                   <TableCell align="center">Serial No.</TableCell>
                   <TableCell align="center">Name</TableCell>
                   <TableCell align="center">Status</TableCell>
