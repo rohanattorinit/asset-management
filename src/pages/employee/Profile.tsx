@@ -49,7 +49,7 @@ export default function Profile() {
                 mt={2}
               >
                 Employee ID:
-                <Typography variant="body1">{user.empId}</Typography>
+                <Typography variant="body1">{user?.empId}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -57,7 +57,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Name:<Typography variant="body1">{user.name}</Typography>
+                Name:<Typography variant="body1">{user?.name}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -66,7 +66,7 @@ export default function Profile() {
                 mt={2}
               >
                 Job Title:
-                <Typography variant="body1">{user.jobTitle}</Typography>
+                <Typography variant="body1">{user?.jobTitle}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -75,7 +75,7 @@ export default function Profile() {
                 mt={2}
               >
                 Email:
-                <Typography variant="body1">{user.email}</Typography>
+                <Typography variant="body1">{user?.email}</Typography>
               </Typography>
             </Grid>
 
@@ -86,7 +86,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Phone:<Typography variant="body1">{user.phone}</Typography>
+                Phone:<Typography variant="body1">{user?.phone}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -95,7 +95,7 @@ export default function Profile() {
                 mt={2}
               >
                 Location:
-                <Typography variant="body1">{user.location}</Typography>
+                <Typography variant="body1">{user?.location}</Typography>
               </Typography>
             </Grid>
           </Grid>
