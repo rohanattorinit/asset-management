@@ -12,13 +12,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { Dispatch, useEffect } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getEmployees } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
+
 
 function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
@@ -29,6 +30,16 @@ function EmpList() {
     dispatch(getEmployees());
   }, [dispatch]);
 
+  const [search, setSearch] = useState("");
+  const handleChange = (e: any) => {
+    setSearch(e.target.value);
+  };
+
+  const filteredEmployee = employees.filter((employee) => {
+    if (search.length === 0) return employee;
+    return employee.name.toLowerCase().startsWith(search.toLowerCase());
+  });
+
   return (
     <>
       <Grid container>
@@ -36,9 +47,19 @@ function EmpList() {
 
         <Grid item xs={12} md={10} p={3}>
           <Box marginY={2}></Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <TextField
+              label="search here by name..."
+              onChange={handleChange}
+              value={search}
+            ></TextField>
 
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <TextField label="search here by name..."></TextField>
             <Button
               variant="outlined"
               color="primary"
@@ -48,7 +69,6 @@ function EmpList() {
               Add new Employee
             </Button>
           </Box>
-
           <Box my={3}>
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
@@ -75,7 +95,7 @@ function EmpList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {employees.map((employee) => (
+                  {filteredEmployee.map((employee) => (
                     <TableRow key={employee.empId}>
                       <TableCell component="th" scope="row">
                         {employee.empId}
