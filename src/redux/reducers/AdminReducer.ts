@@ -1,3 +1,4 @@
+import { SET_ADDASSET, SET_ADDEMPLOYEE } from "./../types";
 import {
   AssetTypes,
   DispatchTypes,
@@ -13,6 +14,7 @@ interface InitialState {
   employees: EmployeeType[];
   assets: AssetTypes[];
   error?: string;
+  message: string;
 }
 
 const initialState: InitialState = {
@@ -20,6 +22,7 @@ const initialState: InitialState = {
   employees: [],
   assets: [],
   error: "",
+  message: "",
 };
 
 const adminReducer = (
@@ -31,6 +34,8 @@ const adminReducer = (
       return {
         ...state,
         loading: true,
+        message: "",
+        error: "",
       };
     case SET_EMPLOYEES:
       return {
@@ -45,7 +50,18 @@ const adminReducer = (
         assets: action.payload.data,
         loading: false,
       };
-
+    case SET_ADDEMPLOYEE:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
+    case SET_ADDASSET:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
     case SET_ERROR:
       return {
         ...state,
