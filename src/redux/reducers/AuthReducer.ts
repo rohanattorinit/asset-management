@@ -4,6 +4,7 @@ import {
   LOADING,
   SET_AUTHENTICATED,
   SET_ERROR,
+  SET_LOGOUT,
 } from "../types";
 
 interface InitialState {
@@ -50,6 +51,21 @@ const authReducer = (
       return {
         ...state,
         error: action.payload,
+        loading: false,
+      };
+    case SET_LOGOUT:
+      return {
+        ...state,
+        authenticated: false,
+        user: {
+          empId: "",
+          name: "",
+          email: "",
+          phone: undefined,
+          location: "",
+          isAdmin: false,
+          jobTitle: "",
+        },
         loading: false,
       };
     default:
