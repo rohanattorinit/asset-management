@@ -37,7 +37,13 @@ function EmpList() {
         <Grid item xs={12} md={10} p={3}>
           <Box marginY={2}></Box>
 
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <TextField label="search here..."></TextField>
             <Button
               variant="outlined"
@@ -64,6 +70,9 @@ function EmpList() {
                       <Typography align="center">Email</Typography>
                     </TableCell>
                     <TableCell align="right">
+                      <Typography align="center">Job Title</Typography>
+                    </TableCell>
+                    <TableCell align="right">
                       <Typography align="center">Contact No.</Typography>
                     </TableCell>
                     <TableCell align="right">
@@ -79,6 +88,7 @@ function EmpList() {
                       </TableCell>
                       <TableCell align="center">{employee.name}</TableCell>
                       <TableCell align="center">{employee.email}</TableCell>
+                      <TableCell align="center">{employee.jobTitle}</TableCell>
                       <TableCell align="center">{employee.phone}</TableCell>
                       <TableCell align="center">{employee.location}</TableCell>
                     </TableRow>
