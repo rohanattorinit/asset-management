@@ -5,6 +5,8 @@ export const SET_ERROR = "SET_ERROR";
 export const LOADING = "LOADING";
 export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
 export const SET_ASSETS = "SET_ASSETS";
+export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
+export const SET_EMPLOYEE = "SET_EMPLOYEE";
 
 export interface EmployeeType {
   empId: string;
@@ -53,6 +55,13 @@ interface SetEmployees {
   };
 }
 
+interface SetEmployee {
+  type: typeof SET_EMPLOYEE;
+  payload: {
+    data: EmployeeType;
+  };
+}
+
 interface SetError {
   type: typeof SET_ERROR;
   payload: string;
@@ -82,6 +91,13 @@ interface SetAssets {
   };
 }
 
+interface UpdateEmployeeDetails {
+  type: typeof UPDATE_EMPLOYEE_DETAILS;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -89,4 +105,6 @@ export type DispatchTypes =
   | SetAuthenticated
   | Loading
   | SetEmployeeAssets
-  | SetAssets;
+  | SetAssets
+  | UpdateEmployeeDetails
+  | SetEmployee;

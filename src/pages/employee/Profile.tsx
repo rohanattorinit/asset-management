@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Box, Paper } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -10,11 +10,44 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import {
+  getEmployee,
+  updateEmployeeDetails,
+} from "../../redux/actions/EmployeeActions";
+
+interface UpdateType {
+  name?: string;
+  email?: string;
+  phone?: number;
+  location?: string;
+  jobTitle?: string;
+}
 
 export default function Profile() {
-  const [open, setOpen] = React.useState(false);
+  const {
+    login: { user },
+    employee: { employee, message },
+  } = useSelector((state: RootStore) => state);
 
-  const { user } = useSelector((state: RootStore) => state.login);
+  const [updateData, setUpdateData] = useState<UpdateType>({
+    name: employee.name,
+    email: employee.email,
+    phone: employee.phone,
+    location: employee.location,
+    jobTitle: employee.jobTitle,
+  });
+  const [open, setOpen] = useState(false);
+
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUpdateData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,6 +56,28 @@ export default function Profile() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(updateEmployeeDetails(employee.empId, updateData));
+    handleClose();
+  };
+
+  useEffect(() => {
+    dispatch(getEmployee(user.empId));
+    if (message) alert(message);
+  }, [dispatch, user.empId, message]);
+
+  useEffect(() => {
+    setUpdateData({
+      name: employee.name,
+      email: employee.email,
+      phone: employee.phone,
+      location: employee.location,
+      jobTitle: employee.jobTitle,
+    });
+  }, [employee]);
+
   return (
     <Grid container>
       <Sidebar />
@@ -34,10 +89,14 @@ export default function Profile() {
           }}
         >
           <Typography variant="h5">Profile</Typography>
-
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Edit
-          </Button>
+          <Box display="flex">
+            <Button variant="outlined" onClick={handleClickOpen}>
+              Edit
+            </Button>
+            <Button sx={{ ml: 1 }} variant="outlined" onClick={handleClickOpen}>
+              Change Password
+            </Button>
+          </Box>
         </Box>
         <Paper sx={{ display: "flex", padding: 5, marginY: 3 }} elevation={5}>
           <Grid container>
@@ -49,7 +108,7 @@ export default function Profile() {
                 mt={2}
               >
                 Employee ID:
-                <Typography variant="body1">{user.empId}</Typography>
+                <Typography variant="body1">{employee.empId}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -57,7 +116,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Name:<Typography variant="body1">{user.name}</Typography>
+                Name:<Typography variant="body1">{employee.name}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -66,7 +125,7 @@ export default function Profile() {
                 mt={2}
               >
                 Job Title:
-                <Typography variant="body1">{user.jobTitle}</Typography>
+                <Typography variant="body1">{employee.jobTitle}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -75,7 +134,7 @@ export default function Profile() {
                 mt={2}
               >
                 Email:
-                <Typography variant="body1">{user.email}</Typography>
+                <Typography variant="body1">{employee.email}</Typography>
               </Typography>
             </Grid>
 
@@ -86,7 +145,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Phone:<Typography variant="body1">{user.phone}</Typography>
+                Phone:<Typography variant="body1">{employee.phone}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -95,7 +154,7 @@ export default function Profile() {
                 mt={2}
               >
                 Location:
-                <Typography variant="body1">{user.location}</Typography>
+                <Typography variant="body1">{employee.location}</Typography>
               </Typography>
             </Grid>
           </Grid>
@@ -103,56 +162,67 @@ export default function Profile() {
       </Grid>
 
       <Dialog open={open} onClose={handleClose}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <DialogTitle>Edit Deatils</DialogTitle>
           <DialogContent>
             <TextField
-              margin="normal"
-              id="name"
+              margin="dense"
+              name="name"
               required
               label="Name"
-              type="email"
+              type="text"
               fullWidth
               variant="outlined"
-            />
-            <TextField
-              id="name"
-              required
-              label="Job Title"
-              type="email"
-              fullWidth
-              variant="outlined"
+              value={updateData.name}
+              onChange={handleChange}
             />
             <TextField
               margin="dense"
-              id="name"
+              name="jobTitle"
+              required
+              label="Job Title"
+              type="text"
+              fullWidth
+              variant="outlined"
+              value={updateData?.jobTitle}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="dense"
+              name="email"
               required
               label="Email"
               type="email"
               fullWidth
               variant="outlined"
+              value={updateData?.email}
+              onChange={handleChange}
             />
             <TextField
               margin="dense"
-              id="name"
+              name="phone"
               required
               label="Phone"
-              type="email"
+              type="tel"
               fullWidth
               variant="outlined"
+              value={updateData?.phone}
+              onChange={handleChange}
             />
             <TextField
               margin="dense"
-              id="name"
+              name="location"
               required
               label="Location"
-              type="email"
+              type="text"
               fullWidth
               variant="outlined"
+              value={updateData?.location}
+              onChange={handleChange}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Submit</Button>
+            <Button type="submit">Submit</Button>
           </DialogActions>
         </form>
       </Dialog>
