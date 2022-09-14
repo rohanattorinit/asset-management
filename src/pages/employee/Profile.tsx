@@ -107,11 +107,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-<<<<<<< HEAD
-                Employee Id:
-=======
                 EmpId:
->>>>>>> main
                 <Typography variant="body1">{employee.empId}</Typography>
               </Typography>
               <Typography
