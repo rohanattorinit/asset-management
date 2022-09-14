@@ -35,11 +35,12 @@ function App() {
     authenticated: authenticated && !isAdmin,
     authenticationPath: "/login",
   };
-  console.log(authenticated);
+
   const defaultLoginRouteProps: Omit<LoginRouteProps, "outlet"> = {
     authenticated: authenticated,
-    authenticationPath: "/",
+    isAdmin: isAdmin,
   };
+
   const defaultProtectedAdminRouteProps: Omit<
     ProtectedAdminRouteProps,
     "outlet"
