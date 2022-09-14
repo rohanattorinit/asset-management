@@ -12,8 +12,34 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
+import React from "react";
 
 export const AddAsset = () => {
+  interface CreateAssetType {
+    brandName: string;
+    assetName: string;
+    assetType: string;
+    category: string;
+    modelNo: string;
+    description: string;
+    status: string;
+    usability: string;
+  }
+  const assetDetails: CreateAssetType = {
+    brandName: "",
+    assetName: "",
+    assetType: "",
+    category: "",
+    modelNo: "",
+    description: "",
+    status: "",
+    usability: "",
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   const StyledTypography = styled(Typography)({
     fontWeight: "bold",
     fontSize: "1.25rem",
@@ -44,7 +70,7 @@ export const AddAsset = () => {
               <StyledTypography>Add Asset :</StyledTypography>
               <Grid container>
                 <Grid item xs={12} md={6}>
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <FlexContainer>
                       <TextField
                         margin="normal"
@@ -53,6 +79,9 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Type"
                         variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.assetType = e.target.value;
+                        }}
                       />
                       <TextField
                         margin="normal"
@@ -61,6 +90,9 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Name"
                         variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.brandName = e.target.value;
+                        }}
                       />
                       <TextField
                         margin="normal"
@@ -69,6 +101,9 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Status"
                         variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.status = e.target.value;
+                        }}
                       />
                       <TextField
                         margin="normal"
@@ -77,6 +112,9 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Brand"
                         variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.brandName = e.target.value;
+                        }}
                       />
                       <TextField
                         margin="normal"
@@ -85,6 +123,9 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Model No"
                         variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.modelNo = e.target.value;
+                        }}
                       />
                       <TextField
                         margin="normal"
@@ -93,6 +134,9 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Description"
                         variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.description = e.target.value;
+                        }}
                       />
                       <TextField
                         margin="normal"
@@ -101,6 +145,9 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Usability"
                         variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.usability = e.target.value;
+                        }}
                       />
                       <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button
