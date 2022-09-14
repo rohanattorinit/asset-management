@@ -36,10 +36,10 @@ function App() {
     authenticationPath: "/login",
   };
 
-  const defaultLoginRouteProps: Omit<LoginRouteProps, "outlet"> = {
-    authenticated: authenticated,
-    isAdmin: isAdmin,
-  };
+  // const defaultLoginRouteProps: Omit<LoginRouteProps, "outlet"> = {
+  //   authenticated: authenticated,
+  //   isAdmin: isAdmin,
+  // };
 
   const defaultProtectedAdminRouteProps: Omit<
     ProtectedAdminRouteProps,
@@ -57,10 +57,11 @@ function App() {
           <Route
             path="/login"
             element={
-              <ProtectedLoginRoute
-                {...defaultLoginRouteProps}
-                outlet={<Login />}
-              />
+              <Login />
+              // <ProtectedLoginRoute
+              //   // {...defaultLoginRouteProps}
+              //   outlet={<Login />}
+              // />
             }
           />
           <Route
