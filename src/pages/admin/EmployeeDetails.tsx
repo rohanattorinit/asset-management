@@ -11,7 +11,6 @@ import {
   Typography,
   IconButton,
   Box,
-  FormControl,
   MenuItem,
   InputLabel,
   Select,
