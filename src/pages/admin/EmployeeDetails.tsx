@@ -19,19 +19,20 @@ import { RootStore } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
-import { getAssets } from "../../redux/actions/AdminActions";
+import {
+  deallocateAssets,
+  getAssetDetails,
+} from "../../redux/actions/AdminActions";
 
 export default function EmployeeDetails() {
-  const { employeedetails, employeeassetsdetails } = useSelector(
-    (state: RootStore) => state.admin
-  );
-  const { assets } = useSelector((state: RootStore) => state.admin);
+  const { employeedetails, employeeassetsdetails, message, assets } =
+    useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssets());
-  }, [dispatch]);
+    dispatch(getAssetDetails(employeedetails.empId));
+  }, [dispatch, employeedetails.empId, message]);
 
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
@@ -51,6 +52,10 @@ export default function EmployeeDetails() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const HandleDeallocate = (assetId: number) => {
+    dispatch(deallocateAssets(employeedetails.empId, assetId));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -164,7 +169,10 @@ export default function EmployeeDetails() {
                     <TableCell align="right">{asset.category}</TableCell>
                     <TableCell align="right">{asset.allocationTime}</TableCell>
                     <IconButton>
-                      <RemoveCircleIcon sx={{ color: "#dc2626" }} />
+                      <RemoveCircleIcon
+                        sx={{ color: "#dc2626" }}
+                        onClick={() => HandleDeallocate(asset.assetId)}
+                      />
                     </IconButton>
                   </TableRow>
                 ))}
@@ -196,7 +204,7 @@ export default function EmployeeDetails() {
                 <TableBody>
                   {filteredAsset.map((asset) => (
                     <TableRow
-                      key={asset.name}
+                      key={asset.assetId}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
