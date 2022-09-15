@@ -1,3 +1,4 @@
+import { SET_ADDASSET, SET_ADDEMPLOYEE } from "./../types";
 import {
   AssetTypes,
   DispatchTypes,
@@ -50,7 +51,18 @@ const adminReducer = (
         assets: action.payload.data,
         loading: false,
       };
-
+    case SET_ADDEMPLOYEE:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
+    case SET_ADDASSET:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
     case SET_ERROR:
       return {
         ...state,

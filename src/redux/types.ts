@@ -1,3 +1,5 @@
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
@@ -10,7 +12,28 @@ export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
 export const SET_EMPLOYEE = "SET_EMPLOYEE";
 
 export const SET_LOGOUT = "SET_LOGOUT";
+export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
+export const SET_ADDASSET = "SET_ADDASSET";
 
+export interface CreateAssetType {
+  brandName: string;
+  assetName: string;
+  assetType: string;
+  category: string;
+  modelNo: string;
+  description: string;
+  status: string;
+  usability: string;
+}
+
+export interface CreateEmployeeType {
+  empId?: string;
+  name: string;
+  email: string;
+  phone?: number;
+  location: string;
+  jobTitle: string;
+}
 export interface EmployeeType {
   empId: string;
   name: string;
@@ -28,7 +51,7 @@ export interface EmployeeAssetType {
   modelno: number;
   allocationTime: string;
 }
-//create asset interface see backend for that
+
 export interface AssetTypes {
   assetId: number;
   brandId: number;
@@ -104,6 +127,27 @@ interface UpdateEmployeeDetails {
   };
 }
 
+interface SetAddEmployee {
+  type: typeof SET_ADDEMPLOYEE;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddAsset {
+  type: typeof SET_ADDASSET;
+  payload: {
+    message: string;
+  };
+}
+
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -114,4 +158,7 @@ export type DispatchTypes =
   | SetAssets
   | UpdateEmployeeDetails
   | SetEmployee
-  | SetLogout;
+  | SetLogout
+  | ChangePassword
+  | SetAddEmployee
+  | SetAddAsset;

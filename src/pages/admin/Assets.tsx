@@ -16,7 +16,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -30,7 +30,7 @@ function Assets() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const [category, setCategory] = React.useState("hardware");
+  const [category, setCategory] = useState("hardware");
 
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
@@ -50,6 +50,7 @@ function Assets() {
               <TableCell align="center">{filteredAsset.assetId}</TableCell>
               <TableCell align="center">{filteredAsset.modelNo}</TableCell>
               <TableCell align="center">{filteredAsset.name}</TableCell>
+              <TableCell align="center">{filteredAsset.category}</TableCell>
               <TableCell align="center">{filteredAsset.status}</TableCell>
               <TableCell align="center">{filteredAsset.usability}</TableCell>
             </TableRow>
@@ -90,9 +91,10 @@ function Assets() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>ID</TableCell>
+                  <TableCell align="center">ID</TableCell>
                   <TableCell align="center">Serial No.</TableCell>
                   <TableCell align="center">Name</TableCell>
+                  <TableCell align="center">Category</TableCell>
                   <TableCell align="center">Status</TableCell>
                   <TableCell align="center">Usability</TableCell>
                 </TableRow>
