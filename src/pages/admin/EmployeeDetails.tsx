@@ -33,6 +33,16 @@ export default function EmployeeDetails() {
     dispatch(getAssets());
   }, [dispatch]);
 
+  const [search, setSearch] = useState("");
+  const handleChange = (e: any) => {
+    setSearch(e.target.value);
+  };
+
+  const filteredAsset = assets.filter((asset) => {
+    if (search.length === 0) return asset;
+    return asset.name.toLowerCase().startsWith(search.toLowerCase());
+  });
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -171,8 +181,8 @@ export default function EmployeeDetails() {
           <DialogContent>
             <TextField
               label="search by AssetName..."
-              // onChange={handleChange}
-              // value={search}
+              onChange={handleChange}
+              value={search}
             ></TextField>
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
@@ -184,7 +194,7 @@ export default function EmployeeDetails() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {assets.map((asset) => (
+                  {filteredAsset.map((asset) => (
                     <TableRow
                       key={asset.name}
                       sx={{
