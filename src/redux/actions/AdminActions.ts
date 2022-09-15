@@ -79,7 +79,7 @@ export const addAsset =
     }
   };
 
-export const getEmployeeAssetDetails =
+export const getEmployeetDetails =
   (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
@@ -93,6 +93,11 @@ export const getEmployeeAssetDetails =
         payload: (error as any).response.data.error,
       });
     }
+  };
+
+export const getAssetDetails =
+  (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
     try {
       const res = await axios.get(
         `http://localhost:4000/api/assets/employeeAssets/${empId}`
@@ -114,7 +119,7 @@ export const deallocateAssets =
       const res = await axios.post(
         `http://localhost:4000/api/admin/deallocateAsset/${empId}/${assetId}`
       );
-      console.log(res.data);
+
       dispatch({ type: DEALLOCATE_EMPLOYEE_ASSET, payload: res.data });
     } catch (error) {
       dispatch({
@@ -123,3 +128,6 @@ export const deallocateAssets =
       });
     }
   };
+function dispatch(arg0: { type: string; payload: any }) {
+  throw new Error("Function not implemented.");
+}

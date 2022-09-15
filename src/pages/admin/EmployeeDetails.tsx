@@ -17,22 +17,22 @@ import Dialog from "@mui/material/Dialog";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { RootStore } from "../../redux/store";
 import { useSelector } from "react-redux";
-//import { getEmployee } from "../../redux/actions/EmployeeActions";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
-import { deallocateAssets, getAssets } from "../../redux/actions/AdminActions";
+import {
+  deallocateAssets,
+  getAssetDetails,
+} from "../../redux/actions/AdminActions";
 
 export default function EmployeeDetails() {
-  const { employeedetails, employeeassetsdetails, message } = useSelector(
-    (state: RootStore) => state.admin
-  );
-  const { assets } = useSelector((state: RootStore) => state.admin);
+  const { employeedetails, employeeassetsdetails, message, assets } =
+    useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getEmployeeAssetDetails(employeedetails.empId));
-  // }, [dispatch, employeedetails.empId, message]);
+  useEffect(() => {
+    dispatch(getAssetDetails(employeedetails.empId));
+  }, [dispatch, employeedetails.empId, message]);
 
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
@@ -204,7 +204,7 @@ export default function EmployeeDetails() {
                 <TableBody>
                   {filteredAsset.map((asset) => (
                     <TableRow
-                      key={asset.name}
+                      key={asset.assetId}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}

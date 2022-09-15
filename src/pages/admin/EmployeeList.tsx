@@ -19,7 +19,8 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
-  getEmployeeAssetDetails,
+  getEmployeetDetails,
+  getAssetDetails,
   getEmployees,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -33,8 +34,8 @@ function EmpList() {
   const { employees } = useSelector((state: RootStore) => state.admin);
 
   const setEmployeeDetails = (empId: string) => {
-    dispatch(getEmployeeAssetDetails(empId));
-
+    dispatch(getEmployeetDetails(empId));
+    dispatch(getAssetDetails(empId));
     navigate(`/admin/employee/${empId}`);
   };
 
