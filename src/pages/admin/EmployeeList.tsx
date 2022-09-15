@@ -13,12 +13,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
-import { getEmployees } from "../../redux/actions/AdminActions";
+import {
+  getEmployeeAssetDetails,
+  getEmployees,
+} from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 //import { blue, lightBlue } from "@mui/material/colors";
@@ -30,6 +33,8 @@ function EmpList() {
   const { employees } = useSelector((state: RootStore) => state.admin);
 
   const setEmployeeDetails = (empId: string) => {
+    dispatch(getEmployeeAssetDetails(empId));
+
     navigate(`/admin/employee/${empId}`);
   };
 
