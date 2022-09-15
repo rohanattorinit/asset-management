@@ -1,5 +1,6 @@
 import {
   CreateAssetType,
+  DEALLOCATE_EMPLOYEE_ASSET,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
@@ -97,6 +98,24 @@ export const getEmployeeAssetDetails =
         `http://localhost:4000/api/assets/employeeAssets/${empId}`
       );
       dispatch({ type: SET_EMPLOYEE_ASSETS_DETAILS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
+export const DeallocateAssets =
+  (empId: string, assetId: number) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.post(
+        `localhost:4000/api/admin/deallocateAsset/${empId}/${assetId}`
+      );
+      console.log(res.data);
+      dispatch({ type: DEALLOCATE_EMPLOYEE_ASSET, payload: res.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,

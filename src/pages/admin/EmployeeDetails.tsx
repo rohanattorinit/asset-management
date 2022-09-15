@@ -25,9 +25,13 @@ import Dialog from "@mui/material/Dialog";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { RootStore } from "../../redux/store";
 import { useSelector } from "react-redux";
-import { getEmployee } from "../../redux/actions/EmployeeActions";
+//import { getEmployee } from "../../redux/actions/EmployeeActions";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
+import {
+  DeallocateAssets,
+  getEmployeeAssetDetails,
+} from "../../redux/actions/AdminActions";
 
 function createData(
   name: string,
@@ -47,23 +51,17 @@ const rows = [
 ];
 
 export default function EmployeeDetails() {
-  const { employeedetails, employeeassetsdetails } = useSelector(
+  const { employeedetails, employeeassetsdetails, message } = useSelector(
     (state: RootStore) => state.admin
   );
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getEmployee(user.empId));
-  //   if (message) alert(message);
-  // }, [dispatch, user.empId, message]);
+  useEffect(() => {
+    dispatch(getEmployeeAssetDetails(employeedetails.empId));
+  }, [dispatch, employeedetails.empId, message]);
 
-  const [values, setValues] = React.useState([
-    "Laptop",
-    "Mouse",
-    "KeyBoard",
-    "Charger",
-  ]);
+  const [values] = React.useState(["Laptop", "Mouse", "KeyBoard", "Charger"]);
   const [selected, setSelected] = useState("Bam");
 
   function handleChange(event: any) {
@@ -78,6 +76,10 @@ export default function EmployeeDetails() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const HandleDeallocate = (assetId: number) => {
+    dispatch(DeallocateAssets(employeedetails.empId, assetId));
   };
 
   return (
@@ -186,7 +188,10 @@ export default function EmployeeDetails() {
                     <TableCell align="right">{asset.category}</TableCell>
                     <TableCell align="right">{asset.allocationTime}</TableCell>
                     <IconButton>
-                      <RemoveCircleIcon sx={{ color: "#dc2626" }} />
+                      <RemoveCircleIcon
+                        sx={{ color: "#dc2626" }}
+                        onClick={() => HandleDeallocate(asset.assetId)}
+                      />
                     </IconButton>
                   </TableRow>
                 ))}

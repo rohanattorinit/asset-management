@@ -1,5 +1,6 @@
 import {
   AllocatedAssetType,
+  DEALLOCATE_EMPLOYEE_ASSET,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
@@ -92,6 +93,13 @@ const adminReducer = (
       return {
         ...state,
         employeeassetsdetails: action.payload.data,
+        loading: false,
+      };
+
+    case DEALLOCATE_EMPLOYEE_ASSET:
+      return {
+        ...state,
+        message: action.payload.message,
         loading: false,
       };
 
