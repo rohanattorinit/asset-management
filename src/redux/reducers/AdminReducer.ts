@@ -16,6 +16,7 @@ interface InitialState {
 
   message: string;
   error?: string;
+  message: string;
 }
 
 const initialState: InitialState = {
@@ -24,6 +25,7 @@ const initialState: InitialState = {
   assets: [],
   message: "",
   error: "",
+  message: "",
 };
 
 const adminReducer = (
