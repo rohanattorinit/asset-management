@@ -23,9 +23,7 @@ import { useSelector } from "react-redux";
 import { RootStore } from "./redux/store";
 import { AddEmployee } from "./pages/admin/AddEmployee";
 import { AddAsset } from "./pages/admin/AddAsset";
-import ProtectedLoginRoute, {
-  LoginRouteProps,
-} from "./utils/ProtectedLoginRoute";
+
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
 
 function App() {

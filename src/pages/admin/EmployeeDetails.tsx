@@ -6,15 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {
-  Grid,
-  Typography,
-  IconButton,
-  Box,
-  MenuItem,
-  InputLabel,
-  Select,
-} from "@mui/material";
+import { Grid, Typography, IconButton, Box, TextField } from "@mui/material";
 import SideBar from "../../components/Sidebar/Sidebar";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import Button from "@mui/material/Button";
@@ -28,32 +20,13 @@ import { useSelector } from "react-redux";
 //import { getEmployee } from "../../redux/actions/EmployeeActions";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
-import {
-  deallocateAssets,
-  getEmployeeAssetDetails,
-} from "../../redux/actions/AdminActions";
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-];
+import { deallocateAssets, getAssets } from "../../redux/actions/AdminActions";
 
 export default function EmployeeDetails() {
   const { employeedetails, employeeassetsdetails, message } = useSelector(
     (state: RootStore) => state.admin
   );
+  const { assets } = useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -61,12 +34,15 @@ export default function EmployeeDetails() {
   //   dispatch(getEmployeeAssetDetails(employeedetails.empId));
   // }, [dispatch, employeedetails.empId, message]);
 
-  const [values] = React.useState(["Laptop", "Mouse", "KeyBoard", "Charger"]);
-  const [selected, setSelected] = useState("Bam");
+  const [search, setSearch] = useState("");
+  const handleChange = (e: any) => {
+    setSearch(e.target.value);
+  };
 
-  function handleChange(event: any) {
-    setSelected(event.target.value);
-  }
+  const filteredAsset = assets.filter((asset) => {
+    if (search.length === 0) return asset;
+    return asset.name.toLowerCase().startsWith(search.toLowerCase());
+  });
 
   const [open, setOpen] = useState(false);
 
@@ -80,6 +56,11 @@ export default function EmployeeDetails() {
 
   const HandleDeallocate = (assetId: number) => {
     dispatch(deallocateAssets(employeedetails.empId, assetId));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setOpen(false);
   };
 
   return (
@@ -201,37 +182,37 @@ export default function EmployeeDetails() {
         </Paper>
       </Grid>
 
+      {/* Allocate an Asset */}
       <Dialog open={open} onClose={handleClose}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <DialogTitle>Allocate Asset</DialogTitle>
           <DialogContent>
-            <InputLabel htmlFor="agent-simple">Category</InputLabel>
-            <Select value={selected} onChange={handleChange}>
-              {values.map((value, index) => {
-                return <MenuItem value={value}>{value}</MenuItem>;
-              })}
-            </Select>
+            <TextField
+              label="search by AssetName..."
+              onChange={handleChange}
+              value={search}
+            ></TextField>
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>AssetID</TableCell>
-                    <TableCell align="right">Name</TableCell>
+                    <TableCell>Asset Name</TableCell>
+                    <TableCell align="right">AssetID</TableCell>
                     <TableCell align="right">Allocate</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {filteredAsset.map((asset) => (
                     <TableRow
-                      key={row.name}
+                      key={asset.name}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        {asset.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
+                      <TableCell align="right">{asset.assetId}</TableCell>
                       <Button
                         onClick={() => {
                           alert("Asset is Alloted");
