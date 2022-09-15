@@ -1,4 +1,5 @@
 import {
+  AllocatedAssetType,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
@@ -19,7 +20,7 @@ interface InitialState {
   employees: EmployeeType[];
   assets: AssetTypes[];
   employeedetails: EmployeeType;
-  employeeassetsdetails: AssetTypes[];
+  employeeassetsdetails: AllocatedAssetType[];
   message: string;
   error?: string;
 }

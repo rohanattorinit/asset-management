@@ -178,13 +178,13 @@ export default function EmployeeDetails() {
                     key={asset.assetId}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell align="right" component="th" scope="row">
                       {asset.assetId}
                     </TableCell>
                     <TableCell align="right">{asset.name}</TableCell>
-                    <TableCell align="right">{asset.modelNo}</TableCell>
+                    <TableCell align="right">{asset.modelno}</TableCell>
                     <TableCell align="right">{asset.category}</TableCell>
-                    <TableCell align="right">{asset.addedTime}</TableCell>
+                    <TableCell align="right">{asset.allocationTime}</TableCell>
                     <IconButton>
                       <RemoveCircleIcon sx={{ color: "#dc2626" }} />
                     </IconButton>

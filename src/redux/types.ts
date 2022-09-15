@@ -68,6 +68,14 @@ export interface AssetTypes {
   addedTime: string;
 }
 
+export interface AllocatedAssetType {
+  assetId: number;
+  name: string;
+  category: string;
+  modelno: number;
+  allocationTime: string;
+}
+
 interface LoadingData {
   type: typeof LOADING_DATA;
 }
@@ -151,6 +159,27 @@ interface ChangePassword {
   };
 }
 
+interface SetAddEmployee {
+  type: typeof SET_ADDEMPLOYEE;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddAsset {
+  type: typeof SET_ADDASSET;
+  payload: {
+    message: string;
+  };
+}
+
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
 interface SetEmployeeDetails {
   type: typeof SET_EMPLOYEE_DETAILS;
   payload: { message: string; data: EmployeeType };
@@ -160,7 +189,7 @@ interface setEmployeeAssetDetails {
   type: typeof SET_EMPLOYEE_ASSETS_DETAILS;
   payload: {
     message: string;
-    data: AssetTypes[];
+    data: AllocatedAssetType[];
   };
 }
 
