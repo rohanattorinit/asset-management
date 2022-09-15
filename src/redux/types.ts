@@ -8,6 +8,7 @@ export const SET_ASSETS = "SET_ASSETS";
 export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
 export const SET_EMPLOYEE = "SET_EMPLOYEE";
 export const SET_LOGOUT = "SET_LOGOUT";
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 
 export interface EmployeeType {
   empId: string;
@@ -102,6 +103,13 @@ interface UpdateEmployeeDetails {
   };
 }
 
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -112,4 +120,5 @@ export type DispatchTypes =
   | SetAssets
   | UpdateEmployeeDetails
   | SetEmployee
-  | SetLogout;
+  | SetLogout
+  | ChangePassword;

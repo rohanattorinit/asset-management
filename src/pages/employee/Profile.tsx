@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import {
+  changePassword,
   getEmployee,
   updateEmployeeDetails,
 } from "../../redux/actions/EmployeeActions";
@@ -22,6 +23,10 @@ interface UpdateType {
   phone?: number;
   location?: string;
   jobTitle?: string;
+}
+interface NewPasswordType {
+  password?: string;
+  confirmPassword?: string;
 }
 
 export default function Profile() {
@@ -37,7 +42,9 @@ export default function Profile() {
     location: employee.location,
     jobTitle: employee.jobTitle,
   });
+  const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -49,18 +56,24 @@ export default function Profile() {
     }));
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPassword((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateEmployeeDetails(employee.empId, updateData));
-    handleClose();
+    setOpen(false);
+  };
+
+  const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(changePassword(employee.empId, password?.password!));
+    setOpenPasswordDialog(false);
   };
 
   useEffect(() => {
@@ -90,10 +103,14 @@ export default function Profile() {
         >
           <Typography variant="h5">Profile</Typography>
           <Box display="flex">
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="outlined" onClick={() => setOpen(true)}>
               Edit
             </Button>
-            <Button sx={{ ml: 1 }} variant="outlined" onClick={handleClickOpen}>
+            <Button
+              sx={{ ml: 1 }}
+              variant="outlined"
+              onClick={() => setOpenPasswordDialog(true)}
+            >
               Change Password
             </Button>
           </Box>
@@ -161,7 +178,7 @@ export default function Profile() {
         </Paper>
       </Grid>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <form onSubmit={handleSubmit}>
           <DialogTitle>Edit Deatils</DialogTitle>
           <DialogContent>
@@ -219,6 +236,41 @@ export default function Profile() {
               variant="outlined"
               value={updateData?.location}
               onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit">Submit</Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+
+      {/* Chnage password dialog */}
+      <Dialog
+        open={openPasswordDialog}
+        onClose={() => setOpenPasswordDialog(false)}
+      >
+        <form onSubmit={handlePasswordSubmit}>
+          <DialogTitle>Change Password</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="dense"
+              name="password"
+              required
+              label="New Password"
+              type="text"
+              fullWidth
+              variant="outlined"
+              onChange={handlePasswordChange}
+            />
+            <TextField
+              margin="dense"
+              name="confirmPassword"
+              required
+              label="Confirm New Password"
+              type="text"
+              fullWidth
+              variant="outlined"
+              onChange={handlePasswordChange}
             />
           </DialogContent>
           <DialogActions>

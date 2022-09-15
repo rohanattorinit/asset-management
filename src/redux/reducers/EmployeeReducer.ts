@@ -1,4 +1,5 @@
 import {
+  CHANGE_PASSWORD,
   DispatchTypes,
   EmployeeAssetType,
   EmployeeType,
@@ -68,6 +69,12 @@ const employeeReducer = (
         error: "",
       };
     case UPDATE_EMPLOYEE_DETAILS:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload.message,
+      };
+    case CHANGE_PASSWORD:
       return {
         ...state,
         loading: false,
