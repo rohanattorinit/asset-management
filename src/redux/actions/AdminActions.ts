@@ -54,7 +54,7 @@ export const addEmployee =
     }
   };
 
-export const AddAsset =
+export const addAsset =
   (assetDetails: CreateEmployeeType) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
