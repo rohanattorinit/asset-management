@@ -29,7 +29,7 @@ import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import {
-  DeallocateAssets,
+  deallocateAssets,
   getEmployeeAssetDetails,
 } from "../../redux/actions/AdminActions";
 
@@ -57,9 +57,9 @@ export default function EmployeeDetails() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  useEffect(() => {
-    dispatch(getEmployeeAssetDetails(employeedetails.empId));
-  }, [dispatch, employeedetails.empId, message]);
+  // useEffect(() => {
+  //   dispatch(getEmployeeAssetDetails(employeedetails.empId));
+  // }, [dispatch, employeedetails.empId, message]);
 
   const [values] = React.useState(["Laptop", "Mouse", "KeyBoard", "Charger"]);
   const [selected, setSelected] = useState("Bam");
@@ -79,7 +79,7 @@ export default function EmployeeDetails() {
   };
 
   const HandleDeallocate = (assetId: number) => {
-    dispatch(DeallocateAssets(employeedetails.empId, assetId));
+    dispatch(deallocateAssets(employeedetails.empId, assetId));
   };
 
   return (

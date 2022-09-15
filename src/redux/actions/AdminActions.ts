@@ -106,13 +106,13 @@ export const getEmployeeAssetDetails =
     }
   };
 
-export const DeallocateAssets =
+export const deallocateAssets =
   (empId: string, assetId: number) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
       const res = await axios.post(
-        `localhost:4000/api/admin/deallocateAsset/${empId}/${assetId}`
+        `http://localhost:4000/api/admin/deallocateAsset/${empId}/${assetId}`
       );
       console.log(res.data);
       dispatch({ type: DEALLOCATE_EMPLOYEE_ASSET, payload: res.data });
