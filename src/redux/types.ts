@@ -1,3 +1,7 @@
+
+
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+
 export const LOADING_DATA = 'LOADING_DATA'
 export const SET_EMPLOYEES = 'SET_EMPLOYEES'
 export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
@@ -12,6 +16,7 @@ export const SET_EMPLOYEE = 'SET_EMPLOYEE'
 export const SET_LOGOUT = 'SET_LOGOUT'
 export const SET_ADDEMPLOYEE = 'SET_ADDEMPLOYEE'
 export const SET_ADDASSET = 'SET_ADDASSET'
+
 
 export interface CreateAssetType {
   brandName: string
@@ -139,6 +144,13 @@ interface SetAddAsset {
   }
 }
 
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -150,5 +162,7 @@ export type DispatchTypes =
   | UpdateEmployeeDetails
   | SetEmployee
   | SetLogout
+  | ChangePassword
   | SetAddEmployee
   | SetAddAsset
+

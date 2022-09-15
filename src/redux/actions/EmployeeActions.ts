@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import {
+  CHANGE_PASSWORD,
   DispatchTypes,
   LOADING,
   LOADING_DATA,
@@ -61,6 +62,26 @@ export const updateEmployeeDetails =
         updateData
       );
       dispatch({ type: UPDATE_EMPLOYEE_DETAILS, payload: res.data });
+      console.log(res.data);
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
+export const changePassword =
+  (empId: string, password: string) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING });
+    try {
+      const res = await axios.post(
+        `http://localhost:4000/api/auth/changePassword/${empId}`,
+
+        { password: password }
+      );
+      dispatch({ type: CHANGE_PASSWORD, payload: res.data });
       console.log(res.data);
     } catch (error) {
       dispatch({
