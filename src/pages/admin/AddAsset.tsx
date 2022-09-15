@@ -110,6 +110,17 @@ export const AddAsset = () => {
                         size="small"
                         required
                         id="outlined-basic"
+                        label="Category"
+                        variant="outlined"
+                        onChange={(e) => {
+                          assetDetails.category = e.target.value;
+                        }}
+                      />
+                      <TextField
+                        margin="normal"
+                        size="small"
+                        required
+                        id="outlined-basic"
                         label="Brand"
                         variant="outlined"
                         onChange={(e) => {
