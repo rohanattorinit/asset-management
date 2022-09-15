@@ -91,7 +91,7 @@ export const AddAsset = () => {
                         label="Name"
                         variant="outlined"
                         onChange={(e) => {
-                          assetDetails.brandName = e.target.value;
+                          assetDetails.assetName = e.target.value;
                         }}
                       />
                       <TextField
