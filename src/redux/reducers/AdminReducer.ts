@@ -21,8 +21,8 @@ interface InitialState {
   assets: AssetTypes[];
   employeedetails: EmployeeType;
   employeeassetsdetails: AllocatedAssetType[];
-  message: string;
   error?: string;
+  message: string;
 }
 
 const initialState: InitialState = {

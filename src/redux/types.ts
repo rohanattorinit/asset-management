@@ -180,6 +180,27 @@ interface ChangePassword {
   };
 }
 
+interface SetAddEmployee {
+  type: typeof SET_ADDEMPLOYEE;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddAsset {
+  type: typeof SET_ADDASSET;
+  payload: {
+    message: string;
+  };
+}
+
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
 interface SetEmployeeDetails {
   type: typeof SET_EMPLOYEE_DETAILS;
   payload: { message: string; data: EmployeeType };
