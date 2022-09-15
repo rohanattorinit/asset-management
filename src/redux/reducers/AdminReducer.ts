@@ -12,6 +12,8 @@ interface InitialState {
   loading: boolean;
   employees: EmployeeType[];
   assets: AssetTypes[];
+
+  message: string;
   error?: string;
 }
 
@@ -19,6 +21,7 @@ const initialState: InitialState = {
   loading: false,
   employees: [],
   assets: [],
+  message: "",
   error: "",
 };
 
@@ -31,6 +34,8 @@ const adminReducer = (
       return {
         ...state,
         loading: true,
+        message: "",
+        error: "",
       };
     case SET_EMPLOYEES:
       return {

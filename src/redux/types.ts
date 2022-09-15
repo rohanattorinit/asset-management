@@ -112,9 +112,6 @@ export type DispatchTypes =
   | Loading
   | SetEmployeeAssets
   | SetAssets
-
   | UpdateEmployeeDetails
-  | SetEmployee;
-
+  | SetEmployee
   | SetLogout;
-
