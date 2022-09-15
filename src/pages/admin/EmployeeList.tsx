@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Grid,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -15,15 +16,22 @@ import {
 import React, { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getEmployees } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+//import { blue, lightBlue } from "@mui/material/colors";
 
 function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
+  let navigate = useNavigate();
 
   const { employees } = useSelector((state: RootStore) => state.admin);
+
+  const setEmployeeDetails = (empId: string) => {
+    navigate(`/admin/employee/${empId}`);
+  };
 
   useEffect(() => {
     dispatch(getEmployees());
@@ -62,7 +70,7 @@ function EmpList() {
             <Button
               variant="outlined"
               color="primary"
-              component={RouterLink}
+              component={Link}
               to="/admin/employee/create"
             >
               Add new Employee
@@ -83,9 +91,6 @@ function EmpList() {
                       <Typography align="center">Email</Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Typography align="center">Job Title</Typography>
-                    </TableCell>
-                    <TableCell align="right">
                       <Typography align="center">Contact No.</Typography>
                     </TableCell>
                     <TableCell align="right">
@@ -101,9 +106,13 @@ function EmpList() {
                       </TableCell>
                       <TableCell align="center">{employee.name}</TableCell>
                       <TableCell align="center">{employee.email}</TableCell>
-                      <TableCell align="center">{employee.jobTitle}</TableCell>
                       <TableCell align="center">{employee.phone}</TableCell>
                       <TableCell align="center">{employee.location}</TableCell>
+                      <IconButton
+                        onClick={() => setEmployeeDetails(employee.empId)}
+                      >
+                        <OpenInNewIcon sx={{ color: "darkblue" }} />
+                      </IconButton>
                     </TableRow>
                   ))}
                 </TableBody>

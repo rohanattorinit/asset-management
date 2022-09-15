@@ -26,6 +26,7 @@ import { AddAsset } from "./pages/admin/AddAsset";
 import ProtectedLoginRoute, {
   LoginRouteProps,
 } from "./utils/ProtectedLoginRoute";
+import EmployeeDetails from "./pages/admin/EmployeeDetails";
 
 function App() {
   const {
@@ -156,6 +157,15 @@ function App() {
               <ProtectedAdminRoute
                 {...defaultProtectedAdminRouteProps}
                 outlet={<AddAsset />}
+              />
+            }
+          />
+          <Route
+            path="/admin/employee/:empId"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<EmployeeDetails />}
               />
             }
           />

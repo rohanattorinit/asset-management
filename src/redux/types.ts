@@ -1,5 +1,3 @@
-
-
 export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 
 export const LOADING_DATA = 'LOADING_DATA'
@@ -36,6 +34,7 @@ export interface CreateEmployeeType {
   phone?: number
   location: string
   jobTitle: string
+
 }
 export interface EmployeeType {
   empId: string
@@ -151,6 +150,27 @@ interface ChangePassword {
   };
 }
 
+interface SetAddEmployee {
+  type: typeof SET_ADDEMPLOYEE;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddAsset {
+  type: typeof SET_ADDASSET;
+  payload: {
+    message: string;
+  };
+}
+
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -164,5 +184,7 @@ export type DispatchTypes =
   | SetLogout
   | ChangePassword
   | SetAddEmployee
-  | SetAddAsset
+  | SetAddAsset;
+
+
 

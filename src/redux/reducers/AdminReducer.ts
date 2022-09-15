@@ -13,6 +13,8 @@ interface InitialState {
   loading: boolean;
   employees: EmployeeType[];
   assets: AssetTypes[];
+
+  message: string;
   error?: string;
   message: string;
 }
@@ -21,6 +23,7 @@ const initialState: InitialState = {
   loading: false,
   employees: [],
   assets: [],
+  message: "",
   error: "",
   message: "",
 };
