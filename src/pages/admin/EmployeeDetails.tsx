@@ -6,7 +6,16 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Grid, Typography, IconButton, Box } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  IconButton,
+  Box,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Select,
+} from "@mui/material";
 import SideBar from "../../components/Sidebar/Sidebar";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import Button from "@mui/material/Button";
@@ -14,7 +23,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-import TextField from "@mui/material/TextField";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 function createData(
   name: string,
@@ -34,6 +43,18 @@ const rows = [
 ];
 
 export default function EmployeeDetails() {
+  const [values, setValues] = React.useState([
+    "Laptop",
+    "Mouse",
+    "KeyBoard",
+    "Charger",
+  ]);
+  const [selected, setSelected] = useState("Bam");
+
+  function handleChange(event: any) {
+    setSelected(event.target.value);
+  }
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -158,14 +179,45 @@ export default function EmployeeDetails() {
         <form>
           <DialogTitle>Allocate Asset</DialogTitle>
           <DialogContent>
-            <TextField
-              margin="dense"
-              name="name"
-              label="Name"
-              type="text"
-              fullWidth
-              variant="outlined"
-            />
+            <InputLabel htmlFor="agent-simple">Category</InputLabel>
+            <Select value={selected} onChange={handleChange}>
+              {values.map((value, index) => {
+                return <MenuItem value={value}>{value}</MenuItem>;
+              })}
+            </Select>
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>AssetID</TableCell>
+                    <TableCell align="right">Name</TableCell>
+                    <TableCell align="right">Allocate</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right">{row.calories}</TableCell>
+                      <Button
+                        onClick={() => {
+                          alert("Asset is Alloted");
+                        }}
+                      >
+                        <CheckCircleOutlineIcon sx={{ color: "darkblue" }} />
+                      </Button>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </DialogContent>
           <DialogActions>
             <Button type="submit">Close</Button>
