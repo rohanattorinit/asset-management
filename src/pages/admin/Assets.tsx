@@ -50,6 +50,7 @@ function Assets() {
               <TableCell align="center">{filteredAsset.assetId}</TableCell>
               <TableCell align="center">{filteredAsset.modelNo}</TableCell>
               <TableCell align="center">{filteredAsset.name}</TableCell>
+              <TableCell align="center">{filteredAsset.category}</TableCell>
               <TableCell align="center">{filteredAsset.status}</TableCell>
               <TableCell align="center">{filteredAsset.usability}</TableCell>
             </TableRow>
@@ -93,6 +94,7 @@ function Assets() {
                   <TableCell align="center">ID</TableCell>
                   <TableCell align="center">Serial No.</TableCell>
                   <TableCell align="center">Name</TableCell>
+                  <TableCell align="center">Category</TableCell>
                   <TableCell align="center">Status</TableCell>
                   <TableCell align="center">Usability</TableCell>
                 </TableRow>
