@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -23,6 +23,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { RootStore } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { getEmployee } from "../../redux/actions/EmployeeActions";
+import { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
 
 function createData(
   name: string,
@@ -42,6 +47,17 @@ const rows = [
 ];
 
 export default function EmployeeDetails() {
+  const { employeedetails, employeeassetsdetails } = useSelector(
+    (state: RootStore) => state.admin
+  );
+
+  const dispatch: Dispatch<any> = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getEmployee(user.empId));
+  //   if (message) alert(message);
+  // }, [dispatch, user.empId, message]);
+
   const [values, setValues] = React.useState([
     "Laptop",
     "Mouse",
@@ -79,10 +95,11 @@ export default function EmployeeDetails() {
               >
                 {" "}
                 Employee ID:
-                <Typography variant="body1">{"E004"}</Typography>
+                <Typography variant="body1">{employeedetails.empId}</Typography>
               </Typography>
               <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                Name:<Typography variant="body1">{"Archana"}</Typography>
+                Name:
+                <Typography variant="body1">{employeedetails.name}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -91,7 +108,9 @@ export default function EmployeeDetails() {
                 mt={2}
               >
                 Job Title:
-                <Typography variant="body1">{"JSE"}</Typography>
+                <Typography variant="body1">
+                  {employeedetails.jobTitle}
+                </Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -100,7 +119,7 @@ export default function EmployeeDetails() {
                 mt={2}
               >
                 Email:
-                <Typography variant="body1">{"archana@gmail.com"}</Typography>
+                <Typography variant="body1">{employeedetails.email}</Typography>
               </Typography>
             </Grid>
 
@@ -111,7 +130,8 @@ export default function EmployeeDetails() {
                 variant="h6"
                 mt={2}
               >
-                Phone:<Typography variant="body1">{"9876543210"}</Typography>
+                Phone:
+                <Typography variant="body1">{employeedetails.phone}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -120,7 +140,9 @@ export default function EmployeeDetails() {
                 mt={2}
               >
                 Location:
-                <Typography variant="body1">{"pune"}</Typography>
+                <Typography variant="body1">
+                  {employeedetails.location}
+                </Typography>
               </Typography>
             </Grid>
           </Grid>
@@ -143,26 +165,26 @@ export default function EmployeeDetails() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Dessert (100g serving)</TableCell>
-                  <TableCell align="right">Calories</TableCell>
-                  <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                  <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                  <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                  <TableCell align="right">Asset ID</TableCell>
+                  <TableCell align="right">Asset Name</TableCell>
+                  <TableCell align="right">Model No</TableCell>
+                  <TableCell align="right">Category</TableCell>
+                  <TableCell align="right">Allocation Time</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {employeeassetsdetails.map((asset) => (
                   <TableRow
-                    key={row.name}
+                    key={asset.assetId}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {row.name}
+                      {asset.assetId}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+                    <TableCell align="right">{asset.name}</TableCell>
+                    <TableCell align="right">{asset.modelNo}</TableCell>
+                    <TableCell align="right">{asset.category}</TableCell>
+                    <TableCell align="right">{asset.addedTime}</TableCell>
                     <IconButton>
                       <RemoveCircleIcon sx={{ color: "#dc2626" }} />
                     </IconButton>
