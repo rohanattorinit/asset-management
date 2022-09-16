@@ -79,6 +79,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Type"
                         variant="outlined"
+                        placeholder="E.g: Hardware"
                         onChange={(e) => {
                           assetDetails.assetType = e.target.value;
                         }}
@@ -90,6 +91,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Name"
                         variant="outlined"
+                        placeholder="E.g: Macbook M1"
                         onChange={(e) => {
                           assetDetails.assetName = e.target.value;
                         }}
@@ -101,6 +103,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Status"
                         variant="outlined"
+                        placeholder="E.g: available"
                         onChange={(e) => {
                           assetDetails.status = e.target.value;
                         }}
@@ -112,6 +115,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Category"
                         variant="outlined"
+                        placeholder="E.g: Laptop"
                         onChange={(e) => {
                           assetDetails.category = e.target.value;
                         }}
@@ -123,6 +127,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Brand"
                         variant="outlined"
+                        placeholder="E.g: Apple"
                         onChange={(e) => {
                           assetDetails.brandName = e.target.value;
                         }}
@@ -134,6 +139,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Model No"
                         variant="outlined"
+                        placeholder="E.g: 12345678"
                         onChange={(e) => {
                           assetDetails.modelNo = e.target.value;
                         }}
@@ -145,6 +151,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Description"
                         variant="outlined"
+                        placeholder="E.g: M1 processor, 256GB SSD"
                         onChange={(e) => {
                           assetDetails.description = e.target.value;
                         }}
@@ -156,6 +163,7 @@ export const AddAsset = () => {
                         id="outlined-basic"
                         label="Usability"
                         variant="outlined"
+                        placeholder="E.g: usable"
                         onChange={(e) => {
                           assetDetails.usability = e.target.value;
                         }}
