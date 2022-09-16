@@ -1,4 +1,5 @@
 import {
+  ALLOCATE_EMPLOYEE_ASSET,
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
   SET_ADDASSET,
@@ -128,6 +129,25 @@ export const deallocateAssets =
       });
     }
   };
+
+export const allocateAssets =
+  (empId: string, assetId: number) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.post(
+        `http://localhost:4000/api/admin/allocateAsset/${empId}/${assetId}`
+      );
+
+      dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
 function dispatch(arg0: { type: string; payload: any }) {
   throw new Error("Function not implemented.");
 }
