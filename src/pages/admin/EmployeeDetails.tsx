@@ -78,9 +78,15 @@ export default function EmployeeDetails() {
   return (
     <Grid container>
       <SideBar />
-      <Grid item xs={12} md={10} p={2}>
+      <Grid
+        item
+        xs={12}
+        md={10}
+        p={2}
+        sx={{ height: "88vh", overflowX: "auto" }}
+      >
         <Paper sx={{ display: "flex", padding: 1 }} elevation={5}>
-          <Grid container>
+          <Grid container m={2}>
             <Grid item xs={12} md={4}>
               <Typography
                 fontFamily="serif"
@@ -94,7 +100,12 @@ export default function EmployeeDetails() {
               </Typography>
               <Typography fontFamily="serif" fontWeight="bold" variant="h6">
                 Name:
-                <Typography variant="body1">{employeedetails.name}</Typography>
+                <Typography
+                  sx={{ textTransform: "capitalize" }}
+                  variant="body1"
+                >
+                  {employeedetails.name}
+                </Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -103,7 +114,10 @@ export default function EmployeeDetails() {
                 mt={2}
               >
                 Job Title:
-                <Typography variant="body1">
+                <Typography
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
+                >
                   {employeedetails.jobTitle}
                 </Typography>
               </Typography>
@@ -135,7 +149,10 @@ export default function EmployeeDetails() {
                 mt={2}
               >
                 Location:
-                <Typography variant="body1">
+                <Typography
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
+                >
                   {employeedetails.location}
                 </Typography>
               </Typography>
@@ -147,10 +164,13 @@ export default function EmployeeDetails() {
             sx={{
               display: "flex",
               justifyContent: "space-between",
+              margin: "10px",
             }}
           >
-            <Typography variant="h5">Current Asset</Typography>
-            <Box display="flex">
+            <Typography m={2} variant="h5">
+              Current Asset
+            </Typography>
+            <Box m={2} display="flex">
               <Button variant="outlined" onClick={handleClickOpen}>
                 Allocate
               </Button>

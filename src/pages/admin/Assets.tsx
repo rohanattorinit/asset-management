@@ -16,7 +16,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -62,7 +62,13 @@ function Assets() {
   return (
     <Grid container>
       <SideBar />
-      <Grid item xs={12} md={10} p={3}>
+      <Grid
+        item
+        xs={12}
+        md={10}
+        p={3}
+        sx={{ height: "88vh", overflowX: "auto" }}
+      >
         <Box
           display="flex"
           justifyContent="space-between"

@@ -49,7 +49,13 @@ export const AddEmployee = () => {
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
-      <Grid item xs={12} md={10} p={3}>
+      <Grid
+        item
+        xs={12}
+        md={10}
+        p={3}
+        sx={{ height: "88vh", overflowX: "auto" }}
+      >
         <Box>
           <Card
             sx={{
@@ -155,7 +161,7 @@ export const AddEmployee = () => {
                     alignItems="center"
                     sx={{ marginY: "6rem" }}
                   >
-                    <DragAndDrop />
+                    <DragAndDrop type="employee" />
                   </Box>
                 </Grid>
               </Grid>
