@@ -1,3 +1,4 @@
+import { CREATE_TICKET } from "./../types";
 import axios from "axios";
 import { Dispatch } from "redux";
 import {
@@ -83,6 +84,25 @@ export const changePassword =
       );
       dispatch({ type: CHANGE_PASSWORD, payload: res.data });
       console.log(res.data);
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
+export const createTicket =
+  (empId: string, assetId: number, title: string, description: string) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING });
+    try {
+      const res = await axios.post(
+        `http://localhost:4000/api/tickets/createTicket`,
+        { empId, assetId, title, description }
+      );
+      alert("Ticket created successfully!");
+      dispatch({ type: CREATE_TICKET, payload: res.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,

@@ -10,7 +10,10 @@ import TableRow from "@mui/material/TableRow";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { getEmployeeAssets } from "../../redux/actions/EmployeeActions";
+import {
+  createTicket,
+  getEmployeeAssets,
+} from "../../redux/actions/EmployeeActions";
 import BuildIcon from "@mui/icons-material/Build";
 import Tooltip from "@mui/material/Tooltip";
 import Dialog from "@mui/material/Dialog";
@@ -19,9 +22,19 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 
+interface TicketType {
+  title: string;
+  description: string;
+}
+
 export default function Asset() {
   const [open, setOpen] = useState(false);
+  const [assetId, setAssetId] = useState<number>();
 
+  const ticket: TicketType = {
+    title: "",
+    description: "",
+  };
   const {
     login: {
       user: { empId },
@@ -35,8 +48,16 @@ export default function Asset() {
     dispatch(getEmployeeAssets(empId));
   }, [dispatch, empId]);
 
+  const handleClick = (assetId: number) => {
+    setAssetId(assetId);
+    setOpen(true);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(
+      createTicket(empId, assetId as number, ticket.title, ticket.description)
+    );
     setOpen(false);
   };
 
@@ -58,21 +79,21 @@ export default function Asset() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {assets.map((row) => (
+                {assets.map((asset) => (
                   <TableRow
-                    key={row.name}
+                    key={asset.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {row.assetId}
+                      {asset.assetId}
                     </TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.modelno}</TableCell>
-                    <TableCell align="right">{row.category}</TableCell>
-                    <TableCell align="right">{row.allocationTime}</TableCell>
+                    <TableCell align="right">{asset.name}</TableCell>
+                    <TableCell align="right">{asset.modelno}</TableCell>
+                    <TableCell align="right">{asset.category}</TableCell>
+                    <TableCell align="right">{asset.allocationTime}</TableCell>
                     <TableCell align="right">
                       <Tooltip title="Create Ticket">
-                        <IconButton onClick={() => setOpen(true)}>
+                        <IconButton onClick={() => handleClick(asset.assetId)}>
                           <BuildIcon sx={{ cursor: "pointer" }} />
                         </IconButton>
                       </Tooltip>
@@ -97,6 +118,9 @@ export default function Asset() {
               type="text"
               fullWidth
               variant="outlined"
+              onChange={(e) => {
+                ticket.title = e.target.value;
+              }}
             />
             <TextField
               margin="dense"
@@ -108,6 +132,9 @@ export default function Asset() {
               variant="outlined"
               multiline
               rows={4}
+              onChange={(e) => {
+                ticket.description = e.target.value;
+              }}
             />
           </DialogContent>
           <DialogActions>
