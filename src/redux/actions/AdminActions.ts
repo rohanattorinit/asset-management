@@ -53,6 +53,7 @@ export const addEmployee =
         "http://localhost:4000/api/employees",
         employeeDetails
       );
+      alert(res.data.message);
       dispatch({ type: SET_ADDEMPLOYEE, payload: res.data });
     } catch (error) {
       dispatch({
@@ -71,6 +72,7 @@ export const addAsset =
         "http://localhost:4000/api/assets/addAsset",
         assetDetails
       );
+      alert(res.data.message);
       dispatch({ type: SET_ADDASSET, payload: res.data });
     } catch (error) {
       dispatch({

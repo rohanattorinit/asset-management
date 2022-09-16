@@ -9,6 +9,7 @@ import {
   SET_EMPLOYEE_ASSETS,
   SET_ERROR,
   UPDATE_EMPLOYEE_DETAILS,
+  CREATE_TICKET,
 } from "../types";
 
 interface InitialState {
@@ -80,12 +81,19 @@ const employeeReducer = (
         loading: false,
         message: action.payload.message,
       };
+    case CREATE_TICKET:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload.message,
+      };
     case SET_ERROR:
       return {
         ...state,
         error: action.payload,
         loading: false,
       };
+
     default:
       return state;
   }

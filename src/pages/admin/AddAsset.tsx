@@ -37,7 +37,6 @@ export const AddAsset = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addAsset(assetDetails));
-    alert(message);
   };
 
   const StyledTypography = styled(Typography)({
