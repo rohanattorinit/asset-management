@@ -39,7 +39,6 @@ export const AddEmployee = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addEmployee(employeeDetails));
-    alert(message);
   };
 
   const FlexContainer = styled(Container)({
@@ -129,6 +128,7 @@ export const AddEmployee = () => {
                         id="outlined-basic"
                         label="Phone No"
                         variant="outlined"
+                        inputProps={{ minlength: 10, maxLength: 10 }}
                       />
                       <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button

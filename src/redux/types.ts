@@ -19,7 +19,14 @@ export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
 export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
 export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
 export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
+export const CREATE_TICKET = "CREATE_TICKET";
 
+export interface CreateTicketType {
+  empId: string;
+  assetId: number;
+  title: string;
+  description: string;
+}
 export interface CreateAssetType {
   brandName: string;
   assetName: string;
@@ -238,6 +245,13 @@ interface SetAllocateAsset {
   };
 }
 
+interface CreateTicket {
+  type: typeof CREATE_TICKET;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -255,4 +269,5 @@ export type DispatchTypes =
   | SetEmployeeDetails
   | setEmployeeAssetDetails
   | SetDeAllocateAsset
-  | SetAllocateAsset;
+  | SetAllocateAsset
+  | CreateTicket;
