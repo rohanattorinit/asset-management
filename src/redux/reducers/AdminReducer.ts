@@ -1,5 +1,6 @@
 import {
   AllocatedAssetType,
+  ALLOCATE_EMPLOYEE_ASSET,
   DEALLOCATE_EMPLOYEE_ASSET,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
@@ -22,6 +23,7 @@ interface InitialState {
   assets: AssetTypes[];
   employeedetails: EmployeeType;
   employeeassetsdetails: AllocatedAssetType[];
+
   error?: string;
   message: string;
 }
@@ -103,6 +105,12 @@ const adminReducer = (
         loading: false,
       };
 
+    case ALLOCATE_EMPLOYEE_ASSET:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
     case SET_ERROR:
       return {
         ...state,

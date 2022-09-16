@@ -18,6 +18,7 @@ export const SET_ADDASSET = "SET_ADDASSET";
 export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
 export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
 export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
+export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
 
 export interface CreateAssetType {
   brandName: string;
@@ -230,6 +231,13 @@ interface SetDeAllocateAsset {
   };
 }
 
+interface SetAllocateAsset {
+  type: typeof ALLOCATE_EMPLOYEE_ASSET;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -246,4 +254,5 @@ export type DispatchTypes =
   | SetAddAsset
   | SetEmployeeDetails
   | setEmployeeAssetDetails
-  | SetDeAllocateAsset;
+  | SetDeAllocateAsset
+  | SetAllocateAsset;
