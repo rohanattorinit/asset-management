@@ -22,6 +22,7 @@ import { useDispatch } from "react-redux";
 import {
   deallocateAssets,
   getAssetDetails,
+  getAssets,
 } from "../../redux/actions/AdminActions";
 
 export default function EmployeeDetails() {
@@ -32,6 +33,7 @@ export default function EmployeeDetails() {
 
   useEffect(() => {
     dispatch(getAssetDetails(employeedetails.empId));
+    dispatch(getAssets());
   }, [dispatch, employeedetails.empId, message]);
 
   const [search, setSearch] = useState("");
