@@ -133,7 +133,13 @@ export default function Profile() {
                 fontWeight="bold"
                 variant="h6"
               >
-                Name:<Typography variant="body1">{employee.name}</Typography>
+                Name:
+                <Typography
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {employee.name}
+                </Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -142,7 +148,12 @@ export default function Profile() {
                 mt={2}
               >
                 Job Title:
-                <Typography variant="body1">{employee.jobTitle}</Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {employee.jobTitle}
+                </Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -171,7 +182,12 @@ export default function Profile() {
                 mt={2}
               >
                 Location:
-                <Typography variant="body1">{employee.location}</Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {employee.location}
+                </Typography>
               </Typography>
             </Grid>
           </Grid>

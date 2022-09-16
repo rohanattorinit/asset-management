@@ -22,7 +22,13 @@ function Services() {
     <>
       <Grid container>
         <SideBar />
-        <Grid item xs={12} md={10} p={3}>
+        <Grid
+          item
+          xs={12}
+          md={10}
+          p={3}
+          sx={{ height: "88vh", overflowX: "auto" }}
+        >
           <Box my={3} sx={{ display: "flex", justifyContent: "space-between" }}>
             <TextField label="search here..."></TextField>
             <FormControl sx={{ width: 300 }}>
