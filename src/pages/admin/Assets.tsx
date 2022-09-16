@@ -16,7 +16,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
