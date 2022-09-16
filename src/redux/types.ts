@@ -1,3 +1,5 @@
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
@@ -12,6 +14,21 @@ export const SET_EMPLOYEE = "SET_EMPLOYEE";
 export const SET_LOGOUT = "SET_LOGOUT";
 export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
 export const SET_ADDASSET = "SET_ADDASSET";
+
+export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
+export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
+export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
+
+export interface CreateAssetType {
+  brandName: string;
+  assetName: string;
+  assetType: string;
+  category: string;
+  modelNo: string;
+  description: string;
+  status: string;
+  usability: string;
+}
 
 export interface CreateEmployeeType {
   empId?: string;
@@ -50,6 +67,22 @@ export interface AssetTypes {
   status: string;
   usability: string;
   addedTime: string;
+}
+
+export interface AllocatedAssetType {
+  assetId: number;
+  name: string;
+  category: string;
+  modelno: number;
+  allocationTime: string;
+}
+
+export interface DeAllocatAssetType {
+  assetId: number;
+  name: string;
+  category: string;
+  modelno: number;
+  allocationTime: string;
 }
 
 interface LoadingData {
@@ -128,6 +161,75 @@ interface SetAddAsset {
   };
 }
 
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddEmployee {
+  type: typeof SET_ADDEMPLOYEE;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddAsset {
+  type: typeof SET_ADDASSET;
+  payload: {
+    message: string;
+  };
+}
+
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddEmployee {
+  type: typeof SET_ADDEMPLOYEE;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddAsset {
+  type: typeof SET_ADDASSET;
+  payload: {
+    message: string;
+  };
+}
+
+interface ChangePassword {
+  type: typeof CHANGE_PASSWORD;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetEmployeeDetails {
+  type: typeof SET_EMPLOYEE_DETAILS;
+  payload: { message: string; data: EmployeeType };
+}
+
+interface setEmployeeAssetDetails {
+  type: typeof SET_EMPLOYEE_ASSETS_DETAILS;
+  payload: {
+    message: string;
+    data: AllocatedAssetType[];
+  };
+}
+
+interface SetDeAllocateAsset {
+  type: typeof DEALLOCATE_EMPLOYEE_ASSET;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -139,5 +241,9 @@ export type DispatchTypes =
   | UpdateEmployeeDetails
   | SetEmployee
   | SetLogout
+  | ChangePassword
   | SetAddEmployee
-  | SetAddAsset;
+  | SetAddAsset
+  | SetEmployeeDetails
+  | setEmployeeAssetDetails
+  | SetDeAllocateAsset;

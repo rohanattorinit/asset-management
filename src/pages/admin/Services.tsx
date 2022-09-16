@@ -50,7 +50,6 @@ function Services() {
                   <TableCell>ID</TableCell>
                   <TableCell align="right">Ticket ID</TableCell>
                   <TableCell align="right">EMP ID</TableCell>
-                  <TableCell align="right">Type</TableCell>
                   <TableCell align="right">Ticket Status</TableCell>
                 </TableRow>
               </TableHead>
@@ -62,7 +61,6 @@ function Services() {
                   <TableCell align="right">1000</TableCell>
                   <TableCell align="right">TORNT101</TableCell>
                   <TableCell align="right">Active</TableCell>
-                  <TableCell align="right">Usable</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

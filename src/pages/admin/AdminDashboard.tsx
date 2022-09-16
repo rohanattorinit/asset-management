@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import { Grid, Typography } from "@mui/material";
-import React from "react";
-
 import SideBar from "../../components/Sidebar/Sidebar";
 
 const StlyedGrid = styled(Grid)({
@@ -28,7 +26,7 @@ function AdminDashboard() {
             Dashboard{" "}
           </Typography>
 
-          <Grid container justifyContent="center">
+          <Grid spacing={2} container justifyContent="center">
             <StlyedGrid>
               <Typography variant="h5" color="primary">
                 {" "}
