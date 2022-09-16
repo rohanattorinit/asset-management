@@ -20,8 +20,10 @@ import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import {
+  allocateAssets,
   deallocateAssets,
   getAssetDetails,
+  getAssets,
 } from "../../redux/actions/AdminActions";
 
 export default function EmployeeDetails() {
@@ -32,6 +34,7 @@ export default function EmployeeDetails() {
 
   useEffect(() => {
     dispatch(getAssetDetails(employeedetails.empId));
+    dispatch(getAssets());
   }, [dispatch, employeedetails.empId, message]);
 
   const [search, setSearch] = useState("");
@@ -40,7 +43,9 @@ export default function EmployeeDetails() {
   };
 
   const filteredAsset = assets.filter((asset) => {
-    if (search.length === 0) return asset;
+    if (search.length === 0) {
+      return asset.status === "available" && asset.usability === "usable";
+    }
     return asset.name.toLowerCase().startsWith(search.toLowerCase());
   });
 
@@ -58,6 +63,9 @@ export default function EmployeeDetails() {
     dispatch(deallocateAssets(employeedetails.empId, assetId));
   };
 
+  const handleAllocate = (assetID: number) => {
+    dispatch(allocateAssets(employeedetails.empId, assetID));
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setOpen(false);
@@ -218,7 +226,10 @@ export default function EmployeeDetails() {
                           alert("Asset is Alloted");
                         }}
                       >
-                        <CheckCircleOutlineIcon sx={{ color: "darkblue" }} />
+                        <CheckCircleOutlineIcon
+                          sx={{ color: "darkblue" }}
+                          onClick={() => handleAllocate(asset.assetId)}
+                        />
                       </Button>
                     </TableRow>
                   ))}
