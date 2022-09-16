@@ -1,5 +1,5 @@
-import { Grid, Typography, Box } from "@mui/material";
-import React, { Dispatch, useEffect } from "react";
+import { Grid, Typography, Box, IconButton, Button } from "@mui/material";
+import React, { Dispatch, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,8 +11,17 @@ import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { getEmployeeAssets } from "../../redux/actions/EmployeeActions";
+import BuildIcon from "@mui/icons-material/Build";
+import Tooltip from "@mui/material/Tooltip";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
 
 export default function Asset() {
+  const [open, setOpen] = useState(false);
+
   const {
     login: {
       user: { empId },
@@ -25,6 +34,11 @@ export default function Asset() {
   useEffect(() => {
     dispatch(getEmployeeAssets(empId));
   }, [dispatch, empId]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setOpen(false);
+  };
 
   return (
     <Grid container>
@@ -56,6 +70,13 @@ export default function Asset() {
                     <TableCell align="right">{row.modelno}</TableCell>
                     <TableCell align="right">{row.category}</TableCell>
                     <TableCell align="right">{row.allocationTime}</TableCell>
+                    <TableCell align="right">
+                      <Tooltip title="Create Ticket">
+                        <IconButton onClick={() => setOpen(true)}>
+                          <BuildIcon sx={{ cursor: "pointer" }} />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -63,6 +84,37 @@ export default function Asset() {
           </TableContainer>
         </Box>
       </Grid>
+
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <form onSubmit={handleSubmit}>
+          <DialogTitle>Create Ticket</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="dense"
+              name="Ticket Title"
+              required
+              label="Title"
+              type="text"
+              fullWidth
+              variant="outlined"
+            />
+            <TextField
+              margin="dense"
+              name="Ticket Description"
+              required
+              label="Describe issue..."
+              type="text"
+              fullWidth
+              variant="outlined"
+              multiline
+              rows={4}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit">Submit</Button>
+          </DialogActions>
+        </form>
+      </Dialog>
     </Grid>
   );
 }
