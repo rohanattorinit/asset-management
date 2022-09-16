@@ -98,9 +98,10 @@ export const createTicket =
     dispatch({ type: LOADING });
     try {
       const res = await axios.post(
-        `http://localhost:4000/api/tickets/createTicket/`,
+        `http://localhost:4000/api/tickets/createTicket`,
         { empId, assetId, title, description }
       );
+      alert("Ticket created successfully!");
       dispatch({ type: CREATE_TICKET, payload: res.data });
     } catch (error) {
       dispatch({
