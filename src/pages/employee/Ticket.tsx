@@ -32,19 +32,14 @@ export default function Ticket() {
         <Typography variant="h4" textAlign="center" marginY={5}>
           Ticket Status
         </Typography>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-evenly"
-          alignItems="center"
-        >
+        <Grid container direction="row">
           {tickets.map((tickets) => {
             return (
               <Card
-                sx={{ width: "18rem", height: "15rem" }}
+                sx={{ width: "18rem", height: "15rem", overflow: "auto" }}
                 key={tickets.ticketId}
               >
-                <CardHeader title={"#" + tickets.ticketId} />
+                <CardHeader title={"# " + tickets.ticketId} />
                 <CardContent>
                   <Typography variant="body1">
                     Title : {tickets.title}
