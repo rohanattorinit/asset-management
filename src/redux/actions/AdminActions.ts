@@ -6,7 +6,7 @@ import {
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
   SET_EMPLOYEE_DETAILS,
-} from "./../types";
+} from "../types";
 import axios from "axios";
 import { Dispatch } from "redux";
 import {
