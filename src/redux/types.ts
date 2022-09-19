@@ -7,14 +7,11 @@ export const SET_ERROR = "SET_ERROR";
 export const LOADING = "LOADING";
 export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
 export const SET_ASSETS = "SET_ASSETS";
-
 export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
 export const SET_EMPLOYEE = "SET_EMPLOYEE";
-
 export const SET_LOGOUT = "SET_LOGOUT";
 export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
 export const SET_ADDASSET = "SET_ADDASSET";
-
 export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
 export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
 export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
@@ -220,7 +217,10 @@ interface ChangePassword {
 
 interface SetEmployeeDetails {
   type: typeof SET_EMPLOYEE_DETAILS;
-  payload: { message: string; data: EmployeeType };
+  payload: {
+    message: string;
+    data: EmployeeType;
+  };
 }
 
 interface setEmployeeAssetDetails {
