@@ -23,7 +23,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { Dispatch, useEffect, useState } from "react";
-import { getServiceDetails } from "../../redux/actions/AdminActions";
+import {
+  getServiceDetails,
+  getServiceTicketDetails,
+} from "../../redux/actions/AdminActions";
 
 function Services() {
   const [status, setStatus] = useState("");
@@ -60,7 +63,9 @@ function Services() {
     } else return filteredService;
   });
 
-  const SetEmployeeDetails = () => {
+  const SetEmployeeDetails = (ticketId: number) => {
+    dispatch(getServiceTicketDetails(ticketId));
+
     navigate(`/admin/servicedetails`);
   };
 
@@ -105,10 +110,10 @@ function Services() {
               <TableHead>
                 <TableRow>
                   <TableCell>
-                    <Typography>Asset ID</Typography>
+                    <Typography>Ticket ID</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>Ticket ID</Typography>
+                    <Typography>Asset ID</Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography>Title</Typography>
@@ -125,10 +130,10 @@ function Services() {
                 {filteredService.map((serviceDetail) => (
                   <TableRow key={serviceDetail.ticketId}>
                     <TableCell component="th" scope="row">
-                      {serviceDetail.assetId}
+                      # {serviceDetail.ticketId}
                     </TableCell>
                     <TableCell align="center">
-                      {serviceDetail.ticketId}
+                      {serviceDetail.assetId}
                     </TableCell>
                     <TableCell align="center">{serviceDetail.title}</TableCell>
                     <TableCell align="center">{serviceDetail.empId}</TableCell>
@@ -138,7 +143,9 @@ function Services() {
                     >
                       {serviceDetail.ticketStatus}
                     </TableCell>
-                    <IconButton onClick={() => SetEmployeeDetails()}>
+                    <IconButton
+                      onClick={() => SetEmployeeDetails(serviceDetail.ticketId)}
+                    >
                       <OpenInNewIcon sx={{ color: "darkblue" }} />
                     </IconButton>
                   </TableRow>
