@@ -9,15 +9,66 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  TextField,
   TableHead,
   Box,
+  IconButton,
+  TextField,
+  Typography,
+  SelectChangeEvent,
 } from "@mui/material";
 
-import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStore } from "../../redux/store";
+import { Dispatch, useEffect, useState } from "react";
+import {
+  getServiceDetails,
+  getServiceTicketDetails,
+} from "../../redux/actions/AdminActions";
 
 function Services() {
+  const [status, setStatus] = useState("");
+
+  const handleStatusChange = (event: SelectChangeEvent) => {
+    setStatus(event.target.value as string);
+  };
+  let navigate = useNavigate();
+
+  const dispatch: Dispatch<any> = useDispatch();
+  const { serviceDetails } = useSelector((state: RootStore) => state.admin);
+
+  useEffect(() => {
+    dispatch(getServiceDetails());
+  }, [dispatch]);
+
+  const [search, setSearch] = useState("");
+  const handleChange = (e: any) => {
+    setSearch(e.target.value);
+  };
+
+  let filteredService = serviceDetails.filter((serviceDetail) => {
+    if (search.length === 0) return serviceDetails;
+    return serviceDetail.title.toLowerCase().startsWith(search.toLowerCase());
+  });
+
+  filteredService = filteredService.filter((serviceDetail) => {
+    if (status === "pending") {
+      return serviceDetail.ticketStatus.toLowerCase() === "pending";
+    } else if (status === "active") {
+      return serviceDetail.ticketStatus.toLowerCase() === "active";
+    } else if (status === "closed") {
+      return serviceDetail.ticketStatus.toLowerCase() === "closed";
+    } else return filteredService;
+  });
+
+  const SetEmployeeDetails = (ticketId: number) => {
+    dispatch(getServiceTicketDetails(ticketId));
+
+    navigate(`/admin/servicedetails`);
+  };
+
   return (
     <>
       <Grid container>
@@ -30,21 +81,26 @@ function Services() {
           sx={{ height: "88vh", overflowX: "auto" }}
         >
           <Box my={3} sx={{ display: "flex", justifyContent: "space-between" }}>
-            <TextField label="search here..."></TextField>
             <FormControl sx={{ width: 300 }}>
-              <InputLabel>Category</InputLabel>
-              <Select>
-                <MenuItem>All</MenuItem>
-                <MenuItem>Software</MenuItem>
-                <MenuItem>Hardware</MenuItem>
-              </Select>
+              <TextField
+                label="search here by title..."
+                onChange={handleChange}
+                value={search}
+              ></TextField>
             </FormControl>
             <FormControl sx={{ width: 300 }}>
-              <InputLabel>Status</InputLabel>
-              <Select>
-                <MenuItem>Inprogress</MenuItem>
-                <MenuItem>Active</MenuItem>
-                <MenuItem>Completed</MenuItem>
+              <InputLabel id="status">Status</InputLabel>
+              <Select
+                labelId="status"
+                id="Status"
+                value={status}
+                label="Ticket Status"
+                onChange={handleStatusChange}
+              >
+                <MenuItem value={"all"}>All</MenuItem>
+                <MenuItem value={"pending"}>Pending</MenuItem>
+                <MenuItem value={"active"}>Active</MenuItem>
+                <MenuItem value={"closed"}>Closed</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -53,21 +109,47 @@ function Services() {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell align="right">Ticket ID</TableCell>
-                  <TableCell align="right">EMP ID</TableCell>
-                  <TableCell align="right">Ticket Status</TableCell>
+                  <TableCell>
+                    <Typography>Ticket ID</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Asset ID</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Title</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>EMP ID</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Ticket Status</Typography>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    1000
-                  </TableCell>
-                  <TableCell align="right">1000</TableCell>
-                  <TableCell align="right">TORNT101</TableCell>
-                  <TableCell align="right">Active</TableCell>
-                </TableRow>
+                {filteredService.map((serviceDetail) => (
+                  <TableRow key={serviceDetail.ticketId}>
+                    <TableCell component="th" scope="row">
+                      # {serviceDetail.ticketId}
+                    </TableCell>
+                    <TableCell align="center">
+                      {serviceDetail.assetId}
+                    </TableCell>
+                    <TableCell align="center">{serviceDetail.title}</TableCell>
+                    <TableCell align="center">{serviceDetail.empId}</TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {serviceDetail.ticketStatus}
+                    </TableCell>
+                    <IconButton
+                      onClick={() => SetEmployeeDetails(serviceDetail.ticketId)}
+                    >
+                      <OpenInNewIcon sx={{ color: "darkblue" }} />
+                    </IconButton>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>

@@ -5,18 +5,23 @@ import {
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
-  SET_EMPLOYEE_DETAILS,
-} from "../types";
-import axios from "axios";
-import { Dispatch } from "redux";
+  SET_TICKET_STATUS,
+} from "./../types";
+
 import {
+  SET_EMPLOYEE_DETAILS,
+  SET_SERVICE_DETAILS,
   CreateEmployeeType,
   DispatchTypes,
   LOADING_DATA,
   SET_ASSETS,
   SET_EMPLOYEES,
   SET_ERROR,
-} from "../types";
+  SET_SERVICE_TICKET_DETAILS,
+} from "./../types";
+
+import axios from "axios";
+import { Dispatch } from "redux";
 
 export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
@@ -114,6 +119,37 @@ export const getAssetDetails =
     }
   };
 
+export const getServiceDetails =
+  () => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.get(`http://localhost:4000/api/tickets`);
+      dispatch({ type: SET_SERVICE_DETAILS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
+export const getServiceTicketDetails =
+  (ticketId: number) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.get(
+        `http://localhost:4000/api/tickets/${ticketId}`
+      );
+      console.log(res);
+      dispatch({ type: SET_SERVICE_TICKET_DETAILS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
 export const deallocateAssets =
   (empId: string, assetId: number) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
@@ -150,6 +186,40 @@ export const allocateAssets =
     }
   };
 
-function dispatch(arg0: { type: string; payload: any }) {
-  throw new Error("Function not implemented.");
-}
+export const changeTicketStatus =
+  (ticketId: number, status: string) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.post(
+        `http://localhost:4000/api/tickets/changeStatus/${ticketId}`,
+        { status }
+      );
+      alert(res.data.message);
+      dispatch({ type: SET_TICKET_STATUS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
+export const addNote =
+  (ticketId: number, note: string) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.post(
+        `http://localhost:4000/api/tickets/note/${ticketId}`,
+        { note }
+      );
+      alert(res.data.message);
+      dispatch({ type: SET_TICKET_STATUS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };

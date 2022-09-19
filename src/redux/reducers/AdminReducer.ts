@@ -1,13 +1,13 @@
+import { SET_ADD_NOTE, SET_TICKET_STATUS } from "./../types";
 import {
   AllocatedAssetType,
   ALLOCATE_EMPLOYEE_ASSET,
   DEALLOCATE_EMPLOYEE_ASSET,
+  SET_SERVICE_DETAILS,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
   SET_EMPLOYEE_DETAILS,
-} from "./../types";
-import {
   AssetTypes,
   DispatchTypes,
   EmployeeType,
@@ -15,6 +15,8 @@ import {
   SET_ASSETS,
   SET_EMPLOYEES,
   SET_ERROR,
+  ServiceType,
+  SET_SERVICE_TICKET_DETAILS,
 } from "../types";
 
 interface InitialState {
@@ -23,7 +25,8 @@ interface InitialState {
   assets: AssetTypes[];
   employeedetails: EmployeeType;
   employeeassetsdetails: AllocatedAssetType[];
-
+  serviceDetails: ServiceType[];
+  serviceticketdetails: ServiceType;
   error?: string;
   message: string;
 }
@@ -44,6 +47,16 @@ const initialState: InitialState = {
     jobTitle: "",
   },
   employeeassetsdetails: [],
+  serviceDetails: [],
+  serviceticketdetails: {
+    empId: "",
+    assetId: 0,
+    ticketId: 0,
+    title: "",
+    description: "",
+    ticketStatus: "",
+    createdAt: "",
+  },
 };
 
 const adminReducer = (
@@ -98,6 +111,20 @@ const adminReducer = (
         loading: false,
       };
 
+    case SET_SERVICE_TICKET_DETAILS:
+      return {
+        ...state,
+        serviceticketdetails: action.payload.data,
+        loading: false,
+      };
+
+    case SET_SERVICE_DETAILS:
+      return {
+        ...state,
+        serviceDetails: action.payload.data,
+        loading: false,
+      };
+
     case DEALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,
@@ -106,6 +133,18 @@ const adminReducer = (
       };
 
     case ALLOCATE_EMPLOYEE_ASSET:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
+    case SET_TICKET_STATUS:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
+    case SET_ADD_NOTE:
       return {
         ...state,
         message: action.payload.message,
