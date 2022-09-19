@@ -10,31 +10,35 @@ import {
   SET_ERROR,
   UPDATE_EMPLOYEE_DETAILS,
   CREATE_TICKET,
-} from "../types";
+  SET_EMPTICKETS,
+  EmpTicketType
+} from '../types'
 
 interface InitialState {
-  loading: boolean;
-  error?: string;
-  message: string;
-  assets: EmployeeAssetType[];
-  employee: EmployeeType;
+  loading: boolean
+  error?: string
+  message: string
+  assets: EmployeeAssetType[]
+  employee: EmployeeType
+  tickets: EmpTicketType[]
 }
 
 const initialState: InitialState = {
   loading: false,
-  error: "",
-  message: "",
+  error: '',
+  message: '',
   assets: [],
   employee: {
-    empId: "",
-    name: "",
-    email: "",
+    empId: '',
+    name: '',
+    email: '',
     phone: undefined,
-    location: "",
+    location: '',
     isAdmin: false,
-    jobTitle: "",
+    jobTitle: ''
   },
-};
+  tickets: []
+}
 
 const employeeReducer = (
   state: InitialState = initialState,
@@ -45,58 +49,65 @@ const employeeReducer = (
       return {
         ...state,
         loading: true,
-        error: "",
-        message: "",
-      };
+        error: '',
+        message: ''
+      }
     case LOADING_DATA:
       return {
         ...state,
         loading: true,
-        error: "",
-        message: "",
-      };
+        error: '',
+        message: ''
+      }
     case SET_EMPLOYEE_ASSETS:
       return {
         ...state,
         assets: action.payload.data,
         loading: false,
-        error: "",
-      };
+        error: ''
+      }
     case SET_EMPLOYEE:
       return {
         ...state,
         employee: action.payload.data,
         loading: false,
-        error: "",
-      };
+        error: ''
+      }
     case UPDATE_EMPLOYEE_DETAILS:
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
-      };
+        message: action.payload.message
+      }
     case CHANGE_PASSWORD:
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
-      };
+        message: action.payload.message
+      }
     case CREATE_TICKET:
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
-      };
+        message: action.payload.message
+      }
+
+    case SET_EMPTICKETS:
+      return {
+        ...state,
+        tickets: action.payload.data,
+        loading: false
+      }
     case SET_ERROR:
       return {
         ...state,
         error: action.payload,
-        loading: false,
-      };
+        loading: false
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default employeeReducer;
+export default employeeReducer
