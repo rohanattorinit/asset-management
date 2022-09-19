@@ -20,6 +20,7 @@ export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
 export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
 export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
 export const CREATE_TICKET = "CREATE_TICKET";
+export const SET_SERVICE_DETAILS = "SET_SERVICE_DETAILS";
 
 export interface CreateTicketType {
   empId: string;
@@ -54,6 +55,14 @@ export interface EmployeeType {
   location: string;
   isAdmin: boolean;
   jobTitle: string;
+}
+export interface ServiceType {
+  empId: string;
+  assetId: string;
+  ticketId: string;
+  title: string;
+  description: string;
+  ticketStatus: string;
 }
 
 export interface EmployeeAssetType {
@@ -223,6 +232,11 @@ interface SetEmployeeDetails {
   payload: { message: string; data: EmployeeType };
 }
 
+interface SetServiceDetails {
+  type: typeof SET_SERVICE_DETAILS;
+  payload: { message: string; data: ServiceType[] };
+}
+
 interface setEmployeeAssetDetails {
   type: typeof SET_EMPLOYEE_ASSETS_DETAILS;
   payload: {
@@ -270,4 +284,5 @@ export type DispatchTypes =
   | setEmployeeAssetDetails
   | SetDeAllocateAsset
   | SetAllocateAsset
-  | CreateTicket;
+  | CreateTicket
+  | SetServiceDetails;

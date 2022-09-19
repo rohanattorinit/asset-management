@@ -6,17 +6,16 @@ import {
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
   SET_EMPLOYEE_DETAILS,
-} from "./../types";
-import axios from "axios";
-import { Dispatch } from "redux";
-import {
+  SET_SERVICE_DETAILS,
   CreateEmployeeType,
   DispatchTypes,
   LOADING_DATA,
   SET_ASSETS,
   SET_EMPLOYEES,
   SET_ERROR,
-} from "../types";
+} from "./../types";
+import axios from "axios";
+import { Dispatch } from "redux";
 
 export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
@@ -114,6 +113,20 @@ export const getAssetDetails =
     }
   };
 
+export const getServiceDetails =
+  () => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.get(`http://localhost:4000/api/tickets`);
+      dispatch({ type: SET_SERVICE_DETAILS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
 export const deallocateAssets =
   (empId: string, assetId: number) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
@@ -149,7 +162,3 @@ export const allocateAssets =
       });
     }
   };
-
-function dispatch(arg0: { type: string; payload: any }) {
-  throw new Error("Function not implemented.");
-}
