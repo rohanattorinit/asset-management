@@ -19,12 +19,11 @@ import { useDispatch } from "react-redux";
 import { addNote, changeTicketStatus } from "../../redux/actions/AdminActions";
 
 export const ServiceDetails = () => {
-  const [note, setNote] = useState("");
-  // const note: { text: string } = { text: "" };
   const dispatch: Dispatch<any> = useDispatch();
   const { serviceticketdetails } = useSelector(
     (state: RootStore) => state.admin
   );
+  const [note, setNote] = useState("");
   const [select, setSelect] = useState(serviceticketdetails.ticketStatus);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -143,6 +142,7 @@ export const ServiceDetails = () => {
               <FormControl>
                 <InputLabel id="status">Status</InputLabel>
                 <Select
+                  sx={{ minWidth: "100px" }}
                   defaultValue={select}
                   value={select}
                   onChange={handleChange}
