@@ -15,6 +15,7 @@ import {
   SET_EMPLOYEES,
   SET_ERROR,
   ServiceType,
+  SET_SERVICE_TICKET_DETAILS,
 } from "../types";
 
 interface InitialState {
@@ -24,6 +25,7 @@ interface InitialState {
   employeedetails: EmployeeType;
   employeeassetsdetails: AllocatedAssetType[];
   serviceDetails: ServiceType[];
+  serviceticketdetails: ServiceType;
   error?: string;
   message: string;
 }
@@ -45,6 +47,15 @@ const initialState: InitialState = {
   },
   employeeassetsdetails: [],
   serviceDetails: [],
+  serviceticketdetails: {
+    empId: "",
+    assetId: 0,
+    ticketId: 0,
+    title: "",
+    description: "",
+    ticketStatus: "",
+    createdAt: "",
+  },
 };
 
 const adminReducer = (
@@ -96,6 +107,13 @@ const adminReducer = (
       return {
         ...state,
         employeeassetsdetails: action.payload.data,
+        loading: false,
+      };
+
+    case SET_SERVICE_TICKET_DETAILS:
+      return {
+        ...state,
+        serviceticketdetails: action.payload.data,
         loading: false,
       };
 
