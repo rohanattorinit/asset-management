@@ -1,26 +1,24 @@
-
 export const CREATE_TICKET = 'CREATE_TICKET'
-export const LOADING_DATA = "LOADING_DATA";
-export const SET_EMPLOYEES = "SET_EMPLOYEES";
-export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
-export const SET_ERROR = "SET_ERROR";
-export const LOADING = "LOADING";
-export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
-export const SET_ASSETS = "SET_ASSETS";
+export const LOADING_DATA = 'LOADING_DATA'
+export const SET_EMPLOYEES = 'SET_EMPLOYEES'
+export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
+export const SET_ERROR = 'SET_ERROR'
+export const LOADING = 'LOADING'
+export const SET_EMPLOYEE_ASSETS = 'SET_EMPLOYEE_ASSETS'
+export const SET_ASSETS = 'SET_ASSETS'
 
-export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
-export const SET_EMPLOYEE = "SET_EMPLOYEE";
+export const UPDATE_EMPLOYEE_DETAILS = 'UPDATE_EMPLOYEE_DETAILS'
+export const SET_EMPLOYEE = 'SET_EMPLOYEE'
 
-export const SET_LOGOUT = "SET_LOGOUT";
-export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
-export const SET_ADDASSET = "SET_ADDASSET";
+export const SET_LOGOUT = 'SET_LOGOUT'
+export const SET_ADDEMPLOYEE = 'SET_ADDEMPLOYEE'
+export const SET_ADDASSET = 'SET_ADDASSET'
 
-export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
-export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
-export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
-export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
-export const CREATE_TICKET = "CREATE_TICKET";
-export const SET_SERVICE_DETAILS = "SET_SERVICE_DETAILS";
+export const SET_EMPLOYEE_DETAILS = 'SET_EMPLOYEE_DETAILS'
+export const SET_EMPLOYEE_ASSETS_DETAILS = 'SET_EMPLOYEE_ASSETS_DETAILS'
+export const DEALLOCATE_EMPLOYEE_ASSET = 'DEALLOCATE_EMPLOYEE_ASSET'
+export const ALLOCATE_EMPLOYEE_ASSET = 'ALLOCATE_EMPLOYEE_ASSET'
+export const SET_SERVICE_DETAILS = 'SET_SERVICE_DETAILS'
 export const SET_EMPTICKETS = 'SET_EMPTICKETS'
 
 export interface EmpTicketType {
@@ -33,10 +31,7 @@ export interface EmpTicketType {
   createdAt: string
 }
 
-export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
-
-
-
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
 
 export interface CreateTicketType {
   empId: string
@@ -73,12 +68,12 @@ export interface EmployeeType {
   jobTitle: string
 }
 export interface ServiceType {
-  empId: string;
-  assetId: string;
-  ticketId: string;
-  title: string;
-  description: string;
-  ticketStatus: string;
+  empId: string
+  assetId: string
+  ticketId: string
+  title: string
+  description: string
+  ticketStatus: string
 }
 
 export interface EmployeeAssetType {
@@ -263,8 +258,8 @@ interface SetEmployeeDetails {
 }
 
 interface SetServiceDetails {
-  type: typeof SET_SERVICE_DETAILS;
-  payload: { message: string; data: ServiceType[] };
+  type: typeof SET_SERVICE_DETAILS
+  payload: { message: string; data: ServiceType[] }
 }
 
 interface setEmployeeAssetDetails {
@@ -308,8 +303,5 @@ export type DispatchTypes =
   | SetDeAllocateAsset
   | SetAllocateAsset
   | CreateTicket
-
   | SetEmployeeTicket
-
-  | SetServiceDetails;
-
+  | SetServiceDetails
