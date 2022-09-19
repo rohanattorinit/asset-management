@@ -162,7 +162,7 @@ export default function SideBar() {
               component={Link}
               to="/ticket"
             >
-              Request
+              Requests
             </Button>
           </Box>
         )}
