@@ -25,7 +25,6 @@ import {
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-//import { blue, lightBlue } from "@mui/material/colors";
 
 function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
