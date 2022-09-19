@@ -16,11 +16,10 @@ import { CreateEmployeeType } from "../../redux/types";
 import { Dispatch } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
-//import { RootStore } from "../../redux/store";
 
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  // const { message } = useSelector((state: RootStore) => state.admin);
+
   const employeeDetails: CreateEmployeeType = {
     empId: undefined,
     name: "",

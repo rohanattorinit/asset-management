@@ -1,3 +1,4 @@
+import { SET_ADD_NOTE, SET_TICKET_STATUS } from "./../types";
 import {
   AllocatedAssetType,
   ALLOCATE_EMPLOYEE_ASSET,
@@ -132,6 +133,18 @@ const adminReducer = (
       };
 
     case ALLOCATE_EMPLOYEE_ASSET:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
+    case SET_TICKET_STATUS:
+      return {
+        ...state,
+        message: action.payload.message,
+        loading: false,
+      };
+    case SET_ADD_NOTE:
       return {
         ...state,
         message: action.payload.message,
