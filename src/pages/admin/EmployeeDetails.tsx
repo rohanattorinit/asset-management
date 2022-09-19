@@ -37,6 +37,10 @@ export default function EmployeeDetails() {
     dispatch(getAssets());
   }, [dispatch, employeedetails.empId, message]);
 
+  useEffect(() => {
+    dispatch(getAssets());
+  }, [dispatch]);
+
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
     setSearch(e.target.value);
