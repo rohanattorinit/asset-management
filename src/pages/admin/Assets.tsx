@@ -14,6 +14,7 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
+  Typography,
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
@@ -98,12 +99,19 @@ function Assets() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">ID</TableCell>
-                  <TableCell align="center">Serial No.</TableCell>
-                  <TableCell align="center">Name</TableCell>
-                  <TableCell align="center">Category</TableCell>
-                  <TableCell align="center">Status</TableCell>
-                  <TableCell align="center">Usability</TableCell>
+                  <TableCell align="center">
+                  <Typography>ID</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                  <Typography>Serial No.</Typography></TableCell>
+                  <TableCell align="center">
+                  <Typography>Name</Typography></TableCell>
+                  <TableCell align="center">
+                  <Typography>Category</Typography></TableCell>
+                  <TableCell align="center">
+                  <Typography>Status</Typography></TableCell>
+                  <TableCell align="center">
+                  <Typography>Usability</Typography></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

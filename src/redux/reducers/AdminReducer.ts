@@ -2,12 +2,11 @@ import {
   AllocatedAssetType,
   ALLOCATE_EMPLOYEE_ASSET,
   DEALLOCATE_EMPLOYEE_ASSET,
+  SET_SERVICE_DETAILS,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
   SET_EMPLOYEE_DETAILS,
-} from "./../types";
-import {
   AssetTypes,
   DispatchTypes,
   EmployeeType,
@@ -15,6 +14,7 @@ import {
   SET_ASSETS,
   SET_EMPLOYEES,
   SET_ERROR,
+  ServiceType,
 } from "../types";
 
 interface InitialState {
@@ -23,7 +23,7 @@ interface InitialState {
   assets: AssetTypes[];
   employeedetails: EmployeeType;
   employeeassetsdetails: AllocatedAssetType[];
-
+  serviceDetails: ServiceType[];
   error?: string;
   message: string;
 }
@@ -44,6 +44,7 @@ const initialState: InitialState = {
     jobTitle: "",
   },
   employeeassetsdetails: [],
+  serviceDetails: [],
 };
 
 const adminReducer = (
@@ -95,6 +96,13 @@ const adminReducer = (
       return {
         ...state,
         employeeassetsdetails: action.payload.data,
+        loading: false,
+      };
+
+    case SET_SERVICE_DETAILS:
+      return {
+        ...state,
+        serviceDetails: action.payload.data,
         loading: false,
       };
 

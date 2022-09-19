@@ -25,6 +25,7 @@ import { AddEmployee } from "./pages/admin/AddEmployee";
 import { AddAsset } from "./pages/admin/AddAsset";
 
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
+import { ServiceDetails } from "./pages/admin/ServiceDetails";
 
 function App() {
   const {
@@ -36,11 +37,6 @@ function App() {
     authenticated: authenticated && !isAdmin,
     authenticationPath: "/login",
   };
-
-  // const defaultLoginRouteProps: Omit<LoginRouteProps, "outlet"> = {
-  //   authenticated: authenticated,
-  //   isAdmin: isAdmin,
-  // };
 
   const defaultProtectedAdminRouteProps: Omit<
     ProtectedAdminRouteProps,
@@ -59,10 +55,6 @@ function App() {
             path="/login"
             element={
               <Login />
-              // <ProtectedLoginRoute
-              //   // {...defaultLoginRouteProps}
-              //   outlet={<Login />}
-              // />
             }
           />
           <Route
@@ -164,6 +156,15 @@ function App() {
               <ProtectedAdminRoute
                 {...defaultProtectedAdminRouteProps}
                 outlet={<EmployeeDetails />}
+              />
+            }
+          />
+          <Route
+            path="/admin/servicedetails"
+            element={
+              <ProtectedAdminRoute
+                {...defaultProtectedAdminRouteProps}
+                outlet={<ServiceDetails />}
               />
             }
           />

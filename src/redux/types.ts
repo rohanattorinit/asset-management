@@ -1,5 +1,4 @@
-export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
-
+export const CREATE_TICKET = "CREATE_TICKET";
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
@@ -17,6 +16,20 @@ export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
 export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
 export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
 export const CREATE_TICKET = "CREATE_TICKET";
+export const SET_SERVICE_DETAILS = "SET_SERVICE_DETAILS";
+export const SET_EMPTICKETS = "SET_EMPTICKETS";
+
+export interface EmpTicketType {
+  ticketId: number;
+  empId: string;
+  assetId: number;
+  title: string;
+  description: string;
+  ticketStatus: string;
+  createdAt: string;
+}
+
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 
 export interface CreateTicketType {
   empId: string;
@@ -51,6 +64,14 @@ export interface EmployeeType {
   location: string;
   isAdmin: boolean;
   jobTitle: string;
+}
+export interface ServiceType {
+  empId: string;
+  assetId: string;
+  ticketId: string;
+  title: string;
+  description: string;
+  ticketStatus: string;
 }
 
 export interface EmployeeAssetType {
@@ -89,6 +110,12 @@ export interface DeAllocatAssetType {
   modelno: number;
   allocationTime: string;
 }
+interface SetAllocateAsset {
+  type: typeof ALLOCATE_EMPLOYEE_ASSET;
+  payload: {
+    message: string;
+  };
+}
 
 interface LoadingData {
   type: typeof LOADING_DATA;
@@ -110,6 +137,14 @@ interface SetEmployee {
   type: typeof SET_EMPLOYEE;
   payload: {
     data: EmployeeType;
+  };
+}
+
+interface SetEmployeeTicket {
+  type: typeof SET_EMPTICKETS;
+  payload: {
+    meassage: string;
+    data: EmpTicketType[];
   };
 }
 
@@ -217,10 +252,12 @@ interface ChangePassword {
 
 interface SetEmployeeDetails {
   type: typeof SET_EMPLOYEE_DETAILS;
-  payload: {
-    message: string;
-    data: EmployeeType;
-  };
+  payload: { message: string; data: EmployeeType };
+}
+
+interface SetServiceDetails {
+  type: typeof SET_SERVICE_DETAILS;
+  payload: { message: string; data: ServiceType[] };
 }
 
 interface setEmployeeAssetDetails {
@@ -233,13 +270,6 @@ interface setEmployeeAssetDetails {
 
 interface SetDeAllocateAsset {
   type: typeof DEALLOCATE_EMPLOYEE_ASSET;
-  payload: {
-    message: string;
-  };
-}
-
-interface SetAllocateAsset {
-  type: typeof ALLOCATE_EMPLOYEE_ASSET;
   payload: {
     message: string;
   };
@@ -270,4 +300,6 @@ export type DispatchTypes =
   | setEmployeeAssetDetails
   | SetDeAllocateAsset
   | SetAllocateAsset
-  | CreateTicket;
+  | CreateTicket
+  | SetEmployeeTicket
+  | SetServiceDetails;
