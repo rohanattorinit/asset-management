@@ -17,12 +17,11 @@ export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
 export const CREATE_TICKET = "CREATE_TICKET";
 export const SET_SERVICE_DETAILS = "SET_SERVICE_DETAILS";
 
-
 export const SET_SERVICE_TICKET_DETAILS = "SET_SERVICE_TICKET_DETAILS";
 
-export const SET_EMPTICKETS = 'SET_EMPTICKETS'
-
-
+export const SET_EMPTICKETS = "SET_EMPTICKETS";
+export const SET_TICKET_STATUS = "SET_TICKET_STATUS";
+export const SET_ADD_NOTE = "SET_ADD_NOTE";
 export interface EmpTicketType {
   ticketId: number;
   empId: string;
@@ -295,6 +294,20 @@ interface CreateTicket {
   };
 }
 
+interface SetTicketStatus {
+  type: typeof SET_TICKET_STATUS;
+  payload: {
+    message: string;
+  };
+}
+
+interface SetAddNote {
+  type: typeof SET_ADD_NOTE;
+  payload: {
+    message: string;
+  };
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -317,4 +330,6 @@ export type DispatchTypes =
   | SetServiceDetails
   | SetServiceTicketDetails
   | SetEmployeeTicket
-  | SetServiceDetails;
+  | SetServiceDetails
+  | SetTicketStatus
+  | SetAddNote;
