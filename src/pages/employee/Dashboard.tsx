@@ -6,7 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import WebAssetIcon from "@mui/icons-material/WebAsset";
 import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
 import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
-import { Dispatch, useEffect } from "react";
+import { Dispatch } from "react";
 import { RootStore } from "../../redux/store";
 const StlyedGrid = styled(Grid)({
   display: "flex",
@@ -29,6 +29,7 @@ export default function Dashboard() {
   //   dispatch(getEmployeeTickets(user.empId));
   // }, [dispatch, user]);
   const handleClick = () => {
+    dispatch(getEmployeeTickets(user.empId));
     navigate("/ticket");
   };
   return (
