@@ -191,6 +191,7 @@ export const changeTicketStatus =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
+      console.log(status);
       const res = await axios.post(
         `http://localhost:4000/api/tickets/changeStatus/${ticketId}`,
         { status }

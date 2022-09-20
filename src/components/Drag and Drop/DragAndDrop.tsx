@@ -27,6 +27,7 @@ export const DragAndDrop = (props: any) => {
       });
       setFile(undefined);
       (event.target as HTMLFormElement).reset();
+      alert("Employees added successfully");
     } catch (error) {
       //handle error
       console.log(error);

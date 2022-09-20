@@ -117,7 +117,6 @@ export const getEmployeeTickets =
         `http://localhost:4000/api/tickets/employeeTickets/${empId}`
       );
       dispatch({ type: SET_EMPTICKETS, payload: res.data });
-      console.log(res);
     } catch (error) {
       dispatch({
         type: SET_ERROR,

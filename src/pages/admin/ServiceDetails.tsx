@@ -24,27 +24,16 @@ export const ServiceDetails = () => {
     (state: RootStore) => state.admin
   );
   const [note, setNote] = useState("");
-  const [select, setSelect] = useState(serviceticketdetails.ticketStatus);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelect(event.target.value as string);
-  };
+  const [select, setSelect] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (note.length > 0) {
-      console.log("noteeeeeee");
       dispatch(addNote(serviceticketdetails.ticketId, note));
     }
 
     if (select !== serviceticketdetails.ticketStatus) {
-      console.log("status change");
-      dispatch(
-        changeTicketStatus(
-          serviceticketdetails.ticketId,
-          serviceticketdetails.ticketStatus
-        )
-      );
+      dispatch(changeTicketStatus(serviceticketdetails.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
   };
@@ -143,9 +132,11 @@ export const ServiceDetails = () => {
                 <InputLabel id="status">Status</InputLabel>
                 <Select
                   sx={{ minWidth: "100px" }}
-                  defaultValue={select}
                   value={select}
-                  onChange={handleChange}
+                  onChange={(event) => {
+                    setSelect(event.target.value);
+                    console.log(event.target.value);
+                  }}
                 >
                   <MenuItem value={"active"}>Active</MenuItem>
                   <MenuItem value={"pending"}>Pending</MenuItem>
