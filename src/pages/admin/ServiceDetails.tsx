@@ -104,32 +104,31 @@ export const ServiceDetails = () => {
             </Grid>
           </Grid>
         </Paper>
-        
         <Paper
           sx={{ marginY: 3, display: "flex", flexDirection: "column" }}
           elevation={5}
         >
-          
-          <FormControl sx={{ width: 300 }}>
-            <InputLabel id="status">Status</InputLabel>
-            <Select>
-              <MenuItem value={"pending"}>Pending</MenuItem>
-              <MenuItem value={"active"}>Active</MenuItem>
-              <MenuItem value={"closed"}>Closed</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            margin="dense"
-            name="Note"
-            label="Note..."
-            type="text"
-            variant="outlined"
-            multiline
-            rows={4}
-            // onChange={(e) => {
-            //   ticket.description = e.target.value;
-            // }}
-          />
+          <Grid container m={2}>
+            <FormControl sx={{ width: 300 }}>
+              <InputLabel id="status">Status</InputLabel>
+              <Select>
+                <MenuItem value={"pending"}>Pending</MenuItem>
+                <MenuItem value={"active"}>Active</MenuItem>
+                <MenuItem value={"closed"}>Closed</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              margin="dense"
+              name="Note"
+              label="Note..."
+              type="text"
+              variant="outlined"
+              sx={{ width: "1000px" }}
+              multiline
+              rows={4}
+            />
+          </Grid>
+
           <Box
             sx={{
               display: "flex",
@@ -137,11 +136,10 @@ export const ServiceDetails = () => {
               alignItems: "center",
             }}
           >
-          <Button
-              variant="outlined"
-              color="primary">
-                SUBMIT   
-         </Button></Box>
+            <Button variant="outlined" color="primary">
+              SUBMIT
+            </Button>
+          </Box>
         </Paper>
       </Grid>
     </Grid>

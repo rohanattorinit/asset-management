@@ -161,7 +161,7 @@ export const AddEmployee = () => {
                     alignItems="center"
                     sx={{ marginY: "6rem" }}
                   >
-                    <DragAndDrop type="employee" />
+                    <DragAndDrop />
                   </Box>
                 </Grid>
               </Grid>
