@@ -4,7 +4,6 @@ import upload from "../../assets/upload.svg";
 import axios from "axios";
 
 export const DragAndDrop = (props: any) => {
-  let url = "";
   const StyledTypography = styled(Typography)({
     fontWeight: "bold",
     fontSize: "1.25rem",
@@ -20,14 +19,9 @@ export const DragAndDrop = (props: any) => {
 
     formData.append("csvFile", file!);
     try {
-      if (props.type === "employee") {
-        url = "http://localhost:4000/api/employees/create-bulk";
-      } else {
-        url = "http://localhost:4000/api/assets/create-bulk";
-      }
       await axios({
         method: "post",
-        url: url,
+        url: "http://localhost:4000/api/employees/create-bulk",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });

@@ -15,13 +15,10 @@ import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
 import React, { Dispatch } from "react";
 import { CreateAssetType } from "../../redux/types";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { RootStore } from "../../redux/store";
 import { addAsset } from "../../redux/actions/AdminActions";
 
 export const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const { message } = useSelector((state: RootStore) => state.admin);
 
   const assetDetails: CreateAssetType = {
     brandName: "",
