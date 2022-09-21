@@ -20,7 +20,7 @@ const initialState: InitialState = {
     empId: '',
     name: '',
     email: '',
-    phone: undefined,
+    phone: '',
     location: '',
     isAdmin: false,
     jobTitle: ''
@@ -63,7 +63,7 @@ const authReducer = (
           empId: '',
           name: '',
           email: '',
-          phone: undefined,
+          phone: '',
           location: '',
           isAdmin: false,
           jobTitle: ''

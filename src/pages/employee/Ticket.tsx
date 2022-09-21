@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 
 import CardContent from "@mui/material/CardContent";
 import { Grid } from "@mui/material";
@@ -9,7 +8,7 @@ import Typography from "@mui/material/Typography";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useDispatch } from "react-redux";
-import { Dispatch, useEffect, useLayoutEffect, useRef } from "react";
+import { Dispatch, useEffect } from "react";
 import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
