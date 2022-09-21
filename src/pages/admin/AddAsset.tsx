@@ -7,15 +7,12 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import React, { Dispatch, useState } from "react";
-
-import { CreateAssetType } from "../../redux/types";
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
 import { useNavigate } from "react-router-dom";
@@ -35,27 +32,6 @@ export const AddAsset = () => {
     status: "",
     usability: "",
   });
-
-  // const assetDetails: CreateAssetType = {
-  //   brandName: "",
-  //   assetName: "",
-  //   assetType: "",
-  //   category: "",
-  //   modelNo: "",
-  //   description: "",
-  //   status: "",
-  //   usability: "",
-  // };
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setAssetDetails((prev) => {
-  //     return {
-  //       ...prev,
-  //       [e.target.name]: [e.target.value],
-  //     };
-  //   });
-  //   console.log(assetDetails);
-  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -81,7 +57,6 @@ export const AddAsset = () => {
     });
 
     navigate(`/admin/assets`);
-
   };
 
   const StyledTypography = styled(Typography)({
