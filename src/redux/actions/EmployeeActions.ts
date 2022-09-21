@@ -1,5 +1,16 @@
+import { CREATE_TICKET, SET_EMPTICKETS } from "./../types";
 import axios from "axios";
 import { Dispatch } from "redux";
+import {
+  CHANGE_PASSWORD,
+  DispatchTypes,
+  LOADING,
+  LOADING_DATA,
+  SET_EMPLOYEE,
+  SET_EMPLOYEE_ASSETS,
+  SET_ERROR,
+  UPDATE_EMPLOYEE_DETAILS,
+} from "../types";
 
 interface UpdateType {
   name?: string;
