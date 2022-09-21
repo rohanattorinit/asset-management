@@ -65,6 +65,7 @@ export default function EmployeeDetails() {
 
   const HandleDeallocate = (assetId: number) => {
     dispatch(deallocateAssets(employeedetails.empId, assetId));
+    alert("asset is deallocated");
   };
 
   const handleAllocate = (assetID: number) => {

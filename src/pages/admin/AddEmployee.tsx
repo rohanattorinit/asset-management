@@ -11,7 +11,7 @@ import {
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
@@ -171,7 +171,7 @@ export const AddEmployee = () => {
                     alignItems="center"
                     sx={{ marginY: "6rem" }}
                   >
-                    <DragAndDrop type="employee" />
+                    <DragAndDrop />
                   </Box>
                 </Grid>
               </Grid>
