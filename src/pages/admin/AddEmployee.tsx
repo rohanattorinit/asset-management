@@ -7,47 +7,49 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
-import { CreateEmployeeType } from "../../redux/types";
-import { Dispatch } from "react";
+import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
-import { useNavigate } from "react-router-dom";
-
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  let navigate = useNavigate();
-  const employeeDetails: CreateEmployeeType = {
-    empId: undefined,
+  const [empDetails, setEmployeeDetails] = useState({
+    empId: "",
     name: "",
     email: "",
-    phone: undefined,
+    phone: "",
     location: "",
     jobTitle: "",
+  });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEmployeeDetails({
+      ...empDetails,
+      [name]: value,
+    });
   };
-
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(addEmployee(empDetails));
+    setEmployeeDetails({
+      empId: "",
+      name: "",
+      email: "",
+      phone: "",
+      location: "",
+      jobTitle: "",
+    });
+  };
   const StyledTypography = styled(Typography)({
     fontWeight: "bold",
     fontSize: "1.25rem",
     margin: "10px",
   });
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(addEmployee(employeeDetails));
-    navigate(`/admin/employee`);
-  };
-
-  const FlexContainer = styled(Container)({
-    display: "flex",
-    flexDirection: "column",
-  });
   return (
-    <Grid container sx={{ bgcolor: "#f1f5f9" }}>
+    <Grid container sx={{ bgcolor: "#F1F5F9" }}>
       <SideBar />
       <Grid
         item
@@ -68,68 +70,67 @@ export const AddEmployee = () => {
               <Grid container>
                 <Grid item xs={12} md={6}>
                   <form onSubmit={handleSubmit}>
-                    <FlexContainer>
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
                       <TextField
-                        onChange={(e) => {
-                          employeeDetails.empId = e.target.value;
-                        }}
                         margin="normal"
                         required
                         id="outlined-basic"
                         label="Employee ID"
                         variant="outlined"
+                        name="empId"
+                        value={empDetails.empId}
+                        onChange={handleChange}
                       />
                       <TextField
-                        onChange={(e) => {
-                          employeeDetails.name = e.target.value;
-                        }}
                         margin="normal"
                         required
                         id="outlined-basic"
                         label="Full Name"
                         variant="outlined"
+                        name="name"
+                        value={empDetails.name}
+                        onChange={handleChange}
                       />
                       <TextField
-                        onChange={(e) => {
-                          employeeDetails.email = e.target.value;
-                        }}
                         margin="normal"
                         required
                         id="outlined-basic"
                         label="E-mail"
                         variant="outlined"
+                        name="email"
+                        value={empDetails.email}
+                        onChange={handleChange}
                       />
                       <TextField
-                        onChange={(e) => {
-                          employeeDetails.jobTitle = e.target.value;
-                        }}
                         margin="normal"
                         required
                         id="outlined-basic"
                         label="Job Title"
                         variant="outlined"
+                        name="jobTitle"
+                        value={empDetails.jobTitle}
+                        onChange={handleChange}
                       />
                       <TextField
-                        onChange={(e) => {
-                          employeeDetails.location = e.target.value;
-                          console.log(employeeDetails);
-                        }}
                         margin="normal"
                         required
                         id="outlined-basic"
                         label="Location"
                         variant="outlined"
+                        name="location"
+                        value={empDetails.location}
+                        onChange={handleChange}
                       />
                       <TextField
-                        onChange={(e) => {
-                          employeeDetails.phone = parseInt(e.target.value, 10);
-                        }}
                         margin="normal"
                         required
                         id="outlined-basic"
                         label="Phone No"
                         variant="outlined"
                         inputProps={{ minlength: 10, maxLength: 10 }}
+                        name="phone"
+                        value={empDetails.phone}
+                        onChange={handleChange}
                       />
                       <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button
@@ -141,13 +142,12 @@ export const AddEmployee = () => {
                           Submit
                         </Button>
                       </Box>
-                    </FlexContainer>
+                    </Box>
                   </form>
                 </Grid>
                 <Grid item xs={12} md={1}>
                   <Divider orientation="vertical" />
                 </Grid>
-
                 <Grid
                   item
                   xs={12}

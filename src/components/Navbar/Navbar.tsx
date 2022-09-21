@@ -26,7 +26,6 @@ export default function Navbar() {
   return (
     <Box
       sx={{
-        height: "12vh",
         bgcolor: "#011E41",
         display: "flex",
         alignItems: "center",
@@ -36,7 +35,7 @@ export default function Navbar() {
       <Box
         component="img"
         alt="logo"
-        style={{ marginLeft: "2rem" }}
+        sx={{ marginLeft: "2rem", marginY: "2rem" }}
         src="https://torinit.com/static/media/logo.c2a69a4f.svg"
       />
       {authenticated && (

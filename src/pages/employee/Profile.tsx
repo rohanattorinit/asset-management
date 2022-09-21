@@ -20,7 +20,7 @@ import {
 interface UpdateType {
   name?: string;
   email?: string;
-  phone?: number;
+  phone?: string;
   location?: string;
   jobTitle?: string;
 }
