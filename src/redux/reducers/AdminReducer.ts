@@ -1,24 +1,3 @@
-import { SET_ADD_NOTE, SET_TICKET_STATUS } from "./../types";
-import {
-  AllocatedAssetType,
-  ALLOCATE_EMPLOYEE_ASSET,
-  DEALLOCATE_EMPLOYEE_ASSET,
-  SET_SERVICE_DETAILS,
-  SET_ADDASSET,
-  SET_ADDEMPLOYEE,
-  SET_EMPLOYEE_ASSETS_DETAILS,
-  SET_EMPLOYEE_DETAILS,
-  AssetTypes,
-  DispatchTypes,
-  EmployeeType,
-  LOADING_DATA,
-  SET_ASSETS,
-  SET_EMPLOYEES,
-  SET_ERROR,
-  ServiceType,
-  SET_SERVICE_TICKET_DETAILS,
-} from "../types";
-
 interface InitialState {
   loading: boolean;
   employees: EmployeeType[];
