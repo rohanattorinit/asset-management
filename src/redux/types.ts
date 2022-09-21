@@ -55,7 +55,7 @@ export interface CreateEmployeeType {
   empId?: string
   name: string
   email: string
-  phone?: number
+  phone?: string
   location: string
   jobTitle: string
 }
@@ -63,7 +63,7 @@ export interface EmployeeType {
   empId: string
   name: string
   email: string
-  phone?: number
+  phone?: string
   location: string
   isAdmin: boolean
   jobTitle: string
