@@ -1,3 +1,25 @@
+import {
+  ALLOCATE_EMPLOYEE_ASSET,
+  CreateAssetType,
+  DEALLOCATE_EMPLOYEE_ASSET,
+  SET_ADDASSET,
+  SET_ADDEMPLOYEE,
+  SET_EMPLOYEE_ASSETS_DETAILS,
+  SET_TICKET_STATUS,
+} from "./../types";
+
+import {
+  SET_EMPLOYEE_DETAILS,
+  SET_SERVICE_DETAILS,
+  CreateEmployeeType,
+  DispatchTypes,
+  LOADING_DATA,
+  SET_ASSETS,
+  SET_EMPLOYEES,
+  SET_ERROR,
+  SET_SERVICE_TICKET_DETAILS,
+} from "./../types";
+
 import axios from "axios";
 import { Dispatch } from "redux";
 

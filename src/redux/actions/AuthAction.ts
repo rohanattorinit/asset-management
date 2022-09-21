@@ -1,5 +1,7 @@
+import { SET_LOGOUT } from "./../types";
 import axios from "axios";
 import { Dispatch } from "redux";
+import { DispatchTypes, LOADING, SET_AUTHENTICATED, SET_ERROR } from "../types";
 
 interface CredentialType {
   email?: string;
