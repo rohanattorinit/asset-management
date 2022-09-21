@@ -11,15 +11,16 @@ import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { CreateEmployeeType } from "../../redux/types";
 import { Dispatch } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
+import { useNavigate } from "react-router-dom";
 
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-
+  let navigate = useNavigate();
   const employeeDetails: CreateEmployeeType = {
     empId: undefined,
     name: "",
@@ -38,6 +39,7 @@ export const AddEmployee = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addEmployee(employeeDetails));
+    navigate(`/admin/employee`);
   };
 
   const FlexContainer = styled(Container)({
@@ -160,7 +162,7 @@ export const AddEmployee = () => {
                     alignItems="center"
                     sx={{ marginY: "6rem" }}
                   >
-                    <DragAndDrop type="employee" />
+                    <DragAndDrop />
                   </Box>
                 </Grid>
               </Grid>
