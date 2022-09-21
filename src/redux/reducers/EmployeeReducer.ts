@@ -1,19 +1,3 @@
-import {
-  CHANGE_PASSWORD,
-  DispatchTypes,
-  EmployeeAssetType,
-  EmployeeType,
-  LOADING,
-  LOADING_DATA,
-  SET_EMPLOYEE,
-  SET_EMPLOYEE_ASSETS,
-  SET_ERROR,
-  UPDATE_EMPLOYEE_DETAILS,
-  CREATE_TICKET,
-  SET_EMPTICKETS,
-  EmpTicketType,
-} from "../types";
-
 interface InitialState {
   loading: boolean;
   error?: string;
