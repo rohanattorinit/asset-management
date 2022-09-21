@@ -11,15 +11,20 @@ import {
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
-import { Dispatch, useState } from "react";
+
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
+import { CreateEmployeeType } from "../../redux/types";
+import { Dispatch } from "react";
+
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
+import { useNavigate } from "react-router-dom";
 
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
 
-  const [empDetails, setEmployeeDetails] = useState({
+  let navigate = useNavigate();
+  const employeeDetails: CreateEmployeeType = {
     empId: "",
     name: "",
     email: "",
@@ -54,6 +59,18 @@ export const AddEmployee = () => {
     fontWeight: "bold",
     fontSize: "1.25rem",
     margin: "10px",
+  });
+
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(addEmployee(employeeDetails));
+    navigate(`/admin/employee`);
+  };
+
+  const FlexContainer = styled(Container)({
+    display: "flex",
+    flexDirection: "column",
   });
 
   return (
@@ -171,7 +188,7 @@ export const AddEmployee = () => {
                     alignItems="center"
                     sx={{ marginY: "6rem" }}
                   >
-                    <DragAndDrop type="employee" />
+                    <DragAndDrop />
                   </Box>
                 </Grid>
               </Grid>

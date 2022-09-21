@@ -113,20 +113,20 @@ export const createTicket = (
   }
 }
 
-export const getEmployeeTickets = (empId: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING })
-  try {
-    const res = await axios.get(
-      `http://localhost:4000/api/tickets/employeeTickets/${empId}`
-    )
-    dispatch({ type: SET_EMPTICKETS, payload: res.data })
-    console.log(res)
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: (error as any).response.data.error
-    })
-  }
-}
+
+export const getEmployeeTickets =
+  (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING });
+    try {
+      const res = await axios.get(
+        `http://localhost:4000/api/tickets/employeeTickets/${empId}`
+      );
+      dispatch({ type: SET_EMPTICKETS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+
