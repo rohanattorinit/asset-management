@@ -11,13 +11,16 @@ import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import React, { Dispatch } from "react";
 import { CreateAssetType } from "../../redux/types";
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
+import { useNavigate } from "react-router-dom";
 
 export const AddAsset = () => {
+  let navigate = useNavigate();
+
   const dispatch: Dispatch<any> = useDispatch();
 
   const assetDetails: CreateAssetType = {
@@ -34,6 +37,7 @@ export const AddAsset = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addAsset(assetDetails));
+    navigate(`/admin/assets`);
   };
 
   const StyledTypography = styled(Typography)({
