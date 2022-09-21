@@ -27,15 +27,15 @@ import {
 } from "../../redux/actions/AdminActions";
 
 export default function EmployeeDetails() {
-  const { employeedetails, employeeassetsdetails, message, assets } =
+  const { employeeDetails, employeeassetsdetails, message, assets } =
     useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssetDetails(employeedetails.empId));
+    dispatch(getAssetDetails(employeeDetails.empId));
     dispatch(getAssets());
-  }, [dispatch, employeedetails.empId, message]);
+  }, [dispatch, employeeDetails.empId, message]);
 
   useEffect(() => {
     dispatch(getAssets());
@@ -64,12 +64,12 @@ export default function EmployeeDetails() {
   };
 
   const HandleDeallocate = (assetId: number) => {
-    dispatch(deallocateAssets(employeedetails.empId, assetId));
+    dispatch(deallocateAssets(employeeDetails.empId, assetId));
     alert("asset is deallocated");
   };
 
   const handleAllocate = (assetID: number) => {
-    dispatch(allocateAssets(employeedetails.empId, assetID));
+    dispatch(allocateAssets(employeeDetails.empId, assetID));
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -97,7 +97,9 @@ export default function EmployeeDetails() {
               >
                 {" "}
                 Employee ID:
-                <Typography variant="body1">{employeedetails.empId}</Typography>
+                <Typography variant="body1">
+                  {employeeDetails?.empId}
+                </Typography>
               </Typography>
               <Typography fontFamily="serif" fontWeight="bold" variant="h6">
                 Name:
@@ -105,7 +107,7 @@ export default function EmployeeDetails() {
                   sx={{ textTransform: "capitalize" }}
                   variant="body1"
                 >
-                  {employeedetails.name}
+                  {employeeDetails?.name}
                 </Typography>
               </Typography>
               <Typography
@@ -119,7 +121,7 @@ export default function EmployeeDetails() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employeedetails.jobTitle}
+                  {employeeDetails?.jobTitle}
                 </Typography>
               </Typography>
               <Typography
@@ -129,7 +131,9 @@ export default function EmployeeDetails() {
                 mt={2}
               >
                 Email:
-                <Typography variant="body1">{employeedetails.email}</Typography>
+                <Typography variant="body1">
+                  {employeeDetails?.email}
+                </Typography>
               </Typography>
             </Grid>
 
@@ -141,7 +145,9 @@ export default function EmployeeDetails() {
                 mt={2}
               >
                 Phone:
-                <Typography variant="body1">{employeedetails.phone}</Typography>
+                <Typography variant="body1">
+                  {employeeDetails?.phone}
+                </Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -154,7 +160,7 @@ export default function EmployeeDetails() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employeedetails.location}
+                  {employeeDetails?.location}
                 </Typography>
               </Typography>
             </Grid>
@@ -189,22 +195,22 @@ export default function EmployeeDetails() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {employeeassetsdetails.map((asset) => (
+                {employeeassetsdetails?.map((asset) => (
                   <TableRow
-                    key={asset.assetId}
+                    key={asset?.assetId}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="right" component="th" scope="row">
-                      {asset.assetId}
+                      {asset?.assetId}
                     </TableCell>
-                    <TableCell align="right">{asset.name}</TableCell>
-                    <TableCell align="right">{asset.modelno}</TableCell>
-                    <TableCell align="right">{asset.category}</TableCell>
-                    <TableCell align="right">{asset.allocationTime}</TableCell>
+                    <TableCell align="right">{asset?.name}</TableCell>
+                    <TableCell align="right">{asset?.modelno}</TableCell>
+                    <TableCell align="right">{asset?.category}</TableCell>
+                    <TableCell align="right">{asset?.allocationTime}</TableCell>
                     <IconButton>
                       <RemoveCircleIcon
                         sx={{ color: "#dc2626" }}
-                        onClick={() => HandleDeallocate(asset.assetId)}
+                        onClick={() => HandleDeallocate(asset?.assetId)}
                       />
                     </IconButton>
                   </TableRow>
@@ -235,17 +241,17 @@ export default function EmployeeDetails() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredAsset.map((asset) => (
+                  {filteredAsset?.map((asset) => (
                     <TableRow
-                      key={asset.assetId}
+                      key={asset?.assetId}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
                       <TableCell component="th" scope="row">
-                        {asset.name}
+                        {asset?.name}
                       </TableCell>
-                      <TableCell align="right">{asset.assetId}</TableCell>
+                      <TableCell align="right">{asset?.assetId}</TableCell>
                       <Button
                         onClick={() => {
                           alert("Asset is Alloted");
@@ -253,7 +259,7 @@ export default function EmployeeDetails() {
                       >
                         <CheckCircleOutlineIcon
                           sx={{ color: "darkblue" }}
-                          onClick={() => handleAllocate(asset.assetId)}
+                          onClick={() => handleAllocate(asset?.assetId)}
                         />
                       </Button>
                     </TableRow>

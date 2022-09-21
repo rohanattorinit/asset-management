@@ -7,24 +7,16 @@ import {
   Box,
   Button,
 } from "@mui/material";
-
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
-import { CreateEmployeeType } from "../../redux/types";
-import { Dispatch } from "react";
-
+import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
-import { useNavigate } from "react-router-dom";
-
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-
-  let navigate = useNavigate();
-  const employeeDetails: CreateEmployeeType = {
+  const [empDetails, setEmployeeDetails] = useState({
     empId: "",
     name: "",
     email: "",
@@ -32,16 +24,13 @@ export const AddEmployee = () => {
     location: "",
     jobTitle: "",
   });
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     setEmployeeDetails({
       ...empDetails,
       [name]: value,
     });
   };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addEmployee(empDetails));
@@ -54,27 +43,13 @@ export const AddEmployee = () => {
       jobTitle: "",
     });
   };
-
   const StyledTypography = styled(Typography)({
     fontWeight: "bold",
     fontSize: "1.25rem",
     margin: "10px",
   });
-
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(addEmployee(employeeDetails));
-    navigate(`/admin/employee`);
-  };
-
-  const FlexContainer = styled(Container)({
-    display: "flex",
-    flexDirection: "column",
-  });
-
   return (
-    <Grid container sx={{ bgcolor: "#f1f5f9" }}>
+    <Grid container sx={{ bgcolor: "#F1F5F9" }}>
       <SideBar />
       <Grid
         item
@@ -103,7 +78,7 @@ export const AddEmployee = () => {
                         label="Employee ID"
                         variant="outlined"
                         name="empId"
-                        value={empDetails.empId}
+                        value={empDetails?.empId}
                         onChange={handleChange}
                       />
                       <TextField
@@ -113,7 +88,7 @@ export const AddEmployee = () => {
                         label="Full Name"
                         variant="outlined"
                         name="name"
-                        value={empDetails.name}
+                        value={empDetails?.name}
                         onChange={handleChange}
                       />
                       <TextField
@@ -123,7 +98,7 @@ export const AddEmployee = () => {
                         label="E-mail"
                         variant="outlined"
                         name="email"
-                        value={empDetails.email}
+                        value={empDetails?.email}
                         onChange={handleChange}
                       />
                       <TextField
@@ -133,7 +108,7 @@ export const AddEmployee = () => {
                         label="Job Title"
                         variant="outlined"
                         name="jobTitle"
-                        value={empDetails.jobTitle}
+                        value={empDetails?.jobTitle}
                         onChange={handleChange}
                       />
                       <TextField
@@ -143,7 +118,7 @@ export const AddEmployee = () => {
                         label="Location"
                         variant="outlined"
                         name="location"
-                        value={empDetails.location}
+                        value={empDetails?.location}
                         onChange={handleChange}
                       />
                       <TextField
@@ -173,7 +148,6 @@ export const AddEmployee = () => {
                 <Grid item xs={12} md={1}>
                   <Divider orientation="vertical" />
                 </Grid>
-
                 <Grid
                   item
                   xs={12}

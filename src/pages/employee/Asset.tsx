@@ -79,21 +79,21 @@ export default function Asset() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {assets.map((asset) => (
+                {assets?.map((asset) => (
                   <TableRow
-                    key={asset.name}
+                    key={asset?.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {asset.assetId}
+                      {asset?.assetId}
                     </TableCell>
-                    <TableCell align="right">{asset.name}</TableCell>
-                    <TableCell align="right">{asset.modelno}</TableCell>
-                    <TableCell align="right">{asset.category}</TableCell>
-                    <TableCell align="right">{asset.allocationTime}</TableCell>
+                    <TableCell align="right">{asset?.name}</TableCell>
+                    <TableCell align="right">{asset?.modelno}</TableCell>
+                    <TableCell align="right">{asset?.category}</TableCell>
+                    <TableCell align="right">{asset?.allocationTime}</TableCell>
                     <TableCell align="right">
                       <Tooltip title="Create Ticket">
-                        <IconButton onClick={() => handleClick(asset.assetId)}>
+                        <IconButton onClick={() => handleClick(asset?.assetId)}>
                           <BuildIcon sx={{ cursor: "pointer" }} />
                         </IconButton>
                       </Tooltip>
