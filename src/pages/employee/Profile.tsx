@@ -202,7 +202,7 @@ export default function Profile() {
 
       <Dialog open={open} onClose={() => setOpen(false)}>
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Edit Deatils</DialogTitle>
+          <DialogTitle>Edit Details</DialogTitle>
           <DialogContent>
             <TextField
               margin="dense"

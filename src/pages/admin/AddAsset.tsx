@@ -12,7 +12,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
-import React, { Dispatch } from "react";
+import React, { Dispatch, useState } from "react";
 import { CreateAssetType } from "../../redux/types";
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
@@ -20,7 +20,7 @@ import { addAsset } from "../../redux/actions/AdminActions";
 export const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
 
-  const assetDetails: CreateAssetType = {
+  const [assetDetails, setAssetDetails] = useState({
     brandName: "",
     assetName: "",
     assetType: "",
@@ -29,11 +29,50 @@ export const AddAsset = () => {
     description: "",
     status: "",
     usability: "",
+  });
+
+  // const assetDetails: CreateAssetType = {
+  //   brandName: "",
+  //   assetName: "",
+  //   assetType: "",
+  //   category: "",
+  //   modelNo: "",
+  //   description: "",
+  //   status: "",
+  //   usability: "",
+  // };
+
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setAssetDetails((prev) => {
+  //     return {
+  //       ...prev,
+  //       [e.target.name]: [e.target.value],
+  //     };
+  //   });
+  //   console.log(assetDetails);
+  // };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAssetDetails({
+      ...assetDetails,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addAsset(assetDetails));
+    setAssetDetails({
+      brandName: "",
+      assetName: "",
+      assetType: "",
+      category: "",
+      modelNo: "",
+      description: "",
+      status: "",
+      usability: "",
+    });
   };
 
   const StyledTypography = styled(Typography)({
@@ -41,10 +80,11 @@ export const AddAsset = () => {
     fontSize: "1.25rem",
     margin: "10px",
   });
-  const FlexContainer = styled(Container)({
-    display: "flex",
-    flexDirection: "column",
-  });
+
+  // const FlexContainer = styled(Container)({
+  //   display: "flex",
+  //   flexDirection: "column",
+  // });
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
@@ -67,7 +107,12 @@ export const AddAsset = () => {
               <Grid container>
                 <Grid item xs={12} md={6}>
                   <form onSubmit={handleSubmit}>
-                    <FlexContainer>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
                       <TextField
                         margin="normal"
                         size="small"
@@ -76,9 +121,9 @@ export const AddAsset = () => {
                         label="Type"
                         variant="outlined"
                         placeholder="E.g: Hardware"
-                        onChange={(e) => {
-                          assetDetails.assetType = e.target.value;
-                        }}
+                        name="assetType"
+                        value={assetDetails.assetType}
+                        onChange={handleChange}
                       />
                       <TextField
                         margin="normal"
@@ -88,9 +133,9 @@ export const AddAsset = () => {
                         label="Name"
                         variant="outlined"
                         placeholder="E.g: Macbook M1"
-                        onChange={(e) => {
-                          assetDetails.assetName = e.target.value;
-                        }}
+                        name="assetName"
+                        onChange={handleChange}
+                        value={assetDetails.assetName}
                       />
                       <TextField
                         margin="normal"
@@ -100,9 +145,9 @@ export const AddAsset = () => {
                         label="Status"
                         variant="outlined"
                         placeholder="E.g: available"
-                        onChange={(e) => {
-                          assetDetails.status = e.target.value;
-                        }}
+                        name="status"
+                        onChange={handleChange}
+                        value={assetDetails.status}
                       />
                       <TextField
                         margin="normal"
@@ -112,9 +157,9 @@ export const AddAsset = () => {
                         label="Category"
                         variant="outlined"
                         placeholder="E.g: Laptop"
-                        onChange={(e) => {
-                          assetDetails.category = e.target.value;
-                        }}
+                        name="category"
+                        onChange={handleChange}
+                        value={assetDetails.category}
                       />
                       <TextField
                         margin="normal"
@@ -124,9 +169,9 @@ export const AddAsset = () => {
                         label="Brand"
                         variant="outlined"
                         placeholder="E.g: Apple"
-                        onChange={(e) => {
-                          assetDetails.brandName = e.target.value;
-                        }}
+                        name="brandName"
+                        onChange={handleChange}
+                        value={assetDetails.brandName}
                       />
                       <TextField
                         margin="normal"
@@ -136,9 +181,9 @@ export const AddAsset = () => {
                         label="Model No"
                         variant="outlined"
                         placeholder="E.g: 12345678"
-                        onChange={(e) => {
-                          assetDetails.modelNo = e.target.value;
-                        }}
+                        name="modelNo"
+                        onChange={handleChange}
+                        value={assetDetails.modelNo}
                       />
                       <TextField
                         margin="normal"
@@ -148,9 +193,9 @@ export const AddAsset = () => {
                         label="Description"
                         variant="outlined"
                         placeholder="E.g: M1 processor, 256GB SSD"
-                        onChange={(e) => {
-                          assetDetails.description = e.target.value;
-                        }}
+                        name="description"
+                        onChange={handleChange}
+                        value={assetDetails.description}
                       />
                       <TextField
                         margin="normal"
@@ -160,21 +205,21 @@ export const AddAsset = () => {
                         label="Usability"
                         variant="outlined"
                         placeholder="E.g: usable"
-                        onChange={(e) => {
-                          assetDetails.usability = e.target.value;
-                        }}
+                        name="usability"
+                        onChange={handleChange}
+                        value={assetDetails.usability}
                       />
-                      <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <Button
-                          color="info"
-                          size="large"
-                          type="submit"
-                          variant="outlined"
-                        >
-                          Add Asset
-                        </Button>
-                      </Box>
-                    </FlexContainer>
+                    </Box>
+                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                      <Button
+                        color="info"
+                        size="large"
+                        type="submit"
+                        variant="outlined"
+                      >
+                        Add Asset
+                      </Button>
+                    </Box>
                   </form>
                 </Grid>
                 <Grid item xs={12} md={1}>
