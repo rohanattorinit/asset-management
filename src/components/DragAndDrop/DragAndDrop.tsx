@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box, Button, styled, Typography } from "@mui/material";
 import upload from "../../assets/upload.svg";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const DragAndDrop = (props: any) => {
   const StyledTypography = styled(Typography)({
@@ -12,11 +13,11 @@ export const DragAndDrop = (props: any) => {
   });
 
   const [file, setFile] = useState<Blob | string>();
+  let navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData();
-
     formData.append("csvFile", file!);
     try {
       await axios({
@@ -27,6 +28,8 @@ export const DragAndDrop = (props: any) => {
       });
       setFile(undefined);
       (event.target as HTMLFormElement).reset();
+      navigate(`/admin/employee`);
+
       alert("Employees added successfully");
     } catch (error) {
       //handle error
