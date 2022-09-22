@@ -1,15 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Grid, styled } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import WebAssetIcon from "@mui/icons-material/WebAsset";
 import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
 
-import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
-
-import { Dispatch } from "react";
-import { RootStore } from "../../redux/store";
 const StlyedGrid = styled(Grid)({
   display: "flex",
   justifyContent: "center",
@@ -24,11 +19,8 @@ const StlyedGrid = styled(Grid)({
 });
 
 export default function Dashboard() {
-  const dispatch: Dispatch<any> = useDispatch();
-  const { user } = useSelector((state: RootStore) => state.login);
   let navigate = useNavigate();
   const handleClick = () => {
-    dispatch(getEmployeeTickets(user?.empId));
     navigate("/ticket");
   };
   return (

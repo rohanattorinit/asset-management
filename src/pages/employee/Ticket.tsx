@@ -15,12 +15,14 @@ import { RootStore } from "../../redux/store";
 
 export default function Ticket() {
   const dispatch: Dispatch<any> = useDispatch();
-  const { tickets, employee, message } = useSelector(
+
+  const { tickets, message } = useSelector(
     (state: RootStore) => state.employee
   );
+  const { user } = useSelector((state: RootStore) => state.login);
   useEffect(() => {
-    dispatch(getEmployeeTickets(employee?.empId));
-  }, [dispatch, employee, message]);
+    dispatch(getEmployeeTickets(user?.empId));
+  }, [dispatch, user, message]);
   return (
     <Grid container>
       <Sidebar />
