@@ -7,19 +7,14 @@ import {
   Box,
   Button,
 } from "@mui/material";
-
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
-
 import { Dispatch, useState } from "react";
-
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
 import { useNavigate } from "react-router-dom";
-
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const [employeeDetails, setEmployeeDetails] = useState({
@@ -34,13 +29,11 @@ export const AddEmployee = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     setEmployeeDetails({
       ...employeeDetails,
       [name]: value,
     });
   };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addEmployee(employeeDetails));
@@ -54,7 +47,6 @@ export const AddEmployee = () => {
     });
     navigate(`/admin/employee`);
   };
-
   const StyledTypography = styled(Typography)({
     fontWeight: "bold",
     fontSize: "1.25rem",
@@ -62,7 +54,7 @@ export const AddEmployee = () => {
   });
 
   return (
-    <Grid container sx={{ bgcolor: "#f1f5f9" }}>
+    <Grid container sx={{ bgcolor: "#F1F5F9" }}>
       <SideBar />
       <Grid
         item
@@ -91,7 +83,7 @@ export const AddEmployee = () => {
                         label="Employee ID"
                         variant="outlined"
                         name="empId"
-                        value={employeeDetails.empId}
+                        value={employeeDetails?.empId}
                         onChange={handleChange}
                       />
                       <TextField
@@ -101,7 +93,7 @@ export const AddEmployee = () => {
                         label="Full Name"
                         variant="outlined"
                         name="name"
-                        value={employeeDetails.name}
+                        value={employeeDetails?.name}
                         onChange={handleChange}
                       />
                       <TextField
@@ -111,7 +103,7 @@ export const AddEmployee = () => {
                         label="E-mail"
                         variant="outlined"
                         name="email"
-                        value={employeeDetails.email}
+                        value={employeeDetails?.email}
                         onChange={handleChange}
                       />
                       <TextField
@@ -121,7 +113,7 @@ export const AddEmployee = () => {
                         label="Job Title"
                         variant="outlined"
                         name="jobTitle"
-                        value={employeeDetails.jobTitle}
+                        value={employeeDetails?.jobTitle}
                         onChange={handleChange}
                       />
                       <TextField
@@ -131,7 +123,7 @@ export const AddEmployee = () => {
                         label="Location"
                         variant="outlined"
                         name="location"
-                        value={employeeDetails.location}
+                        value={employeeDetails?.location}
                         onChange={handleChange}
                       />
                       <TextField
@@ -161,7 +153,6 @@ export const AddEmployee = () => {
                 <Grid item xs={12} md={1}>
                   <Divider orientation="vertical" />
                 </Grid>
-
                 <Grid
                   item
                   xs={12}

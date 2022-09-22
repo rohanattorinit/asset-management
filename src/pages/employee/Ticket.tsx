@@ -21,7 +21,7 @@ export default function Ticket() {
   );
   const { user } = useSelector((state: RootStore) => state.login);
   useEffect(() => {
-    dispatch(getEmployeeTickets(user.empId));
+    dispatch(getEmployeeTickets(user?.empId));
   }, [dispatch, user, message]);
   return (
     <Grid container>

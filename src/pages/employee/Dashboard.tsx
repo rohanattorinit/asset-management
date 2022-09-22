@@ -20,7 +20,6 @@ const StlyedGrid = styled(Grid)({
 
 export default function Dashboard() {
   let navigate = useNavigate();
-
   const handleClick = () => {
     navigate("/ticket");
   };
