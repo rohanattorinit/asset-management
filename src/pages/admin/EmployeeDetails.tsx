@@ -33,9 +33,9 @@ export default function EmployeeDetails() {
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssetDetails(employeeDetails.empId));
+    dispatch(getAssetDetails(employeeDetails?.empId));
     dispatch(getAssets());
-  }, [dispatch, employeeDetails.empId, message]);
+  }, [dispatch, employeeDetails?.empId, message]);
 
   useEffect(() => {
     dispatch(getAssets());
@@ -46,11 +46,11 @@ export default function EmployeeDetails() {
     setSearch(e.target.value);
   };
 
-  const filteredAsset = assets.filter((asset) => {
-    if (search.length === 0) {
+  const filteredAsset = assets?.filter((asset) => {
+    if (search?.length === 0) {
       return asset.status === "available" && asset.usability === "usable";
     }
-    return asset.name.toLowerCase().startsWith(search.toLowerCase());
+    return asset.name.toLowerCase().startsWith(search?.toLowerCase());
   });
 
   const [open, setOpen] = useState(false);
@@ -64,12 +64,11 @@ export default function EmployeeDetails() {
   };
 
   const HandleDeallocate = (assetId: number) => {
-    dispatch(deallocateAssets(employeeDetails.empId, assetId));
-    alert("asset is deallocated");
+    dispatch(deallocateAssets(employeeDetails?.empId, assetId));
   };
 
-  const handleAllocate = (assetID: number) => {
-    dispatch(allocateAssets(employeeDetails.empId, assetID));
+  const handleAllocate = (assetId: number) => {
+    dispatch(allocateAssets(employeeDetails?.empId, assetId));
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -210,7 +209,12 @@ export default function EmployeeDetails() {
                     <IconButton>
                       <RemoveCircleIcon
                         sx={{ color: "#dc2626" }}
-                        onClick={() => HandleDeallocate(asset?.assetId)}
+                        onClick={() => {
+                          if (
+                            window.confirm("Do you want to Delete the Asset?")
+                          )
+                            HandleDeallocate(asset?.assetId);
+                        }}
                       />
                     </IconButton>
                   </TableRow>

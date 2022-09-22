@@ -120,7 +120,7 @@ function Assets() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {category === "hardware" ? (
+                {category && category === "hardware" ? (
                   <AssetsTable category="hardware" />
                 ) : (
                   <AssetsTable category="software" />

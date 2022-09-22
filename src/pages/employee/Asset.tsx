@@ -21,26 +21,32 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
-
-interface TicketType {
-  title: string;
-  description: string;
-}
+import { useNavigate } from "react-router-dom";
 
 export default function Asset() {
   const [open, setOpen] = useState(false);
   const [assetId, setAssetId] = useState<number>();
-
-  const ticket: TicketType = {
+  const [ticket, setTicket] = useState({
     title: "",
     description: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setTicket({
+      ...ticket,
+      [name]: value,
+    });
   };
+
   const {
     login: {
       user: { empId },
     },
     employee: { assets },
   } = useSelector((state: RootStore) => state);
+  let navigate = useNavigate();
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -59,6 +65,11 @@ export default function Asset() {
       createTicket(empId, assetId as number, ticket.title, ticket.description)
     );
     setOpen(false);
+    setTicket({
+      title: "",
+      description: "",
+    });
+    navigate(`/ticket`);
   };
 
   return (
@@ -112,19 +123,18 @@ export default function Asset() {
           <DialogContent>
             <TextField
               margin="dense"
-              name="Ticket Title"
+              name="title"
               required
               label="Title"
               type="text"
               fullWidth
               variant="outlined"
-              onChange={(e) => {
-                ticket.title = e.target.value;
-              }}
+              value={ticket?.title}
+              onChange={handleChange}
             />
             <TextField
               margin="dense"
-              name="Ticket Description"
+              name="description"
               required
               label="Describe issue..."
               type="text"
@@ -132,9 +142,8 @@ export default function Asset() {
               variant="outlined"
               multiline
               rows={4}
-              onChange={(e) => {
-                ticket.description = e.target.value;
-              }}
+              value={ticket?.description}
+              onChange={handleChange}
             />
           </DialogContent>
           <DialogActions>

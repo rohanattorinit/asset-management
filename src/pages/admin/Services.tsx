@@ -49,7 +49,7 @@ function Services() {
   };
 
   let filteredService = serviceDetails?.filter((serviceDetail) => {
-    if (search.length === 0) return serviceDetails;
+    if (search?.length === 0) return serviceDetails;
     return serviceDetail?.title.toLowerCase().startsWith(search.toLowerCase());
   });
 

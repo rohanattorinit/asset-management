@@ -66,20 +66,20 @@ export default function Profile() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateEmployeeDetails(employee.empId, updateData));
+    dispatch(updateEmployeeDetails(employee?.empId, updateData));
     setOpen(false);
   };
 
   const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(changePassword(employee.empId, password?.password!));
+    dispatch(changePassword(employee?.empId, password?.password!));
     setOpenPasswordDialog(false);
   };
 
   useEffect(() => {
     dispatch(getEmployee(user.empId));
     if (message) alert(message);
-  }, [dispatch, user.empId, message]);
+  }, [dispatch, user?.empId, message]);
 
   useEffect(() => {
     setUpdateData({
