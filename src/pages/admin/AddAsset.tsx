@@ -101,7 +101,7 @@ export const AddAsset = () => {
                         variant="outlined"
                         placeholder="E.g: Hardware"
                         name="assetType"
-                        value={assetDetails.assetType}
+                        value={assetDetails?.assetType}
                         onChange={handleChange}
                       />
                       <TextField
@@ -114,7 +114,7 @@ export const AddAsset = () => {
                         placeholder="E.g: Macbook M1"
                         name="assetName"
                         onChange={handleChange}
-                        value={assetDetails.assetName}
+                        value={assetDetails?.assetName}
                       />
                       <TextField
                         margin="normal"
@@ -126,7 +126,7 @@ export const AddAsset = () => {
                         placeholder="E.g: available"
                         name="status"
                         onChange={handleChange}
-                        value={assetDetails.status}
+                        value={assetDetails?.status}
                       />
                       <TextField
                         margin="normal"
@@ -138,7 +138,7 @@ export const AddAsset = () => {
                         placeholder="E.g: Laptop"
                         name="category"
                         onChange={handleChange}
-                        value={assetDetails.category}
+                        value={assetDetails?.category}
                       />
                       <TextField
                         margin="normal"
@@ -150,7 +150,7 @@ export const AddAsset = () => {
                         placeholder="E.g: Apple"
                         name="brandName"
                         onChange={handleChange}
-                        value={assetDetails.brandName}
+                        value={assetDetails?.brandName}
                       />
                       <TextField
                         margin="normal"
@@ -162,7 +162,7 @@ export const AddAsset = () => {
                         placeholder="E.g: 12345678"
                         name="modelNo"
                         onChange={handleChange}
-                        value={assetDetails.modelNo}
+                        value={assetDetails?.modelNo}
                       />
                       <TextField
                         margin="normal"
@@ -174,7 +174,7 @@ export const AddAsset = () => {
                         placeholder="E.g: M1 processor, 256GB SSD"
                         name="description"
                         onChange={handleChange}
-                        value={assetDetails.description}
+                        value={assetDetails?.description}
                       />
                       <TextField
                         margin="normal"
@@ -186,7 +186,7 @@ export const AddAsset = () => {
                         placeholder="E.g: usable"
                         name="usability"
                         onChange={handleChange}
-                        value={assetDetails.usability}
+                        value={assetDetails?.usability}
                       />
                     </Box>
                     <Box sx={{ display: "flex", justifyContent: "center" }}>
