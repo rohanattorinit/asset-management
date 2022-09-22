@@ -15,12 +15,11 @@ import { RootStore } from "../../redux/store";
 
 export default function Ticket() {
   const dispatch: Dispatch<any> = useDispatch();
-
   const { tickets, employee, message } = useSelector(
     (state: RootStore) => state.employee
   );
   useEffect(() => {
-    dispatch(getEmployeeTickets(employee.empId));
+    dispatch(getEmployeeTickets(employee?.empId));
   }, [dispatch, employee, message]);
   return (
     <Grid container>
@@ -30,23 +29,22 @@ export default function Ticket() {
           Ticket Status
         </Typography>
         <Grid container spacing={5}>
-          {tickets.map((tickets) => {
+          {tickets?.map((tickets) => {
             return (
               <Grid item xs={6} md={4}>
-                <Card key={tickets.ticketId}>
-                  {/* <CardHeader title={"#" + tickets.ticketId} /> */}
+                <Card key={tickets?.ticketId}>
                   <CardContent>
                     <Typography variant="h5">
-                      {"# " + tickets.ticketId}
+                      {"# " + tickets?.ticketId}
                     </Typography>
                     <Typography variant="body1">
-                      Title : {tickets.title}
+                      Title : {tickets?.title}
                     </Typography>
                     <Typography variant="body1">
-                      Description : {tickets.description.slice(0, 20)}
+                      Description : {tickets?.description.slice(0, 20)}
                     </Typography>
                     <Typography variant="body1">
-                      Status : {tickets.ticketStatus}
+                      Status : {tickets?.ticketStatus}
                     </Typography>
                   </CardContent>
                 </Card>

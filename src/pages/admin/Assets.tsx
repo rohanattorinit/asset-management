@@ -46,15 +46,15 @@ function Assets() {
     return (
       <>
         {assets
-          .filter((asset) => asset.assetType === category)
+          ?.filter((asset) => asset?.assetType === category)
           .map((filteredAsset) => (
-            <TableRow key={filteredAsset.assetId}>
-              <TableCell align="center">{filteredAsset.assetId}</TableCell>
-              <TableCell align="center">{filteredAsset.modelNo}</TableCell>
-              <TableCell align="center">{filteredAsset.name}</TableCell>
-              <TableCell align="center">{filteredAsset.category}</TableCell>
-              <TableCell align="center">{filteredAsset.status}</TableCell>
-              <TableCell align="center">{filteredAsset.usability}</TableCell>
+            <TableRow key={filteredAsset?.assetId}>
+              <TableCell align="center">{filteredAsset?.assetId}</TableCell>
+              <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
+              <TableCell align="center">{filteredAsset?.name}</TableCell>
+              <TableCell align="center">{filteredAsset?.category}</TableCell>
+              <TableCell align="center">{filteredAsset?.status}</TableCell>
+              <TableCell align="center">{filteredAsset?.usability}</TableCell>
             </TableRow>
           ))}
       </>
@@ -100,22 +100,27 @@ function Assets() {
               <TableHead>
                 <TableRow>
                   <TableCell align="center">
-                  <Typography>ID</Typography>
+                    <Typography>ID</Typography>
                   </TableCell>
                   <TableCell align="center">
-                  <Typography>Serial No.</Typography></TableCell>
+                    <Typography>Serial No.</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Name</Typography></TableCell>
+                    <Typography>Name</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Category</Typography></TableCell>
+                    <Typography>Category</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Status</Typography></TableCell>
+                    <Typography>Status</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Usability</Typography></TableCell>
+                    <Typography>Usability</Typography>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {category === "hardware" ? (
+                {category && category === "hardware" ? (
                   <AssetsTable category="hardware" />
                 ) : (
                   <AssetsTable category="software" />

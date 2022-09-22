@@ -27,11 +27,8 @@ export default function Dashboard() {
   const dispatch: Dispatch<any> = useDispatch();
   const { user } = useSelector((state: RootStore) => state.login);
   let navigate = useNavigate();
-  // useEffect(() => {
-  //   dispatch(getEmployeeTickets(user.empId));
-  // }, [dispatch, user]);
   const handleClick = () => {
-    dispatch(getEmployeeTickets(user.empId));
+    dispatch(getEmployeeTickets(user?.empId));
     navigate("/ticket");
   };
   return (
