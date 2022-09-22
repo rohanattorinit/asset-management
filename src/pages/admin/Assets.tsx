@@ -100,18 +100,23 @@ function Assets() {
               <TableHead>
                 <TableRow>
                   <TableCell align="center">
-                  <Typography>ID</Typography>
+                    <Typography>ID</Typography>
                   </TableCell>
                   <TableCell align="center">
-                  <Typography>Serial No.</Typography></TableCell>
+                    <Typography>Serial No.</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Name</Typography></TableCell>
+                    <Typography>Name</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Category</Typography></TableCell>
+                    <Typography>Category</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Status</Typography></TableCell>
+                    <Typography>Status</Typography>
+                  </TableCell>
                   <TableCell align="center">
-                  <Typography>Usability</Typography></TableCell>
+                    <Typography>Usability</Typography>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

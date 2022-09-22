@@ -65,7 +65,6 @@ export default function EmployeeDetails() {
 
   const HandleDeallocate = (assetId: number) => {
     dispatch(deallocateAssets(employeedetails.empId, assetId));
-    alert("asset is deallocated");
   };
 
   const handleAllocate = (assetID: number) => {
@@ -204,7 +203,12 @@ export default function EmployeeDetails() {
                     <IconButton>
                       <RemoveCircleIcon
                         sx={{ color: "#dc2626" }}
-                        onClick={() => HandleDeallocate(asset.assetId)}
+                        onClick={() => {
+                          if (
+                            window.confirm("Do you want to Delete the Asset?")
+                          )
+                            HandleDeallocate(asset.assetId);
+                        }}
                       />
                     </IconButton>
                   </TableRow>

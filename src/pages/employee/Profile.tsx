@@ -94,13 +94,7 @@ export default function Profile() {
   return (
     <Grid container>
       <Sidebar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={3}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={3}>
         <Box
           sx={{
             display: "flex",
