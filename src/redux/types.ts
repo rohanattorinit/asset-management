@@ -20,6 +20,7 @@ export const SET_SERVICE_TICKET_DETAILS = 'SET_SERVICE_TICKET_DETAILS'
 export const SET_EMPTICKETS = 'SET_EMPTICKETS'
 export const SET_TICKET_STATUS = 'SET_TICKET_STATUS'
 export const SET_ADD_NOTE = 'SET_ADD_NOTE'
+
 export interface EmpTicketType {
   ticketId: number
   empId: string

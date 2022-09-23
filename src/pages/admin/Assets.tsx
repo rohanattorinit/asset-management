@@ -46,15 +46,15 @@ function Assets() {
     return (
       <>
         {assets
-          .filter((asset) => asset.assetType === category)
+          ?.filter((asset) => asset?.assetType === category)
           .map((filteredAsset) => (
-            <TableRow key={filteredAsset.assetId}>
-              <TableCell align="center">{filteredAsset.assetId}</TableCell>
-              <TableCell align="center">{filteredAsset.modelNo}</TableCell>
-              <TableCell align="center">{filteredAsset.name}</TableCell>
-              <TableCell align="center">{filteredAsset.category}</TableCell>
-              <TableCell align="center">{filteredAsset.status}</TableCell>
-              <TableCell align="center">{filteredAsset.usability}</TableCell>
+            <TableRow key={filteredAsset?.assetId}>
+              <TableCell align="center">{filteredAsset?.assetId}</TableCell>
+              <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
+              <TableCell align="center">{filteredAsset?.name}</TableCell>
+              <TableCell align="center">{filteredAsset?.category}</TableCell>
+              <TableCell align="center">{filteredAsset?.status}</TableCell>
+              <TableCell align="center">{filteredAsset?.usability}</TableCell>
             </TableRow>
           ))}
       </>
@@ -120,7 +120,7 @@ function Assets() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {category === "hardware" ? (
+                {category && category === "hardware" ? (
                   <AssetsTable category="hardware" />
                 ) : (
                   <AssetsTable category="software" />

@@ -7,7 +7,6 @@ import {
   Box,
   Button,
 } from "@mui/material";
-
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -15,11 +14,10 @@ import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
-
+import { useNavigate } from "react-router-dom";
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-
-  const [empDetails, setEmployeeDetails] = useState({
+  const [employeeDetails, setEmployeeDetails] = useState({
     empId: "",
     name: "",
     email: "",
@@ -27,19 +25,18 @@ export const AddEmployee = () => {
     location: "",
     jobTitle: "",
   });
+  let navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     setEmployeeDetails({
-      ...empDetails,
+      ...employeeDetails,
       [name]: value,
     });
   };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addEmployee(empDetails));
+    dispatch(addEmployee(employeeDetails));
     setEmployeeDetails({
       empId: "",
       name: "",
@@ -48,8 +45,8 @@ export const AddEmployee = () => {
       location: "",
       jobTitle: "",
     });
+    navigate(`/admin/employee`);
   };
-
   const StyledTypography = styled(Typography)({
     fontWeight: "bold",
     fontSize: "1.25rem",
@@ -57,7 +54,7 @@ export const AddEmployee = () => {
   });
 
   return (
-    <Grid container sx={{ bgcolor: "#f1f5f9" }}>
+    <Grid container sx={{ bgcolor: "#F1F5F9" }}>
       <SideBar />
       <Grid
         item
@@ -86,7 +83,7 @@ export const AddEmployee = () => {
                         label="Employee ID"
                         variant="outlined"
                         name="empId"
-                        value={empDetails.empId}
+                        value={employeeDetails?.empId}
                         onChange={handleChange}
                       />
                       <TextField
@@ -96,7 +93,7 @@ export const AddEmployee = () => {
                         label="Full Name"
                         variant="outlined"
                         name="name"
-                        value={empDetails.name}
+                        value={employeeDetails?.name}
                         onChange={handleChange}
                       />
                       <TextField
@@ -106,7 +103,7 @@ export const AddEmployee = () => {
                         label="E-mail"
                         variant="outlined"
                         name="email"
-                        value={empDetails.email}
+                        value={employeeDetails?.email}
                         onChange={handleChange}
                       />
                       <TextField
@@ -116,7 +113,7 @@ export const AddEmployee = () => {
                         label="Job Title"
                         variant="outlined"
                         name="jobTitle"
-                        value={empDetails.jobTitle}
+                        value={employeeDetails?.jobTitle}
                         onChange={handleChange}
                       />
                       <TextField
@@ -126,7 +123,7 @@ export const AddEmployee = () => {
                         label="Location"
                         variant="outlined"
                         name="location"
-                        value={empDetails.location}
+                        value={employeeDetails?.location}
                         onChange={handleChange}
                       />
                       <TextField
@@ -137,7 +134,7 @@ export const AddEmployee = () => {
                         variant="outlined"
                         inputProps={{ minlength: 10, maxLength: 10 }}
                         name="phone"
-                        value={empDetails.phone}
+                        value={employeeDetails.phone}
                         onChange={handleChange}
                       />
                       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -156,7 +153,6 @@ export const AddEmployee = () => {
                 <Grid item xs={12} md={1}>
                   <Divider orientation="vertical" />
                 </Grid>
-
                 <Grid
                   item
                   xs={12}
