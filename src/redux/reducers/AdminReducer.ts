@@ -23,7 +23,7 @@ interface InitialState {
   loading: boolean;
   employees: EmployeeType[];
   assets: AssetTypes[];
-  employeedetails: EmployeeType;
+  employeeDetails: EmployeeType;
   employeeassetsdetails: AllocatedAssetType[];
   serviceDetails: ServiceType[];
   serviceticketdetails: ServiceType;
@@ -37,11 +37,11 @@ const initialState: InitialState = {
   assets: [],
   message: "",
   error: "",
-  employeedetails: {
+  employeeDetails: {
     empId: "",
     name: "",
     email: "",
-    phone: undefined,
+    phone: "",
     location: "",
     isAdmin: false,
     jobTitle: "",
@@ -100,7 +100,7 @@ const adminReducer = (
     case SET_EMPLOYEE_DETAILS:
       return {
         ...state,
-        employeedetails: action.payload.data,
+        employeeDetails: action.payload?.data,
         loading: false,
       };
 

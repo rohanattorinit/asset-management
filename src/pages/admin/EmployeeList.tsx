@@ -48,8 +48,8 @@ function EmpList() {
   };
 
   const filteredEmployee = employees.filter((employee) => {
-    if (search.length === 0) return employee;
-    return employee.name.toLowerCase().startsWith(search.toLowerCase());
+    if (search?.length === 0) return employee;
+    return employee?.name.toLowerCase().startsWith(search.toLowerCase());
   });
 
   return (
@@ -110,17 +110,17 @@ function EmpList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredEmployee.map((employee) => (
-                    <TableRow key={employee.empId}>
+                  {filteredEmployee?.map((employee) => (
+                    <TableRow key={employee?.empId}>
                       <TableCell component="th" scope="row">
-                        {employee.empId}
+                        {employee?.empId}
                       </TableCell>
-                      <TableCell align="center">{employee.name}</TableCell>
-                      <TableCell align="center">{employee.email}</TableCell>
-                      <TableCell align="center">{employee.phone}</TableCell>
-                      <TableCell align="center">{employee.location}</TableCell>
+                      <TableCell align="center">{employee?.name}</TableCell>
+                      <TableCell align="center">{employee?.email}</TableCell>
+                      <TableCell align="center">{employee?.phone}</TableCell>
+                      <TableCell align="center">{employee?.location}</TableCell>
                       <IconButton
-                        onClick={() => setEmployeeDetails(employee.empId)}
+                        onClick={() => setEmployeeDetails(employee?.empId)}
                       >
                         <OpenInNewIcon sx={{ color: "darkblue" }} />
                       </IconButton>

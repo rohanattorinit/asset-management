@@ -7,15 +7,11 @@ import {
   Box,
   Button,
 } from "@mui/material";
-import { Container } from "@mui/system";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-
-import { DragAndDrop } from "../../components/Drag and Drop/DragAndDrop";
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import React, { Dispatch, useState } from "react";
-
-import { CreateAssetType } from "../../redux/types";
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
 import { useNavigate } from "react-router-dom";
@@ -35,27 +31,6 @@ export const AddAsset = () => {
     status: "",
     usability: "",
   });
-
-  // const assetDetails: CreateAssetType = {
-  //   brandName: "",
-  //   assetName: "",
-  //   assetType: "",
-  //   category: "",
-  //   modelNo: "",
-  //   description: "",
-  //   status: "",
-  //   usability: "",
-  // };
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setAssetDetails((prev) => {
-  //     return {
-  //       ...prev,
-  //       [e.target.name]: [e.target.value],
-  //     };
-  //   });
-  //   console.log(assetDetails);
-  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -81,7 +56,6 @@ export const AddAsset = () => {
     });
 
     navigate(`/admin/assets`);
-
   };
 
   const StyledTypography = styled(Typography)({
@@ -90,10 +64,6 @@ export const AddAsset = () => {
     margin: "10px",
   });
 
-  // const FlexContainer = styled(Container)({
-  //   display: "flex",
-  //   flexDirection: "column",
-  // });
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
@@ -131,7 +101,7 @@ export const AddAsset = () => {
                         variant="outlined"
                         placeholder="E.g: Hardware"
                         name="assetType"
-                        value={assetDetails.assetType}
+                        value={assetDetails?.assetType}
                         onChange={handleChange}
                       />
                       <TextField
@@ -144,7 +114,7 @@ export const AddAsset = () => {
                         placeholder="E.g: Macbook M1"
                         name="assetName"
                         onChange={handleChange}
-                        value={assetDetails.assetName}
+                        value={assetDetails?.assetName}
                       />
                       <TextField
                         margin="normal"
@@ -156,7 +126,7 @@ export const AddAsset = () => {
                         placeholder="E.g: available"
                         name="status"
                         onChange={handleChange}
-                        value={assetDetails.status}
+                        value={assetDetails?.status}
                       />
                       <TextField
                         margin="normal"
@@ -168,7 +138,7 @@ export const AddAsset = () => {
                         placeholder="E.g: Laptop"
                         name="category"
                         onChange={handleChange}
-                        value={assetDetails.category}
+                        value={assetDetails?.category}
                       />
                       <TextField
                         margin="normal"
@@ -180,7 +150,7 @@ export const AddAsset = () => {
                         placeholder="E.g: Apple"
                         name="brandName"
                         onChange={handleChange}
-                        value={assetDetails.brandName}
+                        value={assetDetails?.brandName}
                       />
                       <TextField
                         margin="normal"
@@ -192,7 +162,7 @@ export const AddAsset = () => {
                         placeholder="E.g: 12345678"
                         name="modelNo"
                         onChange={handleChange}
-                        value={assetDetails.modelNo}
+                        value={assetDetails?.modelNo}
                       />
                       <TextField
                         margin="normal"
@@ -204,7 +174,7 @@ export const AddAsset = () => {
                         placeholder="E.g: M1 processor, 256GB SSD"
                         name="description"
                         onChange={handleChange}
-                        value={assetDetails.description}
+                        value={assetDetails?.description}
                       />
                       <TextField
                         margin="normal"
@@ -216,7 +186,7 @@ export const AddAsset = () => {
                         placeholder="E.g: usable"
                         name="usability"
                         onChange={handleChange}
-                        value={assetDetails.usability}
+                        value={assetDetails?.usability}
                       />
                     </Box>
                     <Box sx={{ display: "flex", justifyContent: "center" }}>

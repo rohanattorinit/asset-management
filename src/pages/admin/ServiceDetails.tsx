@@ -27,12 +27,12 @@ export const ServiceDetails = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (note.length > 0) {
-      dispatch(addNote(serviceticketdetails.ticketId, note));
+    if (note?.length > 0) {
+      dispatch(addNote(serviceticketdetails?.ticketId, note));
     }
 
-    if (select !== serviceticketdetails.ticketStatus) {
-      dispatch(changeTicketStatus(serviceticketdetails.ticketId, select));
+    if (select !== serviceticketdetails?.ticketStatus) {
+      dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
   };
@@ -53,7 +53,7 @@ export const ServiceDetails = () => {
                 {" "}
                 Ticket ID:
                 <Typography variant="body1">
-                  {serviceticketdetails.ticketId}
+                  {serviceticketdetails?.ticketId}
                 </Typography>
               </Typography>
               <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -62,7 +62,7 @@ export const ServiceDetails = () => {
                   sx={{ textTransform: "capitalize" }}
                   variant="body1"
                 >
-                  {serviceticketdetails.empId}
+                  {serviceticketdetails?.empId}
                 </Typography>
               </Typography>
               <Typography
@@ -76,7 +76,7 @@ export const ServiceDetails = () => {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {serviceticketdetails.assetId}
+                  {serviceticketdetails?.assetId}
                 </Typography>
               </Typography>
               <Typography
@@ -87,7 +87,7 @@ export const ServiceDetails = () => {
               >
                 Time:
                 <Typography variant="body1">
-                  {serviceticketdetails.createdAt}
+                  {serviceticketdetails?.createdAt}
                 </Typography>
               </Typography>
             </Grid>
@@ -101,7 +101,7 @@ export const ServiceDetails = () => {
               >
                 Title:
                 <Typography variant="body1">
-                  {serviceticketdetails.title}
+                  {serviceticketdetails?.title}
                 </Typography>
               </Typography>
               <Typography
@@ -115,7 +115,7 @@ export const ServiceDetails = () => {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {serviceticketdetails.description}
+                  {serviceticketdetails?.description}
                 </Typography>
               </Typography>
             </Grid>
@@ -134,7 +134,6 @@ export const ServiceDetails = () => {
                   value={select}
                   onChange={(event) => {
                     setSelect(event.target.value);
-                    console.log(event.target.value);
                   }}
                 >
                   <MenuItem value={"active"}>Active</MenuItem>

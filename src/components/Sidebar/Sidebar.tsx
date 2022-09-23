@@ -91,7 +91,6 @@ export default function SideBar() {
         xs={12}
         md={2}
         sx={{
-          height: "88vh",
           bgcolor: "#011E41",
           borderTop: "solid white 2px",
         }}
