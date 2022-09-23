@@ -92,9 +92,9 @@ export default function Profile() {
   }, [employee]);
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: "100%" }}>
       <Sidebar />
-      <Grid item xs={12} md={10} p={3}>
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box
           sx={{
             display: "flex",
@@ -115,7 +115,14 @@ export default function Profile() {
             </Button>
           </Box>
         </Box>
-        <Paper sx={{ display: "flex", padding: 5, marginY: 3 }} elevation={5}>
+        <Paper
+          sx={{
+            display: "flex",
+            padding: 5,
+            marginY: 3,
+          }}
+          elevation={5}
+        >
           <Grid container>
             <Grid item xs={12} md={4}>
               <Typography

@@ -23,7 +23,7 @@ export default function Ticket() {
     dispatch(getEmployeeTickets(employee.empId));
   }, [dispatch, employee, message]);
   return (
-    <Grid container>
+    <Grid container sx={{ height: "100%" }}>
       <Sidebar />
       <Grid item xs={12} md={10} p={3}>
         <Typography variant="h4" textAlign="center" marginY={2}>

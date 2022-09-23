@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 
 export const AddAsset = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -70,13 +70,7 @@ export const AddAsset = () => {
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={3}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box>
           <Card
             sx={{

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Divider } from "@mui/material";
+import { Box, Button, Divider, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 
@@ -87,7 +87,15 @@ export default function SideBar() {
 
   const SideNav = () => {
     return (
-      <SideNavGrid item xs={12} md={2}>
+      <SideNavGrid
+        item
+        xs={12}
+        md={2}
+        sx={{
+          bgcolor: "#011E41",
+          borderTop: "solid white 2px",
+        }}
+      >
         {isAdmin ? (
           <Box display="flex" flexDirection="column" justifyContent="center">
             <Button

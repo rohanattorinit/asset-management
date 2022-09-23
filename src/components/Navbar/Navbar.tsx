@@ -37,7 +37,11 @@ export default function Navbar() {
         alt="logo"
         sx={{ marginLeft: "2rem", marginY: "2rem" }}
         src="https://torinit.com/static/media/logo.c2a69a4f.svg"
+        onClick={() => {
+          navigate(`/`);
+        }}
       />
+
       {authenticated && (
         <Box display={{ xs: "none", md: "block" }}>
           <Avatar

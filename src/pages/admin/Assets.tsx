@@ -64,13 +64,7 @@ function Assets() {
   return (
     <Grid container>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={3}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box
           display="flex"
           justifyContent="space-between"

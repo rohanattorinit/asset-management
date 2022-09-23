@@ -78,13 +78,7 @@ export default function EmployeeDetails() {
   return (
     <Grid container>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={2}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ display: "flex", padding: 1 }} elevation={5}>
           <Grid container m={2}>
             <Grid item xs={12} md={4}>
