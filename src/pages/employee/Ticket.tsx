@@ -30,7 +30,7 @@ export default function Ticket() {
           Ticket Status
         </Typography>
         <Grid container spacing={5}>
-          {tickets.map((tickets) => {
+          {tickets?.map((tickets) => {
             return (
               <Grid item xs={6} md={4}>
                 <Card key={tickets.ticketId}>
