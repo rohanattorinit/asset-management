@@ -97,7 +97,7 @@ function Assets() {
                     <Typography>ID</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>Serial No.</Typography>
+                    <Typography>Model No.</Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography>Name</Typography>

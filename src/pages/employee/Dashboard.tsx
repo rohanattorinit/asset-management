@@ -29,13 +29,8 @@ export default function Dashboard() {
   const dispatch: Dispatch<any> = useDispatch();
 
   const { tickets } = useSelector((state: RootStore) => state.employee);
-  // useEffect(() => {
-  //   dispatch(getEmployeeTickets(employee.empId));
-  // }, [dispatch, employee, message]);
 
   const { user } = useSelector((state: RootStore) => state.login);
-
-  const [reqStatus, setReqStatus] = useState("");
 
   let filteredstatus = tickets.filter((currentticket) => {
     if (currentticket.ticketStatus === "active") return currentticket;
@@ -54,7 +49,7 @@ export default function Dashboard() {
         </Box>
         <Box mt={2}>
           <Typography variant="h5" marginY={2}>
-            Ticket Status
+            Your Active Tickets
           </Typography>
           <Grid container spacing={5}>
             {filteredstatus.map((requeststatus) => {

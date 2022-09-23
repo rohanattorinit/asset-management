@@ -35,7 +35,7 @@ export default function Navbar() {
       <Box
         component="img"
         alt="logo"
-        sx={{ marginLeft: "2rem", marginY: "2rem" }}
+        sx={{ marginLeft: "2rem", marginY: "1.5rem" }}
         src="https://torinit.com/static/media/logo.c2a69a4f.svg"
         onClick={() => {
           navigate(`/`);
