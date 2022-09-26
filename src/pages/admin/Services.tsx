@@ -48,18 +48,18 @@ function Services() {
     setSearch(e.target.value);
   };
 
-  let filteredService = serviceDetails.filter((serviceDetail) => {
-    if (search.length === 0) return serviceDetails;
-    return serviceDetail.title.toLowerCase().startsWith(search.toLowerCase());
+  let filteredService = serviceDetails?.filter((serviceDetail) => {
+    if (search?.length === 0) return serviceDetails;
+    return serviceDetail?.title.toLowerCase().includes(search.toLowerCase());
   });
 
-  filteredService = filteredService.filter((serviceDetail) => {
+  filteredService = filteredService?.filter((serviceDetail) => {
     if (status === "pending") {
-      return serviceDetail.ticketStatus.toLowerCase() === "pending";
+      return serviceDetail?.ticketStatus.toLowerCase() === "pending";
     } else if (status === "active") {
-      return serviceDetail.ticketStatus.toLowerCase() === "active";
+      return serviceDetail?.ticketStatus.toLowerCase() === "active";
     } else if (status === "closed") {
-      return serviceDetail.ticketStatus.toLowerCase() === "closed";
+      return serviceDetail?.ticketStatus.toLowerCase() === "closed";
     } else return filteredService;
   });
 
@@ -121,24 +121,26 @@ function Services() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredService.map((serviceDetail) => (
-                  <TableRow key={serviceDetail.ticketId}>
+                {filteredService?.map((serviceDetail) => (
+                  <TableRow key={serviceDetail?.ticketId}>
                     <TableCell component="th" scope="row">
-                      # {serviceDetail.ticketId}
+                      # {serviceDetail?.ticketId}
                     </TableCell>
                     <TableCell align="center">
-                      {serviceDetail.assetId}
+                      {serviceDetail?.assetId}
                     </TableCell>
-                    <TableCell align="center">{serviceDetail.title}</TableCell>
-                    <TableCell align="center">{serviceDetail.empId}</TableCell>
+                    <TableCell align="center">{serviceDetail?.title}</TableCell>
+                    <TableCell align="center">{serviceDetail?.empId}</TableCell>
                     <TableCell
                       align="center"
                       sx={{ textTransform: "capitalize" }}
                     >
-                      {serviceDetail.ticketStatus}
+                      {serviceDetail?.ticketStatus}
                     </TableCell>
                     <IconButton
-                      onClick={() => SetEmployeeDetails(serviceDetail.ticketId)}
+                      onClick={() =>
+                        SetEmployeeDetails(serviceDetail?.ticketId)
+                      }
                     >
                       <OpenInNewIcon sx={{ color: "darkblue" }} />
                     </IconButton>

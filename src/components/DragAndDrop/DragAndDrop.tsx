@@ -1,17 +1,11 @@
 import { useState } from "react";
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import upload from "../../assets/upload.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { StyledTypography } from "../../components/Styled/StyledComponent";
 
-export const DragAndDrop = (props: any) => {
-  const StyledTypography = styled(Typography)({
-    fontWeight: "bold",
-    fontSize: "1.25rem",
-    margin: "10px",
-    color: "grey",
-  });
-
+export const DragAndDrop = () => {
   const [file, setFile] = useState<Blob | string>();
   let navigate = useNavigate();
 
@@ -38,7 +32,7 @@ export const DragAndDrop = (props: any) => {
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
 
-    if (file?.size! < 1073741824 && file?.type === "text/csv") {
+    if (file?.size! < 10000000 && file?.type === "text/csv") {
       setFile(file);
     } else {
       e.target.value = "";

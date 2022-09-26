@@ -36,11 +36,11 @@ export default function Profile() {
   } = useSelector((state: RootStore) => state);
 
   const [updateData, setUpdateData] = useState<UpdateType>({
-    name: employee.name,
-    email: employee.email,
-    phone: employee.phone,
-    location: employee.location,
-    jobTitle: employee.jobTitle,
+    name: employee?.name,
+    email: employee?.email,
+    phone: employee?.phone,
+    location: employee?.location,
+    jobTitle: employee?.jobTitle,
   });
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
@@ -66,28 +66,27 @@ export default function Profile() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateEmployeeDetails(employee.empId, updateData));
+    dispatch(updateEmployeeDetails(employee?.empId, updateData));
     setOpen(false);
   };
 
   const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(changePassword(employee.empId, password?.password!));
+    dispatch(changePassword(employee?.empId, password?.password!));
     setOpenPasswordDialog(false);
   };
 
   useEffect(() => {
     dispatch(getEmployee(user.empId));
-    if (message) alert(message);
-  }, [dispatch, user.empId, message]);
+  }, [dispatch, user?.empId, message]);
 
   useEffect(() => {
     setUpdateData({
-      name: employee.name,
-      email: employee.email,
-      phone: employee.phone,
-      location: employee.location,
-      jobTitle: employee.jobTitle,
+      name: employee?.name,
+      // email: employee?.email,
+      phone: employee?.phone,
+      location: employee?.location,
+      // jobTitle: employee?.jobTitle,
     });
   }, [employee]);
 
@@ -132,7 +131,7 @@ export default function Profile() {
                 mt={2}
               >
                 EmpId:
-                <Typography variant="body1">{employee.empId}</Typography>
+                <Typography variant="body1">{employee?.empId}</Typography>
               </Typography>
               <Typography
                 mt={2}
@@ -145,7 +144,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee.name}
+                  {employee?.name}
                 </Typography>
               </Typography>
               <Typography
@@ -159,7 +158,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee.jobTitle}
+                  {employee?.jobTitle}
                 </Typography>
               </Typography>
               <Typography
@@ -169,7 +168,7 @@ export default function Profile() {
                 mt={2}
               >
                 Email:
-                <Typography variant="body1">{employee.email}</Typography>
+                <Typography variant="body1">{employee?.email}</Typography>
               </Typography>
             </Grid>
 
@@ -180,7 +179,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Phone:<Typography variant="body1">{employee.phone}</Typography>
+                Phone:<Typography variant="body1">{employee?.phone}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -193,7 +192,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee.location}
+                  {employee?.location}
                 </Typography>
               </Typography>
             </Grid>
@@ -213,7 +212,7 @@ export default function Profile() {
               type="text"
               fullWidth
               variant="outlined"
-              value={updateData.name}
+              value={updateData?.name}
               onChange={handleChange}
             />
             <TextField
@@ -222,6 +221,7 @@ export default function Profile() {
               required
               label="Job Title"
               type="text"
+              disabled
               fullWidth
               variant="outlined"
               value={updateData?.jobTitle}
@@ -233,6 +233,7 @@ export default function Profile() {
               required
               label="Email"
               type="email"
+              disabled
               fullWidth
               variant="outlined"
               value={updateData?.email}
@@ -280,17 +281,17 @@ export default function Profile() {
               name="password"
               required
               label="New Password"
-              type="text"
+              type="password"
               fullWidth
               variant="outlined"
               onChange={handlePasswordChange}
             />
             <TextField
               margin="dense"
-              name="confirmPassword"
+              name="passwordVerify"
               required
               label="Confirm New Password"
-              type="text"
+              type="password"
               fullWidth
               variant="outlined"
               onChange={handlePasswordChange}

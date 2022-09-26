@@ -8,6 +8,7 @@ import { RootStore } from "../../redux/store";
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+
   const open = Boolean(anchorEl);
   const dispatch: Dispatch<any> = useDispatch();
   const handleClose = () => {
@@ -19,10 +20,10 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  const {
-    authenticated,
-    user: { name },
-  } = useSelector((state: RootStore) => state.login);
+  const { authenticated, user } = useSelector(
+    (state: RootStore) => state.login
+  );
+
   return (
     <Box
       sx={{
@@ -60,9 +61,11 @@ export default function Navbar() {
               setAnchorEl(e.currentTarget);
             }}
           >
-            <Typography fontSize={24} color={"#011E41"}>
-              {name[0]}
-            </Typography>
+            {user.name && (
+              <Typography fontSize={24} color={"#011E41"}>
+                {user.name[0]}
+              </Typography>
+            )}
           </Avatar>
           <Menu
             id="basic-menu"

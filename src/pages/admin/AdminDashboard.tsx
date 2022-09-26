@@ -51,7 +51,7 @@ function AdminDashboard() {
                 variant="h5"
                 color="primary"
               >
-                <CountUp end={assets.length} duration={2} />
+                <CountUp end={assets?.length} duration={2} />
               </Typography>
 
               <Typography
@@ -74,7 +74,7 @@ function AdminDashboard() {
                 variant="h5"
                 color="primary"
               >
-                <CountUp end={employees.length} duration={2} />
+                <CountUp end={employees?.length} duration={2} />
               </Typography>
               <Typography
                 sx={{ fontSize: "24px" }}
@@ -98,7 +98,7 @@ function AdminDashboard() {
               >
                 <CountUp
                   end={
-                    assets.filter((asset) => asset.usability === "disposed")
+                    assets?.filter((asset) => asset?.usability === "disposed")
                       .length
                   }
                   duration={2}
@@ -126,7 +126,7 @@ function AdminDashboard() {
               >
                 <CountUp
                   end={
-                    assets.filter((asset) => asset.usability === "usable")
+                    assets?.filter((asset) => asset?.usability === "usable")
                       .length
                   }
                   duration={2}
@@ -154,7 +154,7 @@ function AdminDashboard() {
               >
                 <CountUp
                   end={
-                    assets.filter((asset) => asset.usability === "unusable")
+                    assets?.filter((asset) => asset?.usability === "unusable")
                       .length
                   }
                   duration={2}

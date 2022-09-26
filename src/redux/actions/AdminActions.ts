@@ -180,6 +180,7 @@ export const allocateAssets =
       );
 
       dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: res.data });
+      window.confirm("Do you want to allot asset?");
     } catch (error) {
       dispatch({
         type: SET_ERROR,
