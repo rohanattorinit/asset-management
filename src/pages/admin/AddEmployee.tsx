@@ -1,180 +1,200 @@
+import React, { Dispatch } from "react";
 import {
   Grid,
   Card,
-  styled,
-  TextField,
-  Divider,
-  Box,
+  CardContent,
+  CardActions,
   Button,
+  CardHeader,
+  Divider,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { TextField } from "formik-material-ui";
 import SideBar from "../../components/Sidebar/Sidebar";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
-import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
-import { useNavigate } from "react-router-dom";
-export const AddEmployee = () => {
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
+
+const options = [
+  { label: "Senior Software Developer", value: "senior_software_developer" },
+  { label: "Software Developer", value: "software_developer" },
+  {
+    label: "Associate Software Developer",
+    value: "associate_software_developer",
+  },
+  { label: "Human Resourse", value: "human_resourse" },
+  { label: "Technical Delivery Manager", value: "technical_delivery_manager" },
+];
+
+//password validation
+
+const uppercaseRegEx = /(?=.*[A-Z])/;
+const numericRegEx = /(?=.*[0-9])/;
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+const re = /^[A-Z/a-z/ \b]+$/;
+
+//validation schema
+let validationSchema = Yup.object().shape({
+  empId: Yup.string()
+    .matches(numericRegEx, "Invalid employee ID")
+    .matches(uppercaseRegEx, "Invalid employee ID ")
+    .required("Required"),
+
+  name: Yup.string()
+    .matches(re, "Name can have letters only!")
+    .required("Required"),
+
+  email: Yup.string().email("Invalid email").required("Required"),
+
+  location: Yup.string()
+    .matches(re, "Location can have letters only!")
+
+    .required("Required!"),
+
+  phone: Yup.string()
+    .matches(phoneRegExp, "Invalid phone number")
+    .min(10, "to short")
+    .max(10, "to long")
+    .required("Required"),
+});
+
+const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const [employeeDetails, setEmployeeDetails] = useState({
-    empId: "",
-    name: "",
-    email: "",
-    phone: "",
-    location: "",
-    jobTitle: "",
-  });
   let navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEmployeeDetails({
-      ...employeeDetails,
-      [name]: value,
-    });
-  };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(addEmployee(employeeDetails));
-    setEmployeeDetails({
-      empId: "",
-      name: "",
-      email: "",
-      phone: "",
-      location: "",
-      jobTitle: "",
-    });
+  const onSubmit = (values: any) => {
+    dispatch(addEmployee(values));
+
     navigate(`/admin/employee`);
   };
-  const StyledTypography = styled(Typography)({
-    fontWeight: "bold",
-    fontSize: "1.25rem",
-    margin: "10px",
-  });
 
   return (
-    <Grid container sx={{ bgcolor: "#F1F5F9" }}>
+    <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={3}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
-        <Box>
-          <Card
-            sx={{
-              my: 2,
-              borderRadius: "15px",
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
+        <Card>
+          <CardHeader title="Create Employee"></CardHeader>
+          <Formik
+            initialValues={{
+              empId: "",
+              name: "",
+              email: "",
+              jobTitle: "",
+              location: "",
+              phone: "",
             }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
           >
-            <CardContent>
-              <StyledTypography>Create Employee :</StyledTypography>
-              <Grid container>
-                <Grid item xs={12} md={6}>
-                  <form onSubmit={handleSubmit}>
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <TextField
-                        margin="normal"
-                        required
-                        id="outlined-basic"
-                        label="Employee ID"
-                        variant="outlined"
-                        name="empId"
-                        value={employeeDetails?.empId}
-                        onChange={handleChange}
-                      />
-                      <TextField
-                        margin="normal"
-                        required
-                        id="outlined-basic"
-                        label="Full Name"
-                        variant="outlined"
-                        name="name"
-                        value={employeeDetails?.name}
-                        onChange={handleChange}
-                      />
-                      <TextField
-                        margin="normal"
-                        required
-                        id="outlined-basic"
-                        label="E-mail"
-                        variant="outlined"
-                        name="email"
-                        value={employeeDetails?.email}
-                        onChange={handleChange}
-                      />
-                      <TextField
-                        margin="normal"
-                        required
-                        id="outlined-basic"
-                        label="Job Title"
-                        variant="outlined"
-                        name="jobTitle"
-                        value={employeeDetails?.jobTitle}
-                        onChange={handleChange}
-                      />
-                      <TextField
-                        margin="normal"
-                        required
-                        id="outlined-basic"
-                        label="Location"
-                        variant="outlined"
-                        name="location"
-                        value={employeeDetails?.location}
-                        onChange={handleChange}
-                      />
-                      <TextField
-                        margin="normal"
-                        required
-                        id="outlined-basic"
-                        label="Phone No"
-                        variant="outlined"
-                        inputProps={{ minlength: 10, maxLength: 10 }}
-                        name="phone"
-                        value={employeeDetails.phone}
-                        onChange={handleChange}
-                      />
-                      <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <Button
-                          color="info"
-                          size="large"
-                          type="submit"
+            {({ dirty, isValid, values, handleChange, handleBlur }) => {
+              return (
+                <Form>
+                  <CardContent>
+                    <Grid item container spacing={5}>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Employee ID"
                           variant="outlined"
-                        >
-                          Submit
-                        </Button>
-                      </Box>
-                    </Box>
-                  </form>
-                </Grid>
-                <Grid item xs={12} md={1}>
-                  <Divider orientation="vertical" />
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  md={5}
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{ marginY: "6rem" }}
-                  >
-                    <DragAndDrop />
-                  </Box>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Box>
+                          fullWidth
+                          name="empId"
+                          value={values.empId}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <FormControl fullWidth variant="outlined">
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Job Title
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            label="Job Title"
+                            value={values.jobTitle}
+                            onChange={handleChange}
+                            name="jobTitle"
+                            required
+                          >
+                            <MenuItem>None</MenuItem>
+                            {options.map((item) => (
+                              <MenuItem key={item.value} value={item.value}>
+                                {item.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Full Name"
+                          variant="outlined"
+                          fullWidth
+                          name="name"
+                          value={values.name}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Email"
+                          variant="outlined"
+                          fullWidth
+                          name="email"
+                          value={values.email}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Location"
+                          variant="outlined"
+                          fullWidth
+                          name="location"
+                          value={values.location}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Phone No."
+                          variant="outlined"
+                          fullWidth
+                          name="phone"
+                          value={values.phone}
+                          component={TextField}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  <CardActions>
+                    <Button type="submit" size="large" variant="contained">
+                      ADD EMPLOYEE
+                    </Button>
+                  </CardActions>
+                </Form>
+              );
+            }}
+          </Formik>
+          <Divider orientation="horizontal" />
+          <DragAndDrop />
+        </Card>
       </Grid>
+      <Grid item xs={12} md={6}></Grid>
     </Grid>
   );
 };
+
+export default AddEmployee;

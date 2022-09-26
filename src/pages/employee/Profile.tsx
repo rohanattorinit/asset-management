@@ -1,4 +1,11 @@
-import { Grid, Typography } from "@mui/material";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Grid,
+  Typography,
+} from "@mui/material";
 import React, { Dispatch, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Box, Paper } from "@mui/material";
@@ -16,14 +23,30 @@ import {
   getEmployee,
   updateEmployeeDetails,
 } from "../../redux/actions/EmployeeActions";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 
-interface UpdateType {
-  name?: string;
-  email?: string;
-  phone?: string;
-  location?: string;
-  jobTitle?: string;
-}
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const re = /^[A-Z/a-z/ \b]+$/;
+
+let validationSchema = Yup.object().shape({
+  phone: Yup.string()
+    .matches(phoneRegExp, "Invalid phone number")
+    .min(10, "to short")
+    .max(10, "to long")
+    .required("Required"),
+
+  location: Yup.string()
+    .matches(re, "Location can have letters only!")
+    .required("Required"),
+
+  name: Yup.string()
+    .matches(re, "Name can have letters only!")
+    .required("Please enter valid name")
+    .nullable(),
+});
+
 interface NewPasswordType {
   password?: string;
   confirmPassword?: string;
@@ -35,26 +58,11 @@ export default function Profile() {
     employee: { employee, message },
   } = useSelector((state: RootStore) => state);
 
-  const [updateData, setUpdateData] = useState<UpdateType>({
-    name: employee?.name,
-    email: employee?.email,
-    phone: employee?.phone,
-    location: employee?.location,
-    jobTitle: employee?.jobTitle,
-  });
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
 
   const dispatch: Dispatch<any> = useDispatch();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUpdateData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,12 +70,6 @@ export default function Profile() {
       ...prevState,
       [name]: value,
     }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(updateEmployeeDetails(employee?.empId, updateData));
-    setOpen(false);
   };
 
   const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -81,15 +83,10 @@ export default function Profile() {
     if (message) alert(message);
   }, [dispatch, user?.empId, message]);
 
-  useEffect(() => {
-    setUpdateData({
-      name: employee?.name,
-      email: employee?.email,
-      phone: employee?.phone,
-      location: employee?.location,
-      jobTitle: employee?.jobTitle,
-    });
-  }, [employee]);
+  const onSubmit = (values: any) => {
+    dispatch(updateEmployeeDetails(employee?.empId, values));
+    setOpen(false);
+  };
 
   return (
     <Grid container>
@@ -201,72 +198,107 @@ export default function Profile() {
       </Grid>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <form onSubmit={handleSubmit}>
-          <DialogTitle>Edit Details</DialogTitle>
-          <DialogContent>
-            <TextField
-              margin="dense"
-              name="name"
-              required
-              label="Name"
-              type="text"
-              fullWidth
-              variant="outlined"
-              value={updateData?.name}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="jobTitle"
-              required
-              label="Job Title"
-              type="text"
-              fullWidth
-              variant="outlined"
-              value={updateData?.jobTitle}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="email"
-              required
-              label="Email"
-              type="email"
-              fullWidth
-              variant="outlined"
-              value={updateData?.email}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="phone"
-              required
-              label="Phone"
-              type="tel"
-              fullWidth
-              variant="outlined"
-              value={updateData?.phone}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="location"
-              required
-              label="Location"
-              type="text"
-              fullWidth
-              variant="outlined"
-              value={updateData?.location}
-              onChange={handleChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit">Submit</Button>
-          </DialogActions>
-        </form>
+        <Card>
+          <CardHeader title="Edit"></CardHeader>{" "}
+          <Formik
+            initialValues={{
+              name: employee?.name,
+              email: employee?.email,
+              phone: employee?.phone,
+              location: employee?.location,
+              jobTitle: employee?.jobTitle,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
+              return (
+                <Form>
+                  <CardContent>
+                    <Grid item container spacing={1}>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Name"
+                          variant="outlined"
+                          fullWidth
+                          name="name"
+                          id="name"
+                          value={values.name}
+                          component={TextField}
+                          onChange={handleChange}
+                          error={errors.name}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Job Title"
+                          disabled
+                          variant="outlined"
+                          fullWidth
+                          name="jobTitle"
+                          id="jobTitle"
+                          onChange={handleChange}
+                          value={values.jobTitle}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Email"
+                          disabled
+                          variant="outlined"
+                          fullWidth
+                          name="email"
+                          id="email"
+                          onChange={handleChange}
+                          value={values.email}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Phone No"
+                          variant="outlined"
+                          fullWidth
+                          name="phone"
+                          id="phone"
+                          onChange={handleChange}
+                          value={values.phone}
+                          component={TextField}
+                          error={errors.phone}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Location"
+                          variant="outlined"
+                          fullWidth
+                          name="location"
+                          id="location"
+                          onChange={handleChange}
+                          value={values.location}
+                          component={TextField}
+                          error={errors.location}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  <CardActions>
+                    <Button type="submit" size="large" variant="contained">
+                      EDIT
+                    </Button>
+                  </CardActions>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Card>{" "}
       </Dialog>
 
-      {/* Chnage password dialog */}
       <Dialog
         open={openPasswordDialog}
         onClose={() => setOpenPasswordDialog(false)}
@@ -296,7 +328,9 @@ export default function Profile() {
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Submit</Button>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
           </DialogActions>
         </form>
       </Dialog>

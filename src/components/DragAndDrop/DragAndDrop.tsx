@@ -71,15 +71,16 @@ export const DragAndDrop = () => {
             accept=".csv,text/csv"
             required
           />
-          <Button
-            sx={{ margin: "2rem 8rem" }}
-            color="info"
-            size="large"
-            type="submit"
-            variant="outlined"
-          >
-            Upload CSV
-          </Button>
+          <Box>
+            <Button
+              sx={{ margin: "2rem 8rem" }}
+              size="large"
+              type="submit"
+              variant="contained"
+            >
+              Upload CSV
+            </Button>
+          </Box>
         </form>
       </Box>
     </>

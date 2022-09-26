@@ -21,11 +21,11 @@ import ProtectedAdminRoute, {
 
 import { useSelector } from "react-redux";
 import { RootStore } from "./redux/store";
-import { AddEmployee } from "./pages/admin/AddEmployee";
-import { AddAsset } from "./pages/admin/AddAsset";
 
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
 import { ServiceDetails } from "./pages/admin/ServiceDetails";
+import AddEmployee from "./pages/admin/AddEmployee";
+import AddAsset from "./pages/admin/AddAsset";
 
 function App() {
   const {
@@ -51,12 +51,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route
-            path="/login"
-            element={
-              <Login />
-            }
-          />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/"
             element={
