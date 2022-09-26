@@ -109,10 +109,10 @@ function EmpList() {
                       <TableCell component="th" scope="row">
                         {employee?.empId}
                       </TableCell>
-                      <TableCell align="center">{employee?.name}</TableCell>
+                      <TableCell align="center">{employee?.name.toUpperCase()}</TableCell>
                       <TableCell align="center">{employee?.email}</TableCell>
                       <TableCell align="center">{employee?.phone}</TableCell>
-                      <TableCell align="center">{employee?.location}</TableCell>
+                      <TableCell align="center">{employee?.location.toUpperCase()}</TableCell>
                       <IconButton
                         onClick={() => setEmployeeDetails(employee?.empId)}
                       >

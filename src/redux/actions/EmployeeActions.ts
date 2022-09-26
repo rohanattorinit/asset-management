@@ -11,7 +11,6 @@ import {
   SET_ERROR,
   UPDATE_EMPLOYEE_DETAILS,
 } from "../types";
-
 interface UpdateType {
   name?: string;
   email?: string;
@@ -19,7 +18,6 @@ interface UpdateType {
   location?: string;
   jobTitle?: string;
 }
-
 export const getEmployeeAssets =
   (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
@@ -35,7 +33,6 @@ export const getEmployeeAssets =
       });
     }
   };
-
 export const getEmployee =
   (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
@@ -51,18 +48,15 @@ export const getEmployee =
       });
     }
   };
-
 export const updateEmployeeDetails =
   (empId: string, updateData: UpdateType) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING });
     try {
-      window.confirm("Are You Sure!!");
       const res = await axios.post(
         `http://localhost:4000/api/employees/update/${empId}`,
         updateData
       );
-      alert("Updated Successfully!!");
       dispatch({ type: UPDATE_EMPLOYEE_DETAILS, payload: res.data });
     } catch (error) {
       dispatch({
@@ -71,7 +65,6 @@ export const updateEmployeeDetails =
       });
     }
   };
-
 export const changePassword =
   (empId: string, password: string) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
@@ -79,7 +72,6 @@ export const changePassword =
     try {
       const res = await axios.post(
         `http://localhost:4000/api/auth/changePassword/${empId}`,
-
         { password: password }
       );
       dispatch({ type: CHANGE_PASSWORD, payload: res.data });
@@ -90,21 +82,36 @@ export const changePassword =
       });
     }
   };
-
-export const getEmployeeTickets = (empId: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING })
-  try {
-    const res = await axios.get(
-      `http://localhost:4000/api/tickets/employeeTickets/${empId}`
-    )
-    dispatch({ type: SET_EMPTICKETS, payload: res.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: (error as any).response.data.error
-    })
-  }
-}
-
+export const createTicket =
+  (empId: string, assetId: number, title: string, description: string) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING });
+    try {
+      const res = await axios.post(
+        `http://localhost:4000/api/tickets/createTicket`,
+        { empId, assetId, title, description }
+      );
+      alert("Ticket created successfully!");
+      dispatch({ type: CREATE_TICKET, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
+export const getEmployeeTickets =
+  (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING });
+    try {
+      const res = await axios.get(
+        `http://localhost:4000/api/tickets/employeeTickets/${empId}`
+      );
+      dispatch({ type: SET_EMPTICKETS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };

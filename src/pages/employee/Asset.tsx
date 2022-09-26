@@ -32,15 +32,11 @@ export default function Asset() {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const re = /^[A-Z/a-z\b]+$/;
-    // const ne = /^[0-9\b]+$/;
-    if (e.target.value === "" || re.test(e.target.value)) {
-      const { name, value } = e.target;
-      setTicket({
-        ...ticket,
-        [name]: value,
-      });
-    }
+    const { name, value } = e.target;
+    setTicket({
+      ...ticket,
+      [name]: value,
+    });
   };
 
   const {
