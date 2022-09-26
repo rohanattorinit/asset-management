@@ -30,6 +30,7 @@ export interface EmpTicketType {
   description: string
   ticketStatus: string
   createdAt: string
+  note : string
 }
 
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'

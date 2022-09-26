@@ -55,7 +55,6 @@ export default function EmployeeDetails() {
   });
 
   const [open, setOpen] = useState(false);
-
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
 
   const handleClickOpen = () => {
@@ -70,30 +69,21 @@ export default function EmployeeDetails() {
     dispatch(deallocateAssets(employeeDetails?.empId, assetId));
   };
 
-  // const handleAllocate = (assetID: number) => {
-  //   dispatch(allocateAssets(employeedetails.empId, assetIdCheck));
-  // };
-
   const handleCheckChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     assetId: number
   ) => {
     if (event.target.checked) setAssetId([...assetIdCheck, assetId]);
-    //console.log(event.target.checked);
     else {
       setAssetId(assetIdCheck.filter((e) => e !== assetId));
     }
   };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(allocateAssets(employeeDetails.empId, assetIdCheck));
-    //setAssetId([]);
-    //console.log(assetIdCheck);
-    // window.confirm("Do you want to allot asset?");
+    setAssetId([]);
     setOpen(false);
   };
-
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
@@ -148,7 +138,6 @@ export default function EmployeeDetails() {
                 </Typography>
               </Typography>
             </Grid>
-
             <Grid item xs={12} md={8}>
               <Typography
                 fontFamily="serif"
@@ -221,7 +210,7 @@ export default function EmployeeDetails() {
                     <TableCell align="right">{asset?.allocationTime}</TableCell>
                     <IconButton>
                       <RemoveCircleIcon
-                        sx={{ color: "#dc2626" }}
+                        sx={{ color: "#DC2626" }}
                         onClick={() => {
                           if (
                             window.confirm("Do you want to Delete the Asset?")
@@ -237,7 +226,6 @@ export default function EmployeeDetails() {
           </TableContainer>
         </Paper>
       </Grid>
-
       {/* Allocate an Asset */}
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
