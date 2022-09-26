@@ -28,7 +28,7 @@ import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
 function Assets() {
-  const { assets } = useSelector((state: RootStore) => state.admin);
+  const { assets, message } = useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -40,7 +40,7 @@ function Assets() {
 
   useEffect(() => {
     dispatch(getAssets());
-  }, [dispatch]);
+  }, [dispatch, message]);
 
   const AssetsTable = ({ category }: { category: string }) => {
     return (

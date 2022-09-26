@@ -30,7 +30,7 @@ function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
   let navigate = useNavigate();
 
-  const { employees } = useSelector((state: RootStore) => state.admin);
+  const { employees, message } = useSelector((state: RootStore) => state.admin);
 
   const setEmployeeDetails = (empId: string) => {
     dispatch(getEmployeetDetails(empId));
@@ -40,7 +40,7 @@ function EmpList() {
 
   useEffect(() => {
     dispatch(getEmployees());
-  }, [dispatch]);
+  }, [dispatch, message]);
 
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {

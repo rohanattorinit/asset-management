@@ -8,6 +8,7 @@ import { login } from "../redux/actions/AuthAction";
 import { useSelector } from "react-redux";
 import { RootStore } from "../redux/store";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface credential {
   email?: string;
@@ -40,6 +41,12 @@ function Login() {
   };
 
   useEffect(() => {
+    // const token = Cookies.get("auth_token");
+    // debugger;
+    // if (token) {
+    //   navigate("/admin");
+    //   return;
+    // }
     authenticated && !isAdmin && navigate("/");
     authenticated && isAdmin && navigate("/admin");
   }, [authenticated, isAdmin, navigate]);

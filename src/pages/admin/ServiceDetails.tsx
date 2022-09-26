@@ -162,7 +162,7 @@ export const ServiceDetails = () => {
                 alignItems: "center",
               }}
             >
-              <Button type="submit" variant="outlined" color="primary">
+              <Button type="submit" variant="contained">
                 SUBMIT
               </Button>
             </Box>
