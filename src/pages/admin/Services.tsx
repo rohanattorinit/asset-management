@@ -50,7 +50,7 @@ function Services() {
 
   let filteredService = serviceDetails?.filter((serviceDetail) => {
     if (search?.length === 0) return serviceDetails;
-    return serviceDetail?.title.toLowerCase().startsWith(search.toLowerCase());
+    return serviceDetail?.title.toLowerCase().includes(search.toLowerCase());
   });
 
   filteredService = filteredService?.filter((serviceDetail) => {

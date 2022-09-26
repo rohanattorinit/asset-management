@@ -49,7 +49,7 @@ function EmpList() {
 
   const filteredEmployee = employees.filter((employee) => {
     if (search?.length === 0) return employee;
-    return employee?.name.toLowerCase().startsWith(search.toLowerCase());
+    return employee?.name.toLowerCase().includes(search.toLowerCase());
   });
 
   return (

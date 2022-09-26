@@ -50,7 +50,7 @@ export default function EmployeeDetails() {
     if (search?.length === 0) {
       return asset.status === "available" && asset.usability === "usable";
     }
-    return asset.name.toLowerCase().startsWith(search?.toLowerCase());
+    return asset.name.toLowerCase().includes(search?.toLowerCase());
   });
 
   const [open, setOpen] = useState(false);

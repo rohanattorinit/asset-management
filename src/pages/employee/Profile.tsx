@@ -78,16 +78,15 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(getEmployee(user.empId));
-    if (message) alert(message);
   }, [dispatch, user?.empId, message]);
 
   useEffect(() => {
     setUpdateData({
       name: employee?.name,
-      email: employee?.email,
+      // email: employee?.email,
       phone: employee?.phone,
       location: employee?.location,
-      jobTitle: employee?.jobTitle,
+      // jobTitle: employee?.jobTitle,
     });
   }, [employee]);
 
@@ -221,6 +220,7 @@ export default function Profile() {
               required
               label="Job Title"
               type="text"
+              disabled
               fullWidth
               variant="outlined"
               value={updateData?.jobTitle}
@@ -232,6 +232,7 @@ export default function Profile() {
               required
               label="Email"
               type="email"
+              disabled
               fullWidth
               variant="outlined"
               value={updateData?.email}
@@ -279,17 +280,17 @@ export default function Profile() {
               name="password"
               required
               label="New Password"
-              type="text"
+              type="password"
               fullWidth
               variant="outlined"
               onChange={handlePasswordChange}
             />
             <TextField
               margin="dense"
-              name="confirmPassword"
+              name="passwordVerify"
               required
               label="Confirm New Password"
-              type="text"
+              type="password"
               fullWidth
               variant="outlined"
               onChange={handlePasswordChange}

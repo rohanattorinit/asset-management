@@ -1,20 +1,13 @@
-import {
-  Grid,
-  Card,
-  styled,
-  TextField,
-  Divider,
-  Box,
-  Button,
-} from "@mui/material";
+import { Grid, Card, TextField, Divider, Box, Button } from "@mui/material";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
 import { useNavigate } from "react-router-dom";
+import { StyledTypography } from "../../components/Styled/StyledComponent";
+
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const [employeeDetails, setEmployeeDetails] = useState({
@@ -47,11 +40,6 @@ export const AddEmployee = () => {
     });
     navigate(`/admin/employee`);
   };
-  const StyledTypography = styled(Typography)({
-    fontWeight: "bold",
-    fontSize: "1.25rem",
-    margin: "10px",
-  });
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9" }}>

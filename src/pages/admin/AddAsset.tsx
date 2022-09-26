@@ -1,20 +1,12 @@
-import {
-  Grid,
-  Card,
-  styled,
-  TextField,
-  Divider,
-  Box,
-  Button,
-} from "@mui/material";
+import { Grid, Card, TextField, Divider, Box, Button } from "@mui/material";
 import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import React, { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
 import { useNavigate } from "react-router-dom";
+import { StyledTypography } from "../../components/Styled/StyledComponent";
 
 export const AddAsset = () => {
   let navigate = useNavigate();
@@ -33,11 +25,24 @@ export const AddAsset = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setAssetDetails({
-      ...assetDetails,
-      [name]: value,
-    });
+    const re = /^[A-Z/a-z\b]+$/;
+    if (e.target.value === "" || re.test(e.target.value)) {
+      const { name, value } = e.target;
+      setAssetDetails({
+        ...assetDetails,
+        [name]: value,
+      });
+    }
+  };
+  const handlemodelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const ne = /^[A-Z/a-z/0-9\b]+$/;
+    if (e.target.value === "" || ne.test(e.target.value)) {
+      const { name, value } = e.target;
+      setAssetDetails({
+        ...assetDetails,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,12 +62,6 @@ export const AddAsset = () => {
 
     navigate(`/admin/assets`);
   };
-
-  const StyledTypography = styled(Typography)({
-    fontWeight: "bold",
-    fontSize: "1.25rem",
-    margin: "10px",
-  });
 
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
@@ -161,7 +160,7 @@ export const AddAsset = () => {
                         variant="outlined"
                         placeholder="E.g: 12345678"
                         name="modelNo"
-                        onChange={handleChange}
+                        onChange={handlemodelChange}
                         value={assetDetails?.modelNo}
                       />
                       <TextField
