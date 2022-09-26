@@ -157,6 +157,7 @@ export const ServiceDetails = () => {
 
             <Box
               sx={{
+                marginY: "2rem",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
