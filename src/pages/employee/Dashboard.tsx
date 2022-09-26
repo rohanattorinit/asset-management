@@ -1,64 +1,68 @@
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Grid, styled } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import WebAssetIcon from "@mui/icons-material/WebAsset";
-import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
+import { useDispatch, useSelector } from "react-redux";
 
-const StlyedGrid = styled(Grid)({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "250px",
-  height: "244px",
-  border: "2px solid black",
-  borderRadius: "10px",
-  backgroundColor: "#CBCBCB",
-  cursor: "pointer",
-  margin: "10px",
-});
+import { Grid, Card, CardContent } from "@mui/material";
+
+import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
+
+import { Dispatch, useEffect } from "react";
+import { RootStore } from "../../redux/store";
+import SideBar from "../../components/Sidebar/Sidebar";
+import Carousel from "../../components/Carousel/Carousel";
 
 export default function Dashboard() {
-  let navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/ticket");
-  };
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const { tickets } = useSelector((state: RootStore) => state.employee);
+
+  const { user } = useSelector((state: RootStore) => state.login);
+
+  const filteredStatus = tickets.filter((currentticket) => {
+    return currentticket.ticketStatus === "active";
+  });
+
+  useEffect(() => {
+    dispatch(getEmployeeTickets(user.empId));
+  }, [dispatch, user]);
+
   return (
-    <Box p={3}>
-      <Typography variant="h3" textAlign="center">
-        Dashboard
-      </Typography>
-      <Grid container justifyContent="center" my={3}>
-        <StlyedGrid item onClick={() => navigate("/profile")}>
-          <PersonIcon
-            color="primary"
-            sx={{
-              width: 100,
-              height: 100,
-            }}
-          />
-        </StlyedGrid>
-
-        <StlyedGrid item onClick={() => navigate("/asset")}>
-          <WebAssetIcon
-            color="primary"
-            sx={{
-              width: 100,
-              height: 100,
-            }}
-          />
-        </StlyedGrid>
-
-        <StlyedGrid item onClick={handleClick}>
-          <DeviceUnknownIcon
-            color="primary"
-            sx={{
-              width: 100,
-              height: 100,
-            }}
-          />
-        </StlyedGrid>
+    <Grid container sx={{ height: "100%" }}>
+      <SideBar />
+      <Grid item xs={12} md={10} p={3}>
+        <Box p={2}>
+          <Carousel />
+        </Box>
+        <Box mt={2}>
+          <Typography variant="h5" marginY={2}>
+            Your Active Tickets
+          </Typography>
+          <Grid container spacing={5}>
+            {filteredStatus.map((requeststatus) => {
+              return (
+                <Grid item xs={6} md={3}>
+                  <Card key={requeststatus.ticketId}>
+                    {/* <CardHeader title={"#" + tickets.ticketId} /> */}
+                    <CardContent>
+                      <Typography variant="h5">
+                        {"# " + requeststatus.ticketId}
+                      </Typography>
+                      <Typography variant="body1">
+                        Title : {requeststatus.title}
+                      </Typography>
+                      <Typography variant="body1">
+                        Description : {requeststatus.description.slice(0, 20)}
+                      </Typography>
+                      <Typography variant="body1">
+                        Status : {requeststatus.ticketStatus}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
       </Grid>
-    </Box>
+    </Grid>
   );
 }

@@ -1,3 +1,4 @@
+
 import React, { Dispatch } from "react";
 import {
   Grid,
@@ -33,11 +34,13 @@ const usabilityOptions = [
   { label: "Disposed", value: "disposed" },
 ];
 
+
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
   { label: "Software", value: "software" },
 ];
 //password validation
+
 
 const numericRegEx = /(?=.*[0-9])/;
 
@@ -66,6 +69,8 @@ let validationSchema = Yup.object().shape({
 
     .required("Required!"),
 
+
+
   description: Yup.string()
     .matches(re, "Description can have letters only!")
     .required("Required"),
@@ -90,6 +95,7 @@ const AddAsset = () => {
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
+
         {/* <Grid item md={6}> */}
         <Card>
           <CardHeader title="Add new asset"></CardHeader>
@@ -107,6 +113,7 @@ const AddAsset = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
+
             {({ dirty, isValid, values, handleChange, handleBlur }) => {
               return (
                 <Form>
@@ -259,6 +266,7 @@ const AddAsset = () => {
             flexDirection: "column",
           }}
         ></Box>
+
       </Grid>
     </Grid>
   );

@@ -14,7 +14,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+//import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { RootStore } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
@@ -25,6 +25,7 @@ import {
   getAssetDetails,
   getAssets,
 } from "../../redux/actions/AdminActions";
+import Checkbox from "@mui/material/Checkbox";
 
 export default function EmployeeDetails() {
   const { employeeDetails, employeeassetsdetails, message, assets } =
@@ -50,10 +51,12 @@ export default function EmployeeDetails() {
     if (search?.length === 0) {
       return asset.status === "available" && asset.usability === "usable";
     }
-    return asset.name.toLowerCase().startsWith(search?.toLowerCase());
+    return asset.name.toLowerCase().includes(search?.toLowerCase());
   });
 
   const [open, setOpen] = useState(false);
+
+  const [assetIdCheck, setAssetId] = useState<number[]>([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -67,24 +70,34 @@ export default function EmployeeDetails() {
     dispatch(deallocateAssets(employeeDetails?.empId, assetId));
   };
 
-  const handleAllocate = (assetId: number) => {
-    dispatch(allocateAssets(employeeDetails?.empId, assetId));
+  // const handleAllocate = (assetID: number) => {
+  //   dispatch(allocateAssets(employeedetails.empId, assetIdCheck));
+  // };
+
+  const handleCheckChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    assetId: number
+  ) => {
+    if (event.target.checked) setAssetId([...assetIdCheck, assetId]);
+    //console.log(event.target.checked);
+    else {
+      setAssetId(assetIdCheck.filter((e) => e !== assetId));
+    }
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(allocateAssets(employeeDetails.empId, assetIdCheck));
+    //setAssetId([]);
+    //console.log(assetIdCheck);
+    // window.confirm("Do you want to allot asset?");
     setOpen(false);
   };
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: "100%" }}>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={2}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ display: "flex", padding: 1 }} elevation={5}>
           <Grid container m={2}>
             <Grid item xs={12} md={4}>
@@ -255,17 +268,24 @@ export default function EmployeeDetails() {
                       <TableCell component="th" scope="row">
                         {asset?.name}
                       </TableCell>
-                      <TableCell align="right">{asset?.assetId}</TableCell>
-                      <Button
+                      <TableCell align="right">{asset.assetId}</TableCell>
+                      {/* <Button
                         onClick={() => {
-                          alert("Asset is Alloted");
+                          //   alert("Do you want to allot asset?");
                         }}
-                      >
-                        <CheckCircleOutlineIcon
+                      > */}
+                      <Checkbox
+                        sx={{ color: "darkblue" }}
+                        //onClick={() => handleAllocate(asset.assetId)}
+                        onChange={(event) =>
+                          handleCheckChange(event, asset.assetId)
+                        }
+                      />
+                      {/* <CheckCircleOutlineIcon
                           sx={{ color: "darkblue" }}
-                          onClick={() => handleAllocate(asset?.assetId)}
-                        />
-                      </Button>
+                          onClick={() => handleAllocate(asset.assetId)}
+                        /> */}
+                      {/* </Button> */}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -273,9 +293,11 @@ export default function EmployeeDetails() {
             </TableContainer>
           </DialogContent>
           <DialogActions>
+
             <Button type="submit" variant="contained">
               Close
             </Button>
+
           </DialogActions>
         </form>
       </Dialog>

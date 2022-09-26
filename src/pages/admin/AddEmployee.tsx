@@ -1,3 +1,4 @@
+
 import React, { Dispatch } from "react";
 import {
   Grid,
@@ -73,7 +74,6 @@ const AddEmployee = () => {
 
   const onSubmit = (values: any) => {
     dispatch(addEmployee(values));
-
     navigate(`/admin/employee`);
   };
 
@@ -81,6 +81,7 @@ const AddEmployee = () => {
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
+
         <Card>
           <CardHeader title="Create Employee"></CardHeader>
           <Formik
@@ -91,6 +92,7 @@ const AddEmployee = () => {
               jobTitle: "",
               location: "",
               phone: "",
+
             }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}

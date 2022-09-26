@@ -9,6 +9,7 @@ interface CredentialType {
   password?: string
 }
 
+
 export const login = (credential?: CredentialType) => async (
   dispatch: Dispatch<DispatchTypes>
 ) => {
@@ -18,7 +19,6 @@ export const login = (credential?: CredentialType) => async (
       email: credential?.email,
       password: credential?.password
     })
-    Cookies.set('auth_token', res.data.token)
     dispatch({ type: SET_AUTHENTICATED, payload: res.data })
   } catch (error) {
     dispatch({
@@ -27,6 +27,7 @@ export const login = (credential?: CredentialType) => async (
     })
   }
 }
+
 
 export const logout = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING })

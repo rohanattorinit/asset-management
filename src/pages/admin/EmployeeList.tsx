@@ -49,21 +49,15 @@ function EmpList() {
 
   const filteredEmployee = employees.filter((employee) => {
     if (search?.length === 0) return employee;
-    return employee?.name.toLowerCase().startsWith(search.toLowerCase());
+    return employee?.name.toLowerCase().includes(search.toLowerCase());
   });
 
   return (
     <>
-      <Grid container>
+      <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
-        <Grid
-          item
-          xs={12}
-          md={10}
-          p={3}
-          sx={{ height: "88vh", overflowX: "auto" }}
-        >
+        <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
           <Box marginY={2}></Box>
           <Box
             sx={{
