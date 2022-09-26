@@ -293,7 +293,11 @@ export default function EmployeeDetails() {
             </TableContainer>
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Submit</Button>
+
+            <Button type="submit" variant="contained">
+              Close
+            </Button>
+
           </DialogActions>
         </form>
       </Dialog>

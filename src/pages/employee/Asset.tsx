@@ -162,7 +162,9 @@ export default function Asset() {
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Submit</Button>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
           </DialogActions>
         </form>
       </Dialog>
