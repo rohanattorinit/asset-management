@@ -169,15 +169,18 @@ export const deallocateAssets =
   };
 
 export const allocateAssets =
-  (empId: string, assetId: number) =>
+  (empId: string, assetId: number[]) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
+
     try {
       const res = await axios.post(
-        `http://localhost:4000/api/admin/allocateAsset/${empId}/${assetId}`
+        `http://localhost:4000/api/admin/allocateAsset/${empId}/`,
+        { assetId }
       );
 
       dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: res.data });
+      window.confirm("Do you want to allot asset?");
     } catch (error) {
       dispatch({
         type: SET_ERROR,

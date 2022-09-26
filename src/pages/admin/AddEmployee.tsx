@@ -18,8 +18,7 @@ export const AddEmployee = () => {
     location: "",
     jobTitle: "",
   });
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEmployeeDetails({
@@ -42,15 +41,9 @@ export const AddEmployee = () => {
   };
 
   return (
-    <Grid container sx={{ bgcolor: "#F1F5F9" }}>
+    <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={3}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box>
           <Card
             sx={{

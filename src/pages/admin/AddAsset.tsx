@@ -3,13 +3,14 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import CardContent from "@mui/material/CardContent";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import React, { Dispatch, useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 
 export const AddAsset = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -66,13 +67,7 @@ export const AddAsset = () => {
   return (
     <Grid container sx={{ bgcolor: "#f1f5f9" }}>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={3}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box>
           <Card
             sx={{
@@ -152,6 +147,7 @@ export const AddAsset = () => {
                         value={assetDetails?.brandName}
                       />
                       <TextField
+                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                         margin="normal"
                         size="small"
                         required

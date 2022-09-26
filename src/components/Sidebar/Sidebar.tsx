@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Divider, Grid } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 
@@ -15,6 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
+import { SideNavGrid } from "./style";
 
 export default function SideBar() {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -86,7 +87,7 @@ export default function SideBar() {
 
   const SideNav = () => {
     return (
-      <Grid
+      <SideNavGrid
         item
         xs={12}
         md={2}
@@ -165,7 +166,7 @@ export default function SideBar() {
             </Button>
           </Box>
         )}
-      </Grid>
+      </SideNavGrid>
     );
   };
 
