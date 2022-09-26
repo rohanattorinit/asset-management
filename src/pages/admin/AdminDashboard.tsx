@@ -30,7 +30,7 @@ function AdminDashboard() {
   }, [dispatch]);
   return (
     <>
-      <Grid container>
+      <Grid container sx={{ height: "100%" }}>
         <SideBar />
         <Grid item xs={12} md={10} sx={{ overflowX: "auto" }}>
           <Typography variant="h3" textAlign="center" marginY={5}>

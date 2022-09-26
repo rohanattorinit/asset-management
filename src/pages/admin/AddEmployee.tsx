@@ -14,7 +14,7 @@ import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../redux/actions/AdminActions";
-import { height } from "@mui/system";
+
 export const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const [empDetails, setEmployeeDetails] = useState({
@@ -32,6 +32,7 @@ export const AddEmployee = () => {
       [name]: value,
     });
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addEmployee(empDetails));

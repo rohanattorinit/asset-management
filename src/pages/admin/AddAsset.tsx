@@ -150,6 +150,7 @@ export const AddAsset = () => {
                         value={assetDetails.brandName}
                       />
                       <TextField
+                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                         margin="normal"
                         size="small"
                         required

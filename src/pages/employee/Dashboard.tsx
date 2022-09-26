@@ -1,29 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Grid, styled, Card, CardContent } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import WebAssetIcon from "@mui/icons-material/WebAsset";
-import DeviceUnknownIcon from "@mui/icons-material/DeviceUnknown";
+
+import { Grid, Card, CardContent } from "@mui/material";
 
 import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
 
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect } from "react";
 import { RootStore } from "../../redux/store";
 import SideBar from "../../components/Sidebar/Sidebar";
 import Carousel from "../../components/Carousel/Carousel";
-const StlyedGrid = styled(Grid)({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "250px",
-  height: "244px",
-  border: "2px solid black",
-  borderRadius: "10px",
-  backgroundColor: "#CBCBCB",
-  cursor: "pointer",
-  margin: "10px",
-});
 
 export default function Dashboard() {
   const dispatch: Dispatch<any> = useDispatch();
@@ -32,8 +17,8 @@ export default function Dashboard() {
 
   const { user } = useSelector((state: RootStore) => state.login);
 
-  let filteredstatus = tickets.filter((currentticket) => {
-    if (currentticket.ticketStatus === "active") return currentticket;
+  const filteredStatus = tickets.filter((currentticket) => {
+    return currentticket.ticketStatus === "active";
   });
 
   useEffect(() => {
@@ -52,7 +37,7 @@ export default function Dashboard() {
             Your Active Tickets
           </Typography>
           <Grid container spacing={5}>
-            {filteredstatus.map((requeststatus) => {
+            {filteredStatus.map((requeststatus) => {
               return (
                 <Grid item xs={6} md={3}>
                   <Card key={requeststatus.ticketId}>

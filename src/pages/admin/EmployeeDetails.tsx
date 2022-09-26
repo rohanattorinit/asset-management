@@ -14,7 +14,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+//import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { RootStore } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
@@ -25,6 +25,7 @@ import {
   getAssetDetails,
   getAssets,
 } from "../../redux/actions/AdminActions";
+import Checkbox from "@mui/material/Checkbox";
 
 export default function EmployeeDetails() {
   const { employeedetails, employeeassetsdetails, message, assets } =
@@ -55,6 +56,8 @@ export default function EmployeeDetails() {
 
   const [open, setOpen] = useState(false);
 
+  const [assetIdCheck, setAssetId] = useState<number[]>([]);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -67,11 +70,26 @@ export default function EmployeeDetails() {
     dispatch(deallocateAssets(employeedetails.empId, assetId));
   };
 
-  const handleAllocate = (assetID: number) => {
-    dispatch(allocateAssets(employeedetails.empId, assetID));
+  // const handleAllocate = (assetID: number) => {
+  //   dispatch(allocateAssets(employeedetails.empId, assetIdCheck));
+  // };
+
+  const handleCheckChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    assetId: number
+  ) => {
+    if (event.target.checked) setAssetId([...assetIdCheck, assetId]);
+    //console.log(event.target.checked);
+    else {
+      setAssetId(assetIdCheck.filter((e) => e !== assetId));
+    }
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(allocateAssets(employeedetails.empId, assetIdCheck));
+    //setAssetId([]);
+    console.log(assetIdCheck);
     setOpen(false);
   };
 
@@ -244,16 +262,23 @@ export default function EmployeeDetails() {
                         {asset.name}
                       </TableCell>
                       <TableCell align="right">{asset.assetId}</TableCell>
-                      <Button
+                      {/* <Button
                         onClick={() => {
-                          alert("Asset is Alloted");
+                          //   alert("Do you want to allot asset?");
                         }}
-                      >
-                        <CheckCircleOutlineIcon
+                      > */}
+                      <Checkbox
+                        sx={{ color: "darkblue" }}
+                        //onClick={() => handleAllocate(asset.assetId)}
+                        onChange={(event) =>
+                          handleCheckChange(event, asset.assetId)
+                        }
+                      />
+                      {/* <CheckCircleOutlineIcon
                           sx={{ color: "darkblue" }}
                           onClick={() => handleAllocate(asset.assetId)}
-                        />
-                      </Button>
+                        /> */}
+                      {/* </Button> */}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -261,7 +286,7 @@ export default function EmployeeDetails() {
             </TableContainer>
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Close</Button>
+            <Button type="submit">Submit</Button>
           </DialogActions>
         </form>
       </Dialog>

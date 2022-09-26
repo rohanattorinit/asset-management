@@ -17,6 +17,7 @@ export const login =
         email: credential?.email,
         password: credential?.password,
       });
+
       dispatch({ type: SET_AUTHENTICATED, payload: res.data });
     } catch (error) {
       dispatch({
