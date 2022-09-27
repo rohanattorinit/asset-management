@@ -24,46 +24,42 @@ import {
 } from "../../redux/actions/EmployeeActions";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+
+import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../redux/actions/AuthAction";
+
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const re = /^[A-Z/a-z/ \b]+$/;
-
 let validationSchema = Yup.object().shape({
   phone: Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .min(10, "to short")
     .max(10, "to long")
     .required("Required"),
-
   location: Yup.string()
     .matches(re, "Location can have letters only!")
     .required("Required"),
-
   name: Yup.string()
     .matches(re, "Name can have letters only!")
     .required("Please enter valid name")
     .nullable(),
 });
-
 interface NewPasswordType {
   password?: string;
   confirmPassword?: string;
 }
-
 export default function Profile() {
   const {
     login: { user },
     employee: { employee, message },
   } = useSelector((state: RootStore) => state);
-
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
 
   const dispatch: Dispatch<any> = useDispatch();
-
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPassword((prevState) => ({
@@ -71,23 +67,25 @@ export default function Profile() {
       [name]: value,
     }));
   };
-
   const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    debugger;
+
+
     if (password?.password === password?.confirmPassword) {
       e.preventDefault();
       dispatch(changePassword(password?.password!));
 
       setOpenPasswordDialog(false);
+
     } else {
       e.preventDefault();
       alert("Password must match!!");
     }
   };
-
   useEffect(() => {
+
     dispatch(getUserProfile());
   }, [dispatch, message]);
+
 
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(user?.empId, values));
@@ -174,7 +172,6 @@ export default function Profile() {
                 <Typography variant="body1">{user?.email}</Typography>
               </Typography>
             </Grid>
-
             <Grid item xs={12} md={8}>
               <Typography
                 fontFamily="serif"
@@ -202,7 +199,6 @@ export default function Profile() {
           </Grid>
         </Paper>
       </Grid>
-
       <Dialog open={open} onClose={() => setOpen(false)}>
         <Card>
           <CardHeader title="Edit"></CardHeader>{" "}
@@ -235,7 +231,6 @@ export default function Profile() {
                           error={errors.name}
                         />
                       </Grid>
-
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
                           label="Job Title"
@@ -249,7 +244,6 @@ export default function Profile() {
                           component={TextField}
                         />
                       </Grid>
-
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
                           label="Email"
@@ -263,7 +257,6 @@ export default function Profile() {
                           component={TextField}
                         />
                       </Grid>
-
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
                           label="Phone No"
@@ -277,7 +270,6 @@ export default function Profile() {
                           error={errors.phone}
                         />
                       </Grid>
-
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
                           label="Location"
@@ -304,7 +296,6 @@ export default function Profile() {
           </Formik>
         </Card>{" "}
       </Dialog>
-
       <Dialog
         open={openPasswordDialog}
         onClose={() => setOpenPasswordDialog(false)}
