@@ -45,6 +45,15 @@ let validationSchema = Yup.object().shape({
     .matches(re, "Name can have letters only!")
     .required("Please enter valid name")
     .nullable(),
+
+  password: Yup.string().required("This field is required"),
+  confirmPassword: Yup.string().when("password", {
+    is: (val: string | any[]) => (val && val.length > 0 ? true : false),
+    then: Yup.string().oneOf(
+      [Yup.ref("password")],
+      "Both password need to be the same"
+    ),
+  }),
 });
 
 interface NewPasswordType {
@@ -64,19 +73,25 @@ export default function Profile() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setPassword((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  // const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setPassword((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
 
-  const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(changePassword(employee?.empId, password?.password!));
-    setOpenPasswordDialog(false);
-  };
+  // const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   dispatch(changePassword(employee?.empId, password?.password!));
+  //   setOpenPasswordDialog(false);
+  // };
+
+  // const handlePasswordSubmit = (values: any) => {
+
+  //   dispatch(changePassword(employee?.empId, values));
+  //   setOpenPasswordDialog(false);
+  // };
 
   useEffect(() => {
     dispatch(getEmployee(user.empId));
@@ -85,6 +100,7 @@ export default function Profile() {
 
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(employee?.empId, values));
+
     setOpen(false);
   };
 
@@ -289,7 +305,7 @@ export default function Profile() {
                   </CardContent>
                   <CardActions>
                     <Button type="submit" size="large" variant="contained">
-                      EDIT
+                      Submit
                     </Button>
                   </CardActions>
                 </Form>
@@ -303,10 +319,63 @@ export default function Profile() {
         open={openPasswordDialog}
         onClose={() => setOpenPasswordDialog(false)}
       >
-        <form onSubmit={handlePasswordSubmit}>
-          <DialogTitle>Change Password</DialogTitle>
-          <DialogContent>
-            <TextField
+        {/* <form onSubmit={handlePasswordSubmit}> */}
+        <DialogTitle>Change Password</DialogTitle>
+        <DialogContent>
+          <Formik
+            initialValues={{
+              password: "",
+              confirmPassword: "",
+            }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
+              return (
+                <Form>
+                  <CardContent>
+                    <Grid item container spacing={1}>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="New Password"
+                          variant="outlined"
+                          type="password"
+                          fullWidth
+                          name="password"
+                          id="password"
+                          value={values.password}
+                          component={TextField}
+                          onChange={handleChange}
+                          error={errors.password}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Confirm new password"
+                          type="password"
+                          variant="outlined"
+                          fullWidth
+                          name="location"
+                          id="confirmPassword"
+                          onChange={handleChange}
+                          value={values.confirmPassword}
+                          component={TextField}
+                          error={errors.confirmPassword}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  <CardActions>
+                    <Button type="submit" size="large" variant="contained">
+                      EDIT
+                    </Button>
+                  </CardActions>
+                </Form>
+              );
+            }}
+          </Formik>
+          {/* <TextField
               margin="dense"
               name="password"
               required
@@ -326,13 +395,14 @@ export default function Profile() {
               variant="outlined"
               onChange={handlePasswordChange}
             />
-          </DialogContent>
-          <DialogActions>
+     */}{" "}
+        </DialogContent>
+        {/* <DialogActions>
             <Button variant="contained" type="submit">
               Submit
             </Button>
-          </DialogActions>
-        </form>
+          </DialogActions> */}
+        {/* </form> */}
       </Dialog>
     </Grid>
   );
