@@ -83,10 +83,9 @@ export default function Profile() {
   useEffect(() => {
     setUpdateData({
       name: employee?.name,
-      // email: employee?.email,
+
       phone: employee?.phone,
       location: employee?.location,
-      // jobTitle: employee?.jobTitle,
     });
   }, [employee]);
 

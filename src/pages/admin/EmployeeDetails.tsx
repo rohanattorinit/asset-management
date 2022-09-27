@@ -88,7 +88,7 @@ export default function EmployeeDetails() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(allocateAssets(employeeDetails.empId, assetIdCheck));
-    //setAssetId([]);
+    setAssetId([]);
     //console.log(assetIdCheck);
     // window.confirm("Do you want to allot asset?");
     setOpen(false);

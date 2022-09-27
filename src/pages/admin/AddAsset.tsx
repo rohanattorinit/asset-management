@@ -65,7 +65,7 @@ export const AddAsset = () => {
   };
 
   return (
-    <Grid container sx={{ bgcolor: "#f1f5f9" }}>
+    <Grid container sx={{ bgcolor: "#f1f5f9", height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box>
@@ -147,7 +147,10 @@ export const AddAsset = () => {
                         value={assetDetails?.brandName}
                       />
                       <TextField
-                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                        inputProps={{
+                          inputMode: "numeric",
+                          pattern: "[0-9]*",
+                        }}
                         margin="normal"
                         size="small"
                         required

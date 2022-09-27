@@ -62,7 +62,7 @@ function Assets() {
   };
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box

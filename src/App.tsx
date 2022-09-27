@@ -8,24 +8,38 @@ import Profile from "./pages/employee/Profile";
 import Asset from "./pages/employee/Asset";
 import Ticket from "./pages/employee/Ticket";
 import Login from "./pages/Login";
-
 import EmpList from "./pages/admin/EmployeeList";
-
 import Assets from "./pages/admin/Assets";
 import Services from "./pages/admin/Services";
-
 import ProtectedRoute, { ProtectedRouteProps } from "./utils/ProtectedRoute";
 import ProtectedAdminRoute, {
   ProtectedAdminRouteProps,
 } from "./utils/ProtectedAdminRoute";
-
 import { useSelector } from "react-redux";
 import { RootStore } from "./redux/store";
 import { AddEmployee } from "./pages/admin/AddEmployee";
 import { AddAsset } from "./pages/admin/AddAsset";
-
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
 import { ServiceDetails } from "./pages/admin/ServiceDetails";
+//import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import NotFound from "./components/ErrorHandling/NotFound";
+import { ErrorBoundary } from "react-error-boundary";
+
+interface setError {
+  error: Error;
+  resetErrorBoundary: () => void;
+}
+
+export function ErrorFallback({ error, resetErrorBoundary }: setError) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+}
 
 function App() {
   const {
@@ -48,123 +62,128 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute
-                {...defaultProtectedRouteProps}
-                outlet={<Dashboard />}
-              />
-            }
-          />
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute
-                {...defaultProtectedRouteProps}
-                outlet={<Profile />}
-              />
-            }
-          />
-          <Route
-            path="/asset"
-            element={
-              <ProtectedRoute
-                {...defaultProtectedRouteProps}
-                outlet={<Asset />}
-              />
-            }
-          />
-          <Route
-            path="/ticket"
-            element={
-              <ProtectedRoute
-                {...defaultProtectedRouteProps}
-                outlet={<Ticket />}
-              />
-            }
-          />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  outlet={<Dashboard />}
+                />
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  outlet={<Profile />}
+                />
+              }
+            />
+            <Route
+              path="/asset"
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  outlet={<Asset />}
+                />
+              }
+            />
+            <Route
+              path="/ticket"
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  outlet={<Ticket />}
+                />
+              }
+            />
 
-          <Route
-            path="/admin"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<AdminDashboard />}
-              />
-            }
-          />
-          <Route
-            path="/admin/employee"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<EmpList />}
-              />
-            }
-          />
-          <Route
-            path="/admin/assets"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<Assets />}
-              />
-            }
-          />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<AdminDashboard />}
+                />
+              }
+            />
+            <Route
+              path="/admin/employee"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<EmpList />}
+                />
+              }
+            />
+            <Route
+              path="/admin/assets"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<Assets />}
+                />
+              }
+            />
 
-          <Route
-            path="/admin/service"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<Services />}
-              />
-            }
-          />
+            <Route
+              path="/admin/service"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<Services />}
+                />
+              }
+            />
 
-          <Route
-            path="/admin/employee/create"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<AddEmployee />}
-              />
-            }
-          />
-          <Route
-            path="/admin/assets/create"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<AddAsset />}
-              />
-            }
-          />
-          <Route
-            path="/admin/employee/:empId"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<EmployeeDetails />}
-              />
-            }
-          />
-          <Route
-            path="/admin/servicedetails"
-            element={
-              <ProtectedAdminRoute
-                {...defaultProtectedAdminRouteProps}
-                outlet={<ServiceDetails />}
-              />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+            <Route
+              path="/admin/employee/create"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<AddEmployee />}
+                />
+              }
+            />
+            <Route
+              path="/admin/assets/create"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<AddAsset />}
+                />
+              }
+            />
+            <Route
+              path="/admin/employee/:empId"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<EmployeeDetails />}
+                />
+              }
+            />
+            <Route
+              path="/admin/servicedetails"
+              element={
+                <ProtectedAdminRoute
+                  {...defaultProtectedAdminRouteProps}
+                  outlet={<ServiceDetails />}
+                />
+              }
+            />
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          {/* <ToastContainer autoClose={2000} /> */}
+        </BrowserRouter>
+      </ErrorBoundary>
     </>
   );
 }

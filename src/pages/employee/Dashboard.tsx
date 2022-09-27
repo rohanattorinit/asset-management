@@ -41,7 +41,6 @@ export default function Dashboard() {
               return (
                 <Grid item xs={6} md={3}>
                   <Card key={requeststatus.ticketId}>
-                    {/* <CardHeader title={"#" + tickets.ticketId} /> */}
                     <CardContent>
                       <Typography variant="h5">
                         {"# " + requeststatus.ticketId}
