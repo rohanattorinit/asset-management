@@ -31,7 +31,7 @@ export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   } catch (error) {
     dispatch({
       type: SET_ERROR,
-      payload: (error as any).response.data.error,
+      payload: (error as any)?.response?.data?.error || "",
     });
   }
 };
@@ -44,7 +44,7 @@ export const getAssets = () => async (dispatch: Dispatch<DispatchTypes>) => {
   } catch (error) {
     dispatch({
       type: SET_ERROR,
-      payload: (error as any).response.data.error,
+      payload: (error as any)?.response?.data?.error || "",
     });
   }
 };
@@ -63,7 +63,7 @@ export const addEmployee =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -82,7 +82,7 @@ export const addAsset =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -98,7 +98,7 @@ export const getEmployeetDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -114,7 +114,7 @@ export const getAssetDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -128,7 +128,7 @@ export const getServiceDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -145,7 +145,7 @@ export const getServiceTicketDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -163,7 +163,7 @@ export const deallocateAssets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -184,7 +184,7 @@ export const allocateAssets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -204,7 +204,7 @@ export const changeTicketStatus =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -223,7 +223,7 @@ export const addNote =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };

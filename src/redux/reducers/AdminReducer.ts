@@ -150,6 +150,7 @@ const adminReducer = (
         message: action.payload.message,
         loading: false,
       };
+
     case SET_ERROR:
       return {
         ...state,

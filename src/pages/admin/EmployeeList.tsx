@@ -44,12 +44,12 @@ function EmpList() {
 
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
-    setSearch(e.target.value);
+    setSearch(e?.target?.value);
   };
 
-  const filteredEmployee = employees.filter((employee) => {
+  const filteredEmployee = employees?.filter((employee) => {
     if (search?.length === 0) return employee;
-    return employee?.name.toLowerCase().includes(search.toLowerCase());
+    return employee?.name?.toLowerCase().includes(search?.toLowerCase());
   });
 
   return (

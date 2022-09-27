@@ -35,7 +35,7 @@ function Assets() {
   const [category, setCategory] = useState("hardware");
 
   const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value as string);
+    setCategory(event?.target?.value as string);
   };
 
   useEffect(() => {

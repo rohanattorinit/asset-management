@@ -131,7 +131,7 @@ export const ServiceDetails = () => {
                   sx={{ minWidth: "100px" }}
                   value={select}
                   onChange={(event) => {
-                    setSelect(event.target.value);
+                    setSelect(event?.target?.value);
                   }}
                 >
                   <MenuItem value={"active"}>Active</MenuItem>
@@ -151,7 +151,7 @@ export const ServiceDetails = () => {
               multiline
               rows={4}
               onChange={(e) => {
-                setNote(e.target.value);
+                setNote(e?.target?.value);
               }}
             />
 

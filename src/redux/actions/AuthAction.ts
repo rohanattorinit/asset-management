@@ -21,7 +21,7 @@ export const login =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };

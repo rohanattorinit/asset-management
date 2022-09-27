@@ -105,7 +105,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="empId"
-                          value={values.empId}
+                          value={values?.empId}
                           component={TextField}
                         />
                       </Grid>
@@ -119,15 +119,15 @@ const AddEmployee = () => {
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
                             label="Job Title"
-                            value={values.jobTitle}
+                            value={values?.jobTitle}
                             onChange={handleChange}
                             name="jobTitle"
                             required
                           >
                             <MenuItem>None</MenuItem>
-                            {options.map((item) => (
-                              <MenuItem key={item.value} value={item.value}>
-                                {item.label}
+                            {options?.map((item) => (
+                              <MenuItem key={item?.value} value={item?.value}>
+                                {item?.label}
                               </MenuItem>
                             ))}
                           </Select>
@@ -140,7 +140,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="name"
-                          value={values.name}
+                          value={values?.name}
                           component={TextField}
                         />
                       </Grid>
@@ -151,7 +151,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="email"
-                          value={values.email}
+                          value={values?.email}
                           component={TextField}
                         />
                       </Grid>
@@ -162,7 +162,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="location"
-                          value={values.location}
+                          value={values?.location}
                           component={TextField}
                         />
                       </Grid>
@@ -172,7 +172,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="phone"
-                          value={values.phone}
+                          value={values?.phone}
                           component={TextField}
                         />
                       </Grid>

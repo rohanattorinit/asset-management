@@ -61,7 +61,7 @@ export default function Asset() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
-      createTicket(empId, assetId as number, ticket.title, ticket.description)
+      createTicket(empId, assetId as number, ticket?.title, ticket?.description)
     );
     setOpen(false);
     setTicket({

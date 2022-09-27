@@ -125,7 +125,7 @@ const AddAsset = () => {
                           variant="outlined"
                           fullWidth
                           name="brandName"
-                          value={values.brandName}
+                          value={values?.brandName}
                           component={TextField}
                         />
                       </Grid>
@@ -140,14 +140,14 @@ const AddAsset = () => {
                             id="demo-simple-select-outlined"
                             label="Asset Type
                       "
-                            value={values.assetType}
+                            value={values?.assetType}
                             onChange={handleChange}
                             name="assetType"
                             required
                           >
-                            {assetTypeOptions.map((item) => (
-                              <MenuItem key={item.value} value={item.value}>
-                                {item.label}
+                            {assetTypeOptions?.map((item) => (
+                              <MenuItem key={item?.value} value={item?.value}>
+                                {item?.label}
                               </MenuItem>
                             ))}
                           </Select>
@@ -160,7 +160,7 @@ const AddAsset = () => {
                           variant="outlined"
                           fullWidth
                           name="assetName"
-                          value={values.assetName}
+                          value={values?.assetName}
                           component={TextField}
                         />
                       </Grid>
@@ -171,7 +171,7 @@ const AddAsset = () => {
                           variant="outlined"
                           fullWidth
                           name="category"
-                          value={values.category}
+                          value={values?.category}
                           component={TextField}
                         />
                       </Grid>
@@ -182,7 +182,7 @@ const AddAsset = () => {
                           variant="outlined"
                           fullWidth
                           name="modelNo"
-                          value={values.modelNo}
+                          value={values?.modelNo}
                           component={TextField}
                         />
                       </Grid>
@@ -193,7 +193,7 @@ const AddAsset = () => {
                           variant="outlined"
                           fullWidth
                           name="description"
-                          value={values.description}
+                          value={values?.description}
                           component={TextField}
                         />
                       </Grid>
@@ -207,14 +207,14 @@ const AddAsset = () => {
                             id="demo-simple-select-outlined"
                             label="Status
                       "
-                            value={values.status}
+                            value={values?.status}
                             onChange={handleChange}
                             name="status"
                             required
                           >
-                            {statusOptions.map((item) => (
-                              <MenuItem key={item.value} value={item.value}>
-                                {item.label}
+                            {statusOptions?.map((item) => (
+                              <MenuItem key={item?.value} value={item?.value}>
+                                {item?.label}
                               </MenuItem>
                             ))}
                           </Select>
@@ -231,14 +231,14 @@ const AddAsset = () => {
                             id="demo-simple-select-outlined"
                             label="Usability
                       "
-                            value={values.usability}
+                            value={values?.usability}
                             onChange={handleChange}
                             name="usability"
                             required
                           >
-                            {usabilityOptions.map((item) => (
-                              <MenuItem key={item.value} value={item.value}>
-                                {item.label}
+                            {usabilityOptions?.map((item) => (
+                              <MenuItem key={item?.value} value={item?.value}>
+                                {item?.label}
                               </MenuItem>
                             ))}
                           </Select>

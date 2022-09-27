@@ -1,4 +1,4 @@
-import { CREATE_TICKET, SET_EMPTICKETS } from "./../types";
+import { CREATE_TICKET, GET_ADD_NOTE, SET_EMPTICKETS } from "./../types";
 import axios from "axios";
 import { Dispatch } from "redux";
 import {
@@ -29,7 +29,7 @@ export const getEmployeeAssets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -44,7 +44,7 @@ export const getEmployee =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -61,7 +61,7 @@ export const updateEmployeeDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -78,7 +78,7 @@ export const changePassword =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -96,7 +96,7 @@ export const createTicket =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -111,7 +111,24 @@ export const getEmployeeTickets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
+      });
+    }
+  };
+
+export const getNote =
+  (ticketId: number) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await axios.post(
+        `http://localhost:4000/api/getTicketDetails/${ticketId}`
+      );
+      alert(res.data.message);
+      dispatch({ type: GET_ADD_NOTE, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };

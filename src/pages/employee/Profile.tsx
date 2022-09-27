@@ -73,8 +73,9 @@ export default function Profile() {
     }
   };
   useEffect(() => {
-    dispatch(getEmployee(user.empId));
+    dispatch(getEmployee(user?.empId));
   }, [dispatch, user?.empId, message]);
+
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(employee?.empId, values));
     setOpen(false);
@@ -213,10 +214,10 @@ export default function Profile() {
                           fullWidth
                           name="name"
                           id="name"
-                          value={values.name}
+                          value={values?.name}
                           component={TextField}
                           onChange={handleChange}
-                          error={errors.name}
+                          error={errors?.name}
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
@@ -228,7 +229,7 @@ export default function Profile() {
                           name="jobTitle"
                           id="jobTitle"
                           onChange={handleChange}
-                          value={values.jobTitle}
+                          value={values?.jobTitle}
                           component={TextField}
                         />
                       </Grid>
@@ -241,7 +242,7 @@ export default function Profile() {
                           name="email"
                           id="email"
                           onChange={handleChange}
-                          value={values.email}
+                          value={values?.email}
                           component={TextField}
                         />
                       </Grid>
@@ -253,9 +254,9 @@ export default function Profile() {
                           name="phone"
                           id="phone"
                           onChange={handleChange}
-                          value={values.phone}
+                          value={values?.phone}
                           component={TextField}
-                          error={errors.phone}
+                          error={errors?.phone}
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
@@ -266,9 +267,9 @@ export default function Profile() {
                           name="location"
                           id="location"
                           onChange={handleChange}
-                          value={values.location}
+                          value={values?.location}
                           component={TextField}
-                          error={errors.location}
+                          error={errors?.location}
                         />
                       </Grid>
                     </Grid>

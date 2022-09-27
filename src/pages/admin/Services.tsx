@@ -32,7 +32,7 @@ function Services() {
   const [status, setStatus] = useState("");
 
   const handleStatusChange = (event: SelectChangeEvent) => {
-    setStatus(event.target.value as string);
+    setStatus(event?.target?.value as string);
   };
   let navigate = useNavigate();
 
@@ -45,7 +45,7 @@ function Services() {
 
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
-    setSearch(e.target.value);
+    setSearch(e?.target?.value);
   };
 
   let filteredService = serviceDetails?.filter((serviceDetail) => {
@@ -55,11 +55,11 @@ function Services() {
 
   filteredService = filteredService?.filter((serviceDetail) => {
     if (status === "pending") {
-      return serviceDetail?.ticketStatus.toLowerCase() === "pending";
+      return serviceDetail?.ticketStatus?.toLowerCase() === "pending";
     } else if (status === "active") {
-      return serviceDetail?.ticketStatus.toLowerCase() === "active";
+      return serviceDetail?.ticketStatus?.toLowerCase() === "active";
     } else if (status === "closed") {
-      return serviceDetail?.ticketStatus.toLowerCase() === "closed";
+      return serviceDetail?.ticketStatus?.toLowerCase() === "closed";
     } else return filteredService;
   });
 

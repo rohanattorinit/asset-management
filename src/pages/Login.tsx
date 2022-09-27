@@ -40,12 +40,6 @@ function Login() {
   };
 
   useEffect(() => {
-    // const token = Cookies.get("auth_token");
-    // debugger;
-    // if (token) {
-    //   navigate("/admin");
-    //   return;
-    // }
     authenticated && !isAdmin && navigate("/");
     authenticated && isAdmin && navigate("/admin");
   }, [authenticated, isAdmin, navigate]);
