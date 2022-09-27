@@ -77,7 +77,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    dispatch(getEmployee(user.empId));
+    dispatch(getEmployee(user?.empId));
   }, [dispatch, user?.empId, message]);
 
   useEffect(() => {

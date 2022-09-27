@@ -17,12 +17,12 @@ export default function Dashboard() {
 
   const { user } = useSelector((state: RootStore) => state.login);
 
-  const filteredStatus = tickets.filter((currentticket) => {
-    return currentticket.ticketStatus === "active";
+  const filteredStatus = tickets?.filter((currentticket) => {
+    return currentticket?.ticketStatus === "active";
   });
 
   useEffect(() => {
-    dispatch(getEmployeeTickets(user.empId));
+    dispatch(getEmployeeTickets(user?.empId));
   }, [dispatch, user]);
 
   return (
@@ -37,23 +37,23 @@ export default function Dashboard() {
             Your Active Tickets
           </Typography>
           <Grid container spacing={5}>
-            {filteredStatus.map((requeststatus) => {
+            {filteredStatus?.map((requeststatus) => {
               return (
                 <Grid item xs={6} md={3}>
-                  <Card key={requeststatus.ticketId}>
+                  <Card key={requeststatus?.ticketId}>
                     {/* <CardHeader title={"#" + tickets.ticketId} /> */}
                     <CardContent>
                       <Typography variant="h5">
-                        {"# " + requeststatus.ticketId}
+                        {"# " + requeststatus?.ticketId}
                       </Typography>
                       <Typography variant="body1">
-                        Title : {requeststatus.title}
+                        Title : {requeststatus?.title}
                       </Typography>
                       <Typography variant="body1">
-                        Description : {requeststatus.description.slice(0, 20)}
+                        Description : {requeststatus?.description?.slice(0, 20)}
                       </Typography>
                       <Typography variant="body1">
-                        Status : {requeststatus.ticketStatus}
+                        Status : {requeststatus?.ticketStatus}
                       </Typography>
                     </CardContent>
                   </Card>

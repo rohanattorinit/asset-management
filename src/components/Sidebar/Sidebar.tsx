@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
-
+import Cookies from "js-cookie";
 import {
   Drawer,
   IconButton,
@@ -22,10 +22,7 @@ export default function SideBar() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
-  const {
-    user: { isAdmin },
-  } = useSelector((state: RootStore) => state.login);
-
+  const isAdmin = Cookies.get("is_admin") === "1" ? true : false;
   const MobileNav = () => {
     return (
       <Toolbar>

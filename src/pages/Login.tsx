@@ -4,11 +4,11 @@ import Button from "@mui/material/Button";
 import { Dispatch, useEffect, useState } from "react";
 import { Typography, CircularProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/actions/AuthAction";
+import { getUserProfile, login } from "../redux/actions/AuthAction";
 import { useSelector } from "react-redux";
 import { RootStore } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-
+import Cookies from "js-cookie";
 interface credential {
   email?: string;
   password?: string;
@@ -21,9 +21,9 @@ function Login() {
   const {
     error,
     loading,
-    authenticated,
-    user: { isAdmin },
+    user: { email },
   } = useSelector((state: RootStore) => state.login);
+
   let navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,9 +40,16 @@ function Login() {
   };
 
   useEffect(() => {
-    authenticated && !isAdmin && navigate("/");
-    authenticated && isAdmin && navigate("/admin");
-  }, [authenticated, isAdmin, navigate]);
+    const isAuth = Cookies.get("auth_token")?.length ? true : false;
+    const isAdmin = Cookies.get("is_admin") === "1" ? true : false;
+
+    if (isAuth && isAdmin) navigate("/admin");
+    else navigate("/");
+    console.log("login useEffect", email);
+    return () => {
+      console.log("unmount");
+    };
+  }, [email]);
 
   return (
     <Box>

@@ -22,12 +22,13 @@ import {
 
 import axios from "axios";
 import { Dispatch } from "redux";
+import { get } from "../../services";
 
 export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
   try {
-    const res = await axios.get("http://localhost:4000/api/employees");
-    dispatch({ type: SET_EMPLOYEES, payload: res.data });
+    const res = await get("/api/employees");
+    dispatch({ type: SET_EMPLOYEES, payload: (res as any).data });
   } catch (error) {
     dispatch({
       type: SET_ERROR,
@@ -39,8 +40,8 @@ export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
 export const getAssets = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
   try {
-    const res = await axios.get("http://localhost:4000/api/assets");
-    dispatch({ type: SET_ASSETS, payload: res.data });
+    const res = await get("/api/assets");
+    dispatch({ type: SET_ASSETS, payload: (res as any).data });
   } catch (error) {
     dispatch({
       type: SET_ERROR,
@@ -140,7 +141,7 @@ export const getServiceTicketDetails =
       const res = await axios.get(
         `http://localhost:4000/api/tickets/${ticketId}`
       );
-      console.log(res);
+
       dispatch({ type: SET_SERVICE_TICKET_DETAILS, payload: res.data });
     } catch (error) {
       dispatch({
