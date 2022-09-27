@@ -5,7 +5,7 @@ export const get = (url: string) => {
   return new Promise(async (resolve, reject) => {
     try {
       const auth_token = Cookies.get("auth_token") || "";
-      console.log(BASE_URL);
+
       const res = await axios.get(`${BASE_URL}${url}`, {
         headers: { Authorization: `Bearer ${auth_token}` },
       });
