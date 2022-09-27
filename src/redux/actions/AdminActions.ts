@@ -19,10 +19,8 @@ import {
   SET_ERROR,
   SET_SERVICE_TICKET_DETAILS,
 } from "./../types";
-
-import axios from "axios";
 import { Dispatch } from "redux";
-import { get } from "../../services";
+import { get, post } from "../../services";
 
 export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
@@ -55,12 +53,9 @@ export const addEmployee =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/employees",
-        employeeDetails
-      );
-      alert(res.data.message);
-      dispatch({ type: SET_ADDEMPLOYEE, payload: res.data });
+      const res = await post("/api/employees", employeeDetails);
+      alert((res as any).data?.message);
+      dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -74,12 +69,9 @@ export const addAsset =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/assets/addAsset",
-        assetDetails
-      );
-      alert(res.data.message);
-      dispatch({ type: SET_ADDASSET, payload: res.data });
+      const res = await post("/api/assets/addAsset", assetDetails);
+      alert((res as any).data.message);
+      dispatch({ type: SET_ADDASSET, payload: (res as any).data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -88,14 +80,12 @@ export const addAsset =
     }
   };
 
-export const getEmployeetDetails =
+export const getEmployeeDetails =
   (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.get(
-        `http://localhost:4000/api/employees/${empId}`
-      );
-      dispatch({ type: SET_EMPLOYEE_DETAILS, payload: res.data });
+      const res = await get(`/api/employees/${empId}`);
+      dispatch({ type: SET_EMPLOYEE_DETAILS, payload: (res as any).data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -108,10 +98,11 @@ export const getAssetDetails =
   (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.get(
-        `http://localhost:4000/api/assets/employeeAssets/${empId}`
-      );
-      dispatch({ type: SET_EMPLOYEE_ASSETS_DETAILS, payload: res.data });
+      const res = await get(`/api/assets/employeeAssets/${empId}`);
+      dispatch({
+        type: SET_EMPLOYEE_ASSETS_DETAILS,
+        payload: (res as any).data,
+      });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -124,8 +115,8 @@ export const getServiceDetails =
   () => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.get(`http://localhost:4000/api/tickets`);
-      dispatch({ type: SET_SERVICE_DETAILS, payload: res.data });
+      const res = await get(`/api/tickets`);
+      dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any).data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -138,11 +129,12 @@ export const getServiceTicketDetails =
   (ticketId: number) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.get(
-        `http://localhost:4000/api/tickets/${ticketId}`
-      );
+      const res = await get(`/api/tickets/${ticketId}`);
 
-      dispatch({ type: SET_SERVICE_TICKET_DETAILS, payload: res.data });
+      dispatch({
+        type: SET_SERVICE_TICKET_DETAILS,
+        payload: (res as any).data,
+      });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -156,11 +148,12 @@ export const deallocateAssets =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.post(
-        `http://localhost:4000/api/admin/deallocateAsset/${empId}/${assetId}`
+      const res = await post(
+        `/api/admin/deallocateAsset/${empId}/${assetId}`,
+        {}
       );
 
-      dispatch({ type: DEALLOCATE_EMPLOYEE_ASSET, payload: res.data });
+      dispatch({ type: DEALLOCATE_EMPLOYEE_ASSET, payload: (res as any).data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -175,12 +168,9 @@ export const allocateAssets =
     dispatch({ type: LOADING_DATA });
 
     try {
-      const res = await axios.post(
-        `http://localhost:4000/api/admin/allocateAsset/${empId}/`,
-        { assetId }
-      );
+      const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId });
 
-      dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: res.data });
+      dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any).data });
       window.confirm("Do you want to allot asset?");
     } catch (error) {
       dispatch({
@@ -196,12 +186,11 @@ export const changeTicketStatus =
     dispatch({ type: LOADING_DATA });
     try {
       console.log(status);
-      const res = await axios.post(
-        `http://localhost:4000/api/tickets/changeStatus/${ticketId}`,
-        { status }
-      );
-      alert(res.data.message);
-      dispatch({ type: SET_TICKET_STATUS, payload: res.data });
+      const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
+        status,
+      });
+      alert((res as any).data.message);
+      dispatch({ type: SET_TICKET_STATUS, payload: (res as any).data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -215,12 +204,9 @@ export const addNote =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await axios.post(
-        `http://localhost:4000/api/tickets/note/${ticketId}`,
-        { note }
-      );
-      alert(res.data.message);
-      dispatch({ type: SET_TICKET_STATUS, payload: res.data });
+      const res = await post(`/api/tickets/note/${ticketId}`, { note });
+      alert((res as any).data.message);
+      dispatch({ type: SET_TICKET_STATUS, payload: (res as any).data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,

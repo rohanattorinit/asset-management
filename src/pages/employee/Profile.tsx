@@ -20,11 +20,11 @@ import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import {
   changePassword,
-  getEmployee,
   updateEmployeeDetails,
 } from "../../redux/actions/EmployeeActions";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { getUserProfile } from "../../redux/actions/AuthAction";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -79,16 +79,13 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    dispatch(getEmployee(user?.empId));
-  }, [dispatch, user?.empId, message]);
-
+    dispatch(getUserProfile());
+  }, [dispatch, message]);
 
   const onSubmit = (values: any) => {
-    dispatch(updateEmployeeDetails(employee?.empId, values));
+    dispatch(updateEmployeeDetails(user?.empId, values));
     setOpen(false);
   };
-
-
   return (
     <Grid container sx={{ height: "100%" }}>
       <Sidebar />
@@ -130,7 +127,7 @@ export default function Profile() {
                 mt={2}
               >
                 EmpId:
-                <Typography variant="body1">{employee?.empId}</Typography>
+                <Typography variant="body1">{user?.empId}</Typography>
               </Typography>
               <Typography
                 mt={2}
@@ -143,7 +140,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee?.name}
+                  {user?.name}
                 </Typography>
               </Typography>
               <Typography
@@ -157,7 +154,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee?.jobTitle}
+                  {user?.jobTitle}
                 </Typography>
               </Typography>
               <Typography
@@ -167,7 +164,7 @@ export default function Profile() {
                 mt={2}
               >
                 Email:
-                <Typography variant="body1">{employee?.email}</Typography>
+                <Typography variant="body1">{user?.email}</Typography>
               </Typography>
             </Grid>
 
@@ -178,7 +175,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Phone:<Typography variant="body1">{employee?.phone}</Typography>
+                Phone:<Typography variant="body1">{user?.phone}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -191,7 +188,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee?.location}
+                  {user?.location}
                 </Typography>
               </Typography>
             </Grid>
@@ -200,16 +197,15 @@ export default function Profile() {
       </Grid>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
-
         <Card>
           <CardHeader title="Edit"></CardHeader>{" "}
           <Formik
             initialValues={{
-              name: employee?.name,
-              email: employee?.email,
-              phone: employee?.phone,
-              location: employee?.location,
-              jobTitle: employee?.jobTitle,
+              name: user?.name,
+              email: user?.email,
+              phone: user?.phone,
+              location: user?.location,
+              jobTitle: user?.jobTitle,
             }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
@@ -300,7 +296,6 @@ export default function Profile() {
             }}
           </Formik>
         </Card>{" "}
-
       </Dialog>
 
       <Dialog

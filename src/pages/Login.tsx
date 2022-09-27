@@ -39,18 +39,6 @@ function Login() {
     dispatch(login(loginCred));
   };
 
-  useEffect(() => {
-    const isAuth = Cookies.get("auth_token")?.length ? true : false;
-    const isAdmin = Cookies.get("is_admin") === "1" ? true : false;
-
-    if (isAuth && isAdmin) navigate("/admin");
-    else navigate("/");
-    console.log("login useEffect", email);
-    return () => {
-      console.log("unmount");
-    };
-  }, [email]);
-
   return (
     <Box>
       <Typography variant="h4" my={4} textAlign="center">

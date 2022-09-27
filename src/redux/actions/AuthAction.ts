@@ -3,7 +3,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { DispatchTypes, LOADING, SET_AUTHENTICATED, SET_ERROR } from "../types";
 import Cookies from "js-cookie";
-import { post } from "../../services";
+import { get, post } from "../../services";
 interface CredentialType {
   email?: string;
   password?: string;
@@ -19,7 +19,7 @@ export const login =
         password: credential?.password,
       });
 
-      const hour = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
+      const hour = new Date(new Date().getTime() + 200 * 36000);
 
       //set isAuth cookie
       const isAdmin = (res as any)?.data?.user?.isAdmin;
@@ -42,10 +42,7 @@ export const login =
 export const logout = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING });
   try {
-    document.cookie =
-      "auth_token" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    document.cookie =
-      "is_admin" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    Cookies.remove("auth_token");
     delete axios.defaults.headers.common["Authorization"];
     dispatch({ type: SET_LOGOUT });
   } catch (error) {
@@ -60,8 +57,8 @@ export const getUserProfile =
   () => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING });
     try {
-      const res = await axios.get("http://localhost:4000/api/auth/profile");
-      dispatch({ type: SET_AUTHENTICATED, payload: res.data });
+      const res = await get("/api/auth/profile");
+      dispatch({ type: SET_AUTHENTICATED, payload: (res as any).data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,

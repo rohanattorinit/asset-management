@@ -17,7 +17,7 @@ export default function Navbar() {
   const handleLogout = () => {
     dispatch(logout());
     setAnchorEl(null);
-    navigate("/login");
+    navigate("/");
   };
 
   const { authenticated, user } = useSelector(
@@ -61,9 +61,9 @@ export default function Navbar() {
               setAnchorEl(e.currentTarget);
             }}
           >
-            {user.name && (
+            {user?.name && (
               <Typography fontSize={24} color={"#011E41"}>
-                {user.name[0]}
+                {user?.name[0]}
               </Typography>
             )}
           </Avatar>
