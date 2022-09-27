@@ -144,7 +144,7 @@ function AppRoutes() {
           }
         />
         <Route
-          path="/admin/servicedetails"
+          path="/admin/service/:ticketId"
           element={
             <ProtectedAdminRoute
               {...defaultProtectedAdminRouteProps}

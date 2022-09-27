@@ -62,13 +62,13 @@ export const updateEmployeeDetails =
   };
 
 export const changePassword =
-  (empId: string, password: string) =>
-  async (dispatch: Dispatch<DispatchTypes>) => {
+  (password: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING });
     try {
-      const res = await post(`/api/auth/changePassword/${empId}`, {
+      const res = await post(`/api/auth/changePassword/`, {
         password: password,
       });
+      alert("Password changed successfully!");
       dispatch({ type: CHANGE_PASSWORD, payload: (res as any).data });
     } catch (error) {
       dispatch({

@@ -13,19 +13,32 @@ import {
 import SideBar from "../../components/Sidebar/Sidebar";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
-import React, { useState, Dispatch } from "react";
+import React, { useEffect, useState, Dispatch } from "react";
 import { useDispatch } from "react-redux";
-import { addNote, changeTicketStatus } from "../../redux/actions/AdminActions";
-import { useNavigate } from "react-router-dom";
+import {
+  addNote,
+  changeTicketStatus,
+  getServiceTicketDetails,
+} from "../../redux/actions/AdminActions";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const ServiceDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const ticketId = parseInt(
+    location.pathname.replace("/admin/service/", ""),
+    10
+  );
   const dispatch: Dispatch<any> = useDispatch();
   const { serviceticketdetails } = useSelector(
     (state: RootStore) => state.admin
   );
   const [note, setNote] = useState("");
   const [select, setSelect] = useState("");
+
+  useEffect(() => {
+    dispatch(getServiceTicketDetails(ticketId));
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

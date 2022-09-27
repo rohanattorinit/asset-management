@@ -73,9 +73,16 @@ export default function Profile() {
   };
 
   const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(changePassword(employee?.empId, password?.password!));
-    setOpenPasswordDialog(false);
+    debugger;
+    if (password?.password === password?.confirmPassword) {
+      e.preventDefault();
+      dispatch(changePassword(password?.password!));
+
+      setOpenPasswordDialog(false);
+    } else {
+      e.preventDefault();
+      alert("Password must match!!");
+    }
   };
 
   useEffect(() => {
@@ -317,7 +324,7 @@ export default function Profile() {
             />
             <TextField
               margin="dense"
-              name="passwordVerify"
+              name="confirmPassword"
               required
               label="Confirm New Password"
               type="password"
