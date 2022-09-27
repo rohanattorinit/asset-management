@@ -73,7 +73,6 @@ const AddEmployee = () => {
 
   const onSubmit = (values: any) => {
     dispatch(addEmployee(values));
-
     navigate(`/admin/employee`);
   };
 
@@ -99,7 +98,7 @@ const AddEmployee = () => {
               return (
                 <Form>
                   <CardContent>
-                    <Grid item container spacing={5}>
+                    <Grid item container spacing={4}>
                       <Grid item xs={12} sm={6} md={6}>
                         <Field
                           label="Employee ID"

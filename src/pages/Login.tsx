@@ -8,7 +8,6 @@ import { login } from "../redux/actions/AuthAction";
 import { useSelector } from "react-redux";
 import { RootStore } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 interface credential {
   email?: string;

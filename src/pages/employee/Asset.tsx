@@ -33,7 +33,6 @@ export default function Asset() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     setTicket({
       ...ticket,
       [name]: value,
@@ -73,9 +72,21 @@ export default function Asset() {
   };
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: "100%" }}>
       <Sidebar />
-      <Grid item xs={12} md={10} p={3}>
+
+      <Grid
+        item
+        xs={12}
+        md={10}
+        p={3}
+        sx={{
+          display: "inline-block",
+          verticalAlign: "top",
+          height: "100%",
+          overflow: "auto",
+        }}
+      >
         <Typography>Current Asset</Typography>
         <Box sx={{ overflowX: "auto" }}>
           <TableContainer sx={{ width: "auto" }}>

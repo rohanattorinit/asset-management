@@ -50,7 +50,7 @@ function Services() {
 
   let filteredService = serviceDetails?.filter((serviceDetail) => {
     if (search?.length === 0) return serviceDetails;
-    return serviceDetail?.title.toLowerCase().startsWith(search.toLowerCase());
+    return serviceDetail?.title.toLowerCase().includes(search.toLowerCase());
   });
 
   filteredService = filteredService?.filter((serviceDetail) => {
@@ -71,15 +71,9 @@ function Services() {
 
   return (
     <>
-      <Grid container>
+      <Grid container sx={{height:"100%"}}>
         <SideBar />
-        <Grid
-          item
-          xs={12}
-          md={10}
-          p={3}
-          sx={{ height: "88vh", overflowX: "auto" }}
-        >
+        <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
           <Box my={3} sx={{ display: "flex", justifyContent: "space-between" }}>
             <FormControl sx={{ width: 300 }}>
               <TextField
@@ -141,7 +135,7 @@ function Services() {
                       align="center"
                       sx={{ textTransform: "capitalize" }}
                     >
-                      {serviceDetail?.ticketStatus}
+                      {serviceDetail?.ticketStatus.toUpperCase()}
                     </TableCell>
                     <IconButton
                       onClick={() =>

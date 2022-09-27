@@ -51,10 +51,18 @@ function Assets() {
             <TableRow key={filteredAsset?.assetId}>
               <TableCell align="center">{filteredAsset?.assetId}</TableCell>
               <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
-              <TableCell align="center">{filteredAsset?.name}</TableCell>
-              <TableCell align="center">{filteredAsset?.category}</TableCell>
-              <TableCell align="center">{filteredAsset?.status}</TableCell>
-              <TableCell align="center">{filteredAsset?.usability}</TableCell>
+              <TableCell align="center">
+                {filteredAsset?.name.toUpperCase()}
+              </TableCell>
+              <TableCell align="center">
+                {filteredAsset?.category.toUpperCase()}
+              </TableCell>
+              <TableCell align="center">
+                {filteredAsset?.status.toUpperCase()}
+              </TableCell>
+              <TableCell align="center">
+                {filteredAsset?.usability.toUpperCase()}
+              </TableCell>
             </TableRow>
           ))}
       </>
@@ -62,15 +70,9 @@ function Assets() {
   };
 
   return (
-    <Grid container>
+    <Grid container sx={{ height: "100%" }}>
       <SideBar />
-      <Grid
-        item
-        xs={12}
-        md={10}
-        p={3}
-        sx={{ height: "88vh", overflowX: "auto" }}
-      >
+      <Grid item xs={12} md={10} p={3}>
         <Box
           display="flex"
           justifyContent="space-between"
@@ -103,7 +105,7 @@ function Assets() {
                     <Typography>ID</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>Serial No.</Typography>
+                    <Typography>Model No.</Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography>Name</Typography>
