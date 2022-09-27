@@ -15,6 +15,9 @@
     "@types/node": "^16.11.57",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
+    "formik": "^2.2.9",
+    "formik-material-ui": "^4.0.0-alpha.2",
+    "js-cookie": "^3.0.1",
     "dotenv": "^16.0.2",
     "js-cookie": "^3.0.1",
     "react": "^18.2.0",
@@ -27,7 +30,8 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "typescript": "^4.8.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -54,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
     "@types/react-redux": "^7.1.24",
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",

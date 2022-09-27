@@ -16,8 +16,10 @@ import { RootStore } from "../../redux/store";
 import React, { useState, Dispatch } from "react";
 import { useDispatch } from "react-redux";
 import { addNote, changeTicketStatus } from "../../redux/actions/AdminActions";
+import { useNavigate } from "react-router-dom";
 
 export const ServiceDetails = () => {
+  const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
   const { serviceticketdetails } = useSelector(
     (state: RootStore) => state.admin
@@ -35,6 +37,8 @@ export const ServiceDetails = () => {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
+    alert("Ticket Updated Successfully!");
+    navigate(`/admin/service`);
   };
   return (
     <Grid container sx={{ height: "100%" }}>
@@ -153,12 +157,13 @@ export const ServiceDetails = () => {
 
             <Box
               sx={{
+                marginY: "2rem",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <Button type="submit" variant="outlined" color="primary">
+              <Button type="submit" variant="contained">
                 SUBMIT
               </Button>
             </Box>

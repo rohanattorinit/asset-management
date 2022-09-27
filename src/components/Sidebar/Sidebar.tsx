@@ -15,7 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
-import { SideNavGrid } from "./style";
+import { SideNavGrid } from "../Styled/StyledComponent";
 
 export default function SideBar() {
   const [openDrawer, setOpenDrawer] = useState(false);
