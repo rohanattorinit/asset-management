@@ -97,13 +97,11 @@ export default function Profile() {
     dispatch(getEmployee(user.empId));
   }, [dispatch, user?.empId, message]);
 
-
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(employee?.empId, values));
 
     setOpen(false);
   };
-
 
   return (
     <Grid container sx={{ height: "100%" }}>
@@ -216,7 +214,6 @@ export default function Profile() {
       </Grid>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
-
         <Card>
           <CardHeader title="Edit"></CardHeader>{" "}
           <Formik
@@ -316,7 +313,6 @@ export default function Profile() {
             }}
           </Formik>
         </Card>{" "}
-
       </Dialog>
 
       <Dialog
