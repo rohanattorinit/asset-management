@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
-  getEmployeetDetails,
+  getEmployeeDetails,
   getAssetDetails,
   getEmployees,
 } from "../../redux/actions/AdminActions";
@@ -33,8 +33,6 @@ function EmpList() {
   const { employees, message } = useSelector((state: RootStore) => state.admin);
 
   const setEmployeeDetails = (empId: string) => {
-    dispatch(getEmployeetDetails(empId));
-    dispatch(getAssetDetails(empId));
     navigate(`/admin/employee/${empId}`);
   };
 
@@ -109,10 +107,14 @@ function EmpList() {
                       <TableCell component="th" scope="row">
                         {employee?.empId}
                       </TableCell>
-                      <TableCell align="center">{employee?.name.toUpperCase()}</TableCell>
+                      <TableCell align="center">
+                        {employee?.name.toUpperCase()}
+                      </TableCell>
                       <TableCell align="center">{employee?.email}</TableCell>
                       <TableCell align="center">{employee?.phone}</TableCell>
-                      <TableCell align="center">{employee?.location.toUpperCase()}</TableCell>
+                      <TableCell align="center">
+                        {employee?.location.toUpperCase()}
+                      </TableCell>
                       <IconButton
                         onClick={() => setEmployeeDetails(employee?.empId)}
                       >

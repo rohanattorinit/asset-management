@@ -4,30 +4,30 @@ import {
   LOADING,
   SET_AUTHENTICATED,
   SET_ERROR,
-  SET_LOGOUT
-} from '../types'
+  SET_LOGOUT,
+} from "../types";
 
 interface InitialState {
-  authenticated: boolean
-  user: EmployeeType
-  loading: boolean
-  error?: string
+  authenticated: boolean;
+  user: EmployeeType;
+  loading: boolean;
+  error?: string;
 }
 
 const initialState: InitialState = {
   authenticated: false,
   user: {
-    empId: '',
-    name: '',
-    email: '',
-    phone: '',
-    location: '',
+    empId: "",
+    name: "",
+    email: "",
+    phone: "",
+    location: "",
     isAdmin: false,
-    jobTitle: ''
+    jobTitle: "",
   },
   loading: false,
-  error: ''
-}
+  error: "",
+};
 
 //const i: MyInterface = { id: 's' }
 
@@ -39,40 +39,41 @@ const authReducer = (
     case LOADING:
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+        error: "",
+      };
     case SET_AUTHENTICATED:
       return {
         ...state,
         authenticated: true,
         user: action.payload.user,
         loading: false,
-        error: ''
-      }
+        error: "",
+      };
     case SET_ERROR:
       return {
         ...state,
         error: action.payload,
-        loading: false
-      }
+        loading: false,
+      };
     case SET_LOGOUT:
       return {
         ...state,
         authenticated: false,
         user: {
-          empId: '',
-          name: '',
-          email: '',
-          phone: '',
-          location: '',
+          empId: "",
+          name: "",
+          email: "",
+          phone: "",
+          location: "",
           isAdmin: false,
-          jobTitle: ''
+          jobTitle: "",
         },
-        loading: false
-      }
+        loading: false,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default authReducer
+export default authReducer;

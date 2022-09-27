@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import PageNotFound from "../components/PageNotFound";
 
 export type ProtectedRouteProps = {
   authenticated: boolean;
@@ -14,6 +15,6 @@ export default function ProtectedRoute({
   if (authenticated) {
     return outlet;
   } else {
-    return <Navigate to={{ pathname: authenticationPath }} />;
+    return <PageNotFound />;
   }
 }
