@@ -11,11 +11,11 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import { validationSchema } from "../../components/FormValidations";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { useDispatch } from "react-redux";
@@ -32,40 +32,6 @@ const options = [
   { label: "Human Resourse", value: "human_resourse" },
   { label: "Technical Delivery Manager", value: "technical_delivery_manager" },
 ];
-
-//password validation
-
-const uppercaseRegEx = /(?=.*[A-Z])/;
-const numericRegEx = /(?=.*[0-9])/;
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-const re = /^[A-Z/a-z/ \b]+$/;
-
-//validation schema
-let validationSchema = Yup.object().shape({
-  empId: Yup.string()
-    .matches(numericRegEx, "Invalid employee ID")
-    .matches(uppercaseRegEx, "Invalid employee ID ")
-    .required("Required"),
-
-  name: Yup.string()
-    .matches(re, "Name can have letters only!")
-    .required("Required"),
-
-  email: Yup.string().email("Invalid email").required("Required"),
-
-  location: Yup.string()
-    .matches(re, "Location can have letters only!")
-
-    .required("Required!"),
-
-  phone: Yup.string()
-    .matches(phoneRegExp, "Invalid phone number")
-    .min(10, "to short")
-    .max(10, "to long")
-    .required("Required"),
-});
 
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
@@ -188,6 +154,9 @@ const AddEmployee = () => {
             }}
           </Formik>
           <Divider orientation="horizontal" />
+          <Typography variant="h5" align="center">
+            OR
+          </Typography>
           <DragAndDrop />
         </Card>
       </Grid>

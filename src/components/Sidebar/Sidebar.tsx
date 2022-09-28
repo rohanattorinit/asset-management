@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import { Box, Button, Divider } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
+import { logout } from "../../redux/actions/AuthAction";
 
 import {
   Drawer,
@@ -12,18 +12,25 @@ import {
   Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { SideNavGrid } from "../Styled/StyledComponent";
+import { Dispatch, useState } from "react";
 
 export default function SideBar() {
   const {
     user: { isAdmin },
   } = useSelector((state: RootStore) => state.login);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const navigate = useNavigate();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
+  const dispatch: Dispatch<any> = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   const MobileNav = () => {
     return (
       <Toolbar>
@@ -48,7 +55,11 @@ export default function SideBar() {
               <ListItemButton component={Link} to="/admin/service">
                 <ListItemText>Services</ListItemText>
               </ListItemButton>
-              <ListItemButton component={Link} to="/">
+              {/* <ListItemButton component={Link} to="/">
+                <ListItemText>logout</ListItemText>
+              </ListItemButton> */}
+
+              <ListItemButton onClick={handleLogout}>
                 <ListItemText>logout</ListItemText>
               </ListItemButton>
             </List>
@@ -66,7 +77,7 @@ export default function SideBar() {
                 <ListItemText>Ticket</ListItemText>
               </ListItemButton>
               <Divider />
-              <ListItemButton component={Link} to="/">
+              <ListItemButton onClick={handleLogout}>
                 <ListItemText>Logout</ListItemText>
               </ListItemButton>
             </List>
