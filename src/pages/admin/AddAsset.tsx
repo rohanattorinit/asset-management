@@ -1,224 +1,267 @@
-import { Grid, Card, TextField, Divider, Box, Button } from "@mui/material";
-import SideBar from "../../components/Sidebar/Sidebar";
-import CardContent from "@mui/material/CardContent";
-import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch } from "react";
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  CardHeader,
+  Divider,
+  Box,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { TextField } from "formik-material-ui";
+import SideBar from "../../components/Sidebar/Sidebar";
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
-import { useNavigate } from "react-router-dom";
-import { StyledTypography } from "../../components/Styled/StyledComponent";
+import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 
-export const AddAsset = () => {
-  const navigate = useNavigate();
+const statusOptions = [
+  { label: "Allocated", value: "allocated" },
+  { label: "Available", value: "available" },
+];
+const usabilityOptions = [
+  { label: "Usable", value: "usable" },
+  { label: "Unusable", value: "unusable" },
+  { label: "Disposed", value: "disposed" },
+];
 
+const assetTypeOptions = [
+  { label: "Hardware", value: "hardware" },
+  { label: "Software", value: "software" },
+];
+//password validation
+
+const numericRegEx = /(?=.*[0-9])/;
+
+const re = /^[A-Z/a-z/ \b]+$/;
+
+//validation schema
+let validationSchema = Yup.object().shape({
+  brandName: Yup.string()
+    .matches(re, "Brand name can have letters only!")
+    .required("Required"),
+
+  assetType: Yup.string()
+    .matches(re, "Asset type can have letters only!")
+    .required("Required"),
+  assetName: Yup.string()
+    .matches(re, "Asset name can have letters only!")
+    .required("Required"),
+
+  category: Yup.string()
+    .matches(re, "Category can have letters only!")
+    .required("Required"),
+
+  modelNo: Yup.string()
+    .matches(numericRegEx, "Invalid model no!")
+    .matches(numericRegEx, "Invalid model no!")
+
+    .required("Required!"),
+
+  description: Yup.string()
+    .matches(re, "Description can have letters only!")
+    .required("Required"),
+
+  // status: Yup.string().matches(re, "Invalid status").required("Required"),
+
+  // usability: Yup.string().matches(re, "Invalid usability").required("Required"),
+});
+
+const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
+  let navigate = useNavigate();
 
-  const [assetDetails, setAssetDetails] = useState({
-    brandName: "",
-    assetName: "",
-    assetType: "",
-    category: "",
-    modelNo: "",
-    description: "",
-    status: "",
-    usability: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const re = /^[A-Z/a-z\b]+$/;
-    if (e.target.value === "" || re.test(e.target.value)) {
-      const { name, value } = e.target;
-      setAssetDetails({
-        ...assetDetails,
-        [name]: value,
-      });
-    }
-  };
-  const handlemodelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ne = /^[A-Z/a-z/0-9\b]+$/;
-    if (e.target.value === "" || ne.test(e.target.value)) {
-      const { name, value } = e.target;
-      setAssetDetails({
-        ...assetDetails,
-        [name]: value,
-      });
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(addAsset(assetDetails));
-
-    setAssetDetails({
-      brandName: "",
-      assetName: "",
-      assetType: "",
-      category: "",
-      modelNo: "",
-      description: "",
-      status: "",
-      usability: "",
-    });
+  const onSubmit = (values: any) => {
+    dispatch(addAsset(values));
+    console.log(values);
 
     navigate(`/admin/assets`);
   };
 
   return (
-    <Grid container sx={{ bgcolor: "#f1f5f9", height: "100%" }}>
+    <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
-        <Box>
-          <Card
-            sx={{
-              my: 2,
-              borderRadius: "15px",
+        {/* <Grid item md={6}> */}
+        <Card>
+          <CardHeader title="Add new asset"></CardHeader>
+          <Formik
+            initialValues={{
+              brandName: "",
+              assetType: "",
+              assetName: "",
+              category: "",
+              modelNo: "",
+              description: "",
+              status: "",
+              usability: "",
             }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
           >
-            <CardContent>
-              <StyledTypography>Add Asset :</StyledTypography>
-              <Grid container>
-                <Grid item xs={12} md={6}>
-                  <form onSubmit={handleSubmit}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <TextField
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Type"
-                        variant="outlined"
-                        placeholder="E.g: Hardware"
-                        name="assetType"
-                        value={assetDetails?.assetType}
-                        onChange={handleChange}
-                      />
-                      <TextField
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Name"
-                        variant="outlined"
-                        placeholder="E.g: Macbook M1"
-                        name="assetName"
-                        onChange={handleChange}
-                        value={assetDetails?.assetName}
-                      />
-                      <TextField
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Status"
-                        variant="outlined"
-                        placeholder="E.g: available"
-                        name="status"
-                        onChange={handleChange}
-                        value={assetDetails?.status}
-                      />
-                      <TextField
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Category"
-                        variant="outlined"
-                        placeholder="E.g: Laptop"
-                        name="category"
-                        onChange={handleChange}
-                        value={assetDetails?.category}
-                      />
-                      <TextField
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Brand"
-                        variant="outlined"
-                        placeholder="E.g: Apple"
-                        name="brandName"
-                        onChange={handleChange}
-                        value={assetDetails?.brandName}
-                      />
-                      <TextField
-                        inputProps={{
-                          inputMode: "numeric",
-                          pattern: "[0-9]*",
-                        }}
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Model No"
-                        variant="outlined"
-                        placeholder="E.g: 12345678"
-                        name="modelNo"
-                        onChange={handlemodelChange}
-                        value={assetDetails?.modelNo}
-                      />
-                      <TextField
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Description"
-                        variant="outlined"
-                        placeholder="E.g: M1 processor, 256GB SSD"
-                        name="description"
-                        onChange={handleChange}
-                        value={assetDetails?.description}
-                      />
-                      <TextField
-                        margin="normal"
-                        size="small"
-                        required
-                        id="outlined-basic"
-                        label="Usability"
-                        variant="outlined"
-                        placeholder="E.g: usable"
-                        name="usability"
-                        onChange={handleChange}
-                        value={assetDetails?.usability}
-                      />
-                    </Box>
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
-                      <Button
-                        color="info"
-                        size="large"
-                        type="submit"
-                        variant="outlined"
-                      >
-                        Add Asset
-                      </Button>
-                    </Box>
-                  </form>
-                </Grid>
-                <Grid item xs={12} md={1}>
-                  <Divider orientation="vertical" />
-                </Grid>
+            {({ dirty, isValid, values, handleChange, handleBlur }) => {
+              return (
+                <Form>
+                  <CardContent>
+                    <Grid item container spacing={2}>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Brand Name"
+                          variant="outlined"
+                          fullWidth
+                          name="brandName"
+                          value={values.brandName}
+                          component={TextField}
+                        />
+                      </Grid>
 
-                <Grid item xs={12} md={5}>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{ marginY: "2rem" }}
-                  >
-                    <DragAndDrop />
-                  </Box>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Box>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <FormControl fullWidth variant="outlined">
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Asset Type
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            label="Asset Type
+                      "
+                            value={values.assetType}
+                            onChange={handleChange}
+                            name="assetType"
+                            required
+                          >
+                            {assetTypeOptions.map((item) => (
+                              <MenuItem key={item.value} value={item.value}>
+                                {item.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Asset Name"
+                          variant="outlined"
+                          fullWidth
+                          name="assetName"
+                          value={values.assetName}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Category"
+                          variant="outlined"
+                          fullWidth
+                          name="category"
+                          value={values.category}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Model No"
+                          variant="outlined"
+                          fullWidth
+                          name="modelNo"
+                          value={values.modelNo}
+                          component={TextField}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Description"
+                          variant="outlined"
+                          fullWidth
+                          name="description"
+                          value={values.description}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <FormControl fullWidth variant="outlined">
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Status
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            label="Status
+                      "
+                            value={values.status}
+                            onChange={handleChange}
+                            name="status"
+                            required
+                          >
+                            {statusOptions.map((item) => (
+                              <MenuItem key={item.value} value={item.value}>
+                                {item.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                        <FormControl fullWidth variant="outlined">
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Usability
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            label="Usability
+                      "
+                            value={values.usability}
+                            onChange={handleChange}
+                            name="usability"
+                            required
+                          >
+                            {usabilityOptions.map((item) => (
+                              <MenuItem key={item.value} value={item.value}>
+                                {item.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  <CardActions>
+                    <Button type="submit" size="large" variant="contained">
+                      ADD ASSET
+                    </Button>
+                  </CardActions>
+                </Form>
+              );
+            }}
+          </Formik>
+          <Divider orientation="horizontal" />
+          <AssetCsv />
+        </Card>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        ></Box>
       </Grid>
     </Grid>
   );
 };
+
+export default AddAsset;

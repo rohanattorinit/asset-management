@@ -13,16 +13,15 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
-import { SideNavGrid } from "./style";
+import { SideNavGrid } from "../Styled/StyledComponent";
 
 export default function SideBar() {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-
   const {
     user: { isAdmin },
   } = useSelector((state: RootStore) => state.login);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   const MobileNav = () => {
     return (
@@ -34,7 +33,7 @@ export default function SideBar() {
         >
           {isAdmin ? (
             <List>
-              <ListItemButton component={Link} to="/admin">
+              <ListItemButton component={Link} to="/">
                 <ListItemText>Dashboard</ListItemText>
               </ListItemButton>
 
@@ -101,7 +100,7 @@ export default function SideBar() {
               variant="outlined"
               color="secondary"
               component={Link}
-              to="/admin"
+              to="/"
             >
               Dashboard
             </Button>

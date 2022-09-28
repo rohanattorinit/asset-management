@@ -1,11 +1,13 @@
 import React from "react";
-import image1 from "../../assets/asset.gif";
-function Carousel() {
+import image1 from "../../assets/teamwork.gif";
+import "../Carousel/Carousel.css";
+
+function HeroImage() {
   return (
-    <div>
+    <div className="slick-slide ">
       <img src={image1} alt="" />
     </div>
   );
 }
 
-export default Carousel;
+export default HeroImage;

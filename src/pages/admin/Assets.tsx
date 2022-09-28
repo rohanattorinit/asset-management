@@ -28,7 +28,7 @@ import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
 function Assets() {
-  const { assets } = useSelector((state: RootStore) => state.admin);
+  const { assets, message } = useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
 
@@ -40,7 +40,7 @@ function Assets() {
 
   useEffect(() => {
     dispatch(getAssets());
-  }, [dispatch]);
+  }, [dispatch, message]);
 
   const AssetsTable = ({ category }: { category: string }) => {
     return (
@@ -51,10 +51,18 @@ function Assets() {
             <TableRow key={filteredAsset?.assetId}>
               <TableCell align="center">{filteredAsset?.assetId}</TableCell>
               <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
-              <TableCell align="center">{filteredAsset?.name}</TableCell>
-              <TableCell align="center">{filteredAsset?.category}</TableCell>
-              <TableCell align="center">{filteredAsset?.status}</TableCell>
-              <TableCell align="center">{filteredAsset?.usability}</TableCell>
+              <TableCell align="center">
+                {filteredAsset?.name.toUpperCase()}
+              </TableCell>
+              <TableCell align="center">
+                {filteredAsset?.category.toUpperCase()}
+              </TableCell>
+              <TableCell align="center">
+                {filteredAsset?.status.toUpperCase()}
+              </TableCell>
+              <TableCell align="center">
+                {filteredAsset?.usability.toUpperCase()}
+              </TableCell>
             </TableRow>
           ))}
       </>
@@ -64,7 +72,7 @@ function Assets() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
-      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
+      <Grid item xs={12} md={10} p={3}>
         <Box
           display="flex"
           justifyContent="space-between"

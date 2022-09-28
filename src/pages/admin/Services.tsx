@@ -66,7 +66,7 @@ function Services() {
   const SetEmployeeDetails = (ticketId: number) => {
     dispatch(getServiceTicketDetails(ticketId));
 
-    navigate(`/admin/servicedetails`);
+    navigate(`/admin/service/${ticketId}`);
   };
 
   return (
@@ -135,7 +135,7 @@ function Services() {
                       align="center"
                       sx={{ textTransform: "capitalize" }}
                     >
-                      {serviceDetail?.ticketStatus}
+                      {serviceDetail?.ticketStatus.toUpperCase()}
                     </TableCell>
                     <IconButton
                       onClick={() =>

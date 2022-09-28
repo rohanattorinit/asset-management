@@ -1,4 +1,11 @@
-import { Grid, Typography } from "@mui/material";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Grid,
+  Typography,
+} from "@mui/material";
 import React, { Dispatch, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Box, Paper } from "@mui/material";
@@ -13,49 +20,45 @@ import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import {
   changePassword,
-  getEmployee,
   updateEmployeeDetails,
 } from "../../redux/actions/EmployeeActions";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 
-interface UpdateType {
-  name?: string;
-  email?: string;
-  phone?: string;
-  location?: string;
-  jobTitle?: string;
-}
+import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "../../redux/actions/AuthAction";
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const re = /^[A-Z/a-z/ \b]+$/;
+let validationSchema = Yup.object().shape({
+  phone: Yup.string()
+    .matches(phoneRegExp, "Invalid phone number")
+    .min(10, "to short")
+    .max(10, "to long")
+    .required("Required"),
+  location: Yup.string()
+    .matches(re, "Location can have letters only!")
+    .required("Required"),
+  name: Yup.string()
+    .matches(re, "Name can have letters only!")
+    .required("Please enter valid name")
+    .nullable(),
+});
 interface NewPasswordType {
   password?: string;
   confirmPassword?: string;
 }
-
 export default function Profile() {
   const {
     login: { user },
     employee: { employee, message },
   } = useSelector((state: RootStore) => state);
-
-  const [updateData, setUpdateData] = useState<UpdateType>({
-    name: employee?.name,
-    email: employee?.email,
-    phone: employee?.phone,
-    location: employee?.location,
-    jobTitle: employee?.jobTitle,
-  });
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
 
   const dispatch: Dispatch<any> = useDispatch();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUpdateData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPassword((prevState) => ({
@@ -63,32 +66,25 @@ export default function Profile() {
       [name]: value,
     }));
   };
+  const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (password?.password === password?.confirmPassword) {
+      e.preventDefault();
+      dispatch(changePassword(password?.password!));
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(updateEmployeeDetails(employee?.empId, updateData));
+      setOpenPasswordDialog(false);
+    } else {
+      e.preventDefault();
+      alert("Password must match!!");
+    }
+  };
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch, message]);
+
+  const onSubmit = (values: any) => {
+    dispatch(updateEmployeeDetails(user?.empId, values));
     setOpen(false);
   };
-
-  const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(changePassword(employee?.empId, password?.password!));
-    setOpenPasswordDialog(false);
-  };
-
-  useEffect(() => {
-    dispatch(getEmployee(user.empId));
-  }, [dispatch, user?.empId, message]);
-
-  useEffect(() => {
-    setUpdateData({
-      name: employee?.name,
-
-      phone: employee?.phone,
-      location: employee?.location,
-    });
-  }, [employee]);
-
   return (
     <Grid container sx={{ height: "100%" }}>
       <Sidebar />
@@ -130,7 +126,7 @@ export default function Profile() {
                 mt={2}
               >
                 EmpId:
-                <Typography variant="body1">{employee?.empId}</Typography>
+                <Typography variant="body1">{user?.empId}</Typography>
               </Typography>
               <Typography
                 mt={2}
@@ -143,7 +139,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee?.name}
+                  {user?.name}
                 </Typography>
               </Typography>
               <Typography
@@ -157,7 +153,7 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee?.jobTitle}
+                  {user?.jobTitle}
                 </Typography>
               </Typography>
               <Typography
@@ -167,10 +163,9 @@ export default function Profile() {
                 mt={2}
               >
                 Email:
-                <Typography variant="body1">{employee?.email}</Typography>
+                <Typography variant="body1">{user?.email}</Typography>
               </Typography>
             </Grid>
-
             <Grid item xs={12} md={8}>
               <Typography
                 fontFamily="serif"
@@ -178,7 +173,7 @@ export default function Profile() {
                 variant="h6"
                 mt={2}
               >
-                Phone:<Typography variant="body1">{employee?.phone}</Typography>
+                Phone:<Typography variant="body1">{user?.phone}</Typography>
               </Typography>
               <Typography
                 fontFamily="serif"
@@ -191,83 +186,110 @@ export default function Profile() {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {employee?.location}
+                  {user?.location}
                 </Typography>
               </Typography>
             </Grid>
           </Grid>
         </Paper>
       </Grid>
-
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <form onSubmit={handleSubmit}>
-          <DialogTitle>Edit Details</DialogTitle>
-          <DialogContent>
-            <TextField
-              margin="dense"
-              name="name"
-              required
-              label="Name"
-              type="text"
-              fullWidth
-              variant="outlined"
-              value={updateData?.name}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="jobTitle"
-              required
-              label="Job Title"
-              type="text"
-              disabled
-              fullWidth
-              variant="outlined"
-              value={updateData?.jobTitle}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="email"
-              required
-              label="Email"
-              type="email"
-              disabled
-              fullWidth
-              variant="outlined"
-              value={updateData?.email}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="phone"
-              required
-              label="Phone"
-              type="tel"
-              fullWidth
-              variant="outlined"
-              value={updateData?.phone}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="location"
-              required
-              label="Location"
-              type="text"
-              fullWidth
-              variant="outlined"
-              value={updateData?.location}
-              onChange={handleChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit">Submit</Button>
-          </DialogActions>
-        </form>
+        <Card>
+          <CardHeader title="Edit"></CardHeader>{" "}
+          <Formik
+            initialValues={{
+              name: user?.name,
+              email: user?.email,
+              phone: user?.phone,
+              location: user?.location,
+              jobTitle: user?.jobTitle,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
+              return (
+                <Form>
+                  <CardContent>
+                    <Grid item container spacing={1}>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Name"
+                          variant="outlined"
+                          fullWidth
+                          name="name"
+                          id="name"
+                          value={values.name}
+                          component={TextField}
+                          onChange={handleChange}
+                          error={errors.name}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Job Title"
+                          disabled
+                          variant="outlined"
+                          fullWidth
+                          name="jobTitle"
+                          id="jobTitle"
+                          onChange={handleChange}
+                          value={values.jobTitle}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Email"
+                          disabled
+                          variant="outlined"
+                          fullWidth
+                          name="email"
+                          id="email"
+                          onChange={handleChange}
+                          value={values.email}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Phone No"
+                          variant="outlined"
+                          fullWidth
+                          name="phone"
+                          id="phone"
+                          onChange={handleChange}
+                          value={values.phone}
+                          component={TextField}
+                          error={errors.phone}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Location"
+                          variant="outlined"
+                          fullWidth
+                          name="location"
+                          id="location"
+                          onChange={handleChange}
+                          value={values.location}
+                          component={TextField}
+                          error={errors.location}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                  <CardActions>
+                    <Button type="submit" size="large" variant="contained">
+                      EDIT
+                    </Button>
+                  </CardActions>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Card>{" "}
       </Dialog>
-
-      {/* Chnage password dialog */}
       <Dialog
         open={openPasswordDialog}
         onClose={() => setOpenPasswordDialog(false)}
@@ -287,7 +309,7 @@ export default function Profile() {
             />
             <TextField
               margin="dense"
-              name="passwordVerify"
+              name="confirmPassword"
               required
               label="Confirm New Password"
               type="password"
@@ -297,7 +319,9 @@ export default function Profile() {
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Submit</Button>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
           </DialogActions>
         </form>
       </Dialog>

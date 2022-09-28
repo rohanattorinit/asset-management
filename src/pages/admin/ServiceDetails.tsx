@@ -13,17 +13,32 @@ import {
 import SideBar from "../../components/Sidebar/Sidebar";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
-import React, { useState, Dispatch } from "react";
+import React, { useEffect, useState, Dispatch } from "react";
 import { useDispatch } from "react-redux";
-import { addNote, changeTicketStatus } from "../../redux/actions/AdminActions";
+import {
+  addNote,
+  changeTicketStatus,
+  getServiceTicketDetails,
+} from "../../redux/actions/AdminActions";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const ServiceDetails = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const ticketId = parseInt(
+    location.pathname.replace("/admin/service/", ""),
+    10
+  );
   const dispatch: Dispatch<any> = useDispatch();
   const { serviceticketdetails } = useSelector(
     (state: RootStore) => state.admin
   );
   const [note, setNote] = useState("");
   const [select, setSelect] = useState("");
+
+  useEffect(() => {
+    dispatch(getServiceTicketDetails(ticketId));
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,6 +50,8 @@ export const ServiceDetails = () => {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
+    alert("Ticket Updated Successfully!");
+    navigate(`/admin/service`);
   };
   return (
     <Grid container sx={{ height: "100%" }}>
@@ -153,12 +170,13 @@ export const ServiceDetails = () => {
 
             <Box
               sx={{
+                marginY: "2rem",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <Button type="submit" variant="outlined" color="primary">
+              <Button type="submit" variant="contained">
                 SUBMIT
               </Button>
             </Box>

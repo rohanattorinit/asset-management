@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 
 export const StyledTypography = styled(Typography)`
   fontweight: "bold";
@@ -25,4 +25,17 @@ export const StlyedGridContainer = styled(Container)`
 // display: "flex";
 // justifyContent="center";
 my={3};
+`;
+
+export const SideNavGrid = styled(Grid)`
+bgcolor: "#011E41",
+borderTop: "solid white 2px",
+display: "inline-block",
+verticalAlign: "top",
+overflow: "auto",
+height: "100%",
+`;
+export const OuterBox = styled(Box)`
+  background: #f4f4f4;
+  minheight: 100vh;
 `;

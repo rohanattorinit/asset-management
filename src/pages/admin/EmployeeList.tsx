@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
-  getEmployeetDetails,
+  getEmployeeDetails,
   getAssetDetails,
   getEmployees,
 } from "../../redux/actions/AdminActions";
@@ -30,17 +30,15 @@ function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
   let navigate = useNavigate();
 
-  const { employees } = useSelector((state: RootStore) => state.admin);
+  const { employees, message } = useSelector((state: RootStore) => state.admin);
 
   const setEmployeeDetails = (empId: string) => {
-    dispatch(getEmployeetDetails(empId));
-    dispatch(getAssetDetails(empId));
     navigate(`/admin/employee/${empId}`);
   };
 
   useEffect(() => {
     dispatch(getEmployees());
-  }, [dispatch]);
+  }, [dispatch, message]);
 
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
@@ -109,10 +107,14 @@ function EmpList() {
                       <TableCell component="th" scope="row">
                         {employee?.empId}
                       </TableCell>
-                      <TableCell align="center">{employee?.name}</TableCell>
+                      <TableCell align="center">
+                        {employee?.name.toUpperCase()}
+                      </TableCell>
                       <TableCell align="center">{employee?.email}</TableCell>
                       <TableCell align="center">{employee?.phone}</TableCell>
-                      <TableCell align="center">{employee?.location}</TableCell>
+                      <TableCell align="center">
+                        {employee?.location.toUpperCase()}
+                      </TableCell>
                       <IconButton
                         onClick={() => setEmployeeDetails(employee?.empId)}
                       >
