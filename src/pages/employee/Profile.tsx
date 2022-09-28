@@ -8,13 +8,16 @@ import {
 } from "@mui/material";
 import React, { Dispatch, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { Box, Paper } from "@mui/material";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
+import {
+  Box,
+  Paper,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
@@ -24,23 +27,21 @@ import {
 } from "../../redux/actions/EmployeeActions";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
-import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../redux/actions/AuthAction";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const re = /^[A-Z/a-z/ \b]+$/;
-let validationSchema = Yup.object().shape({
+let validationSchema = Yup?.object()?.shape({
   phone: Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .min(10, "to short")
     .max(10, "to long")
     .required("Required"),
-  location: Yup.string()
+  location: Yup?.string()
     .matches(re, "Location can have letters only!")
     .required("Required"),
-  name: Yup.string()
+  name: Yup?.string()
     .matches(re, "Name can have letters only!")
     .required("Please enter valid name")
     .nullable(),
@@ -52,12 +53,11 @@ interface NewPasswordType {
 export default function Profile() {
   const {
     login: { user },
-    employee: { employee, message },
+    employee: { message },
   } = useSelector((state: RootStore) => state);
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
-
   const dispatch: Dispatch<any> = useDispatch();
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -219,10 +219,10 @@ export default function Profile() {
                           fullWidth
                           name="name"
                           id="name"
-                          value={values.name}
+                          value={values?.name}
                           component={TextField}
                           onChange={handleChange}
-                          error={errors.name}
+                          error={errors?.name}
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
@@ -234,7 +234,7 @@ export default function Profile() {
                           name="jobTitle"
                           id="jobTitle"
                           onChange={handleChange}
-                          value={values.jobTitle}
+                          value={values?.jobTitle}
                           component={TextField}
                         />
                       </Grid>
@@ -247,7 +247,7 @@ export default function Profile() {
                           name="email"
                           id="email"
                           onChange={handleChange}
-                          value={values.email}
+                          value={values?.email}
                           component={TextField}
                         />
                       </Grid>
@@ -259,9 +259,9 @@ export default function Profile() {
                           name="phone"
                           id="phone"
                           onChange={handleChange}
-                          value={values.phone}
+                          value={values?.phone}
                           component={TextField}
-                          error={errors.phone}
+                          error={errors?.phone}
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
@@ -272,9 +272,9 @@ export default function Profile() {
                           name="location"
                           id="location"
                           onChange={handleChange}
-                          value={values.location}
+                          value={values?.location}
                           component={TextField}
-                          error={errors.location}
+                          error={errors?.location}
                         />
                       </Grid>
                     </Grid>

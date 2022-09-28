@@ -1,12 +1,20 @@
 import { Grid, Typography, Box, IconButton, Button } from "@mui/material";
 import React, { Dispatch, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
@@ -15,12 +23,6 @@ import {
   getEmployeeAssets,
 } from "../../redux/actions/EmployeeActions";
 import BuildIcon from "@mui/icons-material/Build";
-import Tooltip from "@mui/material/Tooltip";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 
 export default function Asset() {
@@ -61,7 +63,7 @@ export default function Asset() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
-      createTicket(empId, assetId as number, ticket.title, ticket.description)
+      createTicket(empId, assetId as number, ticket?.title, ticket?.description)
     );
     setOpen(false);
     setTicket({
