@@ -1,13 +1,19 @@
-import Card from "@mui/material/Card";
-
-import CardContent from "@mui/material/CardContent";
-import { Button, Dialog, DialogContent, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
-
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Dialog,
+  DialogContent,
+  Grid,
+} from "@mui/material";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useDispatch } from "react-redux";
 import { Dispatch, useEffect, useState } from "react";
-import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
+import {
+  getEmployeeTickets,
+  getNote,
+} from "../../redux/actions/EmployeeActions";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { EmpTicketType } from "../../redux/types";
@@ -18,18 +24,21 @@ export default function Ticket() {
 
    const dispatch: Dispatch<any> = useDispatch();
 
-   const { tickets, message } = useSelector(
-      (state: RootStore) => state.employee
-   );
-   const { user } = useSelector((state: RootStore) => state.login);
+
+  const { tickets, message, noteDetails } = useSelector(
+    (state: RootStore) => state?.employee
+  );
+  const { user } = useSelector((state: RootStore) => state?.login);
 
    useEffect(() => {
       dispatch(getEmployeeTickets(user?.empId));
    }, [dispatch, user, message]);
 
+
    const handleClick = (ticketId: number) => {
       setTicket(tickets?.filter((ticket) => ticket?.ticketId === ticketId)[0]);
-      setOpen(true);
+      dispatch(getNote(ticketId));
+    setOpen(true);
    };
 
    return (
@@ -92,11 +101,20 @@ export default function Ticket() {
                         <Typography variant="body1">
                            Note : {ticket?.note}
                         </Typography>
+                         {noteDetails.map((note) => {
+                  console.log(note);
+                  return (
+                    <p>
+                      <li>{note?.note}</li>
+                    </p>
+                  );
+                })}
                      </CardContent>
                   </DialogContent>
                </Dialog>
             </Grid>
          </Grid>
+
       </Grid>
    );
 }

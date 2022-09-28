@@ -1,14 +1,11 @@
+import { CircularProgress, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Dispatch, useEffect, useState } from "react";
-import { Typography, CircularProgress } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { getUserProfile, login } from "../redux/actions/AuthAction";
-import { useSelector } from "react-redux";
+import TextField from "@mui/material/TextField";
+import { Dispatch, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/actions/AuthAction";
 import { RootStore } from "../redux/store";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 interface credential {
   email?: string;
   password?: string;
@@ -18,13 +15,7 @@ function Login() {
   const [loginCred, setLoginCred] = useState<credential>();
 
   const dispatch: Dispatch<any> = useDispatch();
-  const {
-    error,
-    loading,
-    user: { email },
-  } = useSelector((state: RootStore) => state.login);
-
-  let navigate = useNavigate();
+  const { error, loading } = useSelector((state: RootStore) => state.login);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
