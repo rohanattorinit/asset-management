@@ -23,7 +23,7 @@ interface InitialState {
   assets: EmployeeAssetType[];
   employee: EmployeeType;
   tickets: EmpTicketType[];
-  notedeatails: NoteType[];
+  noteDetails: NoteType[];
 }
 
 const initialState: InitialState = {
@@ -41,7 +41,7 @@ const initialState: InitialState = {
     jobTitle: "",
   },
   tickets: [],
-  notedeatails: [],
+  noteDetails: [],
 };
 
 const employeeReducer = (
@@ -112,7 +112,7 @@ const employeeReducer = (
     case GET_ADD_NOTE:
       return {
         ...state,
-        message: action.payload.message,
+        noteDetails: action.payload.data,
         loading: false,
       };
 

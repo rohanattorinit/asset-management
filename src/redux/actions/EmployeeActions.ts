@@ -117,8 +117,7 @@ export const getNote =
   (ticketId: number) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await get(`/api/getTicketDetails/${ticketId}`);
-      alert((res as any).data?.message);
+      const res = await get(`/api/tickets/getTicketDetails/${ticketId}`);
       dispatch({ type: GET_ADD_NOTE, payload: (res as any).data });
     } catch (error) {
       dispatch({

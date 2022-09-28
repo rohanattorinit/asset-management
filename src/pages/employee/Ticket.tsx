@@ -21,7 +21,7 @@ export default function Ticket() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const { tickets, message } = useSelector(
+  const { tickets, message, noteDetails } = useSelector(
     (state: RootStore) => state?.employee
   );
   const { user } = useSelector((state: RootStore) => state?.login);
@@ -79,7 +79,15 @@ export default function Ticket() {
                 <Typography variant="body1">
                   Status : {ticket?.ticketStatus}
                 </Typography>
-                <Typography variant="body1">Note : {ticket?.note}</Typography>
+                <Typography variant="body1">Note :</Typography>
+                {noteDetails.map((note) => {
+                  console.log(note);
+                  return (
+                    <p>
+                      <li>{note?.note}</li>
+                    </p>
+                  );
+                })}
               </CardContent>
             </DialogContent>
           </Dialog>
