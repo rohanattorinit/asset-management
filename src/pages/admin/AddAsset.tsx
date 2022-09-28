@@ -12,6 +12,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Chip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -242,7 +243,10 @@ const AddAsset = () => {
               );
             }}
           </Formik>
-          <Divider orientation="horizontal" />
+          <Divider orientation="horizontal">
+            {" "}
+            <Chip label="OR" />
+          </Divider>
           <AssetCsv />
         </Card>
       </Grid>
