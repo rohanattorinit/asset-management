@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
-export const DragAndDrop = () => {
+export const AssetCsv = () => {
   const [file, setFile] = useState<Blob | string>();
   let navigate = useNavigate();
 
@@ -13,12 +13,12 @@ export const DragAndDrop = () => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("csvFile", file!);
+    formData?.append("csvFile", file!);
     try {
       const auth_token = Cookies.get("auth_token");
       await axios({
         method: "post",
-        url: "http://localhost:4000/api/employees/create-bulk",
+        url: "http://localhost:4000/api/assets/create-bulk",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -27,8 +27,8 @@ export const DragAndDrop = () => {
       });
       setFile(undefined);
       (event.target as HTMLFormElement).reset();
-      navigate(`/admin/employee`);
-      alert("Employees added successfully");
+      navigate(`/admin/assets`);
+      alert("Assets added successfully");
     } catch (error) {
       //handle error
       console.error(error);

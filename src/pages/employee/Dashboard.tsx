@@ -50,7 +50,7 @@ export default function Dashboard() {
                         Title : {requeststatus?.title}
                       </Typography>
                       <Typography variant="body1">
-                        Description : {requeststatus?.description.slice(0, 20)}
+                        Description : {requeststatus?.description?.slice(0, 20)}
                       </Typography>
                       <Typography variant="body1">
                         Status : {requeststatus?.ticketStatus}

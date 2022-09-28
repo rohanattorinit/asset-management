@@ -24,23 +24,22 @@ import {
   deallocateAssets,
   getAssetDetails,
   getAssets,
+  getEmployeeDetails,
 } from "../../redux/actions/AdminActions";
 import Checkbox from "@mui/material/Checkbox";
+import { useLocation } from "react-router-dom";
 
 export default function EmployeeDetails() {
   const { employeeDetails, employeeassetsdetails, message, assets } =
     useSelector((state: RootStore) => state.admin);
-
   const dispatch: Dispatch<any> = useDispatch();
-
+  const location = useLocation();
+  const empId = location?.pathname.replace("/admin/employee/", "");
   useEffect(() => {
-    dispatch(getAssetDetails(employeeDetails?.empId));
+    dispatch(getEmployeeDetails(empId));
+    dispatch(getAssetDetails(empId));
     dispatch(getAssets());
-  }, [dispatch, employeeDetails?.empId, message]);
-
-  useEffect(() => {
-    dispatch(getAssets());
-  }, [dispatch]);
+  }, [dispatch, message, empId]);
 
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
@@ -51,7 +50,11 @@ export default function EmployeeDetails() {
     if (search?.length === 0) {
       return asset?.status === "available" && asset?.usability === "usable";
     }
-    return asset?.name?.toLowerCase()?.includes(search?.toLowerCase());
+    return (
+      asset?.status === "available" &&
+      asset?.usability === "usable" &&
+      asset?.name?.toLowerCase()?.includes(search?.toLowerCase())
+    );
   });
 
   const [open, setOpen] = useState(false);

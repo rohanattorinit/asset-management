@@ -1,4 +1,3 @@
-
 import React, { Dispatch } from "react";
 import {
   Grid,
@@ -22,7 +21,7 @@ import { TextField } from "formik-material-ui";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { useDispatch } from "react-redux";
 import { addAsset } from "../../redux/actions/AdminActions";
-import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
+import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 
 const statusOptions = [
   { label: "Allocated", value: "allocated" },
@@ -34,16 +33,14 @@ const usabilityOptions = [
   { label: "Disposed", value: "disposed" },
 ];
 
-
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
   { label: "Software", value: "software" },
 ];
 //password validation
 
-
 const numericRegEx = /(?=.*[0-9])/;
-
+const nl = /^[A-Z/a-z/0-9 \b]+$/;
 const re = /^[A-Z/a-z/ \b]+$/;
 
 //validation schema
@@ -56,7 +53,7 @@ let validationSchema = Yup.object().shape({
     .matches(re, "Asset type can have letters only!")
     .required("Required"),
   assetName: Yup.string()
-    .matches(re, "Asset name can have letters only!")
+    .matches(nl, "Asset name can have numbers & letters only!")
     .required("Required"),
 
   category: Yup.string()
@@ -69,15 +66,9 @@ let validationSchema = Yup.object().shape({
 
     .required("Required!"),
 
-
-
   description: Yup.string()
-    .matches(re, "Description can have letters only!")
+    .matches(nl, "Description can have Numbers & letters only!")
     .required("Required"),
-
-  // status: Yup.string().matches(re, "Invalid status").required("Required"),
-
-  // usability: Yup.string().matches(re, "Invalid usability").required("Required"),
 });
 
 const AddAsset = () => {
@@ -95,7 +86,6 @@ const AddAsset = () => {
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
-
         {/* <Grid item md={6}> */}
         <Card>
           <CardHeader title="Add new asset"></CardHeader>
@@ -113,7 +103,6 @@ const AddAsset = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-
             {({ dirty, isValid, values, handleChange, handleBlur }) => {
               return (
                 <Form>
@@ -256,7 +245,7 @@ const AddAsset = () => {
             }}
           </Formik>
           <Divider orientation="horizontal" />
-          <DragAndDrop />
+          <AssetCsv />
         </Card>
       </Grid>
       <Grid item xs={12} md={6}>
@@ -266,7 +255,6 @@ const AddAsset = () => {
             flexDirection: "column",
           }}
         ></Box>
-
       </Grid>
     </Grid>
   );
