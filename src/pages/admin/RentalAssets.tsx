@@ -1,110 +1,138 @@
 import {
-  Box,
-  Button,
   Grid,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
+  Button,
   TableCell,
   TableContainer,
+  Box,
+  Table,
   TableHead,
   TableRow,
-  TextField,
+  TableBody,
+  Paper,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
-
+import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 
 function RentalAssets() {
-  return (
-    <>
-      <Grid container sx={{ height: "100%" }}>
-        <SideBar />
+  const { assets, message } = useSelector((state: RootStore) => state.admin);
 
-        <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
-          <Box marginY={2}></Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          ></Box>
-          <Box my={3}>
-            <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <Typography align="center">Asset Name</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Agency</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Rent per month</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Start Date of rent</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">End date of rent</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Deposit</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Status</Typography>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow
-                      key={row.name}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="center">{row.calories}</TableCell>
-                      <TableCell align="center">{row.fat}</TableCell>
-                      <TableCell align="center">{row.carbs}</TableCell>
-                      <TableCell align="center">{row.protein}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
-        </Grid>
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const [category, setCategory] = useState("hardware");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setCategory(event?.target?.value as string);
+  };
+
+  useEffect(() => {
+    dispatch(getAssets());
+  }, [dispatch, message]);
+
+  const AssetsTable = ({ category }: { category: string }) => {
+    return (
+      <>
+        {assets
+          ?.filter((asset) => asset?.assetType === category)
+          .map((rentalAsset) => (
+            <TableRow key={rentalAsset?.assetId}>
+              <TableCell align="center">{rentalAsset?.assetId}</TableCell>
+              <TableCell align="center">{rentalAsset?.name}</TableCell>
+              <TableCell align="center">{rentalAsset?.vendor}</TableCell>
+              <TableCell align="center">{rentalAsset?.rent}</TableCell>
+              <TableCell align="center">{rentalAsset?.rentStartDate}</TableCell>
+              <TableCell align="center">{rentalAsset?.rentEndDate}</TableCell>
+              <TableCell align="center">{rentalAsset?.deposit}</TableCell>
+              <TableCell align="center">
+                {rentalAsset?.status.toUpperCase()}
+              </TableCell>
+            </TableRow>
+          ))}
+      </>
+    );
+  };
+
+  return (
+    <Grid container sx={{ height: "100%" }}>
+      <SideBar />
+      <Grid item xs={12} md={10} p={3}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="flex-start"
+        >
+          <FormControl sx={{ width: 300 }}>
+            <InputLabel>Category</InputLabel>
+            <Select value={category} onChange={handleChange}>
+              <MenuItem value={"software"}>Software</MenuItem>
+              <MenuItem value={"hardware"}>Hardware</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Button
+            variant="outlined"
+            color="primary"
+            component={RouterLink}
+            to="/admin/assets/create"
+          >
+            Add new Asset
+          </Button>
+        </Box>
+
+        <Box>
+          <TableContainer sx={{ marginY: 3 }} component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">
+                    <Typography>AssetID</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Asset Name</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Vendor</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Rent(pr month)</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Start Date of rent</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>End date of rent</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Deposit</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography>Status</Typography>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {category && category === "hardware" ? (
+                  <AssetsTable category="hardware" />
+                ) : (
+                  <AssetsTable category="software" />
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Grid>
-    </>
+    </Grid>
   );
 }
 
