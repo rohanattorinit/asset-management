@@ -1,5 +1,4 @@
-import { Navigate } from "react-router-dom";
-import PageNotFound from "../components/PageNotFound";
+import PageNotFound from "../components/PageNotFound/PageNotFound";
 
 export type ProtectedRouteProps = {
   authenticated: boolean;

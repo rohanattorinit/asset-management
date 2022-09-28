@@ -26,11 +26,11 @@ export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
   try {
     const res = await get("/api/employees");
-    dispatch({ type: SET_EMPLOYEES, payload: (res as any).data });
+    dispatch({ type: SET_EMPLOYEES, payload: (res as any)?.data });
   } catch (error) {
     dispatch({
       type: SET_ERROR,
-      payload: (error as any).response.data.error,
+      payload: (error as any)?.response?.data?.error || "",
     });
   }
 };
@@ -39,11 +39,11 @@ export const getAssets = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
   try {
     const res = await get("/api/assets");
-    dispatch({ type: SET_ASSETS, payload: (res as any).data });
+    dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
   } catch (error) {
     dispatch({
       type: SET_ERROR,
-      payload: (error as any).response.data.error,
+      payload: (error as any)?.response?.data?.error || "",
     });
   }
 };
@@ -59,7 +59,7 @@ export const addEmployee =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -71,11 +71,11 @@ export const addAsset =
     try {
       const res = await post("/api/assets/addAsset", assetDetails);
       alert((res as any).data.message);
-      dispatch({ type: SET_ADDASSET, payload: (res as any).data });
+      dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -85,11 +85,11 @@ export const getEmployeeDetails =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/employees/${empId}`);
-      dispatch({ type: SET_EMPLOYEE_DETAILS, payload: (res as any).data });
+      dispatch({ type: SET_EMPLOYEE_DETAILS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -101,12 +101,12 @@ export const getAssetDetails =
       const res = await get(`/api/assets/employeeAssets/${empId}`);
       dispatch({
         type: SET_EMPLOYEE_ASSETS_DETAILS,
-        payload: (res as any).data,
+        payload: (res as any)?.data,
       });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -116,11 +116,11 @@ export const getServiceDetails =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/tickets`);
-      dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any).data });
+      dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -133,12 +133,12 @@ export const getServiceTicketDetails =
 
       dispatch({
         type: SET_SERVICE_TICKET_DETAILS,
-        payload: (res as any).data,
+        payload: (res as any)?.data,
       });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -153,11 +153,14 @@ export const deallocateAssets =
         {}
       );
 
-      dispatch({ type: DEALLOCATE_EMPLOYEE_ASSET, payload: (res as any).data });
+      dispatch({
+        type: DEALLOCATE_EMPLOYEE_ASSET,
+        payload: (res as any)?.data,
+      });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -170,12 +173,12 @@ export const allocateAssets =
     try {
       const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId });
 
-      dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any).data });
+      dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data });
       window.confirm("Do you want to allot asset?");
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -190,11 +193,11 @@ export const changeTicketStatus =
         status,
       });
       alert((res as any).data.message);
-      dispatch({ type: SET_TICKET_STATUS, payload: (res as any).data });
+      dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -206,11 +209,11 @@ export const addNote =
     try {
       const res = await post(`/api/tickets/note/${ticketId}`, { note });
       alert((res as any).data.message);
-      dispatch({ type: SET_TICKET_STATUS, payload: (res as any).data });
+      dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };

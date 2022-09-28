@@ -13,7 +13,6 @@ import {
   Select,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
@@ -43,24 +42,24 @@ const phoneRegExp =
 const re = /^[A-Z/a-z/ \b]+$/;
 
 //validation schema
-let validationSchema = Yup.object().shape({
-  empId: Yup.string()
+let validationSchema = Yup?.object()?.shape({
+  empId: Yup?.string()
     .matches(numericRegEx, "Invalid employee ID")
     .matches(uppercaseRegEx, "Invalid employee ID ")
     .required("Required"),
 
-  name: Yup.string()
+  name: Yup?.string()
     .matches(re, "Name can have letters only!")
     .required("Required"),
 
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup?.string().email("Invalid email").required("Required"),
 
-  location: Yup.string()
+  location: Yup?.string()
     .matches(re, "Location can have letters only!")
 
     .required("Required!"),
 
-  phone: Yup.string()
+  phone: Yup?.string()
     .matches(phoneRegExp, "Invalid phone number")
     .min(10, "to short")
     .max(10, "to long")
@@ -105,7 +104,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="empId"
-                          value={values.empId}
+                          value={values?.empId}
                           component={TextField}
                         />
                       </Grid>
@@ -119,15 +118,15 @@ const AddEmployee = () => {
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
                             label="Job Title"
-                            value={values.jobTitle}
+                            value={values?.jobTitle}
                             onChange={handleChange}
                             name="jobTitle"
                             required
                           >
                             <MenuItem>None</MenuItem>
-                            {options.map((item) => (
-                              <MenuItem key={item.value} value={item.value}>
-                                {item.label}
+                            {options?.map((item) => (
+                              <MenuItem key={item?.value} value={item?.value}>
+                                {item?.label}
                               </MenuItem>
                             ))}
                           </Select>
@@ -140,7 +139,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="name"
-                          value={values.name}
+                          value={values?.name}
                           component={TextField}
                         />
                       </Grid>
@@ -151,7 +150,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="email"
-                          value={values.email}
+                          value={values?.email}
                           component={TextField}
                         />
                       </Grid>
@@ -162,7 +161,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="location"
-                          value={values.location}
+                          value={values?.location}
                           component={TextField}
                         />
                       </Grid>
@@ -172,7 +171,7 @@ const AddEmployee = () => {
                           variant="outlined"
                           fullWidth
                           name="phone"
-                          value={values.phone}
+                          value={values?.phone}
                           component={TextField}
                         />
                       </Grid>

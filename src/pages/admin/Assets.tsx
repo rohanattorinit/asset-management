@@ -16,11 +16,9 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
 import { Link as RouterLink } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -35,7 +33,7 @@ function Assets() {
   const [category, setCategory] = useState("hardware");
 
   const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value as string);
+    setCategory(event?.target?.value as string);
   };
 
   useEffect(() => {
@@ -52,16 +50,16 @@ function Assets() {
               <TableCell align="center">{filteredAsset?.assetId}</TableCell>
               <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
               <TableCell align="center">
-                {filteredAsset?.name.toUpperCase()}
+                {filteredAsset?.name?.toUpperCase()}
               </TableCell>
               <TableCell align="center">
-                {filteredAsset?.category.toUpperCase()}
+                {filteredAsset?.category?.toUpperCase()}
               </TableCell>
               <TableCell align="center">
-                {filteredAsset?.status.toUpperCase()}
+                {filteredAsset?.status?.toUpperCase()}
               </TableCell>
               <TableCell align="center">
-                {filteredAsset?.usability.toUpperCase()}
+                {filteredAsset?.usability?.toUpperCase()}
               </TableCell>
             </TableRow>
           ))}

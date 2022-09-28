@@ -16,7 +16,6 @@ import {
   Typography,
   SelectChangeEvent,
 } from "@mui/material";
-
 import SideBar from "../../components/Sidebar/Sidebar";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
@@ -30,9 +29,10 @@ import {
 
 function Services() {
   const [status, setStatus] = useState("");
+  const [search, setSearch] = useState("");
 
   const handleStatusChange = (event: SelectChangeEvent) => {
-    setStatus(event.target.value as string);
+    setStatus(event?.target?.value as string);
   };
   let navigate = useNavigate();
 
@@ -43,9 +43,8 @@ function Services() {
     dispatch(getServiceDetails());
   }, [dispatch]);
 
-  const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
-    setSearch(e.target.value);
+    setSearch(e?.target?.value);
   };
 
   let filteredService = serviceDetails?.filter((serviceDetail) => {
@@ -55,17 +54,16 @@ function Services() {
 
   filteredService = filteredService?.filter((serviceDetail) => {
     if (status === "pending") {
-      return serviceDetail?.ticketStatus.toLowerCase() === "pending";
+      return serviceDetail?.ticketStatus?.toLowerCase() === "pending";
     } else if (status === "active") {
-      return serviceDetail?.ticketStatus.toLowerCase() === "active";
+      return serviceDetail?.ticketStatus?.toLowerCase() === "active";
     } else if (status === "closed") {
-      return serviceDetail?.ticketStatus.toLowerCase() === "closed";
+      return serviceDetail?.ticketStatus?.toLowerCase() === "closed";
     } else return filteredService;
   });
 
   const SetEmployeeDetails = (ticketId: number) => {
     dispatch(getServiceTicketDetails(ticketId));
-
     navigate(`/admin/service/${ticketId}`);
   };
 
@@ -135,7 +133,7 @@ function Services() {
                       align="center"
                       sx={{ textTransform: "capitalize" }}
                     >
-                      {serviceDetail?.ticketStatus.toUpperCase()}
+                      {serviceDetail?.ticketStatus?.toUpperCase()}
                     </TableCell>
                     <IconButton
                       onClick={() =>

@@ -1,6 +1,4 @@
-import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import PageNotFound from "./components/PageNotFound";
 import Login from "./pages/Login";
 
 function AuthRoutes() {
