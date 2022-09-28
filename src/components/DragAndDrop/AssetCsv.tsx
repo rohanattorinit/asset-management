@@ -13,7 +13,7 @@ export const AssetCsv = () => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("csvFile", file!);
+    formData?.append("csvFile", file!);
     try {
       const auth_token = Cookies.get("auth_token");
       await axios({

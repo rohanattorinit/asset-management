@@ -40,7 +40,7 @@ const assetTypeOptions = [
 //password validation
 
 const numericRegEx = /(?=.*[0-9])/;
-
+const nl = /^[A-Z/a-z/0-9 \b]+$/;
 const re = /^[A-Z/a-z/ \b]+$/;
 
 //validation schema
@@ -53,7 +53,7 @@ let validationSchema = Yup.object().shape({
     .matches(re, "Asset type can have letters only!")
     .required("Required"),
   assetName: Yup.string()
-    .matches(re, "Asset name can have letters only!")
+    .matches(nl, "Asset name can have numbers & letters only!")
     .required("Required"),
 
   category: Yup.string()
@@ -67,12 +67,8 @@ let validationSchema = Yup.object().shape({
     .required("Required!"),
 
   description: Yup.string()
-    .matches(re, "Description can have letters only!")
+    .matches(nl, "Description can have Numbers & letters only!")
     .required("Required"),
-
-  // status: Yup.string().matches(re, "Invalid status").required("Required"),
-
-  // usability: Yup.string().matches(re, "Invalid usability").required("Required"),
 });
 
 const AddAsset = () => {
