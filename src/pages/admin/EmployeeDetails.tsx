@@ -20,7 +20,7 @@ import {
   getEmployeeDetails,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-import AllocateAsset from "./AllocateAsset";
+import AllocateAsset from "../../components/AllocateAsset/AllocateAsset";
 
 export default function EmployeeDetails() {
   const [open, setOpen] = useState(false);

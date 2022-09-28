@@ -15,18 +15,27 @@ import {
   MenuItem,
   SelectChangeEvent,
   Typography,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { Dispatch } from "redux";
+import AssetsTable from "../../components/AssetTable/AssetsTable";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
 function Assets() {
-  const { assets, message } = useSelector((state: RootStore) => state.admin);
+  const [value, setValue] = useState("0");
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: any) => {
+    setValue(newValue);
+  };
+
+  const { message } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
   const [category, setCategory] = useState("hardware");
 
@@ -38,37 +47,17 @@ function Assets() {
     dispatch(getAssets());
   }, [dispatch, message]);
 
-  const AssetsTable = ({ category }: { category: string }) => {
-    return (
-      <>
-        {assets
-          ?.filter((asset) => asset?.assetType === category)
-          .map((filteredAsset) => (
-            <TableRow key={filteredAsset?.assetId}>
-              <TableCell align="center">{filteredAsset?.assetId}</TableCell>
-              <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
-              <TableCell align="center">
-                {filteredAsset?.name?.toUpperCase()}
-              </TableCell>
-              <TableCell align="center">
-                {filteredAsset?.category?.toUpperCase()}
-              </TableCell>
-              <TableCell align="center">
-                {filteredAsset?.status?.toUpperCase()}
-              </TableCell>
-              <TableCell align="center">
-                {filteredAsset?.usability?.toUpperCase()}
-              </TableCell>
-            </TableRow>
-          ))}
-      </>
-    );
-  };
-
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3}>
+        <Box sx={{ width: "100%" }}>
+          <Tabs value={value} onChange={handleTabChange} centered>
+            <Tab label="Owned Assets" />
+            <Tab label="Rented Assets" />
+          </Tabs>
+        </Box>
+
         <Box
           display="flex"
           justifyContent="space-between"
@@ -76,7 +65,13 @@ function Assets() {
         >
           <FormControl sx={{ width: 300 }}>
             <InputLabel>Category</InputLabel>
-            <Select value={category} onChange={handleChange}>
+            <Select
+              labelId="category"
+              id="Category"
+              label="Category"
+              value={category}
+              onChange={handleChange}
+            >
               <MenuItem value={"software"}>Software</MenuItem>
               <MenuItem value={"hardware"}>Hardware</MenuItem>
             </Select>
