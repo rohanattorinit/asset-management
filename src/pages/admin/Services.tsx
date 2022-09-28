@@ -16,7 +16,6 @@ import {
   Typography,
   SelectChangeEvent,
 } from "@mui/material";
-
 import SideBar from "../../components/Sidebar/Sidebar";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +29,7 @@ import {
 
 function Services() {
   const [status, setStatus] = useState("");
+  const [search, setSearch] = useState("");
 
   const handleStatusChange = (event: SelectChangeEvent) => {
     setStatus(event?.target?.value as string);
@@ -43,7 +43,6 @@ function Services() {
     dispatch(getServiceDetails());
   }, [dispatch]);
 
-  const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
     setSearch(e?.target?.value);
   };
@@ -65,7 +64,6 @@ function Services() {
 
   const SetEmployeeDetails = (ticketId: number) => {
     dispatch(getServiceTicketDetails(ticketId));
-
     navigate(`/admin/service/${ticketId}`);
   };
 
@@ -135,7 +133,7 @@ function Services() {
                       align="center"
                       sx={{ textTransform: "capitalize" }}
                     >
-                      {serviceDetail?.ticketStatus.toUpperCase()}
+                      {serviceDetail?.ticketStatus?.toUpperCase()}
                     </TableCell>
                     <IconButton
                       onClick={() =>

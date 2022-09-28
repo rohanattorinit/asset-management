@@ -26,7 +26,7 @@ export const AssetCsv = () => {
         },
       });
       setFile(undefined);
-      (event.target as HTMLFormElement).reset();
+      (event.target as HTMLFormElement)?.reset();
       navigate(`/admin/assets`);
       alert("Assets added successfully");
     } catch (error) {

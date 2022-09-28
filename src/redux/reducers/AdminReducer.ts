@@ -74,26 +74,26 @@ const adminReducer = (
     case SET_EMPLOYEES:
       return {
         ...state,
-        employees: action.payload.data,
+        employees: action.payload?.data,
         loading: false,
       };
 
     case SET_ASSETS:
       return {
         ...state,
-        assets: action.payload.data,
+        assets: action.payload?.data,
         loading: false,
       };
     case SET_ADDEMPLOYEE:
       return {
         ...state,
-        message: action.payload.message,
+        message: action.payload?.message,
         loading: false,
       };
     case SET_ADDASSET:
       return {
         ...state,
-        message: action.payload.message,
+        message: action.payload?.message,
         loading: false,
       };
 
@@ -107,47 +107,47 @@ const adminReducer = (
     case SET_EMPLOYEE_ASSETS_DETAILS:
       return {
         ...state,
-        employeeassetsdetails: action.payload.data,
+        employeeassetsdetails: action.payload?.data,
         loading: false,
       };
 
     case SET_SERVICE_TICKET_DETAILS:
       return {
         ...state,
-        serviceticketdetails: action.payload.data,
+        serviceticketdetails: action.payload?.data,
         loading: false,
       };
 
     case SET_SERVICE_DETAILS:
       return {
         ...state,
-        serviceDetails: action.payload.data,
+        serviceDetails: action.payload?.data,
         loading: false,
       };
 
     case DEALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,
-        message: action.payload.message,
+        message: action.payload?.message,
         loading: false,
       };
 
     case ALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,
-        message: action.payload.message,
+        message: action.payload?.message,
         loading: false,
       };
     case SET_TICKET_STATUS:
       return {
         ...state,
-        message: action.payload.message,
+        message: action.payload?.message,
         loading: false,
       };
     case SET_ADD_NOTE:
       return {
         ...state,
-        message: action.payload.message,
+        message: action.payload?.message,
         loading: false,
       };
 

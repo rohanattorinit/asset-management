@@ -44,29 +44,29 @@ const nl = /^[A-Z/a-z/0-9 \b]+$/;
 const re = /^[A-Z/a-z/ \b]+$/;
 
 //validation schema
-let validationSchema = Yup.object().shape({
-  brandName: Yup.string()
+let validationSchema = Yup?.object()?.shape({
+  brandName: Yup?.string()
     .matches(re, "Brand name can have letters only!")
     .required("Required"),
 
-  assetType: Yup.string()
+  assetType: Yup?.string()
     .matches(re, "Asset type can have letters only!")
     .required("Required"),
-  assetName: Yup.string()
+  assetName: Yup?.string()
     .matches(nl, "Asset name can have numbers & letters only!")
     .required("Required"),
 
-  category: Yup.string()
+  category: Yup?.string()
     .matches(re, "Category can have letters only!")
     .required("Required"),
 
-  modelNo: Yup.string()
+  modelNo: Yup?.string()
     .matches(numericRegEx, "Invalid model no!")
     .matches(numericRegEx, "Invalid model no!")
 
     .required("Required!"),
 
-  description: Yup.string()
+  description: Yup?.string()
     .matches(nl, "Description can have Numbers & letters only!")
     .required("Required"),
 });
@@ -78,7 +78,6 @@ const AddAsset = () => {
   const onSubmit = (values: any) => {
     dispatch(addAsset(values));
     console.log(values);
-
     navigate(`/admin/assets`);
   };
 
@@ -86,7 +85,6 @@ const AddAsset = () => {
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
-        {/* <Grid item md={6}> */}
         <Card>
           <CardHeader title="Add new asset"></CardHeader>
           <Formik

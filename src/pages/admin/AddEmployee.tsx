@@ -13,7 +13,6 @@ import {
   Select,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { TextField } from "formik-material-ui";
@@ -43,24 +42,24 @@ const phoneRegExp =
 const re = /^[A-Z/a-z/ \b]+$/;
 
 //validation schema
-let validationSchema = Yup.object().shape({
-  empId: Yup.string()
+let validationSchema = Yup?.object()?.shape({
+  empId: Yup?.string()
     .matches(numericRegEx, "Invalid employee ID")
     .matches(uppercaseRegEx, "Invalid employee ID ")
     .required("Required"),
 
-  name: Yup.string()
+  name: Yup?.string()
     .matches(re, "Name can have letters only!")
     .required("Required"),
 
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup?.string().email("Invalid email").required("Required"),
 
-  location: Yup.string()
+  location: Yup?.string()
     .matches(re, "Location can have letters only!")
 
     .required("Required!"),
 
-  phone: Yup.string()
+  phone: Yup?.string()
     .matches(phoneRegExp, "Invalid phone number")
     .min(10, "to short")
     .max(10, "to long")

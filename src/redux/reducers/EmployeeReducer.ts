@@ -66,14 +66,14 @@ const employeeReducer = (
     case SET_EMPLOYEE_ASSETS:
       return {
         ...state,
-        assets: action.payload.data,
+        assets: action.payload?.data,
         loading: false,
         error: "",
       };
     case SET_EMPLOYEE:
       return {
         ...state,
-        employee: action.payload.data,
+        employee: action.payload?.data,
         loading: false,
         error: "",
       };
@@ -81,25 +81,25 @@ const employeeReducer = (
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
+        message: action.payload?.message,
       };
     case CHANGE_PASSWORD:
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
+        message: action.payload?.message,
       };
     case CREATE_TICKET:
       return {
         ...state,
         loading: false,
-        message: action.payload.message,
+        message: action.payload?.message,
       };
 
     case SET_EMPTICKETS:
       return {
         ...state,
-        tickets: action.payload.data,
+        tickets: action.payload?.data,
         loading: false,
       };
     case SET_ERROR:
@@ -112,7 +112,7 @@ const employeeReducer = (
     case GET_ADD_NOTE:
       return {
         ...state,
-        noteDetails: action.payload.data,
+        noteDetails: action.payload?.data,
         loading: false,
       };
 

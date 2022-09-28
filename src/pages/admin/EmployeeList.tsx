@@ -18,11 +18,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
-import {
-  getEmployeeDetails,
-  getAssetDetails,
-  getEmployees,
-} from "../../redux/actions/AdminActions";
+import { getEmployees } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 

@@ -8,13 +8,16 @@ import {
 } from "@mui/material";
 import React, { Dispatch, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { Box, Paper } from "@mui/material";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
+import {
+  Box,
+  Paper,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { useDispatch } from "react-redux";
@@ -24,24 +27,21 @@ import {
 } from "../../redux/actions/EmployeeActions";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
-import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../redux/actions/AuthAction";
-
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const re = /^[A-Z/a-z/ \b]+$/;
-let validationSchema = Yup.object().shape({
+let validationSchema = Yup?.object()?.shape({
   phone: Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .min(10, "to short")
     .max(10, "to long")
     .required("Required"),
-  location: Yup.string()
+  location: Yup?.string()
     .matches(re, "Location can have letters only!")
     .required("Required"),
-  name: Yup.string()
+  name: Yup?.string()
     .matches(re, "Name can have letters only!")
     .required("Please enter valid name")
     .nullable(),
@@ -53,7 +53,7 @@ interface NewPasswordType {
 export default function Profile() {
   const {
     login: { user },
-    employee: { employee, message },
+    employee: { message },
   } = useSelector((state: RootStore) => state);
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
@@ -67,21 +67,17 @@ export default function Profile() {
     }));
   };
   const handlePasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-
-
     if (password?.password === password?.confirmPassword) {
       e.preventDefault();
       dispatch(changePassword(password?.password!));
 
       setOpenPasswordDialog(false);
-
     } else {
       e.preventDefault();
       alert("Password must match!!");
     }
   };
   useEffect(() => {
-
     dispatch(getUserProfile());
   }, [dispatch, message]);
 

@@ -58,7 +58,7 @@ export const getUserProfile =
     dispatch({ type: LOADING });
     try {
       const res = await get("/api/auth/profile");
-      dispatch({ type: SET_AUTHENTICATED, payload: (res as any).data });
+      dispatch({ type: SET_AUTHENTICATED, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,

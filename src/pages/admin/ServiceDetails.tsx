@@ -23,22 +23,23 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const ServiceDetails = () => {
+  const [note, setNote] = useState("");
+  const [select, setSelect] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const ticketId = parseInt(
-    location.pathname.replace("/admin/service/", ""),
+    location?.pathname?.replace("/admin/service/", ""),
     10
   );
   const dispatch: Dispatch<any> = useDispatch();
   const { serviceticketdetails } = useSelector(
     (state: RootStore) => state.admin
   );
-  const [note, setNote] = useState("");
-  const [select, setSelect] = useState("");
 
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
-  }, []);
+  }, [dispatch, ticketId]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
