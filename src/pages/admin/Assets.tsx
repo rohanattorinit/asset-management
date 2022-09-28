@@ -27,9 +27,7 @@ import { RootStore } from "../../redux/store";
 
 function Assets() {
   const { assets, message } = useSelector((state: RootStore) => state.admin);
-
   const dispatch: Dispatch<any> = useDispatch();
-
   const [category, setCategory] = useState("hardware");
 
   const handleChange = (event: SelectChangeEvent) => {
