@@ -26,7 +26,7 @@ export const DragAndDrop = () => {
         },
       });
       setFile(undefined);
-      (event.target as HTMLFormElement).reset();
+      (event.target as HTMLFormElement)?.reset();
       navigate(`/admin/employee`);
       alert("Employees added successfully");
     } catch (error) {

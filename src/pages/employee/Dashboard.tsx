@@ -1,10 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Grid, Card, CardContent } from "@mui/material";
-
 import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
-
 import { Dispatch, useEffect } from "react";
 import { RootStore } from "../../redux/store";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -13,7 +10,7 @@ import Carousel from "../../components/Carousel/Carousel";
 export default function Dashboard() {
   const dispatch: Dispatch<any> = useDispatch();
 
-  const { tickets } = useSelector((state: RootStore) => state.employee);
+  const { tickets } = useSelector((state: RootStore) => state?.employee);
 
   const { user } = useSelector((state: RootStore) => state.login);
 
@@ -41,7 +38,6 @@ export default function Dashboard() {
               return (
                 <Grid item xs={6} md={3}>
                   <Card key={requeststatus?.ticketId}>
-                    {/* <CardHeader title={"#" + tickets.ticketId} /> */}
                     <CardContent>
                       <Typography variant="h5">
                         {"# " + requeststatus?.ticketId}

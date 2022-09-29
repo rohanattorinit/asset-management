@@ -5,7 +5,7 @@ import "../Carousel/Carousel.css";
 function HeroImage() {
   return (
     <div className="slick-slide ">
-      <img src={image1} alt="" />
+      <img src={image1} alt="Hero" />
     </div>
   );
 }

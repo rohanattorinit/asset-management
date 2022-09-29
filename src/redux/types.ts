@@ -20,6 +20,7 @@ export const SET_SERVICE_TICKET_DETAILS = 'SET_SERVICE_TICKET_DETAILS'
 export const SET_EMPTICKETS = 'SET_EMPTICKETS'
 export const SET_TICKET_STATUS = 'SET_TICKET_STATUS'
 export const SET_ADD_NOTE = 'SET_ADD_NOTE'
+export const GET_ADD_NOTE = 'GET_ADD_NOTE'
 
 export interface EmpTicketType {
   ticketId: number
@@ -120,6 +121,12 @@ export interface DeAllocatAssetType {
   modelno: number
   allocationTime: string
 }
+export interface NoteType {
+  ticketId: number
+  note: string
+  createdAt: string
+}
+
 interface SetAllocateAsset {
   type: typeof ALLOCATE_EMPLOYEE_ASSET
   payload: {
@@ -314,6 +321,14 @@ interface SetAddNote {
   }
 }
 
+interface GetAddNote {
+  type: typeof GET_ADD_NOTE
+  payload: {
+    message: string
+    data: NoteType[]
+  }
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -339,3 +354,4 @@ export type DispatchTypes =
   | SetServiceDetails
   | SetTicketStatus
   | SetAddNote
+  | GetAddNote
