@@ -67,4 +67,5 @@ const AssetsTable = ({ category }: { category: string }) => {
     </>
   );
 };
+
 export default AssetsTable;
