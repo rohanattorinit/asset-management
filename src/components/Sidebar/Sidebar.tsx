@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import { Box, Button, Divider } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
+import { logout } from "../../redux/actions/AuthAction";
 
 import {
    Drawer,
@@ -12,35 +12,64 @@ import {
    Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { SideNavGrid } from "../Styled/StyledComponent";
+import { Dispatch, useState } from "react";
 
 export default function SideBar() {
-   const {
-      user: { isAdmin },
-   } = useSelector((state: RootStore) => state.login);
-   const [openDrawer, setOpenDrawer] = useState(false);
-   const theme = useTheme();
-   const matches = useMediaQuery(theme.breakpoints.down("md"));
 
-   const MobileNav = () => {
-      return (
-         <Toolbar>
-            <Drawer
-               open={openDrawer}
-               onClose={() => setOpenDrawer(false)}
-               anchor="right"
-            >
-               {isAdmin ? (
-                  <List>
-                     <ListItemButton component={Link} to="/">
-                        <ListItemText>Dashboard</ListItemText>
-                     </ListItemButton>
+  const {
+    user: { isAdmin },
+  } = useSelector((state: RootStore) => state.login);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+  const dispatch: Dispatch<any> = useDispatch();
 
-                     <ListItemButton component={Link} to="/admin/employee">
-                        <ListItemText>Employee</ListItemText>
-                     </ListItemButton>
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+  const MobileNav = () => {
+    return (
+      <Toolbar>
+        <Drawer
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          anchor="right"
+        >
+          {isAdmin ? (
+            <List>
+              <ListItemButton component={Link} to="/">
+                <ListItemText>Dashboard</ListItemText>
+              </ListItemButton>
+
+              <ListItemButton component={Link} to="/admin/employee">
+                <ListItemText>Employee</ListItemText>
+              </ListItemButton>
+
+              <ListItemButton component={Link} to="/admin/assets">
+                <ListItemText>Assets</ListItemText>
+              </ListItemButton>
+              <ListItemButton component={Link} to="/admin/service">
+                <ListItemText>Services</ListItemText>
+              </ListItemButton>
+              {/* <ListItemButton component={Link} to="/">
+                <ListItemText>logout</ListItemText>
+              </ListItemButton> */}
+
+              <ListItemButton onClick={handleLogout}>
+                <ListItemText>logout</ListItemText>
+              </ListItemButton>
+            </List>
+          ) : (
+            <List>
+              <ListItemButton component={Link} to="/profile">
+                <ListItemText>Profile</ListItemText>
+              </ListItemButton>
+
 
                      <ListItemButton component={Link} to="/admin/assets">
                         <ListItemText>Assets</ListItemText>
@@ -58,9 +87,28 @@ export default function SideBar() {
                         <ListItemText>Profile</ListItemText>
                      </ListItemButton>
 
-                     <ListItemButton component={Link} to="/asset">
-                        <ListItemText>Assets</ListItemText>
-                     </ListItemButton>
+
+              <ListItemButton component={Link} to="/ticket">
+                <ListItemText>Ticket</ListItemText>
+              </ListItemButton>
+              <Divider />
+              <ListItemButton onClick={handleLogout}>
+                <ListItemText>Logout</ListItemText>
+              </ListItemButton>
+            </List>
+          )}
+        </Drawer>
+        <IconButton
+          size="large"
+          sx={{ position: "fixed", right: 10, top: 30, color: "white" }}
+          onClick={() => setOpenDrawer(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
+    );
+  };
+
 
                      <ListItemButton component={Link} to="/ticket">
                         <ListItemText>Ticket</ListItemText>
