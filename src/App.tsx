@@ -1,13 +1,13 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
 import AuthRoutes from "./AuthRoutes";
 import { RootStore } from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
-import { get } from "./services/index";
-
+import { get } from "./services";
+const BASE_URL = process.env.REACT_APP_BASE_API;
 function App() {
   const [showLoader, setShowLoader] = useState(true);
   const dispatch = useDispatch();
@@ -15,7 +15,8 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const res = (await get("/api/auth/profile")) as any;
+        console.log("useEffect called");
+        const res = (await get(`/api/auth/profile`)) as any;
         dispatch({ type: SET_AUTHENTICATED, payload: res.data });
       } catch (error) {
         //@ts-ignore

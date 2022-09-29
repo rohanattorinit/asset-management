@@ -82,7 +82,7 @@ function Assets() {
         </Box>
         <TableBody>
           {isRented ? (
-            <RentedAssetsTable />
+            <RentedAssetsTable category="hardware" />
           ) : (
             <AssetsTable category="hardware" />
           )}

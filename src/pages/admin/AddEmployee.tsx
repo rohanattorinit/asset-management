@@ -62,7 +62,7 @@ const AddEmployee = () => {
                 validationSchema={EmpValidationSchema}
                 onSubmit={onSubmit}
               >
-                {({ dirty, isValid, values, handleChange, handleBlur }) => {
+                {({ isValid, values, handleChange, handleBlur }) => {
                   return (
                     <Form>
                       <Grid item container spacing={2}>

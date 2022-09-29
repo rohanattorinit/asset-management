@@ -104,6 +104,12 @@ export interface AssetTypes {
   status: string;
   usability: string;
   addedTime: string;
+  isRented?: boolean;
+  vendor?: string;
+  rent?: number;
+  deposit?: number;
+  rentStartDate?: string;
+  rentEndDate?: string;
   asset_location: string;
 }
 
