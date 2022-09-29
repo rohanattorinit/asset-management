@@ -1,33 +1,29 @@
+import React, { Dispatch } from "react";
 import {
-  Button,
+  Grid,
   Card,
-  CardActions,
   CardContent,
+  CardActions,
+  Button,
   CardHeader,
   Divider,
-  Grid,
-  InputLabel,
   MenuItem,
+  FormControl,
+  InputLabel,
   Select,
 } from "@mui/material";
-import { Dispatch, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { Field, Form, Formik } from "formik";
-import { TextField } from "formik-material-ui";
-import { useDispatch } from "react-redux";
-import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
-import SideBar from "../../components/Sidebar/Sidebar";
-import { addAsset } from "../../redux/actions/AdminActions";
-
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-
-import { validationSchema } from "../../components/FormValidations";
-
+import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "formik-material-ui";
+import SideBar from "../../components/Sidebar/Sidebar";
+import { useDispatch } from "react-redux";
+import { addAsset } from "../../redux/actions/AdminActions";
+import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
+import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 const statusOptions = [
   { label: "Allocated", value: "allocated" },
   { label: "Available", value: "available" },
@@ -37,24 +33,20 @@ const usabilityOptions = [
   { label: "Unusable", value: "unusable" },
   { label: "Disposed", value: "disposed" },
 ];
-
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
   { label: "Software", value: "software" },
 ];
 
 const AddAsset = () => {
-  const [isRented, setIsRented] = useState<boolean>(false);
   const dispatch: Dispatch<any> = useDispatch();
   let navigate = useNavigate();
 
   const onSubmit = (values: any) => {
-    dispatch(addAsset(values));
-    //console.log(values);
-
-    navigate(`/admin/assets`);
+    //dispatch(addAsset(values));
+    console.log(values);
+    //navigate(`/admin/assets`);
   };
-
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
@@ -75,17 +67,23 @@ const AddAsset = () => {
                   description: "",
                   status: "",
                   usability: "",
-                  isRented: "",
                   vendor: "",
                   rent: "",
                   deposit: "",
                   rentStartDate: "",
                   rentEndDate: "",
                 }}
-                validationSchema={validationSchema}
+                validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
               >
-                {({ dirty, isValid, values, handleChange, handleBlur }) => {
+                {({
+                  dirty,
+                  isValid,
+                  values,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                }) => {
                   return (
                     <Form>
                       <Grid item container spacing={2}>
@@ -198,7 +196,7 @@ const AddAsset = () => {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               label="Usability
-                      "
+                    "
                               value={values.usability}
                               onChange={handleChange}
                               name="usability"
@@ -224,19 +222,21 @@ const AddAsset = () => {
                               name="radio-buttons-group"
                             >
                               <FormControlLabel
-                                value="no"
-                                onChange={handleChange}
-                                control={<Radio />}
-                                label="No"
-                              />
-                              <FormControlLabel
-                                value="yes"
-                                onChange={handleChange}
+                                value="1"
                                 control={<Radio />}
                                 label="Yes"
+                                name="yes"
+                                onChange={handleChange}
+                              />
+                              <FormControlLabel
+                                value="0"
+                                control={<Radio />}
+                                label="No"
+                                name="no"
+                                onChange={handleChange}
                               />
                             </RadioGroup>
-                          </FormControl>{" "}
+                          </FormControl>
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={6}>
@@ -282,6 +282,7 @@ const AddAsset = () => {
                             value={values.rentStartDate}
                             component={TextField}
                             InputLabelProps={{ shrink: true }}
+                            onChange={handleChange}
                           />
                         </Grid>
 
@@ -295,6 +296,7 @@ const AddAsset = () => {
                             value={values.rentEndDate}
                             component={TextField}
                             InputLabelProps={{ shrink: true }}
+                            onChange={handleChange}
                           />
                         </Grid>
                       </Grid>
