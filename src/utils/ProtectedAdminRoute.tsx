@@ -1,4 +1,4 @@
-import PageNotFound from "../components/PageNotFound/PageNotFound";
+import NotFound from "../components/ErrorHandling/NotFound";
 
 export type ProtectedAdminRouteProps = {
   authenticated: boolean;
@@ -14,6 +14,6 @@ export default function ProtectedAdminRoute({
   if (authenticated) {
     return outlet;
   } else {
-    return <PageNotFound />;
+    return <NotFound />;
   }
 }

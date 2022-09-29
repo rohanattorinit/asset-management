@@ -94,16 +94,24 @@ export interface EmployeeAssetType {
 }
 
 export interface AssetTypes {
-  assetId: number
-  brandId: number
-  name: string
-  assetType: string
-  category: string
-  modelNo: number
-  description: string
-  status: string
-  usability: string
-  addedTime: string
+
+  assetId: number;
+  brandId: number;
+  name: string;
+  assetType: string;
+  category: string;
+  modelNo: number;
+  description: string;
+  status: string;
+  usability: string;
+  addedTime: string;
+  isRented?: boolean;
+  vendor?: string;
+  rent?: number;
+  deposit?: number;
+  rentStartDate?: string;
+  rentEndDate?: string;
+
 }
 
 export interface AllocatedAssetType {
