@@ -34,6 +34,9 @@ const AssetsTable = ({ category }: { category: string }) => {
                   <Typography>Category</Typography>
                 </TableCell>
                 <TableCell align="center">
+                  <Typography>Asset Location</Typography>
+                </TableCell>
+                <TableCell align="center">
                   <Typography>Status</Typography>
                 </TableCell>
                 <TableCell align="center">
@@ -52,6 +55,9 @@ const AssetsTable = ({ category }: { category: string }) => {
                   </TableCell>
                   <TableCell align="center">
                     {filteredAsset?.category?.toUpperCase()}
+                  </TableCell>
+                  <TableCell align="center">
+                    {filteredAsset?.asset_location?.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
                     {filteredAsset?.status?.toUpperCase()}
