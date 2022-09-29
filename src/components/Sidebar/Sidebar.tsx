@@ -28,10 +28,7 @@ export default function SideBar() {
   const dispatch: Dispatch<any> = useDispatch();
 
   const adminTabs = [
-    {
-      name: "Dashboard",
-      path: "/",
-    },
+    { name: "Dashboard", path: "/" },
     {
       name: "Employee",
       path: "/admin/employee",
