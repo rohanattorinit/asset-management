@@ -24,7 +24,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { employees, message } = useSelector((state: RootStore) => state.admin);
 
