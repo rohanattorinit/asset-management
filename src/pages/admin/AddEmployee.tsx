@@ -1,25 +1,25 @@
 import {
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
   Button,
+  Card,
+  CardActions,
+  CardContent,
   CardHeader,
   Divider,
-  MenuItem,
   FormControl,
+  Grid,
   InputLabel,
+  MenuItem,
   Select,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
+import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-import SideBar from "../../components/Sidebar/Sidebar";
-import { useDispatch } from "react-redux";
-import { addEmployee } from "../../redux/actions/AdminActions";
-import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { Dispatch } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { EmpValidationSchema } from "../../components/FormValidations/EmpValidationSchema";
+import SideBar from "../../components/Sidebar/Sidebar";
+import { addEmployee } from "../../redux/actions/AdminActions";
 
 const options = [
   { label: "Senior Software Developer", value: "senior_software_developer" },
@@ -34,7 +34,8 @@ const options = [
 
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
   const onSubmit = (values: any) => {
     dispatch(addEmployee(values));
     navigate(`/admin/employee`);

@@ -34,7 +34,7 @@ function Services() {
   const handleStatusChange = (event: SelectChangeEvent) => {
     setStatus(event?.target?.value as string);
   };
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch: Dispatch<any> = useDispatch();
   const { serviceDetails } = useSelector((state: RootStore) => state.admin);
