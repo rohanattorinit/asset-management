@@ -72,7 +72,7 @@ export const DragAndDrop = () => {
           />
           <Box>
             <Button
-              sx={{ margin: "2rem 8rem" }}
+              sx={{ margin: { md: "2rem 8rem" } }}
               size="large"
               type="submit"
               variant="contained"
