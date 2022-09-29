@@ -14,7 +14,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-//import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { RootStore } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
@@ -30,6 +29,10 @@ import Checkbox from "@mui/material/Checkbox";
 import { useLocation } from "react-router-dom";
 
 export default function EmployeeDetails() {
+  const [search, setSearch] = useState("");
+  const [open, setOpen] = useState(false);
+  const [assetIdCheck, setAssetId] = useState<number[]>([]);
+
   const { employeeDetails, employeeassetsdetails, message, assets } =
     useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
@@ -41,7 +44,6 @@ export default function EmployeeDetails() {
     dispatch(getAssets());
   }, [dispatch, message, empId]);
 
-  const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
     setSearch(e?.target?.value);
   };
@@ -56,9 +58,6 @@ export default function EmployeeDetails() {
       asset?.name?.toLowerCase()?.includes(search?.toLowerCase())
     );
   });
-
-  const [open, setOpen] = useState(false);
-  const [assetIdCheck, setAssetId] = useState<number[]>([]);
 
   const handleClickOpen = () => {
     setOpen(true);

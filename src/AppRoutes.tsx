@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
-import PageNotFound from "./components/PageNotFound";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 import AddAsset from "./pages/admin/AddAsset";
 import AddEmployee from "./pages/admin/AddEmployee";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -15,9 +15,8 @@ import Asset from "./pages/employee/Asset";
 import Dashboard from "./pages/employee/Dashboard";
 import Profile from "./pages/employee/Profile";
 import Ticket from "./pages/employee/Ticket";
-import Login from "./pages/Login";
 import ProtectedAdminRoute, {
-  ProtectedAdminRouteProps,
+  ProtectedAdminRouteProps
 } from "./utils/ProtectedAdminRoute";
 import ProtectedRoute, { ProtectedRouteProps } from "./utils/ProtectedRoute";
 

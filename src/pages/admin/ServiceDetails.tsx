@@ -23,22 +23,23 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const ServiceDetails = () => {
+  const [note, setNote] = useState("");
+  const [select, setSelect] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const ticketId = parseInt(
-    location.pathname.replace("/admin/service/", ""),
+    location?.pathname?.replace("/admin/service/", ""),
     10
   );
   const dispatch: Dispatch<any> = useDispatch();
   const { serviceticketdetails } = useSelector(
     (state: RootStore) => state.admin
   );
-  const [note, setNote] = useState("");
-  const [select, setSelect] = useState("");
 
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
-  }, []);
+  }, [dispatch, ticketId]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -144,7 +145,7 @@ export const ServiceDetails = () => {
                   sx={{ minWidth: "100px" }}
                   value={select}
                   onChange={(event) => {
-                    setSelect(event.target.value);
+                    setSelect(event?.target?.value);
                   }}
                 >
                   <MenuItem value={"active"}>Active</MenuItem>
@@ -164,7 +165,7 @@ export const ServiceDetails = () => {
               multiline
               rows={4}
               onChange={(e) => {
-                setNote(e.target.value);
+                setNote(e?.target?.value);
               }}
             />
 

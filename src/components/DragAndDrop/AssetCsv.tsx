@@ -13,7 +13,7 @@ export const AssetCsv = () => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("csvFile", file!);
+    formData?.append("csvFile", file!);
     try {
       const auth_token = Cookies.get("auth_token");
       await axios({
@@ -26,7 +26,7 @@ export const AssetCsv = () => {
         },
       });
       setFile(undefined);
-      (event.target as HTMLFormElement).reset();
+      (event.target as HTMLFormElement)?.reset();
       navigate(`/admin/assets`);
       alert("Assets added successfully");
     } catch (error) {

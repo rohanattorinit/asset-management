@@ -1,4 +1,4 @@
-import { CREATE_TICKET, SET_EMPTICKETS } from "./../types";
+import { CREATE_TICKET, GET_ADD_NOTE, SET_EMPTICKETS } from "./../types";
 import { Dispatch } from "redux";
 import {
   CHANGE_PASSWORD,
@@ -23,11 +23,11 @@ export const getEmployeeAssets =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/assets/employeeAssets/${empId}`);
-      dispatch({ type: SET_EMPLOYEE_ASSETS, payload: (res as any).data });
+      dispatch({ type: SET_EMPLOYEE_ASSETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -37,11 +37,11 @@ export const getEmployee =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/employees/${empId}`);
-      dispatch({ type: SET_EMPLOYEE, payload: (res as any).data });
+      dispatch({ type: SET_EMPLOYEE, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -52,11 +52,11 @@ export const updateEmployeeDetails =
     dispatch({ type: LOADING });
     try {
       const res = await post(`/api/employees/update/${empId}`, updateData);
-      dispatch({ type: UPDATE_EMPLOYEE_DETAILS, payload: (res as any).data });
+      dispatch({ type: UPDATE_EMPLOYEE_DETAILS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -69,11 +69,11 @@ export const changePassword =
         password: password,
       });
       alert("Password changed successfully!");
-      dispatch({ type: CHANGE_PASSWORD, payload: (res as any).data });
+      dispatch({ type: CHANGE_PASSWORD, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -90,11 +90,11 @@ export const createTicket =
         description,
       });
       alert("Ticket created successfully!");
-      dispatch({ type: CREATE_TICKET, payload: (res as any).data });
+      dispatch({ type: CREATE_TICKET, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -104,11 +104,25 @@ export const getEmployeeTickets =
     dispatch({ type: LOADING });
     try {
       const res = await get(`/api/tickets/employeeTickets/${empId}`);
-      dispatch({ type: SET_EMPTICKETS, payload: (res as any).data });
+      dispatch({ type: SET_EMPTICKETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
+      });
+    }
+  };
+
+export const getNote =
+  (ticketId: number) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/tickets/getTicketDetails/${ticketId}`);
+      dispatch({ type: GET_ADD_NOTE, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
