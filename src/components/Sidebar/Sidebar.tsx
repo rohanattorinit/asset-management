@@ -27,6 +27,40 @@ export default function SideBar() {
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch: Dispatch<any> = useDispatch();
 
+  const adminTabs = [
+    {
+      name: "Dashboard",
+      path: "/",
+    },
+    {
+      name: "Employee",
+      path: "/admin/employee",
+    },
+    {
+      name: "Assets",
+      path: "/admin/assets",
+    },
+    {
+      name: "Services",
+      path: "/admin/service",
+    },
+  ];
+
+  const empTabs = [
+    {
+      name: "Profile",
+      path: "/profile",
+    },
+    {
+      name: "Asset",
+      path: "/asset",
+    },
+    {
+      name: "Requests",
+      path: "/ticket",
+    },
+  ];
+
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -55,9 +89,6 @@ export default function SideBar() {
               <ListItemButton component={Link} to="/admin/service">
                 <ListItemText>Services</ListItemText>
               </ListItemButton>
-              {/* <ListItemButton component={Link} to="/">
-                <ListItemText>logout</ListItemText>
-              </ListItemButton> */}
 
               <ListItemButton onClick={handleLogout}>
                 <ListItemText>logout</ListItemText>
@@ -107,72 +138,31 @@ export default function SideBar() {
       >
         {isAdmin ? (
           <Box display="flex" flexDirection="column" justifyContent="center">
-            <Button
-              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/"
-            >
-              Dashboard
-            </Button>
-            <Button
-              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/admin/employee"
-            >
-              Employee
-            </Button>
-            <Button
-              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/admin/assets"
-            >
-              Assets
-            </Button>
-            <Button
-              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/admin/service"
-            >
-              Services
-            </Button>
+            {adminTabs?.map((adminTab) => (
+              <Button
+                sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+                variant="outlined"
+                color="secondary"
+                component={Link}
+                to={adminTab.path}
+              >
+                {adminTab.name}
+              </Button>
+            ))}
           </Box>
         ) : (
           <Box display="flex" flexDirection="column" justifyContent="center">
-            <Button
-              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/profile"
-            >
-              Profile
-            </Button>
-            <Button
-              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/asset"
-            >
-              Asset
-            </Button>
-            <Button
-              sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
-              variant="outlined"
-              color="secondary"
-              component={Link}
-              to="/ticket"
-            >
-              Requests
-            </Button>
+            {empTabs.map((empTab) => (
+              <Button
+                sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
+                variant="outlined"
+                color="secondary"
+                component={Link}
+                to={empTab.path}
+              >
+                {empTab.name}
+              </Button>
+            ))}
           </Box>
         )}
       </SideNavGrid>
