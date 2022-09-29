@@ -4,9 +4,11 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { RootStore } from "../../redux/store";
-import { Dispatch, useEffect } from "react";
+import { Dispatch, useEffect, useState } from "react";
+import Toast from "../../components/ErrorHandling/Toast";
 import { getAssets, getEmployees } from "../../redux/actions/AdminActions";
 import CountUp from "react-countup";
+
 const StlyedGrid = styled(Grid)({
   display: "flex",
   justifyContent: "center",
@@ -21,17 +23,21 @@ const StlyedGrid = styled(Grid)({
 });
 
 function AdminDashboard() {
-  const { assets, employees } = useSelector((state: RootStore) => state.admin);
+  const { assets, employees, error } = useSelector(
+    (state: RootStore) => state.admin
+  );
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
     dispatch(getAssets());
     dispatch(getEmployees());
   }, [dispatch]);
+
   return (
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
+        <Toast />
         <Grid item xs={12} md={10} sx={{ overflowX: "auto" }}>
           <Typography variant="h3" textAlign="center" marginY={5}>
             {" "}
@@ -74,7 +80,7 @@ function AdminDashboard() {
                 variant="h5"
                 color="primary"
               >
-                <CountUp end={employees?.length} duration={2} />
+                <CountUp end={employees.length} duration={2} />
               </Typography>
               <Typography
                 sx={{ fontSize: "24px" }}

@@ -1,15 +1,16 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import NotFound from "./components/ErrorHandling/NotFound";
+import Toast from "./components/ErrorHandling/Toast";
 import Navbar from "./components/Navbar/Navbar";
-import PageNotFound from "./components/PageNotFound/PageNotFound";
 import AddAsset from "./pages/admin/AddAsset";
 import AddEmployee from "./pages/admin/AddEmployee";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Assets from "./pages/admin/Assets";
 import EmployeeDetails from "./pages/admin/EmployeeDetails";
 import EmpList from "./pages/admin/EmployeeList";
-import RentalAssets from "./pages/admin/RentalAssets";
+import RentalAssets from "./pages/admin/RentedAssetsTable";
 import { ServiceDetails } from "./pages/admin/ServiceDetails";
 import Services from "./pages/admin/Services";
 import Asset from "./pages/employee/Asset";
@@ -17,7 +18,7 @@ import Dashboard from "./pages/employee/Dashboard";
 import Profile from "./pages/employee/Profile";
 import Ticket from "./pages/employee/Ticket";
 import ProtectedAdminRoute, {
-  ProtectedAdminRouteProps
+  ProtectedAdminRouteProps,
 } from "./utils/ProtectedAdminRoute";
 import ProtectedRoute, { ProtectedRouteProps } from "./utils/ProtectedRoute";
 
@@ -153,8 +154,7 @@ function AppRoutes() {
           }
         />
 
-        <Route path="/admin/assets/rental" element={<RentalAssets />}></Route>
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

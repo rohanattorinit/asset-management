@@ -24,8 +24,9 @@ import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
+import { AssetTypes } from "../../redux/types";
 
-function RentalAssets() {
+function RentedAssetsTable() {
   const { assets, message } = useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -36,32 +37,13 @@ function RentalAssets() {
     setCategory(event?.target?.value as string);
   };
 
+  const filterRentalAssets = assets?.filter((asset) => {
+    return asset?.isRented;
+  });
+
   useEffect(() => {
     dispatch(getAssets());
   }, [dispatch, message]);
-
-  const AssetsTable = ({ category }: { category: string }) => {
-    return (
-      <>
-        {assets
-          ?.filter((asset) => asset?.assetType === category)
-          .map((rentalAsset) => (
-            <TableRow key={rentalAsset?.assetId}>
-              <TableCell align="center">{rentalAsset?.assetId}</TableCell>
-              <TableCell align="center">{rentalAsset?.name}</TableCell>
-              <TableCell align="center">{rentalAsset?.vendor}</TableCell>
-              <TableCell align="center">{rentalAsset?.rent}</TableCell>
-              <TableCell align="center">{rentalAsset?.rentStartDate}</TableCell>
-              <TableCell align="center">{rentalAsset?.rentEndDate}</TableCell>
-              <TableCell align="center">{rentalAsset?.deposit}</TableCell>
-              <TableCell align="center">
-                {rentalAsset?.status.toUpperCase()}
-              </TableCell>
-            </TableRow>
-          ))}
-      </>
-    );
-  };
 
   return (
     <Grid container sx={{ height: "100%" }}>
@@ -74,7 +56,13 @@ function RentalAssets() {
         >
           <FormControl sx={{ width: 300 }}>
             <InputLabel>Category</InputLabel>
-            <Select value={category} onChange={handleChange}>
+            <Select
+              labelId="category"
+              id="Category"
+              label="Category"
+              value={category}
+              onChange={handleChange}
+            >
               <MenuItem value={"software"}>Software</MenuItem>
               <MenuItem value={"hardware"}>Hardware</MenuItem>
             </Select>
@@ -123,7 +111,10 @@ function RentalAssets() {
               </TableHead>
               <TableBody>
                 {category && category === "hardware" ? (
-                  <AssetsTable category="hardware" />
+                  <AssetsTable
+                    category="hardware"
+                    filterRentalAssets={filterRentalAssets}
+                  />
                 ) : (
                   <AssetsTable category="software" />
                 )}
@@ -135,5 +126,34 @@ function RentalAssets() {
     </Grid>
   );
 }
-
-export default RentalAssets;
+const AssetsTable = ({
+  category,
+  isRented,
+  filterRentalAssets,
+}: {
+  category: string;
+  isRented?: boolean;
+  filterRentalAssets?: AssetTypes[];
+}) => {
+  return (
+    <>
+      {filterRentalAssets
+        ?.filter((asset) => asset?.assetType === category)
+        .map((rentalAsset) => (
+          <TableRow key={rentalAsset?.assetId}>
+            <TableCell align="center">{rentalAsset?.assetId}</TableCell>
+            <TableCell align="center">{rentalAsset?.name}</TableCell>
+            <TableCell align="center">{rentalAsset?.vendor}</TableCell>
+            <TableCell align="center">{rentalAsset?.rent}</TableCell>
+            <TableCell align="center">{rentalAsset?.rentStartDate}</TableCell>
+            <TableCell align="center">{rentalAsset?.rentEndDate}</TableCell>
+            <TableCell align="center">{rentalAsset?.deposit}</TableCell>
+            <TableCell align="center">
+              {rentalAsset?.status.toUpperCase()}
+            </TableCell>
+          </TableRow>
+        ))}
+    </>
+  );
+};
+export default RentedAssetsTable;

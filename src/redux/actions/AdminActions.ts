@@ -28,9 +28,14 @@ export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
     const res = await get("/api/employees");
     dispatch({ type: SET_EMPLOYEES, payload: (res as any)?.data });
   } catch (error) {
+    console.error("status", (error as any).response.status);
     dispatch({
       type: SET_ERROR,
-      payload: (error as any)?.response?.data?.error || "",
+      payload:
+        (error as any)?.response?.data?.error ||
+        `${
+          (error as any).response.status
+        }: Error occured while fetching employee data`,
     });
   }
 };
@@ -43,7 +48,11 @@ export const getAssets = () => async (dispatch: Dispatch<DispatchTypes>) => {
   } catch (error) {
     dispatch({
       type: SET_ERROR,
-      payload: (error as any)?.response?.data?.error || "",
+      payload:
+        (error as any)?.response?.data?.error ||
+        `${
+          (error as any).response.status
+        }: Error occured while fetching asset data`,
     });
   }
 };

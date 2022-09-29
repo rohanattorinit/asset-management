@@ -78,7 +78,13 @@ function Assets() {
         >
           <FormControl sx={{ width: 300 }}>
             <InputLabel>Category</InputLabel>
-            <Select value={category} onChange={handleChange}>
+            <Select
+              labelId="category"
+              id="Category"
+              label="Category"
+              value={category}
+              onChange={handleChange}
+            >
               <MenuItem value={"software"}>Software</MenuItem>
               <MenuItem value={"hardware"}>Hardware</MenuItem>
             </Select>

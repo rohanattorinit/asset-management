@@ -35,7 +35,6 @@ function EmpList() {
   useEffect(() => {
     dispatch(getEmployees());
   }, [dispatch, message]);
-
   const [search, setSearch] = useState("");
   const handleChange = (e: any) => {
     setSearch(e?.target?.value);
