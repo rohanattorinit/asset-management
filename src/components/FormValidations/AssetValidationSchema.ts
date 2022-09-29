@@ -26,6 +26,7 @@ export const AssetValidationSchema = Yup.object().shape({
   vendor: Yup.string().matches(re, 'Vendor can have letters only'),
   rent: Yup.string().matches(numericRegEx, 'Rent can have numbers only!'),
   deposit: Yup.string().matches(numericRegEx, 'Rent can have numbers only!'),
+  asset_location: Yup.string().matches(re, 'Location can have letters only'),
 
   rentStartDate: Yup.date(),
   rentEndDate: Yup.date().min(

@@ -62,6 +62,7 @@ const AddAsset = () => {
                   rentStartDate: "",
                   rentEndDate: "",
                   isRented: false,
+                  asset_location: "",
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -151,6 +152,16 @@ const AddAsset = () => {
                             fullWidth
                             name="description"
                             value={values.description}
+                            component={TextField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Asset Location"
+                            variant="outlined"
+                            fullWidth
+                            name="asset_location"
+                            value={values.asset_location}
                             component={TextField}
                           />
                         </Grid>
