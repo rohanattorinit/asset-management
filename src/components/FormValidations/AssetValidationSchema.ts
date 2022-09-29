@@ -17,9 +17,19 @@ export const AssetValidationSchema = Yup.object().shape({
     .required('Required'),
   modelNo: Yup.string()
     .matches(numericRegEx, 'Invalid model no!')
-    .matches(numericRegEx, 'Invalid model no!')
+
     .required('Required!'),
   description: Yup.string()
     .matches(re, 'Description can have letters only!')
-    .required('Required')
+    .required('Required'),
+
+  vendor: Yup.string().matches(re, 'Vendor can have letters only'),
+  rent: Yup.string().matches(numericRegEx, 'Rent can have numbers only!'),
+  deposit: Yup.string().matches(numericRegEx, 'Rent can have numbers only!'),
+
+  rentStartDate: Yup.date(),
+  rentEndDate: Yup.date().min(
+    Yup.ref('rentStartDate'),
+    "End date can't be before Start date"
+  )
 })

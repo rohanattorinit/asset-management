@@ -29,7 +29,7 @@ export interface EmpTicketType {
   description: string
   ticketStatus: string
   createdAt: string
-  note : string
+  note: string
 }
 
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
@@ -49,6 +49,12 @@ export interface CreateAssetType {
   description: string
   status: string
   usability: string
+  isRented: boolean
+  vendor: string
+  rent: string
+  deposit: string
+  rentStartDate: string
+  rentEndDate: string
 }
 
 export interface CreateEmployeeType {

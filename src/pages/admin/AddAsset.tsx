@@ -12,9 +12,7 @@ import {
   InputLabel,
   Select,
 } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+
 import FormLabel from "@mui/material/FormLabel";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
@@ -43,9 +41,9 @@ const AddAsset = () => {
   let navigate = useNavigate();
 
   const onSubmit = (values: any) => {
-    //dispatch(addAsset(values));
-    console.log(values);
-    //navigate(`/admin/assets`);
+    dispatch(addAsset(values));
+    //console.log(values);
+    navigate(`/admin/assets`);
   };
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
@@ -72,6 +70,7 @@ const AddAsset = () => {
                   deposit: "",
                   rentStartDate: "",
                   rentEndDate: "",
+                  isRented: false,
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -192,6 +191,7 @@ const AddAsset = () => {
                             <InputLabel id="demo-simple-select-outlined-label">
                               Usability
                             </InputLabel>
+
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
@@ -215,90 +215,81 @@ const AddAsset = () => {
                           <FormControl>
                             <FormLabel id="demo-radio-buttons-group-label">
                               Is your asset rented?
+                              <Field
+                                type="checkbox"
+                                name="isRented"
+                                onChange={handleChange}
+                              />
                             </FormLabel>
-                            <RadioGroup
-                              aria-labelledby="demo-radio-buttons-group-label"
-                              defaultValue="no"
-                              name="radio-buttons-group"
-                            >
-                              <FormControlLabel
-                                value="1"
-                                control={<Radio />}
-                                label="Yes"
-                                name="yes"
-                                onChange={handleChange}
-                              />
-                              <FormControlLabel
-                                value="0"
-                                control={<Radio />}
-                                label="No"
-                                name="no"
-                                onChange={handleChange}
-                              />
-                            </RadioGroup>
                           </FormControl>
                         </Grid>
 
-                        <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Vendor"
-                            variant="outlined"
-                            fullWidth
-                            name="vendor"
-                            value={values.vendor}
-                            component={TextField}
-                          />
-                        </Grid>
+                        {values.isRented ? (
+                          <>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <Field
+                                label="Vendor"
+                                variant="outlined"
+                                fullWidth
+                                name="vendor"
+                                value={values.vendor}
+                                component={TextField}
+                              />
+                            </Grid>
 
-                        <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Rent per month"
-                            variant="outlined"
-                            fullWidth
-                            name="rent"
-                            value={values.rent}
-                            component={TextField}
-                          />
-                        </Grid>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <Field
+                                label="Rent per month"
+                                variant="outlined"
+                                fullWidth
+                                name="rent"
+                                value={values.rent}
+                                component={TextField}
+                              />
+                            </Grid>
 
-                        <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Deposit"
-                            variant="outlined"
-                            fullWidth
-                            name="deposit"
-                            value={values.deposit}
-                            component={TextField}
-                          />
-                        </Grid>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <Field
+                                label="Deposit"
+                                variant="outlined"
+                                fullWidth
+                                name="deposit"
+                                value={values.deposit}
+                                component={TextField}
+                              />
+                            </Grid>
 
-                        <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            type="date"
-                            label="Start date of rent"
-                            variant="outlined"
-                            fullWidth
-                            name="rentStartDate"
-                            value={values.rentStartDate}
-                            component={TextField}
-                            InputLabelProps={{ shrink: true }}
-                            onChange={handleChange}
-                          />
-                        </Grid>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <Field
+                                type="date"
+                                label="Start date of rent"
+                                variant="outlined"
+                                fullWidth
+                                name="rentStartDate"
+                                value={values.rentStartDate}
+                                component={TextField}
+                                InputLabelProps={{ shrink: true }}
+                                onChange={handleChange}
+                              />
+                            </Grid>
 
-                        <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            type="date"
-                            label="End date of rent"
-                            variant="outlined"
-                            fullWidth
-                            name="rentEndDate"
-                            value={values.rentEndDate}
-                            component={TextField}
-                            InputLabelProps={{ shrink: true }}
-                            onChange={handleChange}
-                          />
-                        </Grid>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <Field
+                                type="date"
+                                label="End date of rent"
+                                variant="outlined"
+                                fullWidth
+                                name="rentEndDate"
+                                value={values.rentEndDate}
+                                component={TextField}
+                                InputLabelProps={{ shrink: true }}
+                                onChange={handleChange}
+                              />
+                            </Grid>
+                          </>
+                        ) : (
+                          <> </>
+                        )}
                       </Grid>
 
                       <CardActions>
