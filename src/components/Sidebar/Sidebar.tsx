@@ -29,33 +29,15 @@ export default function SideBar() {
 
   const adminTabs = [
     { name: "Dashboard", path: "/" },
-    {
-      name: "Employee",
-      path: "/admin/employee",
-    },
-    {
-      name: "Assets",
-      path: "/admin/assets",
-    },
-    {
-      name: "Services",
-      path: "/admin/service",
-    },
+    { name: "Employee", path: "/admin/employee" },
+    { name: "Assets", path: "/admin/assets" },
+    { name: "Services", path: "/admin/service" },
   ];
 
   const empTabs = [
-    {
-      name: "Profile",
-      path: "/profile",
-    },
-    {
-      name: "Asset",
-      path: "/asset",
-    },
-    {
-      name: "Requests",
-      path: "/ticket",
-    },
+    { name: "Profile", path: "/profile" },
+    { name: "Asset", path: "/asset" },
+    { name: "Requests", path: "/ticket" },
   ];
 
   const handleLogout = () => {
