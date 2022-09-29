@@ -1,27 +1,18 @@
-import React, { Dispatch } from "react";
 import {
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  CardHeader,
-  Divider,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
+  Button, Card, CardActions, CardContent, CardHeader,
+  Divider, FormControl, Grid, InputLabel, MenuItem, Select
 } from "@mui/material";
+import { Dispatch } from "react";
 
 import FormLabel from "@mui/material/FormLabel";
-import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
+import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-import SideBar from "../../components/Sidebar/Sidebar";
 import { useDispatch } from "react-redux";
-import { addAsset } from "../../redux/actions/AdminActions";
+import { useNavigate } from "react-router-dom";
 import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
+import SideBar from "../../components/Sidebar/Sidebar";
+import { addAsset } from "../../redux/actions/AdminActions";
 const statusOptions = [
   { label: "Allocated", value: "allocated" },
   { label: "Available", value: "available" },
@@ -38,7 +29,7 @@ const assetTypeOptions = [
 
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const onSubmit = (values: any) => {
     dispatch(addAsset(values));
