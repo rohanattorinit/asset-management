@@ -69,7 +69,7 @@ let validationSchema = Yup?.object()?.shape({
 
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const onSubmit = (values: any) => {
     dispatch(addEmployee(values));
