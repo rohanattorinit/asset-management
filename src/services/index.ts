@@ -38,7 +38,6 @@ export const post = (url: string, payload: any) => {
       });
       return resolve(res);
     } catch (error) {
-      console.log(error);
       //@ts-ignore
       if (error.response.status === 403) {
         Cookies.remove("auth_token");

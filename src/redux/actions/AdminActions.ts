@@ -25,7 +25,7 @@ import { get, post } from "../../services";
 interface GetAssetParams {
   allocate?: boolean;
   name?: string;
-  assetType?: "hardware" | "software";
+  assetType?: string;
   isRented?: 0 | 1;
 }
 
@@ -35,7 +35,7 @@ interface GetEmployeeParams {
 
 interface GetTicketParams {
   title?: string;
-  status?: "active" | "pending" | "closed";
+  status?: string;
 }
 
 export const getEmployees =
@@ -60,6 +60,7 @@ export const getAssets =
     dispatch({ type: LOADING_DATA });
     try {
       const { name, allocate, assetType, isRented } = assetParams;
+
       const res = await get(
         `/api/assets?allocate=${allocate}&assetType=${assetType}&isRented=${isRented}&name=${name}`
       );
@@ -77,10 +78,8 @@ export const getTickets =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const { title, status } = ticketParams;
-      const res = await get(
-        `/api/tickets?status=${status}&title=${title}`
-      );
+      let { title, status } = ticketParams;
+      const res = await get(`/api/tickets?status=${status}&title=${title}`);
       dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -216,7 +215,6 @@ export const changeTicketStatus =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      console.log(status);
       const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
         status,
       });

@@ -8,7 +8,6 @@ import {
   Select,
   SelectChangeEvent,
   Tab,
-  TableBody,
   Tabs,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -34,18 +33,20 @@ function Assets() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event?.target?.value as string);
+    setCategory(event?.target?.value);
   };
 
   useEffect(() => {
-    dispatch(getAssets());
-  }, [dispatch, message]);
+    dispatch(
+      getAssets({ assetType: category, isRented: isRented ? 1 : 0, name: "" })
+    );
+  }, [dispatch, message, category, isRented]);
 
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3}>
-        <Box sx={{ width: "100%" }}>
+        <Box>
           <Tabs value={value} onChange={handleTabChange} centered>
             <Tab label="Owned Assets" />
             <Tab label="Rented Assets" />
@@ -80,13 +81,13 @@ function Assets() {
             Add new Asset
           </Button>
         </Box>
-        <TableBody>
+        <Box>
           {isRented ? (
             <RentedAssetsTable category="hardware" />
           ) : (
             <AssetsTable category="hardware" />
           )}
-        </TableBody>
+        </Box>
       </Grid>
     </Grid>
   );

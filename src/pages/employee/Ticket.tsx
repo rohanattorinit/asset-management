@@ -93,7 +93,6 @@ export default function Ticket() {
                 </Typography>
                 <Typography variant="body1">Note : {ticket?.note}</Typography>
                 {noteDetails.map((note) => {
-                  console.log(note);
                   return (
                     <p>
                       <li>{note?.note}</li>

@@ -39,6 +39,7 @@ export default function EmployeeDetails() {
   }, [dispatch, message, empId]);
 
   const handleClickOpen = () => {
+    dispatch(getAssets({ allocate: true, name: "" }));
     setOpen(true);
   };
 

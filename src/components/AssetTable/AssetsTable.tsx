@@ -1,5 +1,6 @@
 import {
   Box,
+  Grid,
   Paper,
   Table,
   TableCell,
@@ -16,9 +17,8 @@ const AssetsTable = ({ category }: { category: string }) => {
 
   return (
     <>
-      <Box>
-        <TableContainer sx={{ marginY: 3 }} component={Paper}>
-          <Table sx={{ minWidth: 1200 }} aria-label="simple table">
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell align="center">
@@ -48,32 +48,29 @@ const AssetsTable = ({ category }: { category: string }) => {
                 </TableCell>
               </TableRow>
             </TableHead>
-            {assets
-              ?.filter((asset) => asset?.assetType === category)
-              .map((filteredAsset) => (
-                <TableRow key={filteredAsset?.assetId}>
-                  <TableCell align="center">{filteredAsset?.assetId}</TableCell>
-                  <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
-                  <TableCell align="center">
-                    {filteredAsset?.name?.toUpperCase()}
-                  </TableCell>
-                  <TableCell align="center">
-                    {filteredAsset?.category?.toUpperCase()}
-                  </TableCell>
-                  <TableCell align="center">
-                    {filteredAsset?.asset_location?.toUpperCase()}
-                  </TableCell>
-                  <TableCell align="center">
-                    {filteredAsset?.status?.toUpperCase()}
-                  </TableCell>
-                  <TableCell align="center">
-                    {filteredAsset?.usability?.toUpperCase()}
-                  </TableCell>
-                </TableRow>
-              ))}
+            {assets?.map((filteredAsset) => (
+              <TableRow key={filteredAsset?.assetId}>
+                <TableCell align="center">{filteredAsset?.assetId}</TableCell>
+                <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
+                <TableCell align="center">
+                  {filteredAsset?.name?.toUpperCase()}
+                </TableCell>
+                <TableCell align="center">
+                  {filteredAsset?.category?.toUpperCase()}
+                </TableCell>
+                <TableCell align="center">
+                  {filteredAsset?.asset_location?.toUpperCase()}
+                </TableCell>
+                <TableCell align="center">
+                  {filteredAsset?.status?.toUpperCase()}
+                </TableCell>
+                <TableCell align="center">
+                  {filteredAsset?.usability?.toUpperCase()}
+                </TableCell>
+              </TableRow>
+            ))}
           </Table>
         </TableContainer>
-      </Box>
     </>
   );
 };
