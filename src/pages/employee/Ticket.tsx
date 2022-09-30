@@ -1,20 +1,16 @@
 import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Dialog,
-  DialogContent,
-  Grid,
+   Card,
+   CardContent, Dialog,
+   DialogContent,
+   Grid, Typography
 } from "@mui/material";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import { useDispatch } from "react-redux";
 import { Dispatch, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Sidebar from "../../components/Sidebar/Sidebar";
 import {
-  getEmployeeTickets,
-  getNote,
+   getEmployeeTickets,
+   getNote
 } from "../../redux/actions/EmployeeActions";
-import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { EmpTicketType } from "../../redux/types";
 
@@ -57,9 +53,9 @@ export default function Ticket() {
                            onClick={() => handleClick(ticket?.ticketId)}
                            sx={{
                               bgcolor:
-                                 ticket?.ticketStatus == "active"
+                                 ticket?.ticketStatus === "active"
                                     ? "#EF9A9A"
-                                    : ticket?.ticketStatus == "pending"
+                                    : ticket?.ticketStatus === "pending"
                                     ? "#FFE0B2"
                                     : "#B2DFDB",
                            }}

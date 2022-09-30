@@ -2,7 +2,6 @@ import { Box, Button, Divider } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 import { logout } from "../../redux/actions/AuthAction";
-
 import {
   Drawer,
   IconButton,
@@ -16,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { SideNavGrid } from "../Styled/StyledComponent";
 import { Dispatch, useState } from "react";
-
 export default function SideBar() {
   const {
     user: { isAdmin },
@@ -26,6 +24,7 @@ export default function SideBar() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch: Dispatch<any> = useDispatch();
+
 
   const adminTabs = [
     { name: "Dashboard", path: "/" },
@@ -39,6 +38,7 @@ export default function SideBar() {
     { name: "Asset", path: "/asset" },
     { name: "Requests", path: "/ticket" },
   ];
+
 
   const handleLogout = () => {
     dispatch(logout());
@@ -57,11 +57,9 @@ export default function SideBar() {
               <ListItemButton component={Link} to="/">
                 <ListItemText>Dashboard</ListItemText>
               </ListItemButton>
-
               <ListItemButton component={Link} to="/admin/employee">
                 <ListItemText>Employee</ListItemText>
               </ListItemButton>
-
               <ListItemButton component={Link} to="/admin/assets">
                 <ListItemText>Assets</ListItemText>
               </ListItemButton>
@@ -79,9 +77,11 @@ export default function SideBar() {
                 <ListItemText>Profile</ListItemText>
               </ListItemButton>
 
+
               <ListItemButton component={Link} to="/asset">
                 <ListItemText>Assets</ListItemText>
               </ListItemButton>
+
 
               <ListItemButton component={Link} to="/ticket">
                 <ListItemText>Ticket</ListItemText>
@@ -117,6 +117,7 @@ export default function SideBar() {
       >
         {isAdmin ? (
           <Box display="flex" flexDirection="column" justifyContent="center">
+
             {adminTabs?.map((adminTab) => (
               <Button
                 sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
@@ -142,6 +143,7 @@ export default function SideBar() {
                 {empTab.name}
               </Button>
             ))}
+
           </Box>
         )}
       </SideNavGrid>
