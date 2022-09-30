@@ -21,6 +21,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { getEmployees } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import Toast from "../../components/ErrorHandling/Toast";
 import { useDebouncedCallback } from "use-debounce";
 function EmpList() {
   const [search, setSearch] = useState("");
@@ -51,7 +52,7 @@ function EmpList() {
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
-
+        <Toast />
         <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
           <Box marginY={2}></Box>
           <Box

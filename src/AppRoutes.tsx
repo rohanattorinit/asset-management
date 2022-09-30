@@ -16,7 +16,7 @@ import Dashboard from "./pages/employee/Dashboard";
 import Profile from "./pages/employee/Profile";
 import Ticket from "./pages/employee/Ticket";
 import ProtectedAdminRoute, {
-  ProtectedAdminRouteProps
+  ProtectedAdminRouteProps,
 } from "./utils/ProtectedAdminRoute";
 import ProtectedRoute, { ProtectedRouteProps } from "./utils/ProtectedRoute";
 

@@ -61,6 +61,22 @@ export const getUserProfile =
       dispatch({ type: SET_AUTHENTICATED, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
+        type: SET_AUTHENTICATED,
+        payload: {
+          token: "",
+          message: "",
+          user: {
+            empId: "",
+            name: "",
+            email: "",
+            phone: "",
+            location: "",
+            isAdmin: false,
+            jobTitle: "",
+          },
+        },
+      });
+      dispatch({
         type: SET_ERROR,
         payload: "Error occured while getting user profile details",
       });

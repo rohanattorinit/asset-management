@@ -16,7 +16,6 @@ function RentedAssetsTable({ category }: { category: string }) {
 
   return (
     <>
-
       <Box>
         <TableContainer sx={{ marginY: 3 }} component={Paper}>
           <Table sx={{ minWidth: 1200 }} aria-label="simple table">

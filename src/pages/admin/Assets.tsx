@@ -16,6 +16,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Dispatch } from "redux";
 import AssetsTable from "../../components/AssetTable/AssetsTable";
 import RentedAssetsTable from "../../components/AssetTable/RentedAssetsTable";
+import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -45,6 +46,7 @@ function Assets() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
+      <Toast />
       <Grid item xs={12} md={10} p={3}>
         <Box>
           <Tabs value={value} onChange={handleTabChange} centered>
