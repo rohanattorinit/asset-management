@@ -26,28 +26,36 @@ function RentedAssetsTable({ category }: { category: string }) {
             <TableHead>
               <TableRow>
                 <TableCell align="center">
-                  <Typography>AssetID</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>AssetID</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Asset Name</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    Asset Name
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Vendor</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>Vendor</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Rent(pr month)</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    Rent(pr month)
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Start Date of rent</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    Start Date of rent
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>End date of rent</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    End date of rent
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Deposit</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>Deposit</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Status</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>Status</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>

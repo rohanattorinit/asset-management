@@ -22,25 +22,29 @@ const AssetsTable = ({ category }: { category: string }) => {
             <TableHead>
               <TableRow>
                 <TableCell align="center">
-                  <Typography>ID</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>AssetID</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Model No.</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>Model No.</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Name</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    Asset Name
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Category</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>Category</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Asset Location</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>
+                    Asset Location
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Status</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>Status</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography>Usability</Typography>
+                  <Typography sx={{ fontWeight: "bold" }}>Usability</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>

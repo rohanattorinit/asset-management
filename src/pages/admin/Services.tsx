@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { Dispatch, useEffect, useState } from "react";
 import {
-  getServiceDetails,
+  getTickets,
   getServiceTicketDetails,
 } from "../../redux/actions/AdminActions";
 
@@ -40,7 +40,7 @@ function Services() {
   const { serviceDetails } = useSelector((state: RootStore) => state.admin);
 
   useEffect(() => {
-    dispatch(getServiceDetails());
+    dispatch(getTickets());
   }, [dispatch]);
 
   const handleChange = (e: any) => {
@@ -102,19 +102,25 @@ function Services() {
               <TableHead>
                 <TableRow>
                   <TableCell>
-                    <Typography>Ticket ID</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Ticket ID
+                    </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>Asset ID</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Asset ID
+                    </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>Title</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>Title</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>EMP ID</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>EMP ID</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography>Ticket Status</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Ticket Status
+                    </Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>

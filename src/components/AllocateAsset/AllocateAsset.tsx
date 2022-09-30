@@ -83,9 +83,15 @@ const AllocateAsset = ({
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Asset Name</TableCell>
-                    <TableCell align="right">AssetID</TableCell>
-                    <TableCell align="right">Allocate</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>
+                      Asset Name
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      AssetID
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Allocate
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -100,13 +106,14 @@ const AllocateAsset = ({
                         {asset?.name}
                       </TableCell>
                       <TableCell align="right">{asset?.assetId}</TableCell>
-
-                      <Checkbox
-                        sx={{ color: "darkblue" }}
-                        onChange={(event) =>
-                          handleCheckChange(event, asset?.assetId)
-                        }
-                      />
+                      <TableCell align="right">
+                        <Checkbox
+                          sx={{ color: "darkblue" }}
+                          onChange={(event) =>
+                            handleCheckChange(event, asset?.assetId)
+                          }
+                        />
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
