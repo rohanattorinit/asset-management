@@ -52,6 +52,7 @@ export const updateEmployeeDetails =
     dispatch({ type: LOADING });
     try {
       const res = await post(`/api/employees/update/${empId}`, updateData);
+      alert("Profile Details Updated Successfully!");
       dispatch({ type: UPDATE_EMPLOYEE_DETAILS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({

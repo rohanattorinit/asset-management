@@ -15,7 +15,6 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        console.log("useEffect called");
         const res = (await get(`/api/auth/profile`)) as any;
         dispatch({ type: SET_AUTHENTICATED, payload: res.data });
       } catch (error) {

@@ -105,11 +105,19 @@ export default function Asset() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Asset ID</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Model</TableCell>
-                  <TableCell align="right">Type of Asset</TableCell>
-                  <TableCell align="right">Date of Allocation</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Asset ID</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Name
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Model
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Type of Asset
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Date of Allocation
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -142,7 +150,7 @@ export default function Asset() {
 
       <Dialog open={open} onClose={() => setOpen(false)}>
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Create Ticket</DialogTitle>
+          <DialogTitle sx={{ fontWeight: "bold" }}>Create Ticket</DialogTitle>
           <DialogContent>
             <TextField
               margin="dense"
