@@ -1,92 +1,52 @@
-import React, { useEffect, useState } from "react";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Grid, Typography, IconButton, Box, TextField } from "@mui/material";
-import SideBar from "../../components/Sidebar/Sidebar";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import Button from "@mui/material/Button";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import { RootStore } from "../../redux/store";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import SideBar from "../../components/Sidebar/Sidebar";
 import {
-  allocateAssets,
   deallocateAssets,
   getAssetDetails,
   getAssets,
   getEmployeeDetails,
 } from "../../redux/actions/AdminActions";
-import Checkbox from "@mui/material/Checkbox";
-import { useLocation } from "react-router-dom";
+import { RootStore } from "../../redux/store";
+import AllocateAsset from "../../components/AllocateAsset/AllocateAsset";
 import Toast from "../../components/ErrorHandling/Toast";
 
 export default function EmployeeDetails() {
-  const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
-  const [assetIdCheck, setAssetId] = useState<number[]>([]);
+  const { employeeDetails, employeeassetsdetails, message } = useSelector(
+    (state: RootStore) => state.admin
+  );
 
-  const { employeeDetails, employeeassetsdetails, message, assets } =
-    useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
   const location = useLocation();
   const empId = location?.pathname.replace("/admin/employee/", "");
+
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
     dispatch(getAssets());
   }, [dispatch, message, empId]);
 
-  const handleChange = (e: any) => {
-    setSearch(e?.target?.value);
-  };
-
-  const filteredAsset = assets?.filter((asset) => {
-    if (search?.length === 0) {
-      return asset?.status === "available" && asset?.usability === "usable";
-    }
-    return (
-      asset?.status === "available" &&
-      asset?.usability === "usable" &&
-      asset?.name?.toLowerCase()?.includes(search?.toLowerCase())
-    );
-  });
-
   const handleClickOpen = () => {
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const HandleDeallocate = (assetId: number) => {
     dispatch(deallocateAssets(employeeDetails?.empId, assetId));
   };
 
-  const handleCheckChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    assetId: number
-  ) => {
-    if (event?.target?.checked) setAssetId([...assetIdCheck, assetId]);
-    else {
-      setAssetId(assetIdCheck?.filter((e) => e !== assetId));
-    }
-  };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(allocateAssets(employeeDetails?.empId, assetIdCheck));
-    setAssetId([]);
-    setOpen(false);
-  };
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
@@ -188,6 +148,7 @@ export default function EmployeeDetails() {
               </Button>
             </Box>
           </Box>
+          {/* //Deallocate Asset */}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -230,57 +191,7 @@ export default function EmployeeDetails() {
           </TableContainer>
         </Paper>
       </Grid>
-      {/* Allocate an Asset */}
-      <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={handleSubmit}>
-          <DialogTitle>Allocate Asset</DialogTitle>
-          <DialogContent>
-            <TextField
-              label="search by AssetName..."
-              onChange={handleChange}
-              value={search}
-            ></TextField>
-            <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Asset Name</TableCell>
-                    <TableCell align="right">AssetID</TableCell>
-                    <TableCell align="right">Allocate</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredAsset?.map((asset) => (
-                    <TableRow
-                      key={asset?.assetId}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {asset?.name}
-                      </TableCell>
-                      <TableCell align="right">{asset?.assetId}</TableCell>
-
-                      <Checkbox
-                        sx={{ color: "darkblue" }}
-                        onChange={(event) =>
-                          handleCheckChange(event, asset?.assetId)
-                        }
-                      />
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit" variant="contained">
-              Allocate
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+      <AllocateAsset open={open} setOpen={setOpen} />
     </Grid>
   );
 }

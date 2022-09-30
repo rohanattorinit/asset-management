@@ -48,7 +48,7 @@ export default function Asset() {
     },
     employee: { assets },
   } = useSelector((state: RootStore) => state);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch: Dispatch<any> = useDispatch();
 

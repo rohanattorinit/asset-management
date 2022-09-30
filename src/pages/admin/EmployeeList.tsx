@@ -25,7 +25,7 @@ import Toast from "../../components/ErrorHandling/Toast";
 
 function EmpList() {
   const dispatch: Dispatch<any> = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { employees, message } = useSelector((state: RootStore) => state.admin);
 
