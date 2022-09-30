@@ -33,7 +33,6 @@ const AddAsset = () => {
 
   const onSubmit = (values: any) => {
     dispatch(addAsset(values));
-    //console.log(values);
     navigate(`/admin/assets`);
   };
   return (

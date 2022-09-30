@@ -16,18 +16,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { Dispatch } from "redux";
 import AssetsTable from "../../components/AssetTable/AssetsTable";
+import RentedAssetsTable from "../../components/AssetTable/RentedAssetsTable";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
 function Assets() {
   const [value, setValue] = useState(0);
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const [isRented, setIsRented] = useState<boolean>(false);
   const { message } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
   const [category, setCategory] = useState("hardware");
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+    newValue ? setIsRented(true) : setIsRented(false);
+  };
 
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event?.target?.value as string);
@@ -37,19 +41,12 @@ function Assets() {
     dispatch(getAssets());
   }, [dispatch, message]);
 
-  const handleRented = () => {};
-
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Grid item xs={12} md={10} p={3}>
         <Box sx={{ width: "100%" }}>
-          <Tabs
-            value={value}
-            onChange={handleTabChange}
-            onClick={handleRented}
-            centered
-          >
+          <Tabs value={value} onChange={handleTabChange} centered>
             <Tab label="Owned Assets" />
             <Tab label="Rented Assets" />
           </Tabs>
@@ -84,10 +81,10 @@ function Assets() {
           </Button>
         </Box>
         <TableBody>
-          {category && category === "hardware" ? (
-            <AssetsTable category="hardware" />
+          {isRented ? (
+            <RentedAssetsTable category="hardware" />
           ) : (
-            <AssetsTable category="software" />
+            <AssetsTable category="hardware" />
           )}
         </TableBody>
       </Grid>
