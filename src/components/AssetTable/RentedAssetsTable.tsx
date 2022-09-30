@@ -1,7 +1,7 @@
 import React from "react";
 
-const RentedAssetsTable = () => {
+function RentedAssetsTable() {
   return <div>RentedAssetsTable</div>;
-};
+}
 
 export default RentedAssetsTable;

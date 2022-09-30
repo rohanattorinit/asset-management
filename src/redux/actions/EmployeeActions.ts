@@ -146,11 +146,7 @@ export const getNote =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload:
-          (error as any)?.response?.data?.error ||
-          `${
-            (error as any).response.status
-          }: Error occured while fetching Note`,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
