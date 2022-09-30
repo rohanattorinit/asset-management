@@ -13,12 +13,13 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
-import React, { Dispatch, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { allocateAssets } from "../../redux/actions/AdminActions";
+import { allocateAssets, getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-
+import { useDebouncedCallback } from "use-debounce";
 const AllocateAsset = ({
   open,
   setOpen,
@@ -30,27 +31,27 @@ const AllocateAsset = ({
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
 
   const dispatch: Dispatch<any> = useDispatch();
-
-  const handleChange = (e: any) => {
-    setSearch(e?.target?.value);
-  };
   const { employeeDetails, assets } = useSelector(
     (state: RootStore) => state.admin
   );
+
+  // Debounce callback
+  const debounced = useDebouncedCallback(
+    // function
+    (value) => {
+      setSearch(value);
+    },
+    // delay in ms
+    300
+  );
+
+  useEffect(() => {
+    dispatch(getAssets({ allocate: true, name: search }));
+  }, [dispatch, search]);
+
   const handleClose = () => {
     setOpen(false);
   };
-
-  const filteredAsset = assets?.filter((asset) => {
-    if (search?.length === 0) {
-      return asset?.status === "available" && asset?.usability === "usable";
-    }
-    return (
-      asset?.status === "available" &&
-      asset?.usability === "usable" &&
-      asset?.name?.toLowerCase()?.includes(search?.toLowerCase())
-    );
-  });
 
   const handleCheckChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -75,42 +76,52 @@ const AllocateAsset = ({
           <DialogTitle>Allocate Asset</DialogTitle>
           <DialogContent>
             <TextField
-              label="search by AssetName..."
-              onChange={handleChange}
-              value={search}
+              label="search here by name..."
+              onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
             <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Asset Name</TableCell>
-                    <TableCell align="right">AssetID</TableCell>
-                    <TableCell align="right">Allocate</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredAsset?.map((asset) => (
-                    <TableRow
-                      key={asset?.assetId}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {asset?.name}
+              {assets.length ? (
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: "bold" }}>
+                        Asset Name
                       </TableCell>
-                      <TableCell align="right">{asset?.assetId}</TableCell>
-
-                      <Checkbox
-                        sx={{ color: "darkblue" }}
-                        onChange={(event) =>
-                          handleCheckChange(event, asset?.assetId)
-                        }
-                      />
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        AssetID
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Allocate
+                      </TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {assets?.map((asset) => (
+                      <TableRow
+                        key={asset?.assetId}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {asset?.name}
+                        </TableCell>
+                        <TableCell align="right">{asset?.assetId}</TableCell>
+                        <TableCell align="right">
+                          <Checkbox
+                            sx={{ color: "darkblue" }}
+                            onChange={(event) =>
+                              handleCheckChange(event, asset?.assetId)
+                            }
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Typography textAlign={"center"}>No Assets found!</Typography>
+              )}
             </TableContainer>
           </DialogContent>
           <DialogActions>

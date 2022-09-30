@@ -1,23 +1,21 @@
-import { Box, Button, Divider } from "@mui/material";
+import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useTheme, useMediaQuery } from "@mui/material";
 
 import { logout } from "../../redux/actions/AuthAction";
 
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   Drawer,
   IconButton,
   List,
   ListItemButton,
   ListItemText,
-  Toolbar,
+  Toolbar
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { SideNavGrid } from "../Styled/StyledComponent";
 
-import Toast from "../ErrorHandling/Toast";
 
 import { Dispatch, useState } from "react";
 
@@ -33,33 +31,15 @@ export default function SideBar() {
 
   const adminTabs = [
     { name: "Dashboard", path: "/" },
-    {
-      name: "Employee",
-      path: "/admin/employee",
-    },
-    {
-      name: "Assets",
-      path: "/admin/assets",
-    },
-    {
-      name: "Services",
-      path: "/admin/service",
-    },
+    { name: "Employee", path: "/admin/employee" },
+    { name: "Assets", path: "/admin/assets" },
+    { name: "Services", path: "/admin/service" },
   ];
 
   const empTabs = [
-    {
-      name: "Profile",
-      path: "/profile",
-    },
-    {
-      name: "Asset",
-      path: "/asset",
-    },
-    {
-      name: "Requests",
-      path: "/ticket",
-    },
+    { name: "Profile", path: "/profile" },
+    { name: "Asset", path: "/asset" },
+    { name: "Requests", path: "/ticket" },
   ];
 
   const handleLogout = () => {

@@ -21,41 +21,91 @@ import {
 } from "./../types";
 import { Dispatch } from "redux";
 import { get, post } from "../../services";
+interface GetAssetParams {
+  allocate?: boolean;
+  name?: string;
+  assetType?: string;
+  isRented?: 0 | 1;
+}
 
-export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
-  dispatch({ type: LOADING_DATA });
-  try {
-    const res = await get("/api/employees");
-    dispatch({ type: SET_EMPLOYEES, payload: (res as any)?.data });
-  } catch (error) {
-    console.error("status", (error as any).response.status);
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching employee data`,
-    });
-  }
-};
+interface GetAssetParams {
+  allocate?: boolean;
+  name?: string;
+  assetType?: string;
+  isRented?: 0 | 1;
+}
 
-export const getAssets = () => async (dispatch: Dispatch<DispatchTypes>) => {
-  dispatch({ type: LOADING_DATA });
-  try {
-    const res = await get("/api/assets");
-    dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching asset data`,
-    });
-  }
-};
+interface GetEmployeeParams {
+  name?: string;
+}
+
+interface GetTicketParams {
+  title?: string;
+  status?: string;
+}
+
+export const getEmployees =
+  (employeeParams: GetEmployeeParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const { name } = employeeParams;
+      const res = await get(`/api/employees?name=${name}`);
+      dispatch({ type: SET_EMPLOYEES, payload: (res as any).data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching employee data`,
+      });
+    }
+  };
+
+export const getAssets =
+  (assetParams: GetAssetParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const { name, allocate, assetType, isRented } = assetParams;
+
+      const res = await get(
+        `/api/assets?allocate=${allocate}&assetType=${assetType}&isRented=${isRented}&name=${name}`
+      );
+      dispatch({ type: SET_ASSETS, payload: (res as any).data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching asset data`,
+      });
+    }
+  };
+
+export const getTickets =
+  (ticketParams: GetTicketParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      let { title, status } = ticketParams;
+      const res = await get(`/api/tickets?status=${status}&title=${title}`);
+      dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching ticket data`,
+      });
+    }
+  };
 
 export const addEmployee =
   (employeeDetails: CreateEmployeeType) =>

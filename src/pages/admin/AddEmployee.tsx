@@ -22,14 +22,14 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { addEmployee } from "../../redux/actions/AdminActions";
 
 const options = [
-  { label: "Senior Software Developer", value: "senior software developer" },
-  { label: "Software Developer", value: "software developer" },
+  { label: "Senior Software Developer", value: "Senior Software Developer" },
+  { label: "Software Developer", value: "Software Developer" },
   {
     label: "Associate Software Developer",
-    value: "associate software developer",
+    value: "Associate Software Developer",
   },
-  { label: "Human Resourse", value: "human resourse" },
-  { label: "Technical Delivery Manager", value: "technical delivery manager" },
+  { label: "Human Resourse", value: "Human Resourse" },
+  { label: "Technical Delivery Manager", value: "Technical Delivery Manager" },
 ];
 
 const AddEmployee = () => {
@@ -62,7 +62,7 @@ const AddEmployee = () => {
                 validationSchema={EmpValidationSchema}
                 onSubmit={onSubmit}
               >
-                {({ dirty, isValid, values, handleChange, handleBlur }) => {
+                {({ isValid, values, handleChange, handleBlur }) => {
                   return (
                     <Form>
                       <Grid item container spacing={2}>

@@ -63,7 +63,7 @@ export default function Ticket() {
                   }}
                 >
                   <CardContent>
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                       {"ID: " + ticket?.ticketId}
                     </Typography>
                     <Typography variant="body1">
@@ -95,7 +95,6 @@ export default function Ticket() {
                 </Typography>
                 <Typography variant="body1">Note : {ticket?.note}</Typography>
                 {noteDetails.map((note) => {
-                  console.log(note);
                   return (
                     <p>
                       <li>{note?.note}</li>

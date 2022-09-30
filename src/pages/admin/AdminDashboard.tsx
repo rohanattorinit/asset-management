@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 import { Grid, Typography } from "@mui/material";
-import SideBar from "../../components/Sidebar/Sidebar";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { RootStore } from "../../redux/store";
 import { Dispatch, useEffect } from "react";
-import Toast from "../../components/ErrorHandling/Toast";
-import { getAssets, getEmployees } from "../../redux/actions/AdminActions";
 import CountUp from "react-countup";
+import { useDispatch, useSelector } from "react-redux";
+import Toast from "../../components/ErrorHandling/Toast";
+import SideBar from "../../components/Sidebar/Sidebar";
+import { getAssets, getEmployees } from "../../redux/actions/AdminActions";
+import { RootStore } from "../../redux/store";
 
 const StlyedGrid = styled(Grid)({
   display: "flex",
@@ -27,8 +26,8 @@ function AdminDashboard() {
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssets());
-    dispatch(getEmployees());
+    dispatch(getAssets({ name: "" }));
+    dispatch(getEmployees({ name: "" }));
   }, [dispatch]);
 
   return (
@@ -38,8 +37,7 @@ function AdminDashboard() {
         <Toast />
         <Grid item xs={12} md={10} sx={{ overflowX: "auto" }}>
           <Typography variant="h3" textAlign="center" marginY={5}>
-            {" "}
-            Dashboard{" "}
+            Dashboard
           </Typography>
 
           <Grid spacing={2} container justifyContent="center">
@@ -78,7 +76,7 @@ function AdminDashboard() {
                 variant="h5"
                 color="primary"
               >
-                <CountUp end={employees.length} duration={2} />
+                <CountUp end={employees?.length} duration={2} />
               </Typography>
               <Typography
                 sx={{ fontSize: "24px" }}

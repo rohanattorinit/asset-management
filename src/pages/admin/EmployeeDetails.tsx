@@ -40,6 +40,7 @@ export default function EmployeeDetails() {
   }, [dispatch, message, empId]);
 
   const handleClickOpen = () => {
+    dispatch(getAssets({ allocate: true, name: "" }));
     setOpen(true);
   };
 
@@ -153,11 +154,21 @@ export default function EmployeeDetails() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="right">Asset ID</TableCell>
-                  <TableCell align="right">Asset Name</TableCell>
-                  <TableCell align="right">Model No</TableCell>
-                  <TableCell align="right">Category</TableCell>
-                  <TableCell align="right">Allocation Time</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Asset ID
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Asset Name
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Model No
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Category
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Allocation Time
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -173,17 +184,19 @@ export default function EmployeeDetails() {
                     <TableCell align="right">{asset?.modelno}</TableCell>
                     <TableCell align="right">{asset?.category}</TableCell>
                     <TableCell align="right">{asset?.allocationTime}</TableCell>
-                    <IconButton>
-                      <RemoveCircleIcon
-                        sx={{ color: "#DC2626" }}
-                        onClick={() => {
-                          if (
-                            window.confirm("Do you want to Delete the Asset?")
-                          )
-                            HandleDeallocate(asset?.assetId);
-                        }}
-                      />
-                    </IconButton>
+                    <TableCell align="right">
+                      <IconButton>
+                        <RemoveCircleIcon
+                          sx={{ color: "#DC2626" }}
+                          onClick={() => {
+                            if (
+                              window.confirm("Do you want to Delete the Asset?")
+                            )
+                              HandleDeallocate(asset?.assetId);
+                          }}
+                        />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

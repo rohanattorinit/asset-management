@@ -1,11 +1,10 @@
 import React from "react";
-import image2 from "../../assets/giff.gif";
+import imageNotFound from "../../assets/404.gif";
 function NotFound() {
   return (
     <div style={{ textAlign: "center" }}>
-      <img src={image2} alt="" />
+      <img src={imageNotFound} alt="404" />
     </div>
   );
 }
-
 export default NotFound;

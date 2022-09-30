@@ -61,6 +61,10 @@ export default function Asset() {
     setOpen(true);
   };
 
+  const handleNewRequest = () => {
+    setOpen(true);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
@@ -90,17 +94,31 @@ export default function Asset() {
           overflow: "auto",
         }}
       >
-        <Typography>Current Asset</Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography>Current Asset</Typography>
+          <Button sx={{ ml: 1 }} variant="outlined" onClick={handleNewRequest}>
+            Request for new asset
+          </Button>
+        </Box>
+
         <Box sx={{ overflowX: "auto" }}>
           <TableContainer sx={{ width: "auto" }}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Asset ID</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Model</TableCell>
-                  <TableCell align="right">Type of Asset</TableCell>
-                  <TableCell align="right">Date of Allocation</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Asset ID</TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Name
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Model
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Type of Asset
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                    Date of Allocation
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -133,7 +151,7 @@ export default function Asset() {
 
       <Dialog open={open} onClose={() => setOpen(false)}>
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Create Ticket</DialogTitle>
+          <DialogTitle sx={{ fontWeight: "bold" }}>Create Ticket</DialogTitle>
           <DialogContent>
             <TextField
               margin="dense"
@@ -150,7 +168,7 @@ export default function Asset() {
               margin="dense"
               name="description"
               required
-              label="Describe issue..."
+              label="Describe issue/reason..."
               type="text"
               fullWidth
               variant="outlined"

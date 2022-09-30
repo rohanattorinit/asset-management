@@ -22,10 +22,21 @@ import { getEmployees } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Toast from "../../components/ErrorHandling/Toast";
-
+import { useDebouncedCallback } from "use-debounce";
 function EmpList() {
+  const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
+
+  // Debounce callback
+  const debounced = useDebouncedCallback(
+    // function
+    (search) => {
+      setSearch(search);
+    },
+    // delay in ms
+    300
+  );
 
   const { employees, message } = useSelector((state: RootStore) => state.admin);
 
@@ -34,17 +45,8 @@ function EmpList() {
   };
 
   useEffect(() => {
-    dispatch(getEmployees());
-  }, [dispatch, message]);
-  const [search, setSearch] = useState("");
-  const handleChange = (e: any) => {
-    setSearch(e?.target?.value);
-  };
-
-  const filteredEmployee = employees?.filter((employee) => {
-    if (search?.length === 0) return employee;
-    return employee?.name?.toLowerCase().includes(search?.toLowerCase());
-  });
+    dispatch(getEmployees({ name: search }));
+  }, [dispatch, search, message]);
 
   return (
     <>
@@ -62,8 +64,7 @@ function EmpList() {
           >
             <TextField
               label="search here by name..."
-              onChange={handleChange}
-              value={search}
+              onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
 
             <Button
@@ -77,49 +78,65 @@ function EmpList() {
           </Box>
           <Box my={3}>
             <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <Typography align="center">Employee ID</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Name</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Email</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Contact No.</Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Typography align="center">Location</Typography>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredEmployee?.map((employee) => (
-                    <TableRow key={employee?.empId}>
-                      <TableCell component="th" scope="row">
-                        {employee?.empId}
+              {employees.length ? (
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <Typography align="center" sx={{ fontWeight: "bold" }}>
+                          Employee ID
+                        </Typography>
                       </TableCell>
-                      <TableCell align="center">
-                        {employee?.name.toUpperCase()}
+                      <TableCell align="right">
+                        <Typography align="center" sx={{ fontWeight: "bold" }}>
+                          Name
+                        </Typography>
                       </TableCell>
-                      <TableCell align="center">{employee?.email}</TableCell>
-                      <TableCell align="center">{employee?.phone}</TableCell>
-                      <TableCell align="center">
-                        {employee?.location.toUpperCase()}
+                      <TableCell align="right">
+                        <Typography align="center" sx={{ fontWeight: "bold" }}>
+                          Email
+                        </Typography>
                       </TableCell>
-                      <IconButton
-                        onClick={() => setEmployeeDetails(employee?.empId)}
-                      >
-                        <OpenInNewIcon sx={{ color: "darkblue" }} />
-                      </IconButton>
+                      <TableCell align="right">
+                        <Typography align="center" sx={{ fontWeight: "bold" }}>
+                          Contact No.
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="right">
+                        <Typography align="center" sx={{ fontWeight: "bold" }}>
+                          Location
+                        </Typography>
+                      </TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {employees?.map((employee) => (
+                      <TableRow key={employee?.empId}>
+                        <TableCell align="center" component="th" scope="row">
+                          {employee?.empId}
+                        </TableCell>
+                        <TableCell align="center">
+                          {employee?.name.toUpperCase()}
+                        </TableCell>
+                        <TableCell align="center">{employee?.email}</TableCell>
+                        <TableCell align="center">{employee?.phone}</TableCell>
+                        <TableCell align="center">
+                          {employee?.location.toUpperCase()}
+                        </TableCell>
+                        <IconButton
+                          onClick={() => setEmployeeDetails(employee?.empId)}
+                        >
+                          <OpenInNewIcon sx={{ color: "darkblue" }} />
+                        </IconButton>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Typography textAlign={"center"}>
+                  No Employees found!
+                </Typography>
+              )}
             </TableContainer>
           </Box>
         </Grid>

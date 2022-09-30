@@ -7,7 +7,7 @@ import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
 export const DragAndDrop = () => {
   const [file, setFile] = useState<Blob | string>();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
