@@ -11,11 +11,16 @@ import { RootStore } from "../../redux/store";
 export default function Toast() {
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const { error } = useSelector((state: RootStore) => state.admin);
+  //const { error } = useSelector((state: RootStore) => state.admin);
+
+  const {
+    employee: { error },
+    admin: { error: adminError },
+  } = useSelector((state: RootStore) => state);
 
   useEffect(() => {
-    if (error?.length) setOpen(true);
-  }, [error]);
+    if (error?.length || adminError?.length) setOpen(true);
+  }, [error, adminError]);
 
   const handleClose = (
     event: React.SyntheticEvent | Event,

@@ -14,7 +14,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { SideNavGrid } from "../Styled/StyledComponent";
-import Toast from "../ErrorHandling/Toast";
 
 export default function SideBar() {
   const {

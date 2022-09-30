@@ -4,7 +4,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { RootStore } from "../../redux/store";
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useEffect } from "react";
 import Toast from "../../components/ErrorHandling/Toast";
 import { getAssets, getEmployees } from "../../redux/actions/AdminActions";
 import CountUp from "react-countup";
@@ -23,9 +23,7 @@ const StlyedGrid = styled(Grid)({
 });
 
 function AdminDashboard() {
-  const { assets, employees, error } = useSelector(
-    (state: RootStore) => state.admin
-  );
+  const { assets, employees } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {

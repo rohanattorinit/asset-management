@@ -21,6 +21,7 @@ import {
   getServiceTicketDetails,
 } from "../../redux/actions/AdminActions";
 import { useLocation, useNavigate } from "react-router-dom";
+import Toast from "../../components/ErrorHandling/Toast";
 
 export const ServiceDetails = () => {
   const [note, setNote] = useState("");
@@ -57,6 +58,7 @@ export const ServiceDetails = () => {
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
+      <Toast />
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
           <Grid container m={2}>

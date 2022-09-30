@@ -24,6 +24,7 @@ import {
 } from "../../redux/actions/EmployeeActions";
 import BuildIcon from "@mui/icons-material/Build";
 import { useNavigate } from "react-router-dom";
+import Toast from "../../components/ErrorHandling/Toast";
 
 export default function Asset() {
   const [open, setOpen] = useState(false);
@@ -76,7 +77,7 @@ export default function Asset() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <Sidebar />
-
+      <Toast />
       <Grid
         item
         xs={12}

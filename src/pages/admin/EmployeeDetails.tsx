@@ -27,6 +27,7 @@ import {
 } from "../../redux/actions/AdminActions";
 import Checkbox from "@mui/material/Checkbox";
 import { useLocation } from "react-router-dom";
+import Toast from "../../components/ErrorHandling/Toast";
 
 export default function EmployeeDetails() {
   const [search, setSearch] = useState("");
@@ -89,6 +90,7 @@ export default function EmployeeDetails() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
+      <Toast />
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ display: "flex", padding: 1 }} elevation={5}>
           <Grid container m={2}>

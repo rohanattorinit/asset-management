@@ -22,14 +22,14 @@ import { addEmployee } from "../../redux/actions/AdminActions";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 
 const options = [
-  { label: "Senior Software Developer", value: "senior_software_developer" },
-  { label: "Software Developer", value: "software_developer" },
+  { label: "Senior Software Developer", value: "senior software developer" },
+  { label: "Software Developer", value: "software developer" },
   {
     label: "Associate Software Developer",
-    value: "associate_software_developer",
+    value: "associate software developer",
   },
-  { label: "Human Resourse", value: "human_resourse" },
-  { label: "Technical Delivery Manager", value: "technical_delivery_manager" },
+  { label: "Human Resourse", value: "human resourse" },
+  { label: "Technical Delivery Manager", value: "technical delivery manager" },
 ];
 
 //password validation

@@ -17,6 +17,7 @@ import {
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { EmpTicketType } from "../../redux/types";
+import Toast from "../../components/ErrorHandling/Toast";
 
 export default function Ticket() {
   const [open, setOpen] = useState(false);
@@ -42,6 +43,7 @@ export default function Ticket() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <Sidebar />
+      <Toast />
       <Grid item xs={12} md={10} p={3}>
         <Typography variant="h4" textAlign="center" marginY={2}>
           Ticket Status

@@ -27,7 +27,11 @@ export const getEmployeeAssets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Employee's Assets Details`,
       });
     }
   };
@@ -41,7 +45,11 @@ export const getEmployee =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Employees Details`,
       });
     }
   };
@@ -56,7 +64,11 @@ export const updateEmployeeDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Updating Employee Information`,
       });
     }
   };
@@ -73,7 +85,11 @@ export const changePassword =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while updating Employee Password`,
       });
     }
   };
@@ -94,7 +110,11 @@ export const createTicket =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Creating Ticket`,
       });
     }
   };
@@ -108,7 +128,11 @@ export const getEmployeeTickets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Status of Ticket`,
       });
     }
   };
@@ -122,7 +146,11 @@ export const getNote =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Note`,
       });
     }
   };
