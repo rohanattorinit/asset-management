@@ -60,6 +60,10 @@ export default function Asset() {
     setOpen(true);
   };
 
+  const handleNewRequest = () => {
+    setOpen(true);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
@@ -89,7 +93,13 @@ export default function Asset() {
           overflow: "auto",
         }}
       >
-        <Typography variant="h5">Current Assets</Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography>Current Asset</Typography>
+          <Button sx={{ ml: 1 }} variant="outlined" onClick={handleNewRequest}>
+            Request for new asset
+          </Button>
+        </Box>
+
         <Box sx={{ overflowX: "auto" }}>
           <TableContainer sx={{ width: "auto" }}>
             <Table>
@@ -157,7 +167,7 @@ export default function Asset() {
               margin="dense"
               name="description"
               required
-              label="Describe issue..."
+              label="Describe issue/reason..."
               type="text"
               fullWidth
               variant="outlined"

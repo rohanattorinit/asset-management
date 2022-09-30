@@ -22,14 +22,14 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { addEmployee } from "../../redux/actions/AdminActions";
 
 const options = [
-  { label: "Senior Software Developer", value: "senior_software_developer" },
-  { label: "Software Developer", value: "software_developer" },
+  { label: "Senior Software Developer", value: "Senior Software Developer" },
+  { label: "Software Developer", value: "Software Developer" },
   {
     label: "Associate Software Developer",
-    value: "associate_software_developer",
+    value: "Associate Software Developer",
   },
-  { label: "Human Resourse", value: "human_resourse" },
-  { label: "Technical Delivery Manager", value: "technical_delivery_manager" },
+  { label: "Human Resourse", value: "Human Resourse" },
+  { label: "Technical Delivery Manager", value: "Technical Delivery Manager" },
 ];
 
 const AddEmployee = () => {
