@@ -125,9 +125,15 @@ function Services() {
                       <TableCell component="th" scope="row">
                         # {serviceDetail?.ticketId}
                       </TableCell>
-                      <TableCell align="center">
-                        {serviceDetail?.assetId}
-                      </TableCell>
+
+                      {serviceDetail?.assetId ? (
+                        <TableCell align="center">
+                          {serviceDetail?.assetId}
+                        </TableCell>
+                      ) : (
+                        <TableCell align="center"> New request </TableCell>
+                      )}
+
                       <TableCell align="center">
                         {serviceDetail?.title}
                       </TableCell>

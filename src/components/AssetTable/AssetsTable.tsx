@@ -1,13 +1,11 @@
 import {
-  Box,
-  Grid,
   Paper,
   Table,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
