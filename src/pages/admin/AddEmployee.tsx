@@ -81,7 +81,7 @@ const AddEmployee = () => {
       <SideBar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Card>
-          <CardHeader title="Create Employee"></CardHeader>
+          <CardHeader title="Create Employee" />
           <Formik
             initialValues={{
               empId: "",

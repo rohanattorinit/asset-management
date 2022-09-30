@@ -21,11 +21,18 @@ import {
 } from "./../types";
 import { Dispatch } from "redux";
 import { get, post } from "../../services";
+import { string } from "yup/lib/locale";
+
+interface GetAssetParams {
+  allocate?: boolean;
+  name?: "string";
+  assetType?: "hardware" | "software";
+}
 
 export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   dispatch({ type: LOADING_DATA });
   try {
-    const res = await get("/api/employees");
+    const res = await get("/api/employee");
     dispatch({ type: SET_EMPLOYEES, payload: (res as any).data });
   } catch (error) {
     dispatch({
@@ -35,18 +42,23 @@ export const getEmployees = () => async (dispatch: Dispatch<DispatchTypes>) => {
   }
 };
 
-export const getAssets = () => async (dispatch: Dispatch<DispatchTypes>) => {
-  dispatch({ type: LOADING_DATA });
-  try {
-    const res = await get("/api/assets");
-    dispatch({ type: SET_ASSETS, payload: (res as any).data });
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: (error as any).response.data.error,
-    });
-  }
-};
+export const getAssets =
+  (assetParams: GetAssetParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const { name, allocate, assetType } = assetParams;
+      const res = await get(
+        `/api/assets?allocate=${allocate}&assetType=${assetType}&name=${name}`
+      );
+      dispatch({ type: SET_ASSETS, payload: (res as any).data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: (error as any).response.data.error,
+      });
+    }
+  };
 
 export const addEmployee =
   (employeeDetails: CreateEmployeeType) =>

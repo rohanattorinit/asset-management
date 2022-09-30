@@ -1,32 +1,30 @@
 import {
-  Grid,
+  Box,
   Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  Table,
+  TableBody,
   TableCell,
   TableContainer,
-  Box,
-  Table,
   TableHead,
   TableRow,
-  TableBody,
-  Paper,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
   Typography,
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link as RouterLink } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-
 function Assets() {
   const { assets, message } = useSelector((state: RootStore) => state.admin);
 
@@ -47,7 +45,7 @@ function Assets() {
       <>
         {assets
           ?.filter((asset) => asset?.assetType === category)
-          .map((filteredAsset) => (
+          ?.map((filteredAsset) => (
             <TableRow key={filteredAsset?.assetId}>
               <TableCell align="center">{filteredAsset?.assetId}</TableCell>
               <TableCell align="center">{filteredAsset?.modelNo}</TableCell>

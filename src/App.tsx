@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -7,6 +8,7 @@ import AuthRoutes from "./AuthRoutes";
 import { RootStore } from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
 import { get } from "./services/index";
+const BASE_URL = process.env.REACT_APP_BASE_API;
 
 function App() {
   const [showLoader, setShowLoader] = useState(true);
@@ -15,7 +17,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const res = (await get("/api/auth/profile")) as any;
+        const res = (await axios.get(`${BASE_URL}/api/auth/profile`)) as any;
         dispatch({ type: SET_AUTHENTICATED, payload: res.data });
       } catch (error) {
         //@ts-ignore

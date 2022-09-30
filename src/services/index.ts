@@ -11,6 +11,11 @@ export const get = (url: string) => {
       });
       return resolve(res);
     } catch (error) {
+      //@ts-ignore
+      if (error.response.status === 403) {
+        Cookies.remove("auth_token");
+        window.location.reload();
+      }
       return reject(error);
     }
   });
