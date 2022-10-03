@@ -28,6 +28,7 @@ import {
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { getUserProfile } from "../../redux/actions/AuthAction";
+import Toast from "../../components/ErrorHandling/Toast";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -88,6 +89,7 @@ export default function Profile() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <Sidebar />
+      <Toast />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box
           sx={{

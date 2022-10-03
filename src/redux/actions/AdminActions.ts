@@ -21,6 +21,12 @@ import {
 } from "./../types";
 import { Dispatch } from "redux";
 import { get, post } from "../../services";
+interface GetAssetParams {
+  allocate?: boolean;
+  name?: string;
+  assetType?: string;
+  isRented?: 0 | 1;
+}
 
 interface GetAssetParams {
   allocate?: boolean;
@@ -49,7 +55,11 @@ export const getEmployees =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching employee data`,
       });
     }
   };
@@ -68,7 +78,11 @@ export const getAssets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching asset data`,
       });
     }
   };
@@ -84,7 +98,11 @@ export const getTickets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching ticket data`,
       });
     }
   };
@@ -100,7 +118,11 @@ export const addEmployee =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Adding Employee Details`,
       });
     }
   };
@@ -116,7 +138,11 @@ export const addAsset =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Adding Assets Details`,
       });
     }
   };
@@ -130,7 +156,11 @@ export const getEmployeeDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Employee Details`,
       });
     }
   };
@@ -147,7 +177,29 @@ export const getAssetDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Assets Details`,
+      });
+    }
+  };
+
+export const getServiceDetails =
+  () => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/tickets`);
+      dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Ticket Requests`,
       });
     }
   };
@@ -165,7 +217,11 @@ export const getServiceTicketDetails =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Ticket Details`,
       });
     }
   };
@@ -187,7 +243,11 @@ export const deallocateAssets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Dealloting Assets`,
       });
     }
   };
@@ -205,7 +265,11 @@ export const allocateAssets =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while allocating Assets`,
       });
     }
   };
@@ -215,6 +279,7 @@ export const changeTicketStatus =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
+      console.log(status);
       const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
         status,
       });
@@ -222,7 +287,11 @@ export const changeTicketStatus =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while updating ticket status`,
       });
     }
   };
@@ -237,7 +306,11 @@ export const addNote =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any)?.response?.data?.error || "",
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while submitting note`,
       });
     }
   };

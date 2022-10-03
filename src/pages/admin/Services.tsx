@@ -21,12 +21,13 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import {
   getServiceTicketDetails,
   getTickets,
 } from "../../redux/actions/AdminActions";
+import Toast from "../../components/ErrorHandling/Toast";
 
 function Services() {
   const [status, setStatus] = useState("");
@@ -44,7 +45,7 @@ function Services() {
   // Debounce callback
   const debounced = useDebouncedCallback(
     // function
-    (value) => {
+    (value: any) => {
       setSearch(value);
     },
     // delay in ms
@@ -64,6 +65,7 @@ function Services() {
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
+        <Toast />
         <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
           <Box my={3} sx={{ display: "flex", justifyContent: "space-between" }}>
             <FormControl sx={{ width: 300 }}>

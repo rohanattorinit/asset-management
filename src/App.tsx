@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
@@ -7,7 +6,7 @@ import AuthRoutes from "./AuthRoutes";
 import { RootStore } from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
 import { get } from "./services";
-const BASE_URL = process.env.REACT_APP_BASE_API;
+
 function App() {
   const [showLoader, setShowLoader] = useState(true);
   const dispatch = useDispatch();

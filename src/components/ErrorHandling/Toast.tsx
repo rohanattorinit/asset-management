@@ -11,11 +11,21 @@ import { RootStore } from "../../redux/store";
 export default function Toast() {
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const { error } = useSelector((state: RootStore) => state.admin);
+  //const { error } = useSelector((state: RootStore) => state.admin);
+
+  const {
+    employee: { error },
+    admin: { error: adminError },
+  } = useSelector((state: RootStore) => state);
 
   useEffect(() => {
-    if (error?.length) setOpen(true);
-  }, [error]);
+    if (error?.trim()?.length || adminError?.trim()?.length) {
+      console.log("error", error, adminError);
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [error, adminError]);
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
@@ -45,7 +55,7 @@ export default function Toast() {
     <div>
       <Snackbar
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleClose}
         action={action}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}

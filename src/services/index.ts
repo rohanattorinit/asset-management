@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+
 const BASE_URL = process.env.REACT_APP_BASE_API;
 export const get = (url: string) => {
   return new Promise(async (resolve, reject) => {
