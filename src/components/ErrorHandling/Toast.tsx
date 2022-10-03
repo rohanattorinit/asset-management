@@ -19,7 +19,12 @@ export default function Toast() {
   } = useSelector((state: RootStore) => state);
 
   useEffect(() => {
-    if (error?.length || adminError?.length) setOpen(true);
+    if (error?.trim()?.length || adminError?.trim()?.length) {
+      console.log("error", error, adminError);
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
   }, [error, adminError]);
 
   const handleClose = (
@@ -50,7 +55,7 @@ export default function Toast() {
     <div>
       <Snackbar
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleClose}
         action={action}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
