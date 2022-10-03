@@ -92,6 +92,7 @@ export default function Ticket() {
                   Status : {ticket?.ticketStatus}
                 </Typography>
                 <Typography variant="body1">Note : {ticket?.note}</Typography>
+
                 {noteDetails.map((note) => {
                   return (
                     <p>
