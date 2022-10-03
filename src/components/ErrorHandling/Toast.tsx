@@ -50,7 +50,7 @@ export default function Toast() {
     <div>
       <Snackbar
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleClose}
         action={action}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
