@@ -19,7 +19,12 @@ export default function Toast() {
   } = useSelector((state: RootStore) => state);
 
   useEffect(() => {
-    if (error?.length || adminError?.length) setOpen(true);
+    if (error?.trim()?.length || adminError?.trim()?.length) {
+      console.log("error", error, adminError);
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
   }, [error, adminError]);
 
   const handleClose = (
