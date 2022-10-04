@@ -39,7 +39,7 @@ function Assets() {
 
   useEffect(() => {
     dispatch(
-      getAssets({ assetType: category, isRented: isRented ? 1 : 0, name: "" })
+      getAssets({ name: "", assetType: category, isRented: isRented ? 1 : 0 })
     );
   }, [dispatch, message, category, isRented]);
 
@@ -83,13 +83,7 @@ function Assets() {
             Add new Asset
           </Button>
         </Box>
-        <Box>
-          {isRented ? (
-            <RentedAssetsTable category="hardware" />
-          ) : (
-            <AssetsTable category="hardware" />
-          )}
-        </Box>
+        <Box>{isRented ? <RentedAssetsTable /> : <AssetsTable />}</Box>
       </Grid>
     </Grid>
   );
