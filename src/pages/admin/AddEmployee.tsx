@@ -7,11 +7,12 @@ import {
   Divider,
   FormControl,
   Grid,
+  Input,
   InputLabel,
   MenuItem,
   Select,
 } from "@mui/material";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 import { Dispatch } from "react";
 import { useDispatch } from "react-redux";
@@ -62,7 +63,8 @@ const AddEmployee = () => {
                 validationSchema={EmpValidationSchema}
                 onSubmit={onSubmit}
               >
-                {({ isValid, values, handleChange, handleBlur }) => {
+                {({ isValid, values, handleChange, handleBlur, errors }) => {
+                  console.log(errors);
                   return (
                     <Form>
                       <Grid item container spacing={2}>
@@ -100,14 +102,14 @@ const AddEmployee = () => {
                           </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
-                          <Field
-                            label="Full Name"
-                            variant="outlined"
-                            fullWidth
-                            name="name"
+                          <Input
+                            id={"name"}
+                            name={"name"}
+                            placeholder={"Full Name"}
                             value={values.name}
-                            component={TextField}
+                            onChange={handleChange}
                           />
+                          <p data-testid={"name_error"}>Errrir{errors.name}</p>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
                           <Field
@@ -142,7 +144,12 @@ const AddEmployee = () => {
                       </Grid>
 
                       <CardActions>
-                        <Button type="submit" size="large" variant="contained">
+                        <Button
+                          type="submit"
+                          size="large"
+                          data-testid={"add_employee_button"}
+                          variant="contained"
+                        >
                           ADD EMPLOYEE
                         </Button>
                       </CardActions>

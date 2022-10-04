@@ -34,6 +34,7 @@ export default function Navbar() {
       }}
     >
       <Box
+        role="logo"
         component="img"
         alt="logo"
         sx={{ marginLeft: "2rem", marginY: "1.5rem", cursor: "pointer" }}
