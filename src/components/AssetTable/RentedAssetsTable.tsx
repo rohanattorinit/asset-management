@@ -11,7 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 
-function RentedAssetsTable({ category }: { category: string }) {
+function RentedAssetsTable() {
   const { assets } = useSelector((state: RootStore) => state.admin);
 
   return (
@@ -67,7 +67,7 @@ function RentedAssetsTable({ category }: { category: string }) {
                 <TableCell align="center">{rentalAsset?.rentEndDate}</TableCell>
                 <TableCell align="center">{rentalAsset?.deposit}</TableCell>
                 <TableCell align="center">
-                  {rentalAsset?.status.toUpperCase()}
+                  {rentalAsset?.status?.toUpperCase()}
                 </TableCell>
               </TableRow>
             ))}

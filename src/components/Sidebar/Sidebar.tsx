@@ -10,12 +10,11 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  Toolbar
+  Toolbar,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
 import { SideNavGrid } from "../Styled/StyledComponent";
-
 
 import { Dispatch, useState } from "react";
 
@@ -56,16 +55,24 @@ export default function SideBar() {
         >
           {isAdmin ? (
             <List>
-              <ListItemButton component={Link} to="/">
+              <ListItemButton role="button" component={Link} to="/">
                 <ListItemText>Dashboard</ListItemText>
               </ListItemButton>
-              <ListItemButton component={Link} to="/admin/employee">
+              <ListItemButton
+                role="button"
+                component={Link}
+                to="/admin/employee"
+              >
                 <ListItemText>Employee</ListItemText>
               </ListItemButton>
-              <ListItemButton component={Link} to="/admin/assets">
+              <ListItemButton role="button" component={Link} to="/admin/assets">
                 <ListItemText>Assets</ListItemText>
               </ListItemButton>
-              <ListItemButton component={Link} to="/admin/service">
+              <ListItemButton
+                role="button"
+                component={Link}
+                to="/admin/service"
+              >
                 <ListItemText>Services</ListItemText>
               </ListItemButton>
 
