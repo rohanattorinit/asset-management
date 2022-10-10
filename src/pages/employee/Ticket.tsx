@@ -91,7 +91,7 @@ export default function Ticket() {
                     Title : {ticket?.title}
                   </Typography>
                   <Typography variant="body1">
-                    Description : {ticket?.description.slice(0, 50)}
+                    Description : {ticket?.description}
                   </Typography>
                   <Typography variant="body1">
                     Status : {ticket?.ticketStatus}
