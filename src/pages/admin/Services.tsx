@@ -15,6 +15,7 @@ import {
   TextField,
   Typography,
   SelectChangeEvent,
+  CircularProgress,
 } from "@mui/material";
 import SideBar from "../../components/Sidebar/Sidebar";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -36,7 +37,9 @@ function Services() {
   const navigate = useNavigate();
 
   const dispatch: Dispatch<any> = useDispatch();
-  const { serviceDetails } = useSelector((state: RootStore) => state.admin);
+  const { serviceDetails, loading } = useSelector(
+    (state: RootStore) => state.admin
+  );
 
   const handleStatusChange = (event: SelectChangeEvent) => {
     setStatus(event?.target.value);

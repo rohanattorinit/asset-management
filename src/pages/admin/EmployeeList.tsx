@@ -12,6 +12,7 @@ import {
   TableRow,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { Dispatch, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -38,7 +39,9 @@ function EmpList() {
     300
   );
 
-  const { employees, message } = useSelector((state: RootStore) => state.admin);
+  const { employees, message, loading } = useSelector(
+    (state: RootStore) => state.admin
+  );
 
   const setEmployeeDetails = (empId: string) => {
     navigate(`/admin/employee/${empId}`);
@@ -110,26 +113,36 @@ function EmpList() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {employees?.map((employee) => (
-                      <TableRow key={employee?.empId}>
-                        <TableCell align="center" component="th" scope="row">
-                          {employee?.empId}
-                        </TableCell>
-                        <TableCell align="center">
-                          {employee?.name.toUpperCase()}
-                        </TableCell>
-                        <TableCell align="center">{employee?.email}</TableCell>
-                        <TableCell align="center">{employee?.phone}</TableCell>
-                        <TableCell align="center">
-                          {employee?.location.toUpperCase()}
-                        </TableCell>
-                        <IconButton
-                          onClick={() => setEmployeeDetails(employee?.empId)}
-                        >
-                          <OpenInNewIcon sx={{ color: "darkblue" }} />
-                        </IconButton>
-                      </TableRow>
-                    ))}
+                    {loading ? (
+                      <CircularProgress
+                        sx={{ position: "absolute", alignItems: "center" }}
+                      />
+                    ) : (
+                      employees?.map((employee) => (
+                        <TableRow key={employee?.empId}>
+                          <TableCell align="center" component="th" scope="row">
+                            {employee?.empId}
+                          </TableCell>
+                          <TableCell align="center">
+                            {employee?.name.toUpperCase()}
+                          </TableCell>
+                          <TableCell align="center">
+                            {employee?.email}
+                          </TableCell>
+                          <TableCell align="center">
+                            {employee?.phone}
+                          </TableCell>
+                          <TableCell align="center">
+                            {employee?.location.toUpperCase()}
+                          </TableCell>
+                          <IconButton
+                            onClick={() => setEmployeeDetails(employee?.empId)}
+                          >
+                            <OpenInNewIcon sx={{ color: "darkblue" }} />
+                          </IconButton>
+                        </TableRow>
+                      ))
+                    )}
                   </TableBody>
                 </Table>
               ) : (

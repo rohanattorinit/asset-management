@@ -5,6 +5,7 @@ import {
   DialogContent,
   Grid,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { Dispatch, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +24,7 @@ export default function Ticket() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const { tickets, message, noteDetails } = useSelector(
+  const { tickets, message, noteDetails, loading } = useSelector(
     (state: RootStore) => state?.employee
   );
   const { user } = useSelector((state: RootStore) => state?.login);
