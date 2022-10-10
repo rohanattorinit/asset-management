@@ -1,3 +1,4 @@
+
 export const LOADING_DATA = 'LOADING_DATA'
 export const SET_EMPLOYEES = 'SET_EMPLOYEES'
 export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
@@ -21,6 +22,7 @@ export const SET_EMPTICKETS = 'SET_EMPTICKETS'
 export const SET_TICKET_STATUS = 'SET_TICKET_STATUS'
 export const SET_ADD_NOTE = 'SET_ADD_NOTE'
 export const GET_ADD_NOTE = 'GET_ADD_NOTE'
+
 
 export interface EmpTicketType {
   ticketId: number
@@ -94,6 +96,7 @@ export interface EmployeeAssetType {
 }
 
 export interface AssetTypes {
+
   assetId: number
   brandId: number
   name: string
@@ -111,6 +114,7 @@ export interface AssetTypes {
   rentStartDate?: string
   rentEndDate?: string
   asset_location: string
+
 }
 
 export interface AllocatedAssetType {

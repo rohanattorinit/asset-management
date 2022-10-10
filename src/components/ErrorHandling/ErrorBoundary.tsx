@@ -13,8 +13,9 @@ const ErrorFallback: FC<ErrorFallbackProps> = ({
   return (
     <div role="alert">
       <p>An error has occurred</p>
-      <img src={erroebound} alt="" />
+
       <pre>{error.message}</pre>
+      <img src={erroebound} alt="" />
     </div>
   );
 };
