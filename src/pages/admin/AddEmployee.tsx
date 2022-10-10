@@ -20,7 +20,6 @@ import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import { EmpValidationSchema } from "../../components/FormValidations/EmpValidationSchema";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { addEmployee } from "../../redux/actions/AdminActions";
-
 const options = [
   { label: "Senior Software Developer", value: "Senior Software Developer" },
   { label: "Software Developer", value: "Software Developer" },
@@ -31,11 +30,9 @@ const options = [
   { label: "Human Resourse", value: "Human Resourse" },
   { label: "Technical Delivery Manager", value: "Technical Delivery Manager" },
 ];
-
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
-
   const onSubmit = (values: any) => {
     dispatch(addEmployee(values));
     navigate(`/admin/employee`);
@@ -74,6 +71,7 @@ const AddEmployee = () => {
                             name="empId"
                             value={values.empId}
                             component={TextField}
+                            data-testid={"full_name"}
                           />
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
@@ -89,6 +87,7 @@ const AddEmployee = () => {
                               onChange={handleChange}
                               name="jobTitle"
                               required
+                              role={"option"}
                             >
                               <MenuItem>None</MenuItem>
                               {options.map((item) => (
@@ -107,6 +106,7 @@ const AddEmployee = () => {
                             name="name"
                             value={values.name}
                             component={TextField}
+                            data-testid={"full_name"}
                           />
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
@@ -140,9 +140,13 @@ const AddEmployee = () => {
                           />
                         </Grid>
                       </Grid>
-
                       <CardActions>
-                        <Button type="submit" size="large" variant="contained">
+                        <Button
+                          type="submit"
+                          size="large"
+                          variant="contained"
+                          data-testid={"add_employee_button"}
+                        >
                           ADD EMPLOYEE
                         </Button>
                       </CardActions>
@@ -151,11 +155,9 @@ const AddEmployee = () => {
                 }}
               </Formik>
             </Grid>
-
             <Grid item xs={12} md={2}>
               <Divider orientation={"vertical"} />
             </Grid>
-
             <Grid item xs={12} md={5}>
               <DragAndDrop />
             </Grid>
