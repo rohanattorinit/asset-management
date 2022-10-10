@@ -68,6 +68,7 @@ export const getAssets = (assetParams: GetAssetParams = {}) => async (
   dispatch: Dispatch<DispatchTypes>
 ) => {
   dispatch({ type: LOADING_DATA })
+
   try {
     const { name, allocate, assetType, isRented } = assetParams
 

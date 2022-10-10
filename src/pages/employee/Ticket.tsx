@@ -46,6 +46,11 @@ export default function Ticket() {
         <Typography variant="h4" textAlign="center" marginY={2}>
           Ticket Status
         </Typography>
+        {/* {loading ? (
+          <Stack alignItems="center">
+            <CircularProgress />
+          </Stack>
+        ) : ( */}
         <Grid container spacing={2}>
           {tickets?.map((ticket) => {
             return (
@@ -105,6 +110,8 @@ export default function Ticket() {
             </DialogContent>
           </Dialog>
         </Grid>
+        {/* )
+        } */}
       </Grid>
     </Grid>
   );
