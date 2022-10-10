@@ -140,6 +140,7 @@ export default function SideBar() {
           <Box display="flex" flexDirection="column" justifyContent="center">
             {empTabs.map((empTab) => (
               <Button
+                key={empTab.path}
                 sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
                 variant="outlined"
                 color="secondary"
