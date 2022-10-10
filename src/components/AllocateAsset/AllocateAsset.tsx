@@ -121,7 +121,11 @@ const AllocateAsset = ({
                 </Table>
 
                 <DialogActions>
-                  <Button type="submit" variant="contained">
+                  <Button
+                    disabled={assetIdCheck?.length ? false : true}
+                    type="submit"
+                    variant="contained"
+                  >
                     Allocate
                   </Button>
                 </DialogActions>
