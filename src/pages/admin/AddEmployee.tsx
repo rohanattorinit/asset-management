@@ -87,6 +87,7 @@ const AddEmployee = () => {
                               onChange={handleChange}
                               name="jobTitle"
                               required
+                              role={"option"}
                             >
                               <MenuItem>None</MenuItem>
                               {options.map((item) => (

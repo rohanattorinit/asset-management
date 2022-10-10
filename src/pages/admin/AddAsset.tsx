@@ -1,6 +1,15 @@
 import {
-  Button, Card, CardActions, CardContent, CardHeader,
-  Divider, FormControl, Grid, InputLabel, MenuItem, Select
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import { Dispatch } from "react";
 
@@ -85,6 +94,7 @@ const AddAsset = () => {
                             name="brandName"
                             value={values.brandName}
                             component={TextField}
+                            data-testid={"brand_name"}
                           />
                         </Grid>
 
@@ -294,7 +304,12 @@ const AddAsset = () => {
                       </Grid>
 
                       <CardActions>
-                        <Button type="submit" size="large" variant="contained">
+                        <Button
+                          type="submit"
+                          size="large"
+                          variant="contained"
+                          data-testid={"add_asset_button"}
+                        >
                           ADD ASSET
                         </Button>
                       </CardActions>
