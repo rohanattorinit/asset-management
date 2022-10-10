@@ -98,7 +98,7 @@ export interface EmployeeAssetType {
 export interface AssetTypes {
 
   assetId: number
-  brandId: number
+  brandName: string
   name: string
   assetType: string
   category: string
