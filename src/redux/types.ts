@@ -1,3 +1,5 @@
+import { string } from "yup/lib/locale";
+
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
@@ -95,7 +97,7 @@ export interface EmployeeAssetType {
 
 export interface AssetTypes {
   assetId: number;
-  brandId: number;
+  brandName: string;
   name: string;
   assetType: string;
   category: string;
