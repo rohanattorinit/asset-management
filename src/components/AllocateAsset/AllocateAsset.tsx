@@ -79,8 +79,8 @@ const AllocateAsset = ({
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
-            <TableContainer component={Paper}>
-              {assets.length ? (
+            {assets.length ? (
+              <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -119,16 +119,17 @@ const AllocateAsset = ({
                     ))}
                   </TableBody>
                 </Table>
-              ) : (
-                <Typography textAlign={"center"}>No Assets found!</Typography>
-              )}
-            </TableContainer>
+
+                <DialogActions>
+                  <Button type="submit" variant="contained">
+                    Allocate
+                  </Button>
+                </DialogActions>
+              </TableContainer>
+            ) : (
+              <Typography textAlign={"center"}>No Assets found!</Typography>
+            )}
           </DialogContent>
-          <DialogActions>
-            <Button type="submit" variant="contained">
-              Allocate
-            </Button>
-          </DialogActions>
         </form>
       </Dialog>
     </>
