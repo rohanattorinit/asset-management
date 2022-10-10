@@ -8,19 +8,19 @@ export const EmpValidationSchema = Yup.object().shape({
   empId: Yup.string()
     .matches(numericRegEx, 'Invalid employee ID')
     .matches(uppercaseRegEx, 'Invalid employee ID ')
-    .required('Required'),
+    .required('EmployeeID Required'),
   name: Yup.string()
     .matches(re, 'Name can have letters only!')
-    .required('Required'),
+    .required('Full name required'),
   email: Yup.string()
     .email('Invalid email')
-    .required('Required'),
+    .required('Email Required'),
   location: Yup.string()
     .matches(re, 'Location can have letters only!')
-    .required('Required!'),
+    .required('Location Required!'),
   phone: Yup.string()
     .matches(phoneRegExp, 'Invalid phone number')
     .min(10, 'to short')
     .max(10, 'to long')
-    .required('Required')
+    .required('Phone Number Required')
 })

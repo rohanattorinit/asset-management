@@ -7,12 +7,11 @@ import {
   Divider,
   FormControl,
   Grid,
-  Input,
   InputLabel,
   MenuItem,
   Select,
 } from "@mui/material";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 import { Dispatch } from "react";
 import { useDispatch } from "react-redux";
@@ -63,8 +62,7 @@ const AddEmployee = () => {
                 validationSchema={EmpValidationSchema}
                 onSubmit={onSubmit}
               >
-                {({ isValid, values, handleChange, handleBlur, errors }) => {
-                  console.log(errors);
+                {({ isValid, values, handleChange, handleBlur }) => {
                   return (
                     <Form>
                       <Grid item container spacing={2}>
@@ -91,6 +89,7 @@ const AddEmployee = () => {
                               onChange={handleChange}
                               name="jobTitle"
                               required
+                              role={"option"}
                             >
                               <MenuItem>None</MenuItem>
                               {options.map((item) => (
@@ -102,14 +101,15 @@ const AddEmployee = () => {
                           </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
-                          <Input
-                            id={"name"}
-                            name={"name"}
-                            placeholder={"Full Name"}
+                          <Field
+                            label="Full Name"
+                            variant="outlined"
+                            fullWidth
+                            name="name"
                             value={values.name}
-                            onChange={handleChange}
+                            component={TextField}
+                            data-testid={"full_name"}
                           />
-                          <p data-testid={"name_error"}>Errrir{errors.name}</p>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12}>
                           <Field
@@ -147,8 +147,8 @@ const AddEmployee = () => {
                         <Button
                           type="submit"
                           size="large"
-                          data-testid={"add_employee_button"}
                           variant="contained"
+                          data-testid={"add_employee_button"}
                         >
                           ADD EMPLOYEE
                         </Button>
