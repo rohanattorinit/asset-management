@@ -1,6 +1,7 @@
 import {
   Box,
   CircularProgress,
+  IconButton,
   Paper,
   Table,
   TableCell,
@@ -10,9 +11,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
 
 function RentedAssetsTable() {
+  const navigate = useNavigate();
+  const setAssetDetails = (assetId: number) => {
+    navigate(`/admin/assets/${assetId}`);
+  };
   const { assets } = useSelector((state: RootStore) => state.admin);
 
   return (
@@ -70,6 +77,11 @@ function RentedAssetsTable() {
                 <TableCell align="center">
                   {rentalAsset?.status?.toUpperCase()}
                 </TableCell>
+                <IconButton
+                  onClick={() => setAssetDetails(rentalAsset?.assetId)}
+                >
+                  <OpenInNewIcon sx={{ color: "darkblue" }} />
+                </IconButton>
               </TableRow>
             ))}
           </Table>

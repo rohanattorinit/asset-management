@@ -11,11 +11,20 @@ const ErrorFallback: FC<ErrorFallbackProps> = ({
   resetErrorBoundary: onReset,
 }) => {
   return (
-    <div role="alert">
+    <div>
       <p>An error has occurred</p>
 
       <pre>{error.message}</pre>
-      <img src={erroebound} alt="" />
+      <div
+        role="alert"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img src={erroebound} alt="" />
+      </div>
     </div>
   );
 };
