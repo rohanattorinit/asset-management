@@ -110,39 +110,39 @@ export const ServiceDetails = () => {
                 </Typography>
               </Grid>
 
-            <Grid item xs={12} md={8}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Title:
-                <Typography variant="body1">
-                  {serviceticketdetails?.title}
-                </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Description:
+              <Grid item xs={12} md={8}>
                 <Typography
-                  variant="body1"
-                  sx={{
-                    textTransform: "capitalize",
-                    wordWrap: "break-word",
-
-                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                  }}
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {serviceticketdetails?.description}
+                  Title:
+                  <Typography variant="body1">
+                    {serviceticketdetails?.title}
+                  </Typography>
                 </Typography>
-              </Typography>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Description:
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      textTransform: "capitalize",
+                      wordWrap: "break-word",
+                      width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                    }}
+                  >
+                    {serviceticketdetails?.description}
+                  </Typography>
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>)}
+          )}
         </Paper>
         <form onSubmit={handleSubmit}>
           <Paper
