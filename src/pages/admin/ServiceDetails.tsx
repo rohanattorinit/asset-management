@@ -22,6 +22,7 @@ import {
 } from "../../redux/actions/AdminActions";
 import { useLocation, useNavigate } from "react-router-dom";
 import Toast from "../../components/ErrorHandling/Toast";
+import Loader from "../../components/Loader/Loader";
 
 export const ServiceDetails = () => {
   const [note, setNote] = useState("");
@@ -34,7 +35,7 @@ export const ServiceDetails = () => {
     10
   );
   const dispatch: Dispatch<any> = useDispatch();
-  const { serviceticketdetails } = useSelector(
+  const { serviceticketdetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
 
@@ -61,79 +62,83 @@ export const ServiceDetails = () => {
       <Toast />
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
-          <Grid container m={2}>
-            <Grid item xs={12} md={4}>
-              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                {" "}
-                Ticket ID:
-                <Typography variant="body1">
-                  {serviceticketdetails?.ticketId}
+          {loading ? (
+            <Loader />
+          ) : (
+            <Grid container m={2}>
+              <Grid item xs={12} md={4}>
+                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                  {" "}
+                  Ticket ID:
+                  <Typography variant="body1">
+                    {serviceticketdetails?.ticketId}
+                  </Typography>
                 </Typography>
-              </Typography>
-              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                Emp ID:
+                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                  Emp ID:
+                  <Typography
+                    sx={{ textTransform: "capitalize" }}
+                    variant="body1"
+                  >
+                    {serviceticketdetails?.empId}
+                  </Typography>
+                </Typography>
                 <Typography
-                  sx={{ textTransform: "capitalize" }}
-                  variant="body1"
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {serviceticketdetails?.empId}
+                  Asset ID:
+                  <Typography
+                    variant="body1"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {serviceticketdetails?.assetId}
+                  </Typography>
                 </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Asset ID:
                 <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {serviceticketdetails?.assetId}
+                  Time:
+                  <Typography variant="body1">
+                    {serviceticketdetails?.createdAt}
+                  </Typography>
                 </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Time:
-                <Typography variant="body1">
-                  {serviceticketdetails?.createdAt}
-                </Typography>
-              </Typography>
-            </Grid>
+              </Grid>
 
-            <Grid item xs={12} md={8}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Title:
-                <Typography variant="body1">
-                  {serviceticketdetails?.title}
-                </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Description:
+              <Grid item xs={12} md={8}>
                 <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {serviceticketdetails?.description}
+                  Title:
+                  <Typography variant="body1">
+                    {serviceticketdetails?.title}
+                  </Typography>
                 </Typography>
-              </Typography>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Description:
+                  <Typography
+                    variant="body1"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {serviceticketdetails?.description}
+                  </Typography>
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Paper>
         <form onSubmit={handleSubmit}>
           <Paper

@@ -46,6 +46,7 @@ export default function Ticket() {
         <Typography variant="h4" textAlign="center" marginY={2}>
           Ticket Status
         </Typography>
+
         {tickets.length ? (
           <Grid container spacing={2}>
             {tickets?.map((ticket) => {
