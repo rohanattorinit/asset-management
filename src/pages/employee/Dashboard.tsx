@@ -38,9 +38,9 @@ export default function Dashboard() {
           <Typography variant="h5" marginY={2}>
             Your Active Tickets
           </Typography>
-          {filteredStatus.length ? (
+          {loading || filteredStatus.length ? (
             <Grid container spacing={5}>
-              {loading && filteredStatus.length ? (
+              {loading ? (
                 <Loader />
               ) : (
                 filteredStatus?.map((requeststatus) => {
