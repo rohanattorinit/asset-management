@@ -61,7 +61,7 @@ export const ServiceDetails = () => {
       <Toast />
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
-          <Grid container m={2}>
+          <Grid container m={2} p={2}>
             <Grid item xs={12} md={4}>
               <Typography fontFamily="serif" fontWeight="bold" variant="h6">
                 {" "}
@@ -131,9 +131,14 @@ export const ServiceDetails = () => {
                 Description:
                 <Typography
                   variant="body1"
-                  sx={{ textTransform: "capitalize" }}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
                 >
-                  <p>{serviceticketdetails?.description}</p>
+                  {serviceticketdetails?.description}
                 </Typography>
               </Typography>
             </Grid>

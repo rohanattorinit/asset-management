@@ -90,7 +90,7 @@ export default function Ticket() {
                   <Typography variant="body1">
                     Title : {ticket?.title}
                   </Typography>
-                  <Typography variant="body1">
+                  <Typography variant="body1" sx={{ wordWrap: "break-word" }}>
                     Description : {ticket?.description}
                   </Typography>
                   <Typography variant="body1">

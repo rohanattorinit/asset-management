@@ -41,7 +41,6 @@ const authReducer = (
         error: "",
       };
     case SET_AUTHENTICATED:
-      debugger;
       return {
         ...state,
         authenticated: true,
