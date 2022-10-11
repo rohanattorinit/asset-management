@@ -22,12 +22,12 @@ import {
 import { RootStore } from "../../redux/store";
 import AllocateAsset from "../../components/AllocateAsset/AllocateAsset";
 import Toast from "../../components/ErrorHandling/Toast";
+import Loader from "../../components/Loader/Loader";
 
 export default function EmployeeDetails() {
   const [open, setOpen] = useState(false);
-  const { employeeDetails, employeeassetsdetails, message } = useSelector(
-    (state: RootStore) => state.admin
-  );
+  const { employeeDetails, employeeassetsdetails, message, loading } =
+    useSelector((state: RootStore) => state.admin);
 
   const dispatch: Dispatch<any> = useDispatch();
   const location = useLocation();
@@ -150,58 +150,66 @@ export default function EmployeeDetails() {
             </Box>
           </Box>
           {/* //Deallocate Asset */}
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Asset ID
-                  </TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Asset Name
-                  </TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Model No
-                  </TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Category
-                  </TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Allocation Time
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {employeeassetsdetails?.map((asset) => (
-                  <TableRow
-                    key={asset?.assetId}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="right" component="th" scope="row">
-                      {asset?.assetId}
+          {loading ? (
+            <Loader />
+          ) : (
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Asset ID
                     </TableCell>
-                    <TableCell align="right">{asset?.name}</TableCell>
-                    <TableCell align="right">{asset?.modelno}</TableCell>
-                    <TableCell align="right">{asset?.category}</TableCell>
-                    <TableCell align="right">{asset?.allocationTime}</TableCell>
-                    <TableCell align="right">
-                      <IconButton>
-                        <RemoveCircleIcon
-                          sx={{ color: "#DC2626" }}
-                          onClick={() => {
-                            if (
-                              window.confirm("Do you want to Delete the Asset?")
-                            )
-                              HandleDeallocate(asset?.assetId);
-                          }}
-                        />
-                      </IconButton>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Asset Name
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Model No
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Category
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Allocation Time
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {employeeassetsdetails?.map((asset) => (
+                    <TableRow
+                      key={asset?.assetId}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell align="right" component="th" scope="row">
+                        {asset?.assetId}
+                      </TableCell>
+                      <TableCell align="right">{asset?.name}</TableCell>
+                      <TableCell align="right">{asset?.modelno}</TableCell>
+                      <TableCell align="right">{asset?.category}</TableCell>
+                      <TableCell align="right">
+                        {asset?.allocationTime}
+                      </TableCell>
+                      <TableCell align="right">
+                        <IconButton>
+                          <RemoveCircleIcon
+                            sx={{ color: "#DC2626" }}
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  "Do you want to Delete the Asset?"
+                                )
+                              )
+                                HandleDeallocate(asset?.assetId);
+                            }}
+                          />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </Paper>
       </Grid>
       <AllocateAsset open={open} setOpen={setOpen} />

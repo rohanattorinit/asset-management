@@ -1,6 +1,7 @@
 import {
   Card,
   CardContent,
+  CircularProgress,
   Dialog,
   DialogContent,
   Grid,
@@ -16,6 +17,7 @@ import {
 import { RootStore } from "../../redux/store";
 import { EmpTicketType } from "../../redux/types";
 import Toast from "../../components/ErrorHandling/Toast";
+import Loader from "../../components/Loader/Loader";
 
 export default function Ticket() {
   const [open, setOpen] = useState(false);
@@ -23,7 +25,7 @@ export default function Ticket() {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const { tickets, message, noteDetails } = useSelector(
+  const { tickets, message, noteDetails, loading } = useSelector(
     (state: RootStore) => state?.employee
   );
   const { user } = useSelector((state: RootStore) => state?.login);
@@ -46,66 +48,77 @@ export default function Ticket() {
         <Typography variant="h4" textAlign="center" marginY={2}>
           Ticket Status
         </Typography>
-        {tickets.length ? (
+
+        {tickets.length || loading ? (
           <Grid container spacing={2}>
-            {tickets?.map((ticket) => {
-              return (
-                <Grid item minWidth={300}>
-                  <Card
-                    key={ticket?.ticketId}
-                    onClick={() => handleClick(ticket?.ticketId)}
-                    sx={{
-                      bgcolor:
-                        ticket?.ticketStatus === "active"
-                          ? "#EF9A9A"
-                          : ticket?.ticketStatus === "pending"
-                          ? "#FFE0B2"
-                          : "#B2DFDB",
-                    }}
-                  >
-                    <CardContent>
-                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                        {"ID: " + ticket?.ticketId}
-                      </Typography>
-                      <Typography variant="body1">
-                        Title : {ticket?.title}
-                      </Typography>
-                      <Typography variant="body1">
-                        Description : {ticket?.description.slice(0, 10)}...
-                      </Typography>
-                      <Typography variant="body1">
-                        Status : {ticket?.ticketStatus}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              );
-            })}
+            {loading && !open ? (
+              <Loader />
+            ) : (
+              tickets?.map((ticket) => {
+                return (
+                  <Grid item minWidth={300}>
+                    <Card
+                      key={ticket?.ticketId}
+                      onClick={() => handleClick(ticket?.ticketId)}
+                      sx={{
+                        bgcolor:
+                          ticket?.ticketStatus === "active"
+                            ? "#EF9A9A"
+                            : ticket?.ticketStatus === "pending"
+                            ? "#FFE0B2"
+                            : "#B2DFDB",
+                      }}
+                    >
+                      <CardContent>
+                        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                          {"ID: " + ticket?.ticketId}
+                        </Typography>
+                        <Typography variant="body1">
+                          Title : {ticket?.title}
+                        </Typography>
+                        <Typography variant="body1">
+                          Description : {ticket?.description.slice(0, 10)}...
+                        </Typography>
+                        <Typography variant="body1">
+                          Status : {ticket?.ticketStatus}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                );
+              })
+            )}
             <Dialog open={open} onClose={() => setOpen(false)}>
               <DialogContent>
-                <CardContent>
-                  <Typography variant="h6">
-                    {"ID: " + ticket?.ticketId}
-                  </Typography>
-                  <Typography variant="body1">
-                    Title : {ticket?.title}
-                  </Typography>
-                  <Typography variant="body1" sx={{ wordWrap: "break-word" }}>
-                    Description : {ticket?.description}
-                  </Typography>
-                  <Typography variant="body1">
-                    Status : {ticket?.ticketStatus}
-                  </Typography>
-                  <Typography variant="body1">Note : {ticket?.note}</Typography>
+                {loading ? (
+                  <CircularProgress />
+                ) : (
+                  <CardContent>
+                    <Typography variant="h6">
+                      {"ID: " + ticket?.ticketId}
+                    </Typography>
+                    <Typography variant="body1">
+                      Title : {ticket?.title}
+                    </Typography>
+                    <Typography variant="body1" sx={{ wordWrap: "break-word" }}>
+                      Description : {ticket?.description}
+                    </Typography>
+                    <Typography variant="body1">
+                      Status : {ticket?.ticketStatus}
+                    </Typography>
+                    <Typography variant="body1">
+                      Note : {ticket?.note}
+                    </Typography>
 
-                  {noteDetails.map((note) => {
-                    return (
-                      <p>
-                        <li>{note?.note}</li>
-                      </p>
-                    );
-                  })}
-                </CardContent>
+                    {noteDetails.map((note) => {
+                      return (
+                        <p>
+                          <li>{note?.note}</li>
+                        </p>
+                      );
+                    })}
+                  </CardContent>
+                )}
               </DialogContent>
             </Dialog>
           </Grid>
