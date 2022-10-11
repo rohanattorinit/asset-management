@@ -1,33 +1,25 @@
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {
-  FormControl,
-  Grid,
-  InputLabel,
+  Box, FormControl,
+  Grid, IconButton, InputLabel,
   MenuItem,
-  Select,
-  Table,
+  Select, SelectChangeEvent, Table,
   TableBody,
   TableCell,
-  TableContainer,
-  TableRow,
-  TableHead,
-  Box,
-  IconButton,
-  TextField,
-  Typography,
-  SelectChangeEvent,
+  TableContainer, TableHead, TableRow, TextField,
+  Typography
 } from "@mui/material";
-import SideBar from "../../components/Sidebar/Sidebar";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { useNavigate } from "react-router-dom";
+import { Dispatch, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootStore } from "../../redux/store";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
+import Toast from "../../components/ErrorHandling/Toast";
+import SideBar from "../../components/Sidebar/Sidebar";
 import {
   getServiceTicketDetails,
-  getTickets,
+  getTickets
 } from "../../redux/actions/AdminActions";
-import Toast from "../../components/ErrorHandling/Toast";
+import { RootStore } from "../../redux/store";
 
 function Services() {
   const [status, setStatus] = useState("");
