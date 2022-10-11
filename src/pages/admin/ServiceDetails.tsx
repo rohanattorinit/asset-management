@@ -90,7 +90,11 @@ export const ServiceDetails = () => {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {serviceticketdetails?.assetId}
+                  {serviceticketdetails?.assetId ? (
+                    <>{serviceticketdetails?.assetId}</>
+                  ) : (
+                    <Typography>New request</Typography>
+                  )}
                 </Typography>
               </Typography>
               <Typography
@@ -129,7 +133,7 @@ export const ServiceDetails = () => {
                   variant="body1"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {serviceticketdetails?.description}
+                  <p>{serviceticketdetails?.description}</p>
                 </Typography>
               </Typography>
             </Grid>
