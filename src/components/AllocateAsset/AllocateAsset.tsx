@@ -73,8 +73,13 @@ const AllocateAsset = ({
       {/* Allocate an Asset */}
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Allocate Asset</DialogTitle>
           <DialogContent>
+            <Typography
+              variant="h6"
+              sx={{ margin: "10px", fontWeight: "bold" }}
+            >
+              Allocate Asset
+            </Typography>
             <TextField
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
