@@ -10,7 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import Loader from "../../assets/Loader.gif";
+import Loader from "../../components/Loader/Loader";
+
 import { RootStore } from "../../redux/store";
 
 function RentedAssetsTable() {
@@ -20,15 +21,7 @@ function RentedAssetsTable() {
     <>
       <Box>
         {loading ? (
-          <img
-            src={Loader}
-            alt="loader"
-            style={{
-              display: "block",
-              marginLeft: "auto",
-              marginRight: "auto",
-            }}
-          />
+          <Loader />
         ) : (
           <TableContainer sx={{ marginY: 3 }} component={Paper}>
             <Table sx={{ minWidth: 1200 }} aria-label="simple table">
