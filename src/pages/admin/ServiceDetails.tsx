@@ -131,7 +131,11 @@ export const ServiceDetails = () => {
                   Description:
                   <Typography
                     variant="body1"
-                    sx={{ textTransform: "capitalize" }}
+                    sx={{
+                      textTransform: "capitalize",
+                      wordWrap: "break-word",
+                      width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                    }}
                   >
                     {serviceticketdetails?.description}
                   </Typography>
