@@ -108,6 +108,7 @@ export default function EmployeeDetails() {
             </Button>
           </Box>
         </Box>
+
         <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={5}>
           <Grid container m={2}>
             <Grid item xs={12} md={4}>
@@ -260,24 +261,23 @@ export default function EmployeeDetails() {
         </Paper>
       </Grid>
       <AllocateAsset open={open} setOpen={setOpen} />
-
-      <Formik
-        initialValues={{
-          name: employeeDetails?.name,
-          email: employeeDetails?.email,
-          phone: employeeDetails?.phone,
-          location: employeeDetails?.location,
-          jobTitle: employeeDetails?.jobTitle,
-        }}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
-          return (
-            <Form onSubmit={onSubmit}>
-              <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
-                <Card>
-                  <CardHeader title="Edit"></CardHeader>{" "}
+      <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
+        <Card>
+          <CardHeader title="Edit"></CardHeader>{" "}
+          <Formik
+            initialValues={{
+              name: employeeDetails?.name,
+              email: employeeDetails?.email,
+              phone: employeeDetails?.phone,
+              location: employeeDetails?.location,
+              jobTitle: employeeDetails?.jobTitle,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
+              return (
+                <>
                   <CardContent>
                     <Grid item container spacing={1}>
                       <Grid item xs={12} sm={6} md={6}>
@@ -345,17 +345,18 @@ export default function EmployeeDetails() {
                       </Grid>
                     </Grid>
                   </CardContent>
+
                   <CardActions>
                     <Button type="submit" size="large" variant="contained">
                       EDIT
                     </Button>
                   </CardActions>
-                </Card>{" "}
-              </Dialog>
-            </Form>
-          );
-        }}
-      </Formik>
+                </>
+              );
+            }}
+          </Formik>
+        </Card>
+      </Dialog>
     </Grid>
   );
 }
