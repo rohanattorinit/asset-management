@@ -61,11 +61,11 @@ export const ServiceDetails = () => {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
-          {loading ? (
-            <Loader />
-          ) : (
+      {loading ? (
+        <Loader />
+      ) : (
+        <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
+          <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -147,62 +147,62 @@ export const ServiceDetails = () => {
                 </Typography>
               </Grid>
             </Grid>
-          )}
-        </Paper>
-        <form onSubmit={handleSubmit}>
-          <Paper
-            sx={{ marginY: "2rem", display: "flex", flexDirection: "column" }}
-            elevation={3}
-          >
-            <Box m={2}>
-              <FormControl>
-                <InputLabel id="status">Status</InputLabel>
-                <Select
-                  labelId="status"
-                  id="status"
-                  label="status"
-                  sx={{ minWidth: "100px" }}
-                  value={select}
-                  onChange={(event) => {
-                    setSelect(event?.target?.value);
-                  }}
-                >
-                  <MenuItem value={"active"}>Active</MenuItem>
-                  <MenuItem value={"pending"}>Pending</MenuItem>
-                  <MenuItem value={"closed"}>Closed</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-
-            <TextField
-              sx={{ marginX: "1.1rem" }}
-              margin="none"
-              name="Note"
-              label="Note..."
-              type="text"
-              variant="outlined"
-              multiline
-              rows={4}
-              onChange={(e) => {
-                setNote(e?.target?.value);
-              }}
-            />
-
-            <Box
-              sx={{
-                marginY: "2rem",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Button type="submit" variant="contained">
-                SUBMIT
-              </Button>
-            </Box>
           </Paper>
-        </form>
-      </Grid>
+          <form onSubmit={handleSubmit}>
+            <Paper
+              sx={{ marginY: "2rem", display: "flex", flexDirection: "column" }}
+              elevation={3}
+            >
+              <Box m={2}>
+                <FormControl>
+                  <InputLabel id="status">Status</InputLabel>
+                  <Select
+                    labelId="status"
+                    id="status"
+                    label="status"
+                    sx={{ minWidth: "100px" }}
+                    value={select}
+                    onChange={(event) => {
+                      setSelect(event?.target?.value);
+                    }}
+                  >
+                    <MenuItem value={"active"}>Active</MenuItem>
+                    <MenuItem value={"pending"}>Pending</MenuItem>
+                    <MenuItem value={"closed"}>Closed</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+
+              <TextField
+                sx={{ marginX: "1.1rem" }}
+                margin="none"
+                name="Note"
+                label="Note..."
+                type="text"
+                variant="outlined"
+                multiline
+                rows={4}
+                onChange={(e) => {
+                  setNote(e?.target?.value);
+                }}
+              />
+
+              <Box
+                sx={{
+                  marginY: "2rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Button type="submit" variant="contained">
+                  SUBMIT
+                </Button>
+              </Box>
+            </Paper>
+          </form>
+        </Grid>
+      )}
     </Grid>
   );
 };
