@@ -24,7 +24,7 @@ function App() {
         setShowLoader(false);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   return !showLoader ? (
     <>{!showLoader && authenticated ? <AppRoutes /> : <AuthRoutes />}</>
