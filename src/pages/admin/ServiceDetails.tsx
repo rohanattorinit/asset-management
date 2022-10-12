@@ -49,7 +49,7 @@ export const ServiceDetails = () => {
       dispatch(addNote(serviceticketdetails?.ticketId, note));
     }
 
-    if (select !== serviceticketdetails?.ticketStatus) {
+    if (select?.length > 0 && select !== serviceticketdetails?.ticketStatus) {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
