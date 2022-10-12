@@ -26,7 +26,6 @@ import Loader from "../../components/Loader/Loader";
 
 export const ServiceDetails = () => {
   const [note, setNote] = useState("");
-  const [select, setSelect] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,10 +37,12 @@ export const ServiceDetails = () => {
   const { serviceticketdetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
+  const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
 
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
   }, [dispatch, ticketId]);
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,7 +50,7 @@ export const ServiceDetails = () => {
       dispatch(addNote(serviceticketdetails?.ticketId, note));
     }
 
-    if (select !== serviceticketdetails?.ticketStatus) {
+    if (select?.length > 0 && select !== serviceticketdetails?.ticketStatus) {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
@@ -60,11 +61,12 @@ export const ServiceDetails = () => {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
-          {loading ? (
+      {loading ? (
             <Loader />
           ) : (
+      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
+        <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
+          
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -90,12 +92,16 @@ export const ServiceDetails = () => {
                   mt={2}
                 >
                   Asset ID:
-                  <Typography
-                    variant="body1"
-                    sx={{ textTransform: "capitalize" }}
-                  >
-                    {serviceticketdetails?.assetId}
-                  </Typography>
+                  {serviceticketdetails?.assetId ? (
+                    <Typography
+                      variant="body1"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {serviceticketdetails?.assetId}
+                    </Typography>
+                  ) : (
+                    <Typography> New request </Typography>
+                  )}
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -131,14 +137,18 @@ export const ServiceDetails = () => {
                   Description:
                   <Typography
                     variant="body1"
-                    sx={{ textTransform: "capitalize" }}
+                    sx={{
+                      textTransform: "capitalize",
+                      wordWrap: "break-word",
+                      width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                    }}
                   >
                     {serviceticketdetails?.description}
                   </Typography>
                 </Typography>
               </Grid>
             </Grid>
-          )}
+          
         </Paper>
         <form onSubmit={handleSubmit}>
           <Paper
@@ -149,6 +159,9 @@ export const ServiceDetails = () => {
               <FormControl>
                 <InputLabel id="status">Status</InputLabel>
                 <Select
+                  labelId="status"
+                  id="status"
+                  label="status"
                   sx={{ minWidth: "100px" }}
                   value={select}
                   onChange={(event) => {
@@ -191,6 +204,7 @@ export const ServiceDetails = () => {
           </Paper>
         </form>
       </Grid>
+        )}
     </Grid>
   );
 };

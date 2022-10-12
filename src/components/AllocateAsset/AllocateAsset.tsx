@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Paper,
   Table,
   TableBody,
@@ -74,12 +73,18 @@ const AllocateAsset = ({
       {/* Allocate an Asset */}
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Allocate Asset</DialogTitle>
           <DialogContent>
+            <Typography
+              variant="h6"
+              sx={{ margin: "10px", fontWeight: "bold" }}
+            >
+              Allocate Asset
+            </Typography>
             <TextField
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
+
 
             {/* if length and loading show loader
                 if not length no asset fouund
@@ -92,6 +97,7 @@ const AllocateAsset = ({
               ) : !assets?.length ? (
                 <Typography textAlign={"center"}>No Assets found!</Typography>
               ) : (
+
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>

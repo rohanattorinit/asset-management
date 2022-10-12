@@ -33,9 +33,11 @@ const options = [
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
+
   const onSubmit = (values: any) => {
     dispatch(addEmployee(values));
     navigate(`/admin/employee`);
+    
   };
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
