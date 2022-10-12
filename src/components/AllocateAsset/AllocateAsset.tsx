@@ -38,7 +38,6 @@ const AllocateAsset = ({
 
   // Debounce callback
   const debounced = useDebouncedCallback(
-    // function
     (value) => {
       setSearch(value);
     },
