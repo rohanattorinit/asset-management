@@ -90,11 +90,9 @@ const AllocateAsset = ({
             */}
 
             <TableContainer component={Paper}>
-              {loading && !assets.length ? (
+              {loading ? (
                 <CircularProgress />
-              ) : !assets?.length ? (
-                <Typography textAlign={"center"}>No Assets found!</Typography>
-              ) : (
+              ) : assets?.length ? (
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -133,7 +131,10 @@ const AllocateAsset = ({
                     ))}
                   </TableBody>
                 </Table>
+              ) : (
+                <Typography textAlign={"center"}>No Assets found!</Typography>
               )}
+
               <DialogActions>
                 <Button
                   disabled={assetIdCheck?.length ? false : true}
