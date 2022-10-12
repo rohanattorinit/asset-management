@@ -61,11 +61,12 @@ export const ServiceDetails = () => {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
-          {loading ? (
+      {loading ? (
             <Loader />
           ) : (
+      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
+        <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
+          
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -147,7 +148,7 @@ export const ServiceDetails = () => {
                 </Typography>
               </Grid>
             </Grid>
-          )}
+          
         </Paper>
         <form onSubmit={handleSubmit}>
           <Paper
@@ -203,6 +204,7 @@ export const ServiceDetails = () => {
           </Paper>
         </form>
       </Grid>
+        )}
     </Grid>
   );
 };
