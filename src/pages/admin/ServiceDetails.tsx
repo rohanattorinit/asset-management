@@ -37,12 +37,12 @@ export const ServiceDetails = () => {
   const { serviceticketdetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
+  const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
 
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
-  }, [dispatch, ticketId]);
-
-  const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
+    setSelect(serviceticketdetails?.ticketStatus);
+  }, [dispatch, ticketId, serviceticketdetails?.ticketStatus]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -50,7 +50,7 @@ export const ServiceDetails = () => {
       dispatch(addNote(serviceticketdetails?.ticketId, note));
     }
 
-    if (select?.length > 0 && select !== serviceticketdetails?.ticketStatus) {
+    if (select?.length && select !== serviceticketdetails?.ticketStatus) {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
