@@ -151,7 +151,7 @@ export default function EmployeeDetails() {
           </Box>
           {/* //Deallocate Asset */}
 
-          {!employeeassetsdetails.length ? (
+          {!employeeassetsdetails.length && !loading ? (
             <Typography textAlign={"center"}>
               No assets are allocated !!!
             </Typography>
