@@ -41,7 +41,8 @@ export const ServiceDetails = () => {
 
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
-  }, [dispatch, ticketId]);
+    setSelect(serviceticketdetails?.ticketStatus);
+  }, [dispatch, ticketId, serviceticketdetails?.ticketStatus]);
 
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,7 +51,7 @@ export const ServiceDetails = () => {
       dispatch(addNote(serviceticketdetails?.ticketId, note));
     }
 
-    if (select?.length > 0 && select !== serviceticketdetails?.ticketStatus) {
+    if (select?.length && select !== serviceticketdetails?.ticketStatus) {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
@@ -62,11 +63,11 @@ export const ServiceDetails = () => {
       <SideBar />
       <Toast />
       {loading ? (
-            <Loader />
-          ) : (
-      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
-          
+        <Loader />
+      ) : (
+        <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
+          <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
+
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -148,46 +149,47 @@ export const ServiceDetails = () => {
                 </Typography>
               </Grid>
             </Grid>
-          
-        </Paper>
-        <form onSubmit={handleSubmit}>
-          <Paper
-            sx={{ marginY: "2rem", display: "flex", flexDirection: "column" }}
-            elevation={3}
-          >
-            <Box m={2}>
-              <FormControl>
-                <InputLabel id="status">Status</InputLabel>
-                <Select
-                  labelId="status"
-                  id="status"
-                  label="status"
-                  sx={{ minWidth: "100px" }}
-                  value={select}
-                  onChange={(event) => {
-                    setSelect(event?.target?.value);
-                  }}
-                >
-                  <MenuItem value={"active"}>Active</MenuItem>
-                  <MenuItem value={"pending"}>Pending</MenuItem>
-                  <MenuItem value={"closed"}>Closed</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
+          </Paper>
+          <form onSubmit={handleSubmit}>
+            <Paper
+              sx={{ marginY: "2rem", display: "flex", flexDirection: "column" }}
+              elevation={3}
+            >
+              <Box m={2}>
+                <FormControl>
+                  <InputLabel id="status">Status</InputLabel>
+                  <Select
+                    labelId="status"
+                    id="status"
+                    label="status"
+                    sx={{ minWidth: "100px" }}
+                    value={select}
+                    onChange={(event) => {
+                      setSelect(event?.target?.value);
+                    }}
+                  >
+                    <MenuItem value={"active"}>Active</MenuItem>
+                    <MenuItem value={"pending"}>Pending</MenuItem>
+                    <MenuItem value={"closed"}>Closed</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
 
-            <TextField
-              sx={{ marginX: "1.1rem" }}
-              margin="none"
-              name="Note"
-              label="Note..."
-              type="text"
-              variant="outlined"
-              multiline
-              rows={4}
-              onChange={(e) => {
-                setNote(e?.target?.value);
-              }}
-            />
+
+              <TextField
+                sx={{ marginX: "1.1rem" }}
+                margin="none"
+                name="Note"
+                label="Note..."
+                type="text"
+                variant="outlined"
+                multiline
+                rows={4}
+                onChange={(e) => {
+                  setNote(e?.target?.value);
+                }}
+              />
+
 
             <Box
               sx={{
