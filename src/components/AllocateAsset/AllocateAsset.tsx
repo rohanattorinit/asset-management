@@ -80,7 +80,7 @@ const AllocateAsset = ({
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
-            {assets.length ? (
+            {assets.length || loading ? (
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                   <TableHead>
@@ -97,7 +97,7 @@ const AllocateAsset = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {loading ? (
+                    {loading && !open ? (
                       <CircularProgress />
                     ) : (
                       assets?.map((asset) => (
