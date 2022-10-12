@@ -153,7 +153,7 @@ export default function EmployeeDetails() {
 
           {!employeeassetsdetails.length ? (
             <Typography textAlign={"center"}>
-              No assets are allocated !
+              No assets are allocated !!!
             </Typography>
           ) : !employeeassetsdetails.length && loading ? (
             <Loader />
