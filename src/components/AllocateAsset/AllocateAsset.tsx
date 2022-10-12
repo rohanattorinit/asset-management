@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { allocateAssets, getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import { useDebouncedCallback } from "use-debounce";
-import Loader from "../Loader/Loader";
 const AllocateAsset = ({
   open,
   setOpen,
@@ -85,19 +84,17 @@ const AllocateAsset = ({
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
 
-
             {/* if length and loading show loader
                 if not length no asset fouund
                 
             */}
 
             <TableContainer component={Paper}>
-              {loading ? (
+              {loading && !assets.length ? (
                 <CircularProgress />
               ) : !assets?.length ? (
                 <Typography textAlign={"center"}>No Assets found!</Typography>
               ) : (
-
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
