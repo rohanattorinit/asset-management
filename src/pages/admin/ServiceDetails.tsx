@@ -26,7 +26,6 @@ import Loader from "../../components/Loader/Loader";
 
 export const ServiceDetails = () => {
   const [note, setNote] = useState("");
-  const [select, setSelect] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,6 +41,8 @@ export const ServiceDetails = () => {
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
   }, [dispatch, ticketId]);
+
+  const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -157,6 +158,9 @@ export const ServiceDetails = () => {
               <FormControl>
                 <InputLabel id="status">Status</InputLabel>
                 <Select
+                  labelId="status"
+                  id="status"
+                  label="status"
                   sx={{ minWidth: "100px" }}
                   value={select}
                   onChange={(event) => {
