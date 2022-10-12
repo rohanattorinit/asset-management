@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Paper,
   Table,
   TableBody,
@@ -84,6 +83,7 @@ const AllocateAsset = ({
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
+
             {assets.length || loading ? (
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
