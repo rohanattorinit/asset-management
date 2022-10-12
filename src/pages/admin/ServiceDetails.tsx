@@ -90,12 +90,16 @@ export const ServiceDetails = () => {
                   mt={2}
                 >
                   Asset ID:
-                  <Typography
-                    variant="body1"
-                    sx={{ textTransform: "capitalize" }}
-                  >
-                    {serviceticketdetails?.assetId}
-                  </Typography>
+                  {serviceticketdetails?.assetId ? (
+                    <Typography
+                      variant="body1"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {serviceticketdetails?.assetId}
+                    </Typography>
+                  ) : (
+                    <Typography> New request </Typography>
+                  )}
                 </Typography>
                 <Typography
                   fontFamily="serif"
