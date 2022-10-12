@@ -11,17 +11,19 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { Dispatch } from "react";
+import { Dispatch, useEffect } from "react";
 
 import FormLabel from "@mui/material/FormLabel";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { addAsset } from "../../redux/actions/AdminActions";
+import { RootStore } from "../../redux/store";
+import Toast from "../../components/ErrorHandling/Toast";
 const statusOptions = [
   { label: "Allocated", value: "allocated" },
   { label: "Available", value: "available" },
@@ -39,14 +41,19 @@ const assetTypeOptions = [
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
-
+  const { message } = useSelector((state: RootStore) => state.admin);
   const onSubmit = (values: any) => {
     dispatch(addAsset(values));
-    navigate(`/admin/assets`);
   };
+  useEffect(() => {
+    if (message) {
+      navigate("/admin/assets");
+    }
+  }, [message]);
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
+      <Toast />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Card>
           <CardHeader title="Add new asset" />
@@ -92,7 +99,7 @@ const AddAsset = () => {
                             variant="outlined"
                             fullWidth
                             name="brandName"
-                            value={values.brandName}
+                            value={values?.brandName}
                             component={TextField}
                             data-testid={"brand_name"}
                           />
@@ -107,7 +114,7 @@ const AddAsset = () => {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               label="Asset Type"
-                              value={values.assetType}
+                              value={values?.assetType}
                               onChange={handleChange}
                               name="assetType"
                               required

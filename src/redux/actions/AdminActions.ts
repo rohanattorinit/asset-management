@@ -21,6 +21,7 @@ import {
 } from "./../types";
 import { Dispatch } from "redux";
 import { get, post } from "../../services";
+import { useNavigate } from "react-router-dom";
 interface GetAssetParams {
   allocate?: boolean;
   name?: string;
@@ -112,11 +113,17 @@ export const addEmployee =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      console.log(employeeDetails);
       const res = await post("/api/employees", employeeDetails);
-      alert((res as any).data?.message);
+
       dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data });
+      alert((res as any).data?.message);
+      // if (res) {
+      //   console.warn("anyysadd");
+      //   Navigate({ to: `/admin/employee` });
+      // }
     } catch (error) {
+      // Navigate({ to: `/admin/employee` });
+      console.error("erorrrrrrrrrrrrrrrrrrrrrrrr");
       dispatch({
         type: SET_ERROR,
         payload:
@@ -133,7 +140,10 @@ export const addAsset =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
+      // let navigate = useNavigate();
       const res = await post("/api/assets/addAsset", assetDetails);
+      // Navigate({ to: { pathname: "/admin/assets" } });
+      //navigate("/admin/assets");
       alert((res as any).data.message);
       dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
@@ -142,7 +152,7 @@ export const addAsset =
         payload:
           (error as any)?.response?.data?.error ||
           `${
-            (error as any).response.status
+            (error as any).response?.status
           }: Error occured while Adding Assets Details`,
       });
     }
