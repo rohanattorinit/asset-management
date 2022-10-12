@@ -37,12 +37,12 @@ export const ServiceDetails = () => {
   const { serviceticketdetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
+  const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
 
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
   }, [dispatch, ticketId]);
 
-  const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
