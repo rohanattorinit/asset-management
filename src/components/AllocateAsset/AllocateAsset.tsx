@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -30,13 +31,12 @@ const AllocateAsset = ({
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
 
   const dispatch: Dispatch<any> = useDispatch();
-  const { employeeDetails, assets } = useSelector(
+  const { employeeDetails, assets, loading } = useSelector(
     (state: RootStore) => state.admin
   );
 
   // Debounce callback
   const debounced = useDebouncedCallback(
-    // function
     (value) => {
       setSearch(value);
     },
@@ -84,7 +84,7 @@ const AllocateAsset = ({
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
 
-            {assets.length ? (
+            {assets.length || loading ? (
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                   <TableHead>
@@ -101,27 +101,31 @@ const AllocateAsset = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {assets?.map((asset) => (
-                      <TableRow
-                        key={asset?.assetId}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {asset?.name}
-                        </TableCell>
-                        <TableCell align="right">{asset?.assetId}</TableCell>
-                        <TableCell align="right">
-                          <Checkbox
-                            sx={{ color: "darkblue" }}
-                            onChange={(event) =>
-                              handleCheckChange(event, asset?.assetId)
-                            }
-                          />
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {loading && !open ? (
+                      <CircularProgress />
+                    ) : (
+                      assets?.map((asset) => (
+                        <TableRow
+                          key={asset?.assetId}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {asset?.name}
+                          </TableCell>
+                          <TableCell align="right">{asset?.assetId}</TableCell>
+                          <TableCell align="right">
+                            <Checkbox
+                              sx={{ color: "darkblue" }}
+                              onChange={(event) =>
+                                handleCheckChange(event, asset?.assetId)
+                              }
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
                   </TableBody>
                 </Table>
 
