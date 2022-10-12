@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { allocateAssets, getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import { useDebouncedCallback } from "use-debounce";
+import Loader from "../Loader/Loader";
 const AllocateAsset = ({
   open,
   setOpen,
@@ -79,8 +80,18 @@ const AllocateAsset = ({
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
-            {assets.length || !open ? (
-              <TableContainer component={Paper}>
+
+            {/* if length and loading show loader
+                if not length no asset fouund
+                
+            */}
+
+            <TableContainer component={Paper}>
+              {loading ? (
+                <CircularProgress />
+              ) : !assets?.length ? (
+                <Typography textAlign={"center"}>No Assets found!</Typography>
+              ) : (
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -96,47 +107,40 @@ const AllocateAsset = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {loading ? (
-                      <CircularProgress />
-                    ) : (
-                      assets?.map((asset) => (
-                        <TableRow
-                          key={asset?.assetId}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {asset?.name}
-                          </TableCell>
-                          <TableCell align="right">{asset?.assetId}</TableCell>
-                          <TableCell align="right">
-                            <Checkbox
-                              sx={{ color: "darkblue" }}
-                              onChange={(event) =>
-                                handleCheckChange(event, asset?.assetId)
-                              }
-                            />
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    )}
+                    {assets?.map((asset) => (
+                      <TableRow
+                        key={asset?.assetId}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {asset?.name}
+                        </TableCell>
+                        <TableCell align="right">{asset?.assetId}</TableCell>
+                        <TableCell align="right">
+                          <Checkbox
+                            sx={{ color: "darkblue" }}
+                            onChange={(event) =>
+                              handleCheckChange(event, asset?.assetId)
+                            }
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
-
-                <DialogActions>
-                  <Button
-                    disabled={assetIdCheck?.length ? false : true}
-                    type="submit"
-                    variant="contained"
-                  >
-                    Allocate
-                  </Button>
-                </DialogActions>
-              </TableContainer>
-            ) : (
-              <Typography textAlign={"center"}>No Assets found!</Typography>
-            )}
+              )}
+              <DialogActions>
+                <Button
+                  disabled={assetIdCheck?.length ? false : true}
+                  type="submit"
+                  variant="contained"
+                >
+                  Allocate
+                </Button>
+              </DialogActions>
+            </TableContainer>
           </DialogContent>
         </form>
       </Dialog>
