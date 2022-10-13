@@ -7,18 +7,41 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  TableCell,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { Dispatch } from "redux";
 import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
+import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
+import { RootStore } from "../../redux/store";
 
 function AssetDetails() {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
+  const location = useLocation();
+  console.log(location);
+  const id = Number(location.pathname.split("/")[3]);
+  console.log(id);
+
+  const dispatch: Dispatch<any> = useDispatch();
+  const { singleAssetDetails, loading } = useSelector(
+    (state: RootStore) => state.admin
+  );
+  console.log(singleAssetDetails);
+
+  useEffect(() => {
+    dispatch(getSingleAssetDetails(id));
+  }, []);
+
   return (
     <>
+      {console.log(singleAssetDetails)}
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
         <Toast />
@@ -40,10 +63,15 @@ function AssetDetails() {
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
+                {singleAssetDetails && (
+                  <TableCell align="center">
+                    {singleAssetDetails?.assetId}
+                  </TableCell>
+                )}
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  {" "}
-                  Asset ID :
+                  Asset ID : {singleAssetDetails?.assetId}
                 </Typography>
+
                 <Typography
                   fontFamily="serif"
                   fontWeight="bold"
@@ -51,14 +79,7 @@ function AssetDetails() {
                   mt={2}
                 >
                   Asset Name:
-                </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Model No:
+                  <Typography>{singleAssetDetails?.name}</Typography>
                 </Typography>
 
                 <Typography
@@ -67,7 +88,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Usability :
+                  Model No:{singleAssetDetails?.modelNo}
                 </Typography>
 
                 <Typography
@@ -76,7 +97,16 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Status :
+                  Usability :{singleAssetDetails?.usability}
+                </Typography>
+
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Status :{singleAssetDetails?.status}
                 </Typography>
               </Grid>
 
@@ -87,7 +117,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Description :
+                  Description : {singleAssetDetails?.description}
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -95,7 +125,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Emp Id :
+                  Emp Id :{singleAssetDetails?.empId}
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -103,7 +133,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Emp Name :
+                  Emp Name :{singleAssetDetails?.empName}
                 </Typography>
               </Grid>
             </Grid>
