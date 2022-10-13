@@ -38,7 +38,7 @@ function Services() {
   const navigate = useNavigate();
 
   const dispatch: Dispatch<any> = useDispatch();
-  const { serviceDetails, loading, loading } = useSelector(
+  const { serviceDetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
 
