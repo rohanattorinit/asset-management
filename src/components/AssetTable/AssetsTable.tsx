@@ -1,4 +1,7 @@
 import {
+  CircularProgress,
+  Grid,
+  IconButton,
   Paper,
   Table,
   TableCell,
@@ -7,12 +10,21 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Stack } from "@mui/system";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
 import Loader from "../Loader/Loader";
+import { LOADING } from "../../redux/types";
 
 const AssetsTable = () => {
+  const navigate = useNavigate();
   const { assets, loading } = useSelector((state: RootStore) => state.admin);
+
+  const setAssetDetails = (assetId: number) => {
+    navigate(`/admin/assets/${assetId}`);
+  };
 
   return (
     <>
@@ -50,6 +62,7 @@ const AssetsTable = () => {
                 </TableCell>
               </TableRow>
             </TableHead>
+
             {assets?.map((filteredAsset) => (
               <TableRow key={filteredAsset?.assetId}>
                 <TableCell align="center">{filteredAsset?.assetId}</TableCell>
@@ -69,6 +82,11 @@ const AssetsTable = () => {
                 <TableCell align="center">
                   {filteredAsset?.usability?.toUpperCase()}
                 </TableCell>
+                <IconButton
+                  onClick={() => setAssetDetails(filteredAsset?.assetId)}
+                >
+                  <OpenInNewIcon sx={{ color: "darkblue" }} />
+                </IconButton>
               </TableRow>
             ))}
           </Table>
