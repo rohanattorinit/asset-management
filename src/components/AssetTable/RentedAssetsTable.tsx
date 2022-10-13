@@ -69,10 +69,11 @@ function RentedAssetsTable() {
                     <TableCell align="center">{rentalAsset?.vendor}</TableCell>
                     <TableCell align="center">{rentalAsset?.rent}</TableCell>
                     <TableCell align="center">
-                      {rentalAsset?.rentStartDate.slice(0,10)}
+                      {rentalAsset?.rentStartDate?.slice(0, 10)}
                     </TableCell>
                     <TableCell align="center">
-                      {rentalAsset?.rentEndDate.slice(0,10)}
+                      {rentalAsset?.rentEndDate?.slice(0, 10)}
+
                     </TableCell>
                     <TableCell align="center">{rentalAsset?.deposit}</TableCell>
                     <TableCell align="center">

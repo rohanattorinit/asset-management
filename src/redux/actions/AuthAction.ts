@@ -20,7 +20,6 @@ export const login =
       });
 
       const hour = new Date(new Date().getTime() + 200 * 36000);
-
       //set isAuth cookie
       const isAdmin = (res as any)?.data?.user?.isAdmin;
       Cookies.set("is_admin", isAdmin, { expires: hour });
