@@ -1,5 +1,16 @@
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Dialog,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -8,9 +19,10 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Form, useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
@@ -22,10 +34,33 @@ import {
 import { RootStore } from "../../redux/store";
 import AllocateAsset from "../../components/AllocateAsset/AllocateAsset";
 import Toast from "../../components/ErrorHandling/Toast";
+import EmployeeEdit from "../../components/Button/EmployeeEdit";
+import { Formik, Field } from "formik";
+import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
 import Loader from "../../components/Loader/Loader";
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const re = /^[A-Z/a-z/ \b]+$/;
+let validationSchema = Yup?.object()?.shape({
+  phone: Yup.string()
+    .matches(phoneRegExp, "Invalid phone number")
+    .min(10, "to short")
+    .max(10, "to long")
+    .required("Required"),
+  location: Yup?.string()
+    .matches(re, "Location can have letters only!")
+    .required("Required"),
+  name: Yup?.string()
+    .matches(re, "Name can have letters only!")
+    .required("Please enter valid name")
+    .nullable(),
+});
 
 export default function EmployeeDetails() {
   const [open, setOpen] = useState(false);
+  const [empOpen, setEmpOpen] = useState(false);
+
   const { employeeDetails, employeeassetsdetails, message, loading } =
     useSelector((state: RootStore) => state.admin);
 
@@ -48,12 +83,33 @@ export default function EmployeeDetails() {
     dispatch(deallocateAssets(employeeDetails?.empId, assetId));
   };
 
+  const onSubmit = (values: any) => {
+    dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
+    setOpen(false);
+  };
+
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
+
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 1 }} elevation={5}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h5">Employee Details</Typography>
+          <Box display="flex">
+            <Button variant="outlined" onClick={() => setEmpOpen(true)}>
+              Edit
+            </Button>
+          </Box>
+        </Box>
+
+        <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={5}>
           <Grid container m={2}>
             <Grid item xs={12} md={4}>
               <Typography
@@ -151,8 +207,6 @@ export default function EmployeeDetails() {
           </Box>
           {/* //Deallocate Asset */}
 
-
-
           {loading && !open ? (
             <Loader />
           ) : employeeassetsdetails?.length ? (
@@ -222,6 +276,102 @@ export default function EmployeeDetails() {
         </Paper>
       </Grid>
       <AllocateAsset open={open} setOpen={setOpen} />
+      <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
+        <Card>
+          <CardHeader title="Edit"></CardHeader>{" "}
+          <Formik
+            initialValues={{
+              name: employeeDetails?.name,
+              email: employeeDetails?.email,
+              phone: employeeDetails?.phone,
+              location: employeeDetails?.location,
+              jobTitle: employeeDetails?.jobTitle,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
+              return (
+                <>
+                  <CardContent>
+                    <Grid item container spacing={1}>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Name"
+                          variant="outlined"
+                          fullWidth
+                          name="name"
+                          id="name"
+                          value={values?.name}
+                          component={TextField}
+                          onChange={handleChange}
+                          error={errors?.name}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Job Title"
+                          variant="outlined"
+                          fullWidth
+                          name="jobTitle"
+                          id="jobTitle"
+                          onChange={handleChange}
+                          value={values?.jobTitle}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Email"
+                          variant="outlined"
+                          fullWidth
+                          name="email"
+                          id="email"
+                          onChange={handleChange}
+                          value={values?.email}
+                          component={TextField}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Phone No"
+                          variant="outlined"
+                          fullWidth
+                          name="phone"
+                          id="phone"
+                          onChange={handleChange}
+                          value={values?.phone}
+                          component={TextField}
+                          error={errors?.phone}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Field
+                          label="Location"
+                          variant="outlined"
+                          fullWidth
+                          name="location"
+                          id="location"
+                          onChange={handleChange}
+                          value={values?.location}
+                          component={TextField}
+                          error={errors?.location}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+
+                  <CardActions>
+                    <Button type="submit" size="large" variant="contained">
+                      EDIT
+                    </Button>
+                  </CardActions>
+                </>
+              );
+            }}
+          </Formik>
+        </Card>
+      </Dialog>
     </Grid>
   );
 }

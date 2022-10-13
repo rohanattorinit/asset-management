@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import AssetDetails from "./pages/admin/AssetDetails";
 import NotFound from "./components/ErrorHandling/NotFound";
 import Navbar from "./components/Navbar/Navbar";
 import AddAsset from "./pages/admin/AddAsset";
@@ -142,6 +143,17 @@ function AppRoutes() {
             />
           }
         />
+
+        <Route
+          path="/admin/assets/:assetId"
+          element={
+            <ProtectedAdminRoute
+              {...defaultProtectedAdminRouteProps}
+              outlet={<AssetDetails />}
+            />
+          }
+        />
+
         <Route
           path="/admin/service/:ticketId"
           element={

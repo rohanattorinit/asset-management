@@ -1,5 +1,6 @@
 import {
   Box,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -12,9 +13,15 @@ import {
 import { useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
 
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
 
 function RentedAssetsTable() {
+  const navigate = useNavigate();
+  const setAssetDetails = (assetId: number) => {
+    navigate(`/admin/assets/${assetId}`);
+  };
   const { assets, loading } = useSelector((state: RootStore) => state.admin);
 
   return (
@@ -61,27 +68,29 @@ function RentedAssetsTable() {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {assets?.map((rentalAsset) => (
-                  <TableRow key={rentalAsset?.assetId}>
-                    <TableCell align="center">{rentalAsset?.assetId}</TableCell>
-                    <TableCell align="center">{rentalAsset?.name}</TableCell>
-                    <TableCell align="center">{rentalAsset?.vendor}</TableCell>
-                    <TableCell align="center">{rentalAsset?.rent}</TableCell>
-                    <TableCell align="center">
-                      {rentalAsset?.rentStartDate?.slice(0, 10)}
-                    </TableCell>
-                    <TableCell align="center">
-                      {rentalAsset?.rentEndDate?.slice(0, 10)}
-
-                    </TableCell>
-                    <TableCell align="center">{rentalAsset?.deposit}</TableCell>
-                    <TableCell align="center">
-                      {rentalAsset?.status?.toUpperCase()}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
+              {assets?.map((rentalAsset) => (
+                <TableRow key={rentalAsset?.assetId}>
+                  <TableCell align="center">{rentalAsset?.assetId}</TableCell>
+                  <TableCell align="center">{rentalAsset?.name}</TableCell>
+                  <TableCell align="center">{rentalAsset?.vendor}</TableCell>
+                  <TableCell align="center">{rentalAsset?.rent}</TableCell>
+                  <TableCell align="center">
+                    {rentalAsset?.rentStartDate}
+                  </TableCell>
+                  <TableCell align="center">
+                    {rentalAsset?.rentEndDate}
+                  </TableCell>
+                  <TableCell align="center">{rentalAsset?.deposit}</TableCell>
+                  <TableCell align="center">
+                    {rentalAsset?.status?.toUpperCase()}
+                  </TableCell>
+                  <IconButton
+                    onClick={() => setAssetDetails(rentalAsset?.assetId)}
+                  >
+                    <OpenInNewIcon sx={{ color: "darkblue" }} />
+                  </IconButton>
+                </TableRow>
+              ))}
             </Table>
           </TableContainer>
         )}
