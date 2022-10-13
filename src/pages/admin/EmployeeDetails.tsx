@@ -8,6 +8,9 @@ import {
   Dialog,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -22,7 +25,7 @@ import TableRow from "@mui/material/TableRow";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
@@ -34,10 +37,11 @@ import {
 import { RootStore } from "../../redux/store";
 import AllocateAsset from "../../components/AllocateAsset/AllocateAsset";
 import Toast from "../../components/ErrorHandling/Toast";
-import EmployeeEdit from "../../components/Button/EmployeeEdit";
-import { Formik, Field } from "formik";
+import { Formik, Field, Form } from "formik";
 import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
 import Loader from "../../components/Loader/Loader";
+import { getUserProfile } from "../../redux/actions/AuthAction";
+import { ProtectedAdminRouteProps } from "../../utils/ProtectedAdminRoute";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -61,8 +65,10 @@ export default function EmployeeDetails() {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
 
-  const { employeeDetails, employeeassetsdetails, message, loading } =
-    useSelector((state: RootStore) => state.admin);
+  const {
+    admin: { employeeDetails, employeeassetsdetails, loading },
+    employee: { message },
+  } = useSelector((state: RootStore) => state);
 
   const dispatch: Dispatch<any> = useDispatch();
   const location = useLocation();
@@ -71,8 +77,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
-    dispatch(getAssets());
-  }, [dispatch, message, empId]);
+  }, [message]);
 
   const handleClickOpen = () => {
     dispatch(getAssets({ allocate: true, name: "" }));
@@ -85,7 +90,7 @@ export default function EmployeeDetails() {
 
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
-    setOpen(false);
+    setEmpOpen(false);
   };
 
   return (
@@ -147,6 +152,7 @@ export default function EmployeeDetails() {
                   {employeeDetails?.jobTitle}
                 </Typography>
               </Typography>
+
               <Typography
                 fontFamily="serif"
                 fontWeight="bold"
@@ -246,7 +252,7 @@ export default function EmployeeDetails() {
                       <TableCell align="right">{asset?.modelno}</TableCell>
                       <TableCell align="right">{asset?.category}</TableCell>
                       <TableCell align="right">
-                        {asset?.allocationTime?.slice(0,10)}
+                        {asset?.allocationTime?.slice(0, 10)}
                       </TableCell>
                       <TableCell align="right">
                         <IconButton>
@@ -293,79 +299,82 @@ export default function EmployeeDetails() {
             {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
               return (
                 <>
-                  <CardContent>
-                    <Grid item container spacing={1}>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Name"
-                          variant="outlined"
-                          fullWidth
-                          name="name"
-                          id="name"
-                          value={values?.name}
-                          component={TextField}
-                          onChange={handleChange}
-                          error={errors?.name}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Job Title"
-                          variant="outlined"
-                          fullWidth
-                          name="jobTitle"
-                          id="jobTitle"
-                          onChange={handleChange}
-                          value={values?.jobTitle}
-                          component={TextField}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Email"
-                          variant="outlined"
-                          fullWidth
-                          name="email"
-                          id="email"
-                          onChange={handleChange}
-                          value={values?.email}
-                          component={TextField}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Phone No"
-                          variant="outlined"
-                          fullWidth
-                          name="phone"
-                          id="phone"
-                          onChange={handleChange}
-                          value={values?.phone}
-                          component={TextField}
-                          error={errors?.phone}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Location"
-                          variant="outlined"
-                          fullWidth
-                          name="location"
-                          id="location"
-                          onChange={handleChange}
-                          value={values?.location}
-                          component={TextField}
-                          error={errors?.location}
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardContent>
+                  <Form>
+                    <CardContent>
+                      <Grid item container spacing={1}>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Name"
+                            variant="outlined"
+                            fullWidth
+                            name="name"
+                            id="name"
+                            value={values?.name}
+                            component={TextField}
+                            onChange={handleChange}
+                            error={errors?.name}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Job Title"
+                            variant="outlined"
+                            fullWidth
+                            name="jobTitle"
+                            id="jobTitle"
+                            onChange={handleChange}
+                            value={values?.jobTitle}
+                            component={TextField}
+                          />
+                        </Grid>
 
-                  <CardActions>
-                    <Button type="submit" size="large" variant="contained">
-                      EDIT
-                    </Button>
-                  </CardActions>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            name="email"
+                            id="email"
+                            onChange={handleChange}
+                            value={values?.email}
+                            component={TextField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Phone No"
+                            variant="outlined"
+                            fullWidth
+                            name="phone"
+                            id="phone"
+                            onChange={handleChange}
+                            value={values?.phone}
+                            component={TextField}
+                            error={errors?.phone}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Location"
+                            variant="outlined"
+                            fullWidth
+                            name="location"
+                            id="location"
+                            onChange={handleChange}
+                            value={values?.location}
+                            component={TextField}
+                            error={errors?.location}
+                          />
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+
+                    <CardActions>
+                      <Button type="submit" size="large" variant="contained">
+                        EDIT
+                      </Button>
+                    </CardActions>
+                  </Form>
                 </>
               );
             }}

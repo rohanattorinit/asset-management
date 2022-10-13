@@ -35,11 +35,12 @@ const options = [
 ];
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const { employees } = useSelector((state: RootStore) => state.admin);
+  const { message } = useSelector((state: RootStore) => state.admin);
   const navigate = useNavigate();
 
   const onSubmit = (values: any) => {
     dispatch(addEmployee(values));
+    navigate("/admin/employee");
   };
 
   return (
