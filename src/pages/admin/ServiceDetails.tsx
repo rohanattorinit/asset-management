@@ -44,6 +44,7 @@ export const ServiceDetails = () => {
     setSelect(serviceticketdetails?.ticketStatus);
   }, [dispatch, ticketId, serviceticketdetails?.ticketStatus]);
 
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (note?.length > 0) {
@@ -66,6 +67,7 @@ export const ServiceDetails = () => {
       ) : (
         <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
           <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
+
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -173,6 +175,7 @@ export const ServiceDetails = () => {
                 </FormControl>
               </Box>
 
+
               <TextField
                 sx={{ marginX: "1.1rem" }}
                 margin="none"
@@ -187,22 +190,23 @@ export const ServiceDetails = () => {
                 }}
               />
 
-              <Box
-                sx={{
-                  marginY: "2rem",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Button type="submit" variant="contained">
-                  SUBMIT
-                </Button>
-              </Box>
-            </Paper>
-          </form>
-        </Grid>
-      )}
+
+            <Box
+              sx={{
+                marginY: "2rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button type="submit" variant="contained">
+                SUBMIT
+              </Button>
+            </Box>
+          </Paper>
+        </form>
+      </Grid>
+        )}
     </Grid>
   );
 };
