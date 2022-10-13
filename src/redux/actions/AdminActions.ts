@@ -115,15 +115,9 @@ export const addEmployee =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post("/api/employees", employeeDetails);
-
-      dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data });
       alert((res as any).data?.message);
-      // if (res) {
-      //   console.warn("anyysadd");
-      //   Navigate({ to: `/admin/employee` });
-      // }
+      dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data });
     } catch (error) {
-      // Navigate({ to: `/admin/employee` });
       console.error("erorrrrrrrrrrrrrrrrrrrrrrrr");
       dispatch({
         type: SET_ERROR,
@@ -141,13 +135,15 @@ export const addAsset =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      // let navigate = useNavigate();
+      console.log("called");
+
       const res = await post("/api/assets/addAsset", assetDetails);
-      // Navigate({ to: { pathname: "/admin/assets" } });
-      //navigate("/admin/assets");
+
       alert((res as any).data.message);
       dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
+      console.log("error");
+
       dispatch({
         type: SET_ERROR,
         payload:

@@ -28,7 +28,9 @@ const AssetsTable = () => {
 
   return (
     <>
-      <Grid>
+      {loading ? (
+        <Loader />
+      ) : (
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
@@ -89,7 +91,7 @@ const AssetsTable = () => {
             ))}
           </Table>
         </TableContainer>
-      </Grid>
+      )}
     </>
   );
 };

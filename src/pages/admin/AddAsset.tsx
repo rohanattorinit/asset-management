@@ -43,6 +43,8 @@ const AddAsset = () => {
   const navigate = useNavigate();
   const { message } = useSelector((state: RootStore) => state.admin);
   const onSubmit = (values: any) => {
+    console.log(values);
+
     dispatch(addAsset(values));
   };
   useEffect(() => {

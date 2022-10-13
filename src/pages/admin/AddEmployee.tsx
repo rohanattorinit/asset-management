@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
+import Toast from "../../components/ErrorHandling/Toast";
 import { EmpValidationSchema } from "../../components/FormValidations/EmpValidationSchema";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { addEmployee } from "../../redux/actions/AdminActions";
@@ -44,6 +45,7 @@ const AddEmployee = () => {
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
+      <Toast />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Card>
           <CardHeader title="Create Employee" />
