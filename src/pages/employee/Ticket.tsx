@@ -19,6 +19,13 @@ import { EmpTicketType } from "../../redux/types";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
 
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+
 export default function Ticket() {
   const [open, setOpen] = useState(false);
   const [ticket, setTicket] = useState<EmpTicketType>();
@@ -67,7 +74,7 @@ export default function Ticket() {
                             : ticket?.ticketStatus === "pending"
                             ? "#FFE0B2"
                             : "#B2DFDB",
-                            cursor: "pointer",
+                        cursor: "pointer",
                       }}
                     >
                       <CardContent>
@@ -109,15 +116,35 @@ export default function Ticket() {
                     </Typography>
                     <Typography variant="body1">
                       Note : {ticket?.note}
+                      {/* <ol>
+                      {noteDetails.map((note) => {
+                        return (
+                          <p>
+                            <li>{note?.note}</li>
+                          </p>
+                        );
+                      })}
+                    </ol> */}
+                      {noteDetails.length ? (
+                        noteDetails.map((note) => {
+                          return (
+                            <Timeline position="left">
+                              <TimelineItem>
+                                <TimelineSeparator>
+                                  <TimelineDot color="success" />
+                                  <TimelineConnector />
+                                </TimelineSeparator>
+                                <TimelineContent>
+                                  <>{note?.note}</>
+                                </TimelineContent>
+                              </TimelineItem>
+                            </Timeline>
+                          );
+                        })
+                      ) : (
+                        <> No note </>
+                      )}
                     </Typography>
-
-                    {noteDetails.map((note) => {
-                      return (
-                        <p>
-                          <li>{note?.note}</li>
-                        </p>
-                      );
-                    })}
                   </CardContent>
                 )}
               </DialogContent>

@@ -38,10 +38,17 @@ const AddEmployee = () => {
   const { message } = useSelector((state: RootStore) => state.admin);
   const navigate = useNavigate();
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addEmployee(values));
-    navigate("/admin/employee");
+    resetForm({ values: "" });
+
   };
+
+  useEffect(() => {
+    if (message) {
+      navigate("/admin/employee");
+    }
+  }, [message]);
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
