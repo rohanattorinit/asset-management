@@ -170,7 +170,7 @@ export default function EmployeeDetails() {
                       Category
                     </TableCell>
                     <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                      Allocation Time
+                      Allocation Date
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -187,7 +187,7 @@ export default function EmployeeDetails() {
                       <TableCell align="right">{asset?.modelno}</TableCell>
                       <TableCell align="right">{asset?.category}</TableCell>
                       <TableCell align="right">
-                        {asset?.allocationTime}
+                        {asset?.allocationTime?.slice(0,10)}
                       </TableCell>
                       <TableCell align="right">
                         <IconButton>
