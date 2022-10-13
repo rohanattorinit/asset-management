@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const re = /^[A-Z/a-z/ \b]+$/
+const maxMin = /^[1-9]\d*$/
 
 export const AssetValidationSchema = Yup.object().shape({
   brandName: Yup.string()
@@ -9,9 +10,7 @@ export const AssetValidationSchema = Yup.object().shape({
   assetType: Yup.string()
     .matches(re, 'Asset type can have letters only!')
     .required('Required'),
-  assetName: Yup.string()
-    .matches(re, 'Asset name can have letters only!')
-    .required('Asset Name Required'),
+  assetName: Yup.string().required('Asset Name Required'),
   category: Yup.string()
     .matches(re, 'Category can have letters only!')
     .required('Category Required'),
@@ -30,18 +29,34 @@ export const AssetValidationSchema = Yup.object().shape({
   //isrented
   vendor: Yup.string()
     .matches(re, 'Vendor can have letters only')
-    .required('Vendor Required'),
+    .when('isRented', {
+      is: true,
+      then: Yup.string().required('Vendor Required')
+      //otherwise: Yup.string(),
+    }),
+
   rent: Yup.string()
-    .matches(numericRegEx, 'Rent can have numbers only!')
-    .required('Rent Required'),
+    .matches(maxMin, 'Enter valid rent amount!')
+    .when('isRented', {
+      is: true,
+      then: Yup.string().required('Rent Required')
+      //otherwise: Yup.string(),
+    }),
+
   deposit: Yup.string()
-    .matches(numericRegEx, 'Rent can have numbers only!')
-    .required('Deposit Required'),
+    .matches(maxMin, 'Enter valid deposit amount!')
+    .when('isRented', {
+      is: true,
+      then: Yup.string().required('Deposit Required')
+    }),
 
-  rentStartDate: Yup.date().required('Rent start date required'),
+  rentStartDate: Yup.date().when('isRented', {
+    is: true,
+    then: Yup.date().required('Rent start date required')
+  }),
 
-  rentEndDate: Yup.date()
-
-    .required('Rent start date required')
-    .min(Yup.ref('rentStartDate'), "End date can't be before Start date")
+  rentEndDate: Yup.date().when('isRented', {
+    is: true,
+    then: Yup.date().required('Rent end date is required')
+  })
 })

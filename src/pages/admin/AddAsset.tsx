@@ -21,71 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { addAsset } from "../../redux/actions/AdminActions";
-import * as Yup from "yup";
-
-const numericRegEx = /(?=.*[0-9])/;
-const re = /^[A-Z/a-z/ \b]+$/;
-const maxMin = /(10[0-9]|1[1-9][0-9]|[2-9][0-9]{2}|[1-9][0-9]{3,5}|1000000)/;
-
-const validationSchema = Yup.object().shape({
-  brandName: Yup.string()
-    .matches(re, "Brand name can have letters only!")
-    .required("Brand Name Required"),
-  assetType: Yup.string()
-    .matches(re, "Asset type can have letters only!")
-    .required("Required"),
-  assetName: Yup.string().required("Asset Name Required"),
-  category: Yup.string()
-    .matches(re, "Category can have letters only!")
-    .required("Category Required"),
-
-  modelNo: Yup.string()
-    .matches(numericRegEx, "Invalid model no!")
-
-    .required("Required!"),
-  description: Yup.string()
-    .matches(re, "Description can have letters only!")
-    .required("Description Required"),
-  asset_location: Yup.string()
-    .matches(re, "Location can have letters only")
-    .required("Location Required"),
-
-  //isrented
-  vendor: Yup.string()
-    .matches(re, "Vendor can have letters only")
-    .when("isRented", {
-      is: true,
-      then: Yup.string().required("Vendor Required"),
-      //otherwise: Yup.string(),
-    }),
-
-  rent: Yup.string()
-    .matches(maxMin, "Enter valid rent amount!")
-    .when("isRented", {
-      is: true,
-      then: Yup.string().required("Rent Required"),
-      //otherwise: Yup.string(),
-    }),
-
-  deposit: Yup.string()
-    .matches(maxMin, "Enter valid deposit amount!")
-    .when("isRented", {
-      is: true,
-      then: Yup.string().required("Deposit Required"),
-    }),
-
-  rentStartDate: Yup.date().when("isRented", {
-    is: true,
-    then: Yup.date().required("Rent start date required"),
-  }),
-
-  rentEndDate: Yup.date().when("isRented", {
-    is: true,
-    then: Yup.date().required("Rent end date is required"),
-  }),
-
-  // .min(Yup.ref("rentStartDate"), "End date can't be before Start date"),
-});
+import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 
 const statusOptions = [
   { label: "Allocated", value: "allocated" },
@@ -139,7 +75,7 @@ const AddAsset = () => {
                   isRented: false,
                   asset_location: "",
                 }}
-                validationSchema={validationSchema}
+                validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
               >
                 {({
