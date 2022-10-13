@@ -116,42 +116,45 @@ export default function EmployeeDetails() {
               </Button>
             </Box>
           </Box>
-          <Grid display="flex" padding={1} container m={2}>
-            <Grid item xs={12} md={4}>
-              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                Employee ID:
-                <Typography variant="body1">
-                  {employeeDetails?.empId}
+          {loading && !open ? (
+            <Loader />
+          ) : (
+            <Grid display="flex" padding={1} container m={2}>
+              <Grid item xs={12} md={4}>
+                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                  Employee ID:
+                  <Typography variant="body1">
+                    {employeeDetails?.empId}
+                  </Typography>
                 </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Name:
                 <Typography
-                  sx={{ textTransform: "capitalize" }}
-                  variant="body1"
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {employeeDetails?.name}
+                  Name:
+                  <Typography
+                    sx={{ textTransform: "capitalize" }}
+                    variant="body1"
+                  >
+                    {employeeDetails?.name}
+                  </Typography>
                 </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Job Title:
                 <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {employeeDetails?.jobTitle}
+                  Job Title:
+                  <Typography
+                    variant="body1"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {employeeDetails?.jobTitle}
+                  </Typography>
                 </Typography>
-              </Typography>
 
                 <Typography
                   fontFamily="serif"
