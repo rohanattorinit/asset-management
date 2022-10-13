@@ -73,6 +73,7 @@ function RentedAssetsTable() {
                     </TableCell>
                     <TableCell align="center">
                       {rentalAsset?.rentEndDate?.slice(0, 10)}
+
                     </TableCell>
                     <TableCell align="center">{rentalAsset?.deposit}</TableCell>
                     <TableCell align="center">
