@@ -41,13 +41,12 @@ const assetTypeOptions = [
 
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const navigate = useNavigate();
   const { message } = useSelector((state: RootStore) => state.admin);
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const navigate = useNavigate();
 
+  const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addAsset(values));
-    console.log("values.isRented", values.isRented);
+    resetForm({ values: "" });
   };
   useEffect(() => {
     if (message) {

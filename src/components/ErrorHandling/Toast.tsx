@@ -20,7 +20,6 @@ export default function Toast() {
 
   useEffect(() => {
     if (error?.trim()?.length || adminError?.trim()?.length) {
-      console.log("error", error, adminError);
       setOpen(true);
     } else {
       setOpen(false);
