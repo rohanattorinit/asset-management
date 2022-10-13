@@ -67,6 +67,7 @@ export default function Ticket() {
                             : ticket?.ticketStatus === "pending"
                             ? "#FFE0B2"
                             : "#B2DFDB",
+                            cursor: "pointer",
                       }}
                     >
                       <CardContent>

@@ -144,7 +144,7 @@ export default function Asset() {
                         <TableCell align="right">{asset?.modelno}</TableCell>
                         <TableCell align="right">{asset?.category}</TableCell>
                         <TableCell align="right">
-                          {asset?.allocationTime}
+                          {asset?.allocationTime?.slice(0,10)}
                         </TableCell>
                         <TableCell align="right">
                           <Tooltip title="Create Ticket">

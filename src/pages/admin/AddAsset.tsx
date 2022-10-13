@@ -19,11 +19,12 @@ import { TextField } from "formik-material-ui";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
-import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { addAsset } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
+import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
+
 const statusOptions = [
   { label: "Allocated", value: "allocated" },
   { label: "Available", value: "available" },
@@ -46,12 +47,14 @@ const AddAsset = () => {
     console.log(values);
 
     dispatch(addAsset(values));
+    console.log("values.isRented", values.isRented);
   };
   useEffect(() => {
     if (message) {
       navigate("/admin/assets");
     }
   }, [message]);
+
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />

@@ -164,67 +164,6 @@ function EmpList() {
                 )}
               </TableContainer>
             )}
-            {/* <TableContainer component={Paper}>
-              {employees.length ? (
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>
-                        <Typography align="center" sx={{ fontWeight: "bold" }}>
-                          Employee ID
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Typography align="center" sx={{ fontWeight: "bold" }}>
-                          Name
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Typography align="center" sx={{ fontWeight: "bold" }}>
-                          Email
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Typography align="center" sx={{ fontWeight: "bold" }}>
-                          Contact No.
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Typography align="center" sx={{ fontWeight: "bold" }}>
-                          Location
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {employees?.map((employee) => (
-                      <TableRow key={employee?.empId}>
-                        <TableCell align="center" component="th" scope="row">
-                          {employee?.empId}
-                        </TableCell>
-                        <TableCell align="center">
-                          {employee?.name.toUpperCase()}
-                        </TableCell>
-                        <TableCell align="center">{employee?.email}</TableCell>
-                        <TableCell align="center">{employee?.phone}</TableCell>
-                        <TableCell align="center">
-                          {employee?.location.toUpperCase()}
-                        </TableCell>
-                        <IconButton
-                          onClick={() => setEmployeeDetails(employee?.empId)}
-                        >
-                          <OpenInNewIcon sx={{ color: "darkblue" }} />
-                        </IconButton>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              ) : (
-                <Typography textAlign={"center"}>
-                  No Employees found!
-                </Typography>
-              )}
-            </TableContainer> */}
           </Box>
         </Grid>
       </Grid>
