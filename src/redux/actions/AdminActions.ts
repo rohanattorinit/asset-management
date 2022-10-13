@@ -135,15 +135,13 @@ export const addAsset =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      console.log("called");
+      //console.log("called");
 
       const res = await post("/api/assets/addAsset", assetDetails);
-
-      alert((res as any).data.message);
+      alert((res as any).data?.message);
       dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
       console.log("error");
-
       dispatch({
         type: SET_ERROR,
         payload:
