@@ -291,7 +291,7 @@ export default function Profile() {
               );
             }}
           </Formik>
-        </Card>{" "}
+        </Card>
       </Dialog>
       <Dialog
         open={openPasswordDialog}

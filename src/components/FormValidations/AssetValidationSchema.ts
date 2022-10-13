@@ -55,8 +55,21 @@ export const AssetValidationSchema = Yup.object().shape({
     then: Yup.date().required('Rent start date required')
   }),
 
-  rentEndDate: Yup.date().when('isRented', {
-    is: true,
-    then: Yup.date().required('Rent end date is required')
-  })
+  rentEndDate: Yup.date()
+    .when('isRented', {
+      is: (isRented: boolean) => {
+        return !!isRented
+      },
+      then: Yup.date().required('Rent end date is required'),
+      otherwise: Yup.date().nullable()
+    })
+    .test(
+      'biggerThanStart',
+      'End date should be after start date',
+      (value: any, schema: any) => {
+        // console.log(value?.getTime() < schema.parent.rentStartDate?.getTime())
+
+        return value?.getTime() > schema.parent.rentStartDate?.getTime()
+      }
+    )
 })

@@ -41,6 +41,7 @@ const AddEmployee = () => {
   const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addEmployee(values));
     resetForm({ values: "" });
+
   };
 
   useEffect(() => {
