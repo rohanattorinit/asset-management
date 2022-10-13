@@ -246,7 +246,7 @@ export default function EmployeeDetails() {
                       <TableCell align="right">{asset?.modelno}</TableCell>
                       <TableCell align="right">{asset?.category}</TableCell>
                       <TableCell align="right">
-                        {asset?.allocationTime?.slice(0,10)}
+                        {asset?.allocationTime?.slice(0, 10)}
                       </TableCell>
                       <TableCell align="right">
                         <IconButton>
