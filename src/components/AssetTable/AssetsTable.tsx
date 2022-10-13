@@ -15,6 +15,7 @@ import { Stack } from "@mui/system";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
+import Loader from "../Loader/Loader";
 import { LOADING } from "../../redux/types";
 
 const AssetsTable = () => {

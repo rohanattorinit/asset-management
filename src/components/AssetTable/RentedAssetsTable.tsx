@@ -3,6 +3,7 @@ import {
   IconButton,
   Paper,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
   TableHead,
@@ -10,6 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import Loader from "../../components/Loader/Loader";
+
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
@@ -19,7 +22,7 @@ function RentedAssetsTable() {
   const setAssetDetails = (assetId: number) => {
     navigate(`/admin/assets/${assetId}`);
   };
-  const { assets } = useSelector((state: RootStore) => state.admin);
+  const { assets, loading } = useSelector((state: RootStore) => state.admin);
 
   return (
     <>

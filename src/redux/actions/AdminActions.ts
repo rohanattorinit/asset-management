@@ -69,6 +69,7 @@ export const getAssets =
   (assetParams: GetAssetParams = {}) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
+
     try {
       const { name, allocate, assetType, isRented } = assetParams;
 
@@ -294,7 +295,6 @@ export const changeTicketStatus =
       const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
         status,
       });
-      alert((res as any).data.message);
       dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -314,7 +314,6 @@ export const addNote =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post(`/api/tickets/note/${ticketId}`, { note });
-      alert((res as any).data.message);
       dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({

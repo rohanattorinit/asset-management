@@ -288,6 +288,7 @@ const AddAsset = () => {
                                 component={TextField}
                                 InputLabelProps={{ shrink: true }}
                                 onChange={handleChange}
+                                onKeyDown={(e: any) => e.preventDefault()}
                               />
                             </Grid>
 
@@ -302,6 +303,7 @@ const AddAsset = () => {
                                 component={TextField}
                                 InputLabelProps={{ shrink: true }}
                                 onChange={handleChange}
+                                onKeyDown={(e: any) => e.preventDefault()}
                               />
                             </Grid>
                           </>

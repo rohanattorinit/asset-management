@@ -1,10 +1,10 @@
 import {
   Button,
   Checkbox,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Paper,
   Table,
   TableBody,
@@ -31,13 +31,12 @@ const AllocateAsset = ({
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
 
   const dispatch: Dispatch<any> = useDispatch();
-  const { employeeDetails, assets } = useSelector(
+  const { employeeDetails, assets, loading } = useSelector(
     (state: RootStore) => state.admin
   );
 
   // Debounce callback
   const debounced = useDebouncedCallback(
-    // function
     (value) => {
       setSearch(value);
     },
@@ -73,14 +72,27 @@ const AllocateAsset = ({
       {/* Allocate an Asset */}
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
-          <DialogTitle>Allocate Asset</DialogTitle>
           <DialogContent>
+            <Typography
+              variant="h6"
+              sx={{ margin: "10px", fontWeight: "bold" }}
+            >
+              Allocate Asset
+            </Typography>
             <TextField
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
+
+            {/* if length and loading show loader
+                if not length no asset fouund
+                
+            */}
+
             <TableContainer component={Paper}>
-              {assets.length ? (
+              {loading ? (
+                <CircularProgress />
+              ) : assets?.length ? (
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -122,13 +134,18 @@ const AllocateAsset = ({
               ) : (
                 <Typography textAlign={"center"}>No Assets found!</Typography>
               )}
+
+              <DialogActions>
+                <Button
+                  disabled={assetIdCheck?.length ? false : true}
+                  type="submit"
+                  variant="contained"
+                >
+                  Allocate
+                </Button>
+              </DialogActions>
             </TableContainer>
           </DialogContent>
-          <DialogActions>
-            <Button type="submit" variant="contained">
-              Allocate
-            </Button>
-          </DialogActions>
         </form>
       </Dialog>
     </>

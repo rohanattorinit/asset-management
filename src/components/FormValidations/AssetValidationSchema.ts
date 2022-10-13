@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const re = /^[A-Z/a-z/ \b]+$/
+const date = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/
 
 export const AssetValidationSchema = Yup.object().shape({
   brandName: Yup.string()
@@ -23,16 +24,23 @@ export const AssetValidationSchema = Yup.object().shape({
     .matches(re, 'Description can have letters only!')
     .required('Description Required'),
 
-  vendor: Yup.string().matches(re, 'Vendor can have letters only'),
-  rent: Yup.string().matches(numericRegEx, 'Rent can have numbers only!'),
-  deposit: Yup.string().matches(numericRegEx, 'Rent can have numbers only!'),
+  vendor: Yup.string()
+    .matches(re, 'Vendor can have letters only')
+    .required('Vendor Required'),
+  rent: Yup.string()
+    .matches(numericRegEx, 'Rent can have numbers only!')
+    .required('Rent Required'),
+  deposit: Yup.string()
+    .matches(numericRegEx, 'Rent can have numbers only!')
+    .required('Deposit Required'),
   asset_location: Yup.string()
     .matches(re, 'Location can have letters only')
     .required('Location Required'),
 
-  rentStartDate: Yup.date(),
-  rentEndDate: Yup.date().min(
-    Yup.ref('rentStartDate'),
-    "End date can't be before Start date"
-  )
+  rentStartDate: Yup.date().required('Rent start date required'),
+
+  rentEndDate: Yup.date()
+
+    .required('Rent start date required')
+    .min(Yup.ref('rentStartDate'), "End date can't be before Start date")
 })

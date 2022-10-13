@@ -26,6 +26,7 @@ import {
 import BuildIcon from "@mui/icons-material/Build";
 import { useNavigate } from "react-router-dom";
 import Toast from "../../components/ErrorHandling/Toast";
+import Loader from "../../components/Loader/Loader";
 
 export default function Asset() {
   const [open, setOpen] = useState(false);
@@ -47,7 +48,7 @@ export default function Asset() {
     login: {
       user: { empId },
     },
-    employee: { assets },
+    employee: { assets, loading },
   } = useSelector((state: RootStore) => state);
   const navigate = useNavigate();
 
@@ -103,50 +104,66 @@ export default function Asset() {
         </Box>
 
         <Box sx={{ overflowX: "auto" }}>
-          <TableContainer sx={{ width: "auto" }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ fontWeight: "bold" }}>Asset ID</TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Name
-                  </TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Model
-                  </TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Type of Asset
-                  </TableCell>
-                  <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                    Date of Allocation
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {assets?.map((asset) => (
-                  <TableRow
-                    key={asset?.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {asset?.assetId}
-                    </TableCell>
-                    <TableCell align="right">{asset?.name}</TableCell>
-                    <TableCell align="right">{asset?.modelno}</TableCell>
-                    <TableCell align="right">{asset?.category}</TableCell>
-                    <TableCell align="right">{asset?.allocationTime}</TableCell>
-                    <TableCell align="right">
-                      <Tooltip title="Create Ticket">
-                        <IconButton onClick={() => handleClick(asset?.assetId)}>
-                          <BuildIcon sx={{ cursor: "pointer" }} />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          {loading ? (
+            <Loader />
+          ) : (
+            <TableContainer sx={{ width: "auto" }}>
+              {assets?.length ? (
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: "bold" }}>
+                        Asset ID
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Name
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Model
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Type of Asset
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Date of Allocation
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {assets?.map((asset) => (
+                      <TableRow
+                        key={asset?.name}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {asset?.assetId}
+                        </TableCell>
+                        <TableCell align="right">{asset?.name}</TableCell>
+                        <TableCell align="right">{asset?.modelno}</TableCell>
+                        <TableCell align="right">{asset?.category}</TableCell>
+                        <TableCell align="right">
+                          {asset?.allocationTime}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Tooltip title="Create Ticket">
+                            <IconButton
+                              onClick={() => handleClick(asset?.assetId)}
+                            >
+                              <BuildIcon sx={{ cursor: "pointer" }} />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Typography textAlign={"center"}>No Assets found!</Typography>
+              )}
+            </TableContainer>
+          )}
         </Box>
       </Grid>
 

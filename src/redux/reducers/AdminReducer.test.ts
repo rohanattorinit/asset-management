@@ -45,7 +45,7 @@ export const test = describe("Reducer test", () => {
         data: [
           {
             assetId: 45,
-            brandId: 67,
+            brandName: "67",
             name: "Lenthink",
             assetType: "Hardware",
             category: "Laptop",
