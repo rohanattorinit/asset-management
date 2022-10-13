@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 export const AssetCsv = () => {
   const [file, setFile] = useState<Blob | string>();
   const navigate = useNavigate();
-
+  const BASE_URL = process.env.REACT_APP_BASE_API;
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -18,7 +18,7 @@ export const AssetCsv = () => {
       const auth_token = Cookies.get("auth_token");
       await axios({
         method: "post",
-        url: "http://localhost:4000/api/assets/create-bulk",
+        url: `${BASE_URL}/api/assets/create-bulk`,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
