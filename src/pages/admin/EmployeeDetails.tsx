@@ -99,62 +99,59 @@ export default function EmployeeDetails() {
       <Toast />
 
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h5">Employee Details</Typography>
-          <Box display="flex">
-            <Button variant="outlined" onClick={() => setEmpOpen(true)}>
-              Edit
-            </Button>
+        <Paper sx={{ marginY: 3 }} elevation={5}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              margin: "10px",
+            }}
+          >
+            <Typography m={2} variant="h5">
+              Employee Details
+            </Typography>
+            <Box m={2} display="flex">
+              <Button variant="outlined" onClick={() => setEmpOpen(true)}>
+                Edit
+              </Button>
+            </Box>
           </Box>
-        </Box>
-
-        <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={5}>
-          {loading && !open ? (
-            <Loader />
-          ) : (
-            <Grid container m={2}>
-              <Grid item xs={12} md={4}>
+          <Grid display="flex" padding={1} container m={2}>
+            <Grid item xs={12} md={4}>
+              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                Employee ID:
+                <Typography variant="body1">
+                  {employeeDetails?.empId}
+                </Typography>
+              </Typography>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+              >
+                Name:
                 <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
+                  sx={{ textTransform: "capitalize" }}
+                  variant="body1"
                 >
-                  {" "}
-                  Employee ID:
-                  <Typography variant="body1">
-                    {employeeDetails?.empId}
-                  </Typography>
+                  {employeeDetails?.name}
                 </Typography>
-                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  Name:
-                  <Typography
-                    sx={{ textTransform: "capitalize" }}
-                    variant="body1"
-                  >
-                    {employeeDetails?.name}
-                  </Typography>
-                </Typography>
+              </Typography>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+              >
+                Job Title:
                 <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
                 >
-                  Job Title:
-                  <Typography
-                    variant="body1"
-                    sx={{ textTransform: "capitalize" }}
-                  >
-                    {employeeDetails?.jobTitle}
-                  </Typography>
+                  {employeeDetails?.jobTitle}
                 </Typography>
+              </Typography>
 
                 <Typography
                   fontFamily="serif"
@@ -198,6 +195,7 @@ export default function EmployeeDetails() {
             </Grid>
           )}
         </Paper>
+
         <Paper sx={{ marginY: 3 }} elevation={5}>
           <Box
             sx={{
