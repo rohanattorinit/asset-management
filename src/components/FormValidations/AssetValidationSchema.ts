@@ -65,5 +65,5 @@ export const AssetValidationSchema = Yup.object().shape({
       then: Yup.date().required('Rent end date is required'),
       otherwise: Yup.date().nullable()
     })
-    
+
 })
