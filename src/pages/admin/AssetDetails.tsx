@@ -10,15 +10,39 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { Dispatch } from "redux";
 import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
+import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
+import { RootStore } from "../../redux/store";
 
-function AssetDetails() {
+const AssetDetails=()=> {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
+  const location = useLocation();
+  console.log(location);
+  const id = location.pathname.split("/")[3];
+  console.log(id);
+
+  const dispatch: Dispatch<any> = useDispatch();
+  const { singleAssetDetails, loading } = useSelector(
+    (state: RootStore) => state.admin
+  );
+  console.log(singleAssetDetails)
+  const state = useSelector((state: RootStore) => state);
+  console.log(state);
+
+  useEffect(() => {
+    dispatch(getSingleAssetDetails(id));
+  }, [dispatch]);
+
   return (
     <>
+      
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
         <Toast />
@@ -39,10 +63,9 @@ function AssetDetails() {
           </Box>
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
             <Grid container m={2}>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={6}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  {" "}
-                  Asset ID :
+                  Asset ID : <Typography>{singleAssetDetails?.assetId}</Typography>
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -50,7 +73,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Asset Name:
+                  Asset Name: <Typography>{singleAssetDetails?.name}</Typography>
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -58,16 +81,8 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Model No:
-                </Typography>
-
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Usability :
+                   Description : <Typography>{singleAssetDetails?.description}</Typography>
+                  
                 </Typography>
 
                 <Typography
@@ -76,36 +91,128 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Status :
+                  Usability: <Typography>{singleAssetDetails?.usability}</Typography>
+                </Typography>
+
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Status: <Typography>{singleAssetDetails?.status}</Typography>
                 </Typography>
               </Grid>
 
+              <Grid item xs={12} md={6}>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
+                >
+                 Model No: <Typography>{singleAssetDetails?.modelNo}</Typography>
+                </Typography>
+
+                {singleAssetDetails?.isRented? (<><Grid item xs={12} md={8}>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
+                >
+                  Vendor : <Typography>{singleAssetDetails?.vendor}</Typography>
+                </Typography>
+                
+              </Grid>
+              
               <Grid item xs={12} md={8}>
                 <Typography
                   fontFamily="serif"
                   fontWeight="bold"
                   variant="h6"
                   mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
                 >
-                  Description :
+                  rent : <Typography>{singleAssetDetails?.rent}</Typography>
                 </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Emp Id :
-                </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Emp Name :
-                </Typography>
+
+
+                
+                
               </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
+                >
+                  Deposit : <Typography>{singleAssetDetails?.deposit}</Typography>
+                </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={8}>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
+                >
+                  Rent Start From : <Typography>{singleAssetDetails?.rent}</Typography>
+                </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={8}>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
+                >
+                  Rent End Date : <Typography>{singleAssetDetails?.rent}</Typography>
+                </Typography>
+                </Grid>
+
+
+</>):(<> </>)}
+                
+              </Grid>
+
+                  
+              
+
+              
+
             </Grid>
           </Paper>
         </Grid>

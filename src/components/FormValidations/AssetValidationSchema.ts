@@ -31,28 +31,30 @@ export const AssetValidationSchema = Yup.object().shape({
     .matches(re, 'Vendor can have letters only')
     .when('isRented', {
       is: true,
-      then: Yup.string().required('Vendor Required')
-      //otherwise: Yup.string(),
+      then: Yup.string().required('Vendor Required'),
+      otherwise: Yup.string(),
     }),
 
   rent: Yup.string()
     .matches(maxMin, 'Enter valid rent amount!')
     .when('isRented', {
       is: true,
-      then: Yup.string().required('Rent Required')
-      //otherwise: Yup.string(),
+      then: Yup.string().required('Rent Required'),
+      otherwise: Yup.string(),
     }),
 
   deposit: Yup.string()
     .matches(maxMin, 'Enter valid deposit amount!')
     .when('isRented', {
       is: true,
-      then: Yup.string().required('Deposit Required')
+      then: Yup.string().required('Deposit Required'),
+      otherwise: Yup.string(),
     }),
 
   rentStartDate: Yup.date().when('isRented', {
     is: true,
-    then: Yup.date().required('Rent start date required')
+    then: Yup.date().required('Rent start date required'),
+    otherwise: Yup.date().nullable(),
   }),
 
   rentEndDate: Yup.date()
@@ -63,5 +65,5 @@ export const AssetValidationSchema = Yup.object().shape({
       then: Yup.date().required('Rent end date is required'),
       otherwise: Yup.date().nullable()
     })
-   
+
 })
