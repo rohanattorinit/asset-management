@@ -1,4 +1,9 @@
-import { SET_ADD_NOTE, SET_TICKET_STATUS } from "./../types";
+import {
+  SET_ADD_NOTE,
+  SET_SINGLE_ASSET_DETAILS,
+  SET_TICKET_STATUS,
+  SingleAssetDetailsType,
+} from "./../types";
 import {
   AllocatedAssetType,
   ALLOCATE_EMPLOYEE_ASSET,
@@ -24,6 +29,7 @@ interface InitialState {
   employees: EmployeeType[];
   assets: AssetTypes[];
   employeeDetails: EmployeeType;
+  singleAssetDetails: SingleAssetDetailsType;
   employeeassetsdetails: AllocatedAssetType[];
   serviceDetails: ServiceType[];
   serviceticketdetails: ServiceType;
@@ -45,6 +51,20 @@ const initialState: InitialState = {
     location: "",
     isAdmin: false,
     jobTitle: "",
+  },
+  singleAssetDetails: {
+    assetId: 0,
+    name: "",
+    modelNo: 0,
+    description: "",
+    status: "",
+    usability: "",
+    isRented: 0,
+    vendor: "",
+    rent: 0,
+    deposit: 0,
+    rentStartDate: "",
+    rentEndDate: "",
   },
   employeeassetsdetails: [],
   serviceDetails: [],
@@ -115,6 +135,12 @@ const adminReducer = (
       return {
         ...state,
         serviceticketdetails: action.payload?.data,
+        loading: false,
+      };
+    case SET_SINGLE_ASSET_DETAILS:
+      return {
+        ...state,
+        singleAssetDetails: action.payload?.data,
         loading: false,
       };
 

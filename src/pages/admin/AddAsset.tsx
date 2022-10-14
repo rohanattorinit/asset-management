@@ -44,7 +44,7 @@ const AddAsset = () => {
   const { message } = useSelector((state: RootStore) => state.admin);
   const navigate = useNavigate();
 
-  const onSubmit = (values: any, { resetForm }: any) => {
+  const onSubmit = (values: any,{resetForm}:any) => {
     dispatch(addAsset(values));
     //console.log(values);
     resetForm({ values: "" });
@@ -125,8 +125,8 @@ const AddAsset = () => {
                               required
                             >
                               {assetTypeOptions.map((item) => (
-                                <MenuItem key={item.value} value={item.value}>
-                                  {item.label}
+                                <MenuItem key={item?.value} value={item?.value}>
+                                  {item?.label}
                                 </MenuItem>
                               ))}
                             </Select>
@@ -139,7 +139,7 @@ const AddAsset = () => {
                             variant="outlined"
                             fullWidth
                             name="assetName"
-                            value={values.assetName}
+                            value={values?.assetName}
                             component={TextField}
                           />
                         </Grid>
@@ -150,7 +150,7 @@ const AddAsset = () => {
                             variant="outlined"
                             fullWidth
                             name="category"
-                            value={values.category}
+                            value={values?.category}
                             component={TextField}
                           />
                         </Grid>
@@ -161,7 +161,7 @@ const AddAsset = () => {
                             variant="outlined"
                             fullWidth
                             name="modelNo"
-                            value={values.modelNo}
+                            value={values?.modelNo}
                             component={TextField}
                           />
                         </Grid>
@@ -172,7 +172,7 @@ const AddAsset = () => {
                             variant="outlined"
                             fullWidth
                             name="description"
-                            value={values.description}
+                            value={values?.description}
                             component={TextField}
                           />
                         </Grid>
@@ -182,7 +182,7 @@ const AddAsset = () => {
                             variant="outlined"
                             fullWidth
                             name="asset_location"
-                            value={values.asset_location}
+                            value={values?.asset_location}
                             component={TextField}
                           />
                         </Grid>
@@ -195,14 +195,14 @@ const AddAsset = () => {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               label="Status"
-                              value={values.status}
+                              value={values?.status}
                               onChange={handleChange}
                               name="status"
                               required
                             >
                               {statusOptions.map((item) => (
-                                <MenuItem key={item.value} value={item.value}>
-                                  {item.label}
+                                <MenuItem key={item?.value} value={item?.value}>
+                                  {item?.label}
                                 </MenuItem>
                               ))}
                             </Select>
@@ -218,16 +218,15 @@ const AddAsset = () => {
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              label="Usability
-                    "
-                              value={values.usability}
+                              label="Usability"
+                              value={values?.usability}
                               onChange={handleChange}
                               name="usability"
                               required
                             >
-                              {usabilityOptions.map((item) => (
-                                <MenuItem key={item.value} value={item.value}>
-                                  {item.label}
+                              {usabilityOptions?.map((item) => (
+                                <MenuItem key={item?.value} value={item?.value}>
+                                  {item?.label}
                                 </MenuItem>
                               ))}
                             </Select>
@@ -247,15 +246,17 @@ const AddAsset = () => {
                           </FormControl>
                         </Grid>
 
-                        {values.isRented ? (
+                        {values?.isRented ? (
+                          
                           <>
+            
                             <Grid item xs={12} sm={6} md={6}>
                               <Field
                                 label="Vendor"
                                 variant="outlined"
                                 fullWidth
                                 name="vendor"
-                                value={values.vendor}
+                                value={values?.vendor}
                                 component={TextField}
                               />
                             </Grid>
@@ -266,7 +267,7 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="rent"
-                                value={values.rent}
+                                value={values?.rent}
                                 component={TextField}
                               />
                             </Grid>
@@ -277,7 +278,7 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="deposit"
-                                value={values.deposit}
+                                value={values?.deposit}
                                 component={TextField}
                               />
                             </Grid>
@@ -289,7 +290,7 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="rentStartDate"
-                                value={values.rentStartDate}
+                                value={values?.rentStartDate}
                                 component={TextField}
                                 InputLabelProps={{ shrink: true }}
                                 onChange={handleChange}
@@ -304,7 +305,7 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="rentEndDate"
-                                value={values.rentEndDate}
+                                value={values?.rentEndDate}
                                 component={TextField}
                                 InputLabelProps={{ shrink: true }}
                                 onChange={handleChange}

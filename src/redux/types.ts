@@ -1,3 +1,5 @@
+import { TypeOf } from "yup";
+
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
@@ -11,6 +13,7 @@ export const SET_LOGOUT = "SET_LOGOUT";
 export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
 export const SET_ADDASSET = "SET_ADDASSET";
 export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
+export const SET_SINGLE_ASSET_DETAILS = "SET_SINGLE_ASSET_DETAILS";
 export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
 export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
 export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
@@ -85,6 +88,21 @@ export interface ServiceType {
   createdAt: string;
 }
 
+export interface SingleAssetDetailsType {
+  assetId: number;
+  name: string;
+  modelNo: number;
+  description: string;
+  status: string;
+  usability: string;
+  isRented: 0|1;
+  vendor: string;
+  rent: number;
+  deposit: number;
+  rentStartDate: string;
+  rentEndDate: string;
+}
+
 export interface EmployeeAssetType {
   assetId: number;
   name: string;
@@ -94,23 +112,23 @@ export interface EmployeeAssetType {
 }
 
 export interface AssetTypes {
-  assetId: number
-  brandName: string
-  name: string
-  assetType: string
-  category: string
-  modelNo: number
-  description: string
-  status: string
-  usability: string
-  addedTime: string
-  isRented?: boolean
-  vendor?: string
-  rent?: number
-  deposit?: number
-  rentStartDate?: string
-  rentEndDate?: string
-  asset_location: string
+  assetId: number;
+  brandName: string;
+  name: string;
+  assetType: string;
+  category: string;
+  modelNo: number;
+  description: string;
+  status: string;
+  usability: string;
+  addedTime: string;
+  isRented?: boolean;
+  vendor?: string;
+  rent?: number;
+  deposit?: number;
+  rentStartDate?: string;
+  rentEndDate?: string;
+  asset_location: string;
 }
 
 export interface AllocatedAssetType {
@@ -284,6 +302,11 @@ interface SetServiceDetails {
   payload: { message: string; data: ServiceType[] };
 }
 
+interface SetSingleAssetDetails {
+  type: typeof SET_SINGLE_ASSET_DETAILS;
+  payload: { message: string; data: SingleAssetDetailsType };
+}
+
 interface setEmployeeAssetDetails {
   type: typeof SET_EMPLOYEE_ASSETS_DETAILS;
   payload: {
@@ -361,4 +384,5 @@ export type DispatchTypes =
   | SetServiceDetails
   | SetTicketStatus
   | SetAddNote
+  | SetSingleAssetDetails
   | GetAddNote;
