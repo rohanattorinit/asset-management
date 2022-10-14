@@ -394,4 +394,5 @@ export type DispatchTypes =
   | SetTicketStatus
   | SetAddNote
   | SetSingleAssetDetails
+  | UpdateAssetDetails
   | GetAddNote;

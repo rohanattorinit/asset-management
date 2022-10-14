@@ -3,6 +3,7 @@ import {
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
   SingleAssetDetailsType,
+  UPDATE_ASSET_DETAILS,
 } from "./../types";
 import {
   AllocatedAssetType,
@@ -111,6 +112,13 @@ const adminReducer = (
         message: action.payload?.message,
         loading: false,
       };
+
+      case UPDATE_ASSET_DETAILS:
+        return{
+          ...state,
+          loading: false,
+          message: action.payload?.message
+        }
     case SET_ADDASSET:
       return {
         ...state,
