@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import Toast from "../../components/ErrorHandling/Toast";
+import Loader from "../../components/Loader/Loader";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -61,7 +62,11 @@ const AssetDetails=()=> {
               </Button>
             </Box>
           </Box>
+          
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
+          {loading && !open ? (
+            <Loader />
+          ) : (
             <Grid container m={2}>
               <Grid item xs={12} md={6}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -211,6 +216,7 @@ const AssetDetails=()=> {
                   Rent End Date : <Typography>{singleAssetDetails?.rent}</Typography>
                 </Typography>
                 </Grid>
+                
 
 
 </>):(<> </>)}
@@ -223,7 +229,9 @@ const AssetDetails=()=> {
               
 
             </Grid>
+          )}
           </Paper>
+
         </Grid>
       </Grid>
 

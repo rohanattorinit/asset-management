@@ -1,5 +1,6 @@
 import {
   ALLOCATE_EMPLOYEE_ASSET,
+  AssetTypes,
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
   SET_ADDASSET,
@@ -7,6 +8,7 @@ import {
   SET_EMPLOYEE_ASSETS_DETAILS,
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
+  UPDATE_ASSET_DETAILS,
 } from "./../types";
 
 import {
@@ -152,6 +154,28 @@ export const addAsset =
       });
     }
   };
+
+  export const updateAssetDetails = (
+    assetId: number,
+    updateData: AssetTypes
+  ) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA })
+    try {
+      const res = await post(`/api/assets/update/${assetId}`, updateData)
+      console.log(res)
+      alert('Profile Details Updated Successfully!')
+      dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data })
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Updating Asset Information`
+      })
+    }
+  }
 
 export const getEmployeeDetails =
   (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
