@@ -16,7 +16,6 @@ const StlyedGrid = styled(Grid)({
   height: "244px",
   border: "2px solid black",
   backgroundColor: "#e2e8f0",
-  cursor: "pointer",
   margin: "10px",
   borderRadius: "10px",
 });
