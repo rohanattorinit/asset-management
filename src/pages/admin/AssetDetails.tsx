@@ -7,7 +7,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  TableCell,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Formik } from "formik";
@@ -26,22 +25,22 @@ function AssetDetails() {
   const [empOpen, setEmpOpen] = useState(false);
   const location = useLocation();
   console.log(location);
-  const id = Number(location.pathname.split("/")[3]);
+  const id = Number(location.pathname.split("/")[2]);
   console.log(id);
 
   const dispatch: Dispatch<any> = useDispatch();
   const { singleAssetDetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
-  console.log(singleAssetDetails);
+  const state = useSelector((state: RootStore) => state);
+  console.log(state);
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      {console.log(singleAssetDetails)}
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
         <Toast />
@@ -63,15 +62,10 @@ function AssetDetails() {
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
-                {singleAssetDetails && (
-                  <TableCell align="center">
-                    {singleAssetDetails?.assetId}
-                  </TableCell>
-                )}
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  Asset ID : {singleAssetDetails?.assetId}
+                  {" "}
+                  Asset ID :
                 </Typography>
-
                 <Typography
                   fontFamily="serif"
                   fontWeight="bold"
@@ -79,7 +73,14 @@ function AssetDetails() {
                   mt={2}
                 >
                   Asset Name:
-                  <Typography>{singleAssetDetails?.name}</Typography>
+                </Typography>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Model No:
                 </Typography>
 
                 <Typography
@@ -88,7 +89,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Model No:{singleAssetDetails?.modelNo}
+                  Usability :
                 </Typography>
 
                 <Typography
@@ -97,16 +98,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Usability :{singleAssetDetails?.usability}
-                </Typography>
-
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Status :{singleAssetDetails?.status}
+                  Status :
                 </Typography>
               </Grid>
 
@@ -117,7 +109,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Description : {singleAssetDetails?.description}
+                  Description :
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -125,7 +117,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Emp Id :{singleAssetDetails?.empId}
+                  Emp Id :
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -133,7 +125,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Emp Name :{singleAssetDetails?.empName}
+                  Emp Name :
                 </Typography>
               </Grid>
             </Grid>
