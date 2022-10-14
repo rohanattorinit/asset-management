@@ -21,7 +21,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
-function AssetDetails() {
+const AssetDetails=()=> {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
   const location = useLocation();
@@ -33,7 +33,7 @@ function AssetDetails() {
   const { singleAssetDetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
-  console.log(singleAssetDetails);
+  // console.log(singleAssetDetails);
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
@@ -41,7 +41,7 @@ function AssetDetails() {
 
   return (
     <>
-      {console.log(singleAssetDetails)}
+      
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
         <Toast />
@@ -63,13 +63,8 @@ function AssetDetails() {
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
-                {singleAssetDetails && (
-                  <TableCell align="center">
-                    {singleAssetDetails?.assetId}
-                  </TableCell>
-                )}
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  Asset ID : {singleAssetDetails?.assetId}
+                  Asset ID : <Typography>{singleAssetDetails?.assetId}</Typography>
                 </Typography>
 
                 <Typography
@@ -88,7 +83,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Model No:{singleAssetDetails?.modelNo}
+                  Model No: <Typography>{singleAssetDetails?.modelNo}</Typography>
                 </Typography>
 
                 <Typography
@@ -97,7 +92,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Usability :{singleAssetDetails?.usability}
+                  Usability: <Typography>{singleAssetDetails?.usability}</Typography>
                 </Typography>
 
                 <Typography
@@ -106,7 +101,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Status :{singleAssetDetails?.status}
+                  Status: <Typography>{singleAssetDetails?.status}</Typography>
                 </Typography>
               </Grid>
 
@@ -116,25 +111,15 @@ function AssetDetails() {
                   fontWeight="bold"
                   variant="h6"
                   mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
                 >
                   Description : {singleAssetDetails?.description}
                 </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Emp Id :{singleAssetDetails?.empId}
-                </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Emp Name :{singleAssetDetails?.empName}
-                </Typography>
+                
               </Grid>
             </Grid>
           </Paper>
