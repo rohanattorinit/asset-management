@@ -25,7 +25,7 @@ function AssetDetails() {
   const [empOpen, setEmpOpen] = useState(false);
   const location = useLocation();
   console.log(location);
-  const id = Number(location.pathname.split("/")[2]);
+  const id = location.pathname.split("/")[3];
   console.log(id);
 
   const dispatch: Dispatch<any> = useDispatch();

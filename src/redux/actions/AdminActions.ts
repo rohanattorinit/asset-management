@@ -233,10 +233,12 @@ export const getServiceTicketDetails =
   };
 
 export const getSingleAssetDetails =
-  (assetId: number) => async (dispatch: Dispatch<DispatchTypes>) => {
+  (assetId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
+      console.log(`/api/assets/${assetId}`)
       const res = await get(`/api/assets/${assetId}`);
+      console.log("function called")
       dispatch({
         type: SET_SINGLE_ASSET_DETAILS,
         payload: (res as any)?.data,
