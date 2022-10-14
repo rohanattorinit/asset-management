@@ -100,6 +100,15 @@ const AssetDetails=()=> {
                   variant="h6"
                   mt={2}
                 >
+                  Brand Name: <Typography>{singleAssetDetails?.brandName}</Typography>
+                </Typography>
+
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
                   Status: <Typography>{singleAssetDetails?.status}</Typography>
                 </Typography>
               </Grid>

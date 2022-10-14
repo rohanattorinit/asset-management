@@ -54,6 +54,7 @@ const initialState: InitialState = {
   },
   singleAssetDetails: {
     assetId: 0,
+    brandName: "",
     name: "",
     modelNo: 0,
     description: "",

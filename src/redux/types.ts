@@ -1,4 +1,4 @@
-import { TypeOf } from "yup";
+
 
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_EMPLOYEES = "SET_EMPLOYEES";
@@ -8,6 +8,7 @@ export const LOADING = "LOADING";
 export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
 export const SET_ASSETS = "SET_ASSETS";
 export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
+export const UPDATE_ASSET_DETAILS = "UPDATE_ASSET_DETAILS"
 export const SET_EMPLOYEE = "SET_EMPLOYEE";
 export const SET_LOGOUT = "SET_LOGOUT";
 export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
@@ -90,6 +91,7 @@ export interface ServiceType {
 
 export interface SingleAssetDetailsType {
   assetId: number;
+  brandName: string;
   name: string;
   modelNo: number;
   description: string;
@@ -224,6 +226,13 @@ interface SetAssets {
 
 interface UpdateEmployeeDetails {
   type: typeof UPDATE_EMPLOYEE_DETAILS;
+  payload: {
+    message: string;
+  };
+}
+
+interface UpdateAssetDetails {
+  type: typeof UPDATE_ASSET_DETAILS;
   payload: {
     message: string;
   };
