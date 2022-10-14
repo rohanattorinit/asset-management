@@ -132,6 +132,7 @@ export const addEmployee =
     }
   };
 
+
 export const addAsset =
   (assetDetails: CreateAssetType) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
@@ -154,6 +155,7 @@ export const addAsset =
       });
     }
   };
+
 
   export const updateAssetDetails = (
     assetId: number,
@@ -216,6 +218,7 @@ export const getAssetDetails =
     }
   };
 
+
 export const getServiceDetails =
   () => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
@@ -239,7 +242,6 @@ export const getServiceTicketDetails =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/tickets/${ticketId}`);
-
       dispatch({
         type: SET_SERVICE_TICKET_DETAILS,
         payload: (res as any)?.data,
