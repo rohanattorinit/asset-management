@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import Toast from "../../components/ErrorHandling/Toast";
+import Loader from "../../components/Loader/Loader";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -66,169 +67,175 @@ const AssetDetails = () => {
               </Button>
             </Box>
           </Box>
+
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
-            <Grid container m={2}>
-              <Grid item xs={12} md={6}>
-                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  Asset ID :{" "}
-                  <Typography>{singleAssetDetails?.assetId}</Typography>
-                </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Asset Name:{" "}
-                  <Typography>{singleAssetDetails?.name}</Typography>
-                </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Description :{" "}
-                  <Typography>{singleAssetDetails?.description}</Typography>
-                </Typography>
+            {loading && !open ? (
+              <Loader />
+            ) : (
+              <Grid container m={2}>
+                <Grid item xs={12} md={6}>
+                  <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                    Asset ID :{" "}
+                    <Typography>{singleAssetDetails?.assetId}</Typography>
+                  </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Asset Name:{" "}
+                    <Typography>{singleAssetDetails?.name}</Typography>
+                  </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Description :{" "}
+                    <Typography>{singleAssetDetails?.description}</Typography>
+                  </Typography>
 
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Usability:{" "}
-                  <Typography>{singleAssetDetails?.usability}</Typography>
-                </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Usability:{" "}
+                    <Typography>{singleAssetDetails?.usability}</Typography>
+                  </Typography>
 
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Brand Name:{" "}
-                  <Typography>{singleAssetDetails?.brandName}</Typography>
-                </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Brand Name:{" "}
+                    <Typography>{singleAssetDetails?.brandName}</Typography>
+                  </Typography>
 
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Status: <Typography>{singleAssetDetails?.status}</Typography>
-                </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Status:{" "}
+                    <Typography>{singleAssetDetails?.status}</Typography>
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                    sx={{
+                      textTransform: "capitalize",
+                      wordWrap: "break-word",
+                      width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                    }}
+                  >
+                    Model No:{" "}
+                    <Typography>{singleAssetDetails?.modelNo}</Typography>
+                  </Typography>
+
+                  {singleAssetDetails?.isRented ? (
+                    <>
+                      <Grid item xs={12} md={8}>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Vendor :{" "}
+                          <Typography>{singleAssetDetails?.vendor}</Typography>
+                        </Typography>
+                      </Grid>
+
+                      <Grid item xs={12} md={8}>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          rent :{" "}
+                          <Typography>{singleAssetDetails?.rent}</Typography>
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} md={8}>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Deposit :{" "}
+                          <Typography>{singleAssetDetails?.deposit}</Typography>
+                        </Typography>
+                      </Grid>
+
+                      <Grid item xs={12} md={8}>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Rent Start From :{" "}
+                          <Typography>{singleAssetDetails?.rent}</Typography>
+                        </Typography>
+                      </Grid>
+
+                      <Grid item xs={12} md={8}>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Rent End Date :{" "}
+                          <Typography>{singleAssetDetails?.rent}</Typography>
+                        </Typography>
+                      </Grid>
+                    </>
+                  ) : (
+                    <> </>
+                  )}
+                </Grid>
               </Grid>
-
-              <Grid item xs={12} md={6}>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                  sx={{
-                    textTransform: "capitalize",
-                    wordWrap: "break-word",
-                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                  }}
-                >
-                  Model No:{" "}
-                  <Typography>{singleAssetDetails?.modelNo}</Typography>
-                </Typography>
-
-                {singleAssetDetails?.isRented ? (
-                  <>
-                    <Grid item xs={12} md={8}>
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                        }}
-                      >
-                        Vendor :{" "}
-                        <Typography>{singleAssetDetails?.vendor}</Typography>
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xs={12} md={8}>
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                        }}
-                      >
-                        rent :{" "}
-                        <Typography>{singleAssetDetails?.rent}</Typography>
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} md={8}>
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                        }}
-                      >
-                        Deposit :{" "}
-                        <Typography>{singleAssetDetails?.deposit}</Typography>
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xs={12} md={8}>
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                        }}
-                      >
-                        Rent Start From :{" "}
-                        <Typography>{singleAssetDetails?.rent}</Typography>
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xs={12} md={8}>
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                        }}
-                      >
-                        Rent End Date :{" "}
-                        <Typography>{singleAssetDetails?.rent}</Typography>
-                      </Typography>
-                    </Grid>
-                  </>
-                ) : (
-                  <> </>
-                )}
-              </Grid>
-            </Grid>
+            )}
           </Paper>
         </Grid>
       </Grid>
