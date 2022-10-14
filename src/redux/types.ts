@@ -95,8 +95,12 @@ export interface SingleAssetDetailsType {
   description: string;
   status: string;
   usability: string;
-  empId: string;
-  empName: string;
+  isRented: 0|1;
+  vendor: string;
+  rent: number;
+  deposit: number;
+  rentStartDate: string;
+  rentEndDate: string;
 }
 
 export interface EmployeeAssetType {
