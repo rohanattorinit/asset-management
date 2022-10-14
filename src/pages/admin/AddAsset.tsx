@@ -46,6 +46,7 @@ const AddAsset = () => {
 
   const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addAsset(values));
+    //console.log(values);
     resetForm({ values: "" });
   };
   useEffect(() => {

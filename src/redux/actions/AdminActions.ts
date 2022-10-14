@@ -130,13 +130,11 @@ export const addEmployee = (employeeDetails: CreateEmployeeType) => async (
   }
 }
 
-
 export const addAsset = (assetDetails: CreateAssetType) => async (
   dispatch: Dispatch<DispatchTypes>
 ) => {
   dispatch({ type: LOADING_DATA })
   try {
-
     const res = await post('/api/assets/addAsset', assetDetails)
 
     alert((res as any).data.message)
@@ -154,7 +152,6 @@ export const addAsset = (assetDetails: CreateAssetType) => async (
     })
   }
 }
-
 
 export const getEmployeeDetails = (empId: string) => async (
   dispatch: Dispatch<DispatchTypes>
