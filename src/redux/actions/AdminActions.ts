@@ -137,7 +137,7 @@ export const addAsset =
     try {
       const res = await post("/api/assets/addAsset", assetDetails);
 
-      alert((res as any).data.message);
+      alert((res as any)?.data?.message);
       dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
       console.log("error");

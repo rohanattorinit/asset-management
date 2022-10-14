@@ -20,7 +20,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
-function AssetDetails() {
+const AssetDetails=()=> {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
   const location = useLocation();
@@ -41,6 +41,7 @@ function AssetDetails() {
 
   return (
     <>
+      
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
         <Toast />
@@ -63,8 +64,7 @@ function AssetDetails() {
             <Grid container m={2}>
               <Grid item xs={12} md={4}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  {" "}
-                  Asset ID :
+                  Asset ID : <Typography>{singleAssetDetails?.assetId}</Typography>
                 </Typography>
                 <Typography
                   fontFamily="serif"
@@ -80,7 +80,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Model No:
+                  Model No: <Typography>{singleAssetDetails?.modelNo}</Typography>
                 </Typography>
 
                 <Typography
@@ -89,7 +89,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Usability :
+                  Usability: <Typography>{singleAssetDetails?.usability}</Typography>
                 </Typography>
 
                 <Typography
@@ -98,7 +98,7 @@ function AssetDetails() {
                   variant="h6"
                   mt={2}
                 >
-                  Status :
+                  Status: <Typography>{singleAssetDetails?.status}</Typography>
                 </Typography>
               </Grid>
 
@@ -108,25 +108,15 @@ function AssetDetails() {
                   fontWeight="bold"
                   variant="h6"
                   mt={2}
+                  sx={{
+                    textTransform: "capitalize",
+                    wordWrap: "break-word",
+                    width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                  }}
                 >
                   Description :
                 </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Emp Id :
-                </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Emp Name :
-                </Typography>
+                
               </Grid>
             </Grid>
           </Paper>
