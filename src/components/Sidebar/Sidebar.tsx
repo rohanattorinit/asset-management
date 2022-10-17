@@ -77,7 +77,7 @@ export default function SideBar() {
               </ListItemButton>
 
               <ListItemButton onClick={handleLogout}>
-                <ListItemText>logout</ListItemText>
+                <ListItemText>Logout</ListItemText>
               </ListItemButton>
             </List>
           ) : (
