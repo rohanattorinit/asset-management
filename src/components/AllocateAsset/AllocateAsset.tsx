@@ -84,13 +84,9 @@ const AllocateAsset = ({
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
 
-            {/* if length and loading show loader
-                if not length no asset fouund
-                
-            */}
-
+            
             <TableContainer component={Paper}>
-              {true ? (
+              {loading ? (
                 <CircularProgress />
               ) : assets?.length ? (
                 <Table aria-label="simple table">
