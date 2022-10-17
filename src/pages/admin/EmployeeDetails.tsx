@@ -64,6 +64,7 @@ export default function EmployeeDetails() {
 
   const {
     admin: { employeeDetails, employeeassetsdetails, loading, message },
+    employee:{message:empMessage}
   } = useSelector((state: RootStore) => state);
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -73,7 +74,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
-  }, [dispatch, empId, message]);
+  }, [dispatch, empId, message,empMessage]);
 
   const handleClickOpen = () => {
     dispatch(getAssets({ allocate: true, name: "" }));
