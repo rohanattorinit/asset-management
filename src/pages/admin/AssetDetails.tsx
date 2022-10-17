@@ -303,7 +303,7 @@ const AssetDetails = () => {
                             name="assetId"
                             id="assetId"
                             value={values?.assetId}
-                            // component={TextField}
+                            disabled
                             onChange={handleChange}
                           />
                         </Grid>
@@ -317,8 +317,7 @@ const AssetDetails = () => {
                             onChange={handleChange}
                             value={values?.assetName}
                             required
-                            // component={TextField}
-                            // error={errors?.assetName}
+                           
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
@@ -330,8 +329,7 @@ const AssetDetails = () => {
                             id="description"
                             onChange={handleChange}
                             value={values?.description}
-                            // component={TextField}
-                            // error={errors?.description}
+                           
                           />
                         </Grid>
 
@@ -345,8 +343,8 @@ const AssetDetails = () => {
                             onChange={handleChange}
                             value={values?.asset_location}
                             required
-                            // component={TextField}
-                            // error={errors?.asset_location}
+                          
+                           
                           />
                         </Grid>
 
@@ -359,8 +357,7 @@ const AssetDetails = () => {
                             id="usability"
                             onChange={handleChange}
                             value={values?.usability}
-                            // component={TextField}
-                            // error={errors?.usability}
+                            
                             required
                           />
                         </Grid>
@@ -373,8 +370,7 @@ const AssetDetails = () => {
                             id="brandName"
                             onChange={handleChange}
                             value={values?.brandName}
-                            // component={TextField}
-                            // error={errors?.brandName}
+                           
                             required
                           />
                         </Grid>
@@ -388,8 +384,7 @@ const AssetDetails = () => {
                             onChange={handleChange}
                             value={values?.status}
                             required
-                            // component={TextField}
-                            // error={errors?.status}
+                           
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
@@ -401,8 +396,7 @@ const AssetDetails = () => {
                             id="modelNo"
                             onChange={handleChange}
                             value={values?.modelNo}
-                            // component={TextField}
-                            // error={errors?.modelNo}
+                           
                             required
                           />
                         </Grid>
@@ -417,8 +411,7 @@ const AssetDetails = () => {
                                 id="vendor"
                                 onChange={handleChange}
                                 value={values?.vendor}
-                                // component={TextField}
-                                // error={errors?.vendor}
+                               
                                 required
                               />
                             </Grid>
@@ -432,8 +425,7 @@ const AssetDetails = () => {
                                 onChange={handleChange}
                                 value={values?.rent}
                                 required
-                                // component={TextField}
-                                // error={errors?.rent}
+                               
                               />
                             </Grid>
                             <Grid item xs={12} sm={6} md={6}>
@@ -446,8 +438,7 @@ const AssetDetails = () => {
                                 onChange={handleChange}
                                 value={values?.deposit}
                                 required
-                                // component={TextField}
-                                // error={errors?.deposit}
+                               
                               />
                             </Grid>
 
@@ -462,9 +453,9 @@ const AssetDetails = () => {
                                 id="rentStartDate"
                                 onChange={handleChange}
                                 value={values?.rentStartDate?.slice(0, 10)}
-                                // component={TextField}
+                                
                                 InputLabelProps={{ shrink: true }}
-                                //error={errors?.rentStartDate}
+                               
                               />
                             </Grid>
 
@@ -479,9 +470,9 @@ const AssetDetails = () => {
                                 id="rentEndDate"
                                 onChange={handleChange}
                                 value={values?.rentEndDate?.slice(0, 10)}
-                                //component={TextField}
+                               
                                 InputLabelProps={{ shrink: true }}
-                                // error={errors?.rentEndDate}
+                               
                               />
                             </Grid>
                           </>
