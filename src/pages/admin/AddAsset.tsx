@@ -44,8 +44,9 @@ const AddAsset = () => {
   const { message } = useSelector((state: RootStore) => state.admin);
   const navigate = useNavigate();
 
-  const onSubmit = (values: any,{resetForm}:any) => {
+  const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addAsset(values));
+    //console.log(values);
     resetForm({ values: "" });
   };
   useEffect(() => {
@@ -246,9 +247,7 @@ const AddAsset = () => {
                         </Grid>
 
                         {values?.isRented ? (
-                          
                           <>
-            
                             <Grid item xs={12} sm={6} md={6}>
                               <Field
                                 label="Vendor"
