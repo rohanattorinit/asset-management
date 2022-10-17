@@ -4,6 +4,9 @@ const re = /^[A-Z/a-z/ \b]+$/
 const maxMin = /^[1-9]\d*$/
 
 export const AssetValidationSchema = Yup.object().shape({
+  usability: Yup.string().required('Required'),
+  status: Yup.string().required('Required'),
+
   brandName: Yup.string()
     .matches(re, 'Brand name can have letters only!')
     .required('Brand Name Required'),
@@ -11,6 +14,7 @@ export const AssetValidationSchema = Yup.object().shape({
     .matches(re, 'Asset type can have letters only!')
     .required('Required'),
   assetName: Yup.string().required('Asset Name Required'),
+
   category: Yup.string()
     .matches(re, 'Category can have letters only!')
     .required('Category Required'),
@@ -19,9 +23,7 @@ export const AssetValidationSchema = Yup.object().shape({
     .matches(numericRegEx, 'Invalid model no!')
 
     .required('Required!'),
-  description: Yup.string()
-    .matches(re, 'Description can have letters only!')
-    .required('Description Required'),
+  description: Yup.string().required('Description Required'),
   asset_location: Yup.string()
     .matches(re, 'Location can have letters only')
     .required('Location Required'),
@@ -32,7 +34,7 @@ export const AssetValidationSchema = Yup.object().shape({
     .when('isRented', {
       is: true,
       then: Yup.string().required('Vendor Required'),
-      otherwise: Yup.string(),
+      otherwise: Yup.string()
     }),
 
   rent: Yup.string()
@@ -40,7 +42,7 @@ export const AssetValidationSchema = Yup.object().shape({
     .when('isRented', {
       is: true,
       then: Yup.string().required('Rent Required'),
-      otherwise: Yup.string(),
+      otherwise: Yup.string()
     }),
 
   deposit: Yup.string()
@@ -48,24 +50,20 @@ export const AssetValidationSchema = Yup.object().shape({
     .when('isRented', {
       is: true,
       then: Yup.string().required('Deposit Required'),
-      otherwise: Yup.string(),
+      otherwise: Yup.string()
     }),
 
   rentStartDate: Yup.date().when('isRented', {
     is: true,
     then: Yup.date().required('Rent start date required'),
-    otherwise: Yup.date().nullable(),
+    otherwise: Yup.date().nullable()
   }),
 
-
-  rentEndDate: Yup.date()
-    .when('isRented', {
-      is: (isRented: boolean) => {
-        return !!isRented
-      },
-      then: Yup.date().required('Rent end date is required'),
-      otherwise: Yup.date().nullable()
-    })
-
-
+  rentEndDate: Yup.date().when('isRented', {
+    is: (isRented: boolean) => {
+      return !!isRented
+    },
+    then: Yup.date().required('Rent end date is required'),
+    otherwise: Yup.date().nullable()
+  })
 })
