@@ -29,6 +29,7 @@ import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
+  allocateAssets,
   deallocateAssets,
   getAssetDetails,
   getAssets,
@@ -77,6 +78,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
+   
   }, [message]);
 
   const handleClickOpen = () => {
@@ -97,7 +99,9 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-
+      {loading ? (
+        <Loader />
+      ) : (
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
           <Box
@@ -116,9 +120,9 @@ export default function EmployeeDetails() {
               </Button>
             </Box>
           </Box>
-          {loading && !open ? (
+          {/* {loading && !open ? (
             <Loader />
-          ) : (
+          ) : ( */}
             <Grid display="flex" padding={1} container m={2}>
               <Grid item xs={12} md={4}>
                 <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -196,7 +200,7 @@ export default function EmployeeDetails() {
                 </Typography>
               </Grid>
             </Grid>
-          )}
+          {/* )} */}
         </Paper>
 
         <Paper sx={{ marginY: 3 }} elevation={5}>
@@ -286,6 +290,7 @@ export default function EmployeeDetails() {
           )}
         </Paper>
       </Grid>
+      )}
       <AllocateAsset open={open} setOpen={setOpen} />
       <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
         <Card>
