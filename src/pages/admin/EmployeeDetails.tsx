@@ -97,7 +97,7 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      {loading ? (
+      {true ? (
         <Loader />
       ) : (
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
