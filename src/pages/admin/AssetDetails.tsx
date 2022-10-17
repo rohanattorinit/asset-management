@@ -42,7 +42,7 @@ const AssetDetails = () => {
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
-  }, [dispatch, message]);
+  }, [ message]);
 
   const onSubmit = (values: any) => {
     dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
