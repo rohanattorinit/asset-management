@@ -112,8 +112,9 @@ export const ServiceDetails = () => {
                 >
                   Time:
                   <Typography variant="body1">
-                    {serviceticketdetails?.createdAt}
-                  </Typography>
+                    {serviceticketdetails?.createdAt?.slice(0, 10)} <>&</>
+                    {serviceticketdetails?.createdAt?.slice(11, 19)}  
+                    </Typography>
                 </Typography>
               </Grid>
 
