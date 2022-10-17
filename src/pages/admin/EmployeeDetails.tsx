@@ -63,8 +63,7 @@ export default function EmployeeDetails() {
   const [empOpen, setEmpOpen] = useState(false);
 
   const {
-    admin: { employeeDetails, employeeassetsdetails, loading },
-    employee: { message },
+    admin: { employeeDetails, employeeassetsdetails, loading, message }
   } = useSelector((state: RootStore) => state);
 
   const dispatch: Dispatch<any> = useDispatch();
