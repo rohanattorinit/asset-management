@@ -96,7 +96,7 @@ export default function EmployeeDetails() {
 
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
-          {loading ? (
+          {loading && !open? (
             <Loader />
           ) : (
             <>
