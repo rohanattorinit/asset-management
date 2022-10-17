@@ -109,7 +109,14 @@ const AssetDetails = () => {
                     mt={2}
                   >
                     Description :{" "}
-                    <Typography>{singleAssetDetails?.description}</Typography>
+                    <Typography
+                    variant="body1"
+                    sx={{
+                      textTransform: "capitalize",
+                      wordWrap: "break-word",
+                      width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                    }}
+                  >{singleAssetDetails?.description}</Typography>
                   </Typography>
 
                   <Typography
