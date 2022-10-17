@@ -8,9 +8,6 @@ import {
   Dialog,
   Grid,
   IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -97,9 +94,7 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      {true ? (
-        <Loader />
-      ) : (
+
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
           <Box
@@ -118,87 +113,83 @@ export default function EmployeeDetails() {
               </Button>
             </Box>
           </Box>
-          {/* {loading && !open ? (
-            <Loader />
-          ) : ( */}
-            <Grid display="flex" padding={1} container m={2}>
-              <Grid item xs={12} md={4}>
-                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                  Employee ID:
-                  <Typography variant="body1">
-                    {employeeDetails?.empId}
-                  </Typography>
+          <Grid display="flex" padding={1} container m={2}>
+            <Grid item xs={12} md={4}>
+              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                Employee ID:
+                <Typography variant="body1">
+                  {employeeDetails?.empId}
                 </Typography>
+              </Typography>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+              >
+                Name:
                 <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
+                  sx={{ textTransform: "capitalize" }}
+                  variant="body1"
                 >
-                  Name:
-                  <Typography
-                    sx={{ textTransform: "capitalize" }}
-                    variant="body1"
-                  >
-                    {employeeDetails?.name}
-                  </Typography>
+                  {employeeDetails?.name}
                 </Typography>
+              </Typography>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+              >
+                Job Title:
                 <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
                 >
-                  Job Title:
-                  <Typography
-                    variant="body1"
-                    sx={{ textTransform: "capitalize" }}
-                  >
-                    {employeeDetails?.jobTitle}
-                  </Typography>
+                  {employeeDetails?.jobTitle}
                 </Typography>
+              </Typography>
 
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Email:
-                  <Typography variant="body1">
-                    {employeeDetails?.email}
-                  </Typography>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+              >
+                Email:
+                <Typography variant="body1">
+                  {employeeDetails?.email}
                 </Typography>
-              </Grid>
-              <Grid item xs={12} md={8}>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Phone:
-                  <Typography variant="body1">
-                    {employeeDetails?.phone}
-                  </Typography>
-                </Typography>
-                <Typography
-                  fontFamily="serif"
-                  fontWeight="bold"
-                  variant="h6"
-                  mt={2}
-                >
-                  Location:
-                  <Typography
-                    variant="body1"
-                    sx={{ textTransform: "capitalize" }}
-                  >
-                    {employeeDetails?.location}
-                  </Typography>
-                </Typography>
-              </Grid>
+              </Typography>
             </Grid>
-          {/* )} */}
+            <Grid item xs={12} md={8}>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+              >
+                Phone:
+                <Typography variant="body1">
+                  {employeeDetails?.phone}
+                </Typography>
+              </Typography>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+              >
+                Location:
+                <Typography
+                  variant="body1"
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {employeeDetails?.location}
+                </Typography>
+              </Typography>
+            </Grid>
+          </Grid>
         </Paper>
 
         <Paper sx={{ marginY: 3 }} elevation={5}>
@@ -288,7 +279,6 @@ export default function EmployeeDetails() {
           )}
         </Paper>
       </Grid>
-      )}
       <AllocateAsset open={open} setOpen={setOpen} />
       <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
         <Card>
@@ -392,4 +382,3 @@ export default function EmployeeDetails() {
     </Grid>
   );
 }
-
