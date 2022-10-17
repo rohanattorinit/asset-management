@@ -192,7 +192,7 @@ export default function EmployeeDetails() {
           </Grid>
         </Paper>
 
-        <Paper sx={{ marginY: 3 }} elevation={5}>
+        <Paper sx={{ marginY: 3, pb: 1 }} elevation={5}>
           <Box
             sx={{
               display: "flex",
@@ -273,7 +273,7 @@ export default function EmployeeDetails() {
               </Table>
             </TableContainer>
           ) : (
-            <Typography textAlign={"center"}>
+            <Typography textAlign={"center"} mb={5} variant="h5">
               No assets are allocated !!!
             </Typography>
           )}
