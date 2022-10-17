@@ -73,7 +73,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
-  }, [message]);
+  }, [dispatch,message]);
 
   const handleClickOpen = () => {
     dispatch(getAssets({ allocate: true, name: "" }));
