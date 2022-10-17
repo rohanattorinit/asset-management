@@ -63,8 +63,7 @@ export default function EmployeeDetails() {
   const [empOpen, setEmpOpen] = useState(false);
 
   const {
-    admin: { employeeDetails, employeeassetsdetails, loading },
-    employee: { message },
+    admin: { employeeDetails, employeeassetsdetails, loading, message },
   } = useSelector((state: RootStore) => state);
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -74,7 +73,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
-  }, [message]);
+  }, [dispatch, empId, message]);
 
   const handleClickOpen = () => {
     dispatch(getAssets({ allocate: true, name: "" }));
@@ -206,7 +205,7 @@ export default function EmployeeDetails() {
               margin: "10px",
             }}
           >
-            <Typography m={2} variant="h5">
+            <Typography m={2} variant="h5" mb={5}>
               Current Asset
             </Typography>
             <Box m={2} display="flex">
@@ -280,7 +279,7 @@ export default function EmployeeDetails() {
               </Table>
             </TableContainer>
           ) : (
-            <Typography textAlign={"center"}>
+            <Typography textAlign={"center"} variant="h5" pb={2}>
               No assets are allocated !!!
             </Typography>
           )}
