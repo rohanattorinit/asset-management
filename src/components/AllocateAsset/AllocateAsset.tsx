@@ -31,7 +31,7 @@ const AllocateAsset = ({
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
 
   const dispatch: Dispatch<any> = useDispatch();
-  const { employeeDetails, assets, loading } = useSelector(
+  const { employeeDetails, assets, loading, message } = useSelector(
     (state: RootStore) => state.admin
   );
 
@@ -46,7 +46,7 @@ const AllocateAsset = ({
 
   useEffect(() => {
     dispatch(getAssets({ allocate: true, name: search }));
-  }, [dispatch, search]);
+  }, [dispatch, search, message]);
 
   const handleClose = () => {
     setOpen(false);
@@ -90,7 +90,7 @@ const AllocateAsset = ({
             */}
 
             <TableContainer component={Paper}>
-              {loading ? (
+              {true ? (
                 <CircularProgress />
               ) : assets?.length ? (
                 <Table aria-label="simple table">
