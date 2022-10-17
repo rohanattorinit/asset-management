@@ -37,8 +37,7 @@ import Toast from "../../components/ErrorHandling/Toast";
 import { Formik, Field, Form } from "formik";
 import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
 import Loader from "../../components/Loader/Loader";
-import { getUserProfile } from "../../redux/actions/AuthAction";
-import { ProtectedAdminRouteProps } from "../../utils/ProtectedAdminRoute";
+
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -97,7 +96,7 @@ export default function EmployeeDetails() {
 
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
-          {loading && !open? (
+          {!employeeDetails?.empId?.length &&loading && !open? (
             <Loader />
           ) : (
             <>
