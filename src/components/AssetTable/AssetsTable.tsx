@@ -30,7 +30,6 @@ const AssetsTable = () => {
   const dispatch: Dispatch<any> = useDispatch();
 
   const setAssetDetails = (assetId: number) => {
-    console.log("erreereer");
     // dispatch(getSingleAssetDetails(assetId));
     navigate(`/admin/assets/${assetId}`);
   };

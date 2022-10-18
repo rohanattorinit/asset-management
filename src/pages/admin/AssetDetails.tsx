@@ -42,7 +42,7 @@ const AssetDetails = () => {
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
-  }, [ message]);
+  }, [message]);
 
   const onSubmit = (values: any) => {
     dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
@@ -110,13 +110,15 @@ const AssetDetails = () => {
                   >
                     Description :{" "}
                     <Typography
-                    variant="body1"
-                    sx={{
-                      textTransform: "capitalize",
-                      wordWrap: "break-word",
-                      width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                    }}
-                  >{singleAssetDetails?.description}</Typography>
+                      variant="body1"
+                      sx={{
+                        textTransform: "capitalize",
+                        wordWrap: "break-word",
+                        width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                      }}
+                    >
+                      {singleAssetDetails?.description}
+                    </Typography>
                   </Typography>
 
                   <Typography
@@ -138,16 +140,6 @@ const AssetDetails = () => {
                     Brand Name:{" "}
                     <Typography>{singleAssetDetails?.brandName}</Typography>
                   </Typography>
-
-                  <Typography
-                    fontFamily="serif"
-                    fontWeight="bold"
-                    variant="h6"
-                    mt={2}
-                  >
-                    Status:{" "}
-                    <Typography>{singleAssetDetails?.status}</Typography>
-                  </Typography>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
@@ -165,6 +157,40 @@ const AssetDetails = () => {
                     Model No:{" "}
                     <Typography>{singleAssetDetails?.modelNo}</Typography>
                   </Typography>
+                  {singleAssetDetails?.status === "allocated" ? (
+                    <>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                        }}
+                      >
+                        Employee Name:
+                        <Typography>{singleAssetDetails?.empName}</Typography>
+                      </Typography>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                        }}
+                      >
+                        Employee ID:
+                        <Typography>{singleAssetDetails?.empId}</Typography>
+                      </Typography>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
                   {singleAssetDetails?.isRented ? (
                     <>
@@ -271,19 +297,19 @@ const AssetDetails = () => {
           <CardHeader title="Edit" />
           <Formik
             initialValues={{
-              assetId: singleAssetDetails.assetId,
-              assetName: singleAssetDetails.name,
-              description: singleAssetDetails.description,
-              usability: singleAssetDetails.usability,
-              brandName: singleAssetDetails.brandName,
-              status: singleAssetDetails.status,
-              modelNo: singleAssetDetails.modelNo,
-              vendor: singleAssetDetails.vendor,
-              rent: singleAssetDetails.rent,
-              deposit: singleAssetDetails.deposit,
-              rentStartDate: singleAssetDetails.rentStartDate,
-              rentEndDate: singleAssetDetails.rentEndDate,
-              asset_location: singleAssetDetails.asset_location,
+              assetId: singleAssetDetails?.assetId,
+              assetName: singleAssetDetails?.name,
+              description: singleAssetDetails?.description,
+              usability: singleAssetDetails?.usability,
+              brandName: singleAssetDetails?.brandName,
+              status: singleAssetDetails?.status,
+              modelNo: singleAssetDetails?.modelNo,
+              vendor: singleAssetDetails?.vendor,
+              rent: singleAssetDetails?.rent,
+              deposit: singleAssetDetails?.deposit,
+              rentStartDate: singleAssetDetails?.rentStartDate,
+              rentEndDate: singleAssetDetails?.rentEndDate,
+              asset_location: singleAssetDetails?.asset_location,
               isRented: singleAssetDetails?.isRented,
             }}
             // validationSchema={AssetValidationSchema}
@@ -317,7 +343,6 @@ const AssetDetails = () => {
                             onChange={handleChange}
                             value={values?.assetName}
                             required
-                           
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
@@ -329,7 +354,6 @@ const AssetDetails = () => {
                             id="description"
                             onChange={handleChange}
                             value={values?.description}
-                           
                           />
                         </Grid>
 
@@ -343,8 +367,6 @@ const AssetDetails = () => {
                             onChange={handleChange}
                             value={values?.asset_location}
                             required
-                          
-                           
                           />
                         </Grid>
 
@@ -357,7 +379,6 @@ const AssetDetails = () => {
                             id="usability"
                             onChange={handleChange}
                             value={values?.usability}
-                            
                             required
                           />
                         </Grid>
@@ -370,7 +391,6 @@ const AssetDetails = () => {
                             id="brandName"
                             onChange={handleChange}
                             value={values?.brandName}
-                           
                             required
                           />
                         </Grid>
@@ -384,7 +404,6 @@ const AssetDetails = () => {
                             onChange={handleChange}
                             value={values?.status}
                             required
-                           
                           />
                         </Grid> */}
                         <Grid item xs={12} sm={6} md={6}>
@@ -396,11 +415,10 @@ const AssetDetails = () => {
                             id="modelNo"
                             onChange={handleChange}
                             value={values?.modelNo}
-                           
                             required
                           />
                         </Grid>
-                        {singleAssetDetails.isRented ? (
+                        {singleAssetDetails?.isRented ? (
                           <>
                             <Grid item xs={12} sm={6} md={6}>
                               <TextField
@@ -411,7 +429,6 @@ const AssetDetails = () => {
                                 id="vendor"
                                 onChange={handleChange}
                                 value={values?.vendor}
-                               
                                 required
                               />
                             </Grid>
@@ -425,7 +442,6 @@ const AssetDetails = () => {
                                 onChange={handleChange}
                                 value={values?.rent}
                                 required
-                               
                               />
                             </Grid>
                             <Grid item xs={12} sm={6} md={6}>
@@ -438,7 +454,6 @@ const AssetDetails = () => {
                                 onChange={handleChange}
                                 value={values?.deposit}
                                 required
-                               
                               />
                             </Grid>
 
@@ -453,9 +468,7 @@ const AssetDetails = () => {
                                 id="rentStartDate"
                                 onChange={handleChange}
                                 value={values?.rentStartDate?.slice(0, 10)}
-                                
                                 InputLabelProps={{ shrink: true }}
-                               
                               />
                             </Grid>
 
@@ -470,9 +483,7 @@ const AssetDetails = () => {
                                 id="rentEndDate"
                                 onChange={handleChange}
                                 value={values?.rentEndDate?.slice(0, 10)}
-                               
                                 InputLabelProps={{ shrink: true }}
-                               
                               />
                             </Grid>
                           </>

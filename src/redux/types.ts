@@ -50,7 +50,7 @@ export interface CreateAssetType {
   category: string
   modelNo: string
   description: string
-  status: string
+  //status: string
   usability: string
   isRented: boolean
   vendor: string
@@ -96,6 +96,8 @@ export interface SingleAssetDetailsType {
   status: string
   usability: string
   asset_location: string
+  empName: string
+  empId: string
   isRented: 0 | 1
   vendor: string
   rent: number
