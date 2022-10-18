@@ -50,7 +50,7 @@ export interface CreateAssetType {
   category: string
   modelNo: string
   description: string
-  status: string
+  //status: string
   usability: string
   isRented: boolean
   vendor: string

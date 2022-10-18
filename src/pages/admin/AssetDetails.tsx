@@ -140,16 +140,6 @@ const AssetDetails = () => {
                     Brand Name:{" "}
                     <Typography>{singleAssetDetails?.brandName}</Typography>
                   </Typography>
-
-                  <Typography
-                    fontFamily="serif"
-                    fontWeight="bold"
-                    variant="h6"
-                    mt={2}
-                  >
-                    Status:{" "}
-                    <Typography>{singleAssetDetails?.status}</Typography>
-                  </Typography>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
