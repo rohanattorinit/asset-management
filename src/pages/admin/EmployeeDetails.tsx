@@ -38,7 +38,6 @@ import { Formik, Field, Form } from "formik";
 import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
 import Loader from "../../components/Loader/Loader";
 
-
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const re = /^[A-Z/a-z/ \b]+$/;
@@ -55,6 +54,8 @@ let validationSchema = Yup?.object()?.shape({
     .matches(re, "Name can have letters only!")
     .required("Please enter valid name")
     .nullable(),
+  email: Yup.string().required("Required"),
+  jobTitle: Yup.string().required("Required"),
 });
 
 export default function EmployeeDetails() {
@@ -63,7 +64,7 @@ export default function EmployeeDetails() {
 
   const {
     admin: { employeeDetails, employeeassetsdetails, loading, message },
-    employee:{message:empMessage}
+    employee: { message: empMessage },
   } = useSelector((state: RootStore) => state);
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -73,7 +74,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
-  }, [dispatch, empId, message,empMessage]);
+  }, [dispatch, empId, message, empMessage]);
 
   const handleClickOpen = () => {
     dispatch(getAssets({ allocate: true, name: "" }));
@@ -96,7 +97,7 @@ export default function EmployeeDetails() {
 
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
-          {!employeeDetails?.empId?.length &&loading && !open? (
+          {!employeeDetails?.empId?.length && loading && !open ? (
             <Loader />
           ) : (
             <>
@@ -330,6 +331,7 @@ export default function EmployeeDetails() {
                             onChange={handleChange}
                             value={values?.jobTitle}
                             component={TextField}
+                            error={errors.jobTitle}
                           />
                         </Grid>
 
@@ -343,6 +345,7 @@ export default function EmployeeDetails() {
                             onChange={handleChange}
                             value={values?.email}
                             component={TextField}
+                            error={errors?.email}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
