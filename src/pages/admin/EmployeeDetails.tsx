@@ -26,6 +26,7 @@ import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
+  allocateAssets,
   deallocateAssets,
   getAssetDetails,
   getAssets,
@@ -94,7 +95,9 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-
+      {loading ? (
+        <Loader />
+      ) : (
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
           {!employeeDetails?.empId?.length && loading && !open ? (
@@ -195,7 +198,7 @@ export default function EmployeeDetails() {
                 </Grid>
               </Grid>
             </>
-          )}
+         )} 
         </Paper>
 
         <Paper sx={{ marginY: 3 }} elevation={5}>
@@ -287,6 +290,7 @@ export default function EmployeeDetails() {
         </Paper>
       </Grid>
 
+      )}
       <AllocateAsset open={open} setOpen={setOpen} />
       <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
         <Card>
