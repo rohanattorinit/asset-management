@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Checkbox,
   CircularProgress,
@@ -29,12 +30,10 @@ const AllocateAsset = ({
 }) => {
   const [search, setSearch] = useState("");
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
-
   const dispatch: Dispatch<any> = useDispatch();
   const { employeeDetails, assets, loading, message } = useSelector(
     (state: RootStore) => state.admin
   );
-
   // Debounce callback
   const debounced = useDebouncedCallback(
     (value) => {
@@ -43,15 +42,12 @@ const AllocateAsset = ({
     // delay in ms
     300
   );
-
   useEffect(() => {
     dispatch(getAssets({ allocate: true, name: search }));
   }, [dispatch, search, message]);
-
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleCheckChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     assetId: number
@@ -83,9 +79,7 @@ const AllocateAsset = ({
               label="search here by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
-
-            
-            <TableContainer component={Paper}>
+            <TableContainer sx={{ maxHeight: "350px" }} component={Paper}>
               {loading ? (
                 <CircularProgress />
               ) : assets?.length ? (
@@ -130,22 +124,28 @@ const AllocateAsset = ({
               ) : (
                 <Typography textAlign={"center"}>No Assets found!</Typography>
               )}
-
-              <DialogActions>
-                <Button
-                  disabled={assetIdCheck?.length ? false : true}
-                  type="submit"
-                  variant="contained"
-                >
-                  Allocate
-                </Button>
-              </DialogActions>
             </TableContainer>
+            <DialogActions> </DialogActions>
           </DialogContent>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              margin: "30px 25px",
+            }}
+          >
+            <Button
+              disabled={assetIdCheck?.length ? false : true}
+              type="submit"
+              variant="contained"
+            >
+              Allocate
+            </Button>
+          </Box>
         </form>
       </Dialog>
     </>
   );
 };
-
 export default AllocateAsset;

@@ -38,8 +38,7 @@ import Toast from "../../components/ErrorHandling/Toast";
 import { Formik, Field, Form } from "formik";
 import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
 import Loader from "../../components/Loader/Loader";
-import { getUserProfile } from "../../redux/actions/AuthAction";
-import { ProtectedAdminRouteProps } from "../../utils/ProtectedAdminRoute";
+
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -64,8 +63,8 @@ export default function EmployeeDetails() {
   const [empOpen, setEmpOpen] = useState(false);
 
   const {
-    admin: { employeeDetails, employeeassetsdetails, loading },
-    employee: { message },
+    admin: { employeeDetails, employeeassetsdetails, loading, message },
+    employee:{message:empMessage}
   } = useSelector((state: RootStore) => state);
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -75,8 +74,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
-   
-  }, [message]);
+  }, [dispatch, empId, message,empMessage]);
 
   const handleClickOpen = () => {
     dispatch(getAssets({ allocate: true, name: "" }));
@@ -101,7 +99,7 @@ export default function EmployeeDetails() {
       ) : (
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
-          {loading ? (
+          {!employeeDetails?.empId?.length &&loading && !open? (
             <Loader />
           ) : (
             <>
@@ -210,7 +208,7 @@ export default function EmployeeDetails() {
               margin: "10px",
             }}
           >
-            <Typography m={2} variant="h5">
+            <Typography m={2} variant="h5" mb={5}>
               Current Asset
             </Typography>
             <Box m={2} display="flex">
@@ -284,7 +282,7 @@ export default function EmployeeDetails() {
               </Table>
             </TableContainer>
           ) : (
-            <Typography textAlign={"center"}>
+            <Typography textAlign={"center"} variant="h5" pb={2}>
               No assets are allocated !!!
             </Typography>
           )}
