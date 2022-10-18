@@ -20,29 +20,24 @@ import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-
 function Assets() {
   const [value, setValue] = useState(0);
   const [isRented, setIsRented] = useState<boolean>(false);
   const { message } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
   const [category, setCategory] = useState("hardware");
-
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     newValue ? setIsRented(true) : setIsRented(false);
   };
-
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event?.target?.value);
   };
-
   useEffect(() => {
     dispatch(
       getAssets({ name: "", assetType: category, isRented: isRented ? 1 : 0 })
     );
   }, [dispatch, message, category, isRented]);
-
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
@@ -54,7 +49,7 @@ function Assets() {
             <Tab label="Rented Assets" />
           </Tabs>
         </Box>
-
+        ​
         <Box
           display="flex"
           justifyContent="space-between"
@@ -73,7 +68,7 @@ function Assets() {
               <MenuItem value={"hardware"}>Hardware</MenuItem>
             </Select>
           </FormControl>
-
+          ​
           <Button
             variant="outlined"
             color="primary"

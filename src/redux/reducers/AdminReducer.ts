@@ -62,6 +62,8 @@ const initialState: InitialState = {
     status: '',
     usability: '',
     isRented: 0,
+    empName: '',
+    empId: '',
     vendor: '',
     rent: 0,
     deposit: 0,
