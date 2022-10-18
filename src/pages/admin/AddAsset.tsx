@@ -25,10 +25,6 @@ import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 
-const statusOptions = [
-  { label: "Allocated", value: "allocated" },
-  { label: "Available", value: "available" },
-];
 const usabilityOptions = [
   { label: "Usable", value: "usable" },
   { label: "Unusable", value: "unusable" },
@@ -47,6 +43,7 @@ const AddAsset = () => {
   const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addAsset(values));
     //console.log(values);
+
     resetForm({ values: "" });
   };
   useEffect(() => {
@@ -74,7 +71,6 @@ const AddAsset = () => {
                   category: "",
                   modelNo: "",
                   description: "",
-                  status: "",
                   usability: "",
                   vendor: "",
                   rent: "",
@@ -185,28 +181,6 @@ const AddAsset = () => {
                             value={values?.asset_location}
                             component={TextField}
                           />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <FormControl fullWidth variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">
-                              Status
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              label="Status"
-                              value={values?.status}
-                              onChange={handleChange}
-                              name="status"
-                              required
-                            >
-                              {statusOptions.map((item) => (
-                                <MenuItem key={item?.value} value={item?.value}>
-                                  {item?.label}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={6}>
