@@ -8,6 +8,7 @@ function Loader() {
         src={LoadingImg}
         alt="loader"
         style={{
+          objectFit:'cover',
           display: "block",
           marginLeft: "auto",
           marginRight: "auto",

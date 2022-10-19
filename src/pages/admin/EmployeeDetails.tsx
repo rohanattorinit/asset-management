@@ -95,12 +95,10 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      
+      {!employeeDetails?.empId?.length && loading && !open?<Loader/>:
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
-          {!employeeDetails?.empId?.length && loading && !open ? (
-            <Loader />
-          ) : (
+          
             <>
               <Box
                 sx={{
@@ -196,7 +194,7 @@ export default function EmployeeDetails() {
                 </Grid>
               </Grid>
             </>
-         )} 
+     
         </Paper>
 
         <Paper sx={{ marginY: 3 }} elevation={5}>
@@ -216,8 +214,6 @@ export default function EmployeeDetails() {
               </Button>
             </Box>
           </Box>
-
-          {/* //Deallocate Asset */}
 
           { employeeassetsdetails?.length && loading && !open ? (
             <Loader />
@@ -287,7 +283,7 @@ export default function EmployeeDetails() {
             </Typography>)
           )}
         </Paper>
-      </Grid>
+      </Grid>}
 
 
       <AllocateAsset open={open} setOpen={setOpen} />
