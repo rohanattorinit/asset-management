@@ -5,22 +5,13 @@ import AppRoutes from "./AppRoutes";
 import AuthRoutes from "./AuthRoutes";
 import { RootStore } from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
-import socketIOClient from "socket.io-client";
 import { get } from "./services";
-const BASE_URL = process.env.REACT_APP_BASE_API
+
 function App() {
   const [response, setResponse] = useState("");
   const [showLoader, setShowLoader] = useState(true);
   const dispatch = useDispatch();
   const { authenticated } = useSelector((state: RootStore) => state.login);
-
-  useEffect(() => {
-    const socket = socketIOClient(BASE_URL!);
-    socket.on("FromAPI", data => {
-      setResponse(data);
-      console.log("data",data)
-    });
-  }, []);
 
   useEffect(() => {
     (async () => {
