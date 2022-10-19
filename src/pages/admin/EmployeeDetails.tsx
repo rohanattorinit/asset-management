@@ -348,6 +348,7 @@ export default function EmployeeDetails() {
                             value={values?.email}
                             component={TextField}
                             error={errors?.email}
+                             disabled
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
