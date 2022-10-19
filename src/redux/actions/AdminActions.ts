@@ -20,6 +20,7 @@ import {
   SET_ASSETS,
   SET_EMPLOYEES,
   SET_ERROR,
+
   SET_SERVICE_TICKET_DETAILS
 } from './../types'
 import { Dispatch } from 'redux'
@@ -30,6 +31,7 @@ interface GetAssetParams {
   name?: string
   assetType?: string
   isRented?: 0 | 1
+
 }
 
 interface GetAssetParams {
@@ -332,11 +334,13 @@ export const changeTicketStatus = (ticketId: number, status: string) => async (
 ) => {
   dispatch({ type: LOADING_DATA })
   try {
+
     console.log(status)
     const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
       status
     })
     dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data })
+
   } catch (error) {
     dispatch({
       type: SET_ERROR,
@@ -348,6 +352,7 @@ export const changeTicketStatus = (ticketId: number, status: string) => async (
     })
   }
 }
+
 
 export const addNote = (ticketId: number, note: string) => async (
   dispatch: Dispatch<DispatchTypes>
@@ -365,3 +370,4 @@ export const addNote = (ticketId: number, note: string) => async (
     })
   }
 }
+
