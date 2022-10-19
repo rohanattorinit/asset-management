@@ -71,7 +71,7 @@ const AssetDetails = () => {
           </Box>
 
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
-            {!singleAssetDetails?.empId?.length && loading && !open ? (
+            {loading && !open ? (
               <Loader />
             ) : (
               <Grid container m={2}>
