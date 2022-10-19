@@ -281,9 +281,10 @@ export default function EmployeeDetails() {
               </Table>
             </TableContainer>
           ) : (
-            <Typography textAlign={"center"} variant="h5" pb={2}>
+            loading?(<Loader/>):
+            (<Typography textAlign={"center"} variant="h5" pb={2}>
               No assets are allocated !!!
-            </Typography>
+            </Typography>)
           )}
         </Paper>
       </Grid>
