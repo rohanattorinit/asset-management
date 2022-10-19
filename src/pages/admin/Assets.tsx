@@ -5,11 +5,13 @@ import {
   Grid,
   InputLabel,
   MenuItem,
+
   Select,
   SelectChangeEvent,
   Tab,
   Tabs,
   TextField,
+
 } from "@mui/material";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
@@ -51,6 +53,7 @@ function Assets() {
   useEffect(() => {
     dispatch(
       getAssets({ name: search, assetType: category, isRented: isRented ? 1 : 0 })
+
     );
   }, [dispatch, message, search,category, isRented]);
   return (
@@ -104,7 +107,7 @@ function Assets() {
             <Tab label="Rented Assets" />
           </Tabs>
         </Box>
-        ​
+        
         
         <Box>{isRented ? <RentedAssetsTable /> : <AssetsTable />}</Box>
       </Grid>

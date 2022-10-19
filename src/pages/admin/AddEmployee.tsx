@@ -41,7 +41,6 @@ const AddEmployee = () => {
   const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addEmployee(values));
     resetForm({ values: "" });
-
   };
 
   useEffect(() => {
@@ -57,6 +56,7 @@ const AddEmployee = () => {
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Card>
           <CardHeader title="Create Employee" />
+
           <CardContent
             sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}
           >
