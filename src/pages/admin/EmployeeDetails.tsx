@@ -221,7 +221,7 @@ export default function EmployeeDetails() {
 
           {/* //Deallocate Asset */}
 
-          {loading && !open ? (
+          { employeeassetsdetails?.length && loading && !open ? (
             <Loader />
           ) : employeeassetsdetails?.length ? (
             <TableContainer component={Paper}>
