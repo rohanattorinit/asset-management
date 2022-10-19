@@ -162,7 +162,7 @@ export const updateAssetDetails = (
   dispatch({ type: LOADING_DATA })
   try {
     const res = await post(`/api/assets/update/${assetId}`, updateData)
-    console.log(res)
+   
     alert('Profile Details Updated Successfully!')
     dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data })
   } catch (error) {
@@ -311,10 +311,11 @@ export const allocateAssets = (empId: string, assetId: number[]) => async (
   dispatch({ type: LOADING_DATA })
 
   try {
+    window.confirm('Do you want to allot asset?')
     const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId })
 
     dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data })
-    window.confirm('Do you want to allot asset?')
+   
   } catch (error) {
     dispatch({
       type: SET_ERROR,

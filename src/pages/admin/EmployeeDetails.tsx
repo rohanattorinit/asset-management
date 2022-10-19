@@ -95,10 +95,9 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      {!employeeDetails?.empId?.length && loading && !open?<Loader/>:
+      { loading && !open?<Loader/>:
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
-          
             <>
               <Box
                 sx={{
@@ -194,7 +193,6 @@ export default function EmployeeDetails() {
                 </Grid>
               </Grid>
             </>
-     
         </Paper>
 
         <Paper sx={{ marginY: 3 }} elevation={5}>
@@ -215,9 +213,7 @@ export default function EmployeeDetails() {
             </Box>
           </Box>
 
-          { employeeassetsdetails?.length && loading && !open ? (
-            <Loader />
-          ) : employeeassetsdetails?.length ? (
+          {!loading && employeeassetsdetails?.length ? (
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -276,12 +272,7 @@ export default function EmployeeDetails() {
                 </TableBody>
               </Table>
             </TableContainer>
-          ) : (
-            loading?(<Loader/>):
-            (<Typography textAlign={"center"} variant="h5" pb={2}>
-              No assets are allocated !!!
-            </Typography>)
-          )}
+          ) : <></>}
         </Paper>
       </Grid>}
 

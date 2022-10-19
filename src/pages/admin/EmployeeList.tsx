@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
-import { getEmployees } from "../../redux/actions/AdminActions";
+import { getEmployeeDetails, getEmployees } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Toast from "../../components/ErrorHandling/Toast";
@@ -44,6 +44,7 @@ function EmpList() {
   );
 
   const setEmployeeDetails = (empId: string) => {
+    dispatch(getEmployeeDetails(empId));
     navigate(`/admin/employee/${empId}`);
   };
 
