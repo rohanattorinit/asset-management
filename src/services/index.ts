@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+
 const BASE_URL = process.env.REACT_APP_BASE_API;
 export const get = (url: string) => {
   return new Promise(async (resolve, reject) => {
@@ -14,7 +15,15 @@ export const get = (url: string) => {
       //@ts-ignore
       if (error.response.status === 403) {
         Cookies.remove("auth_token");
-        window.location.reload();
+
+      }
+      //@ts-ignore
+      else if (error.response.status === 404) {
+        // dispatch({
+        //   type: SET_ERROR,
+        //   payload: (error as any)?.response?.data?.error || "",
+        // });
+
       }
       return reject(error);
     }
@@ -35,7 +44,6 @@ export const post = (url: string, payload: any) => {
       //@ts-ignore
       if (error.response.status === 403) {
         Cookies.remove("auth_token");
-        window.location.reload();
       }
 
       return reject(error);

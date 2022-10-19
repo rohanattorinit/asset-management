@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from "react";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Dialog,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Grid, Typography, IconButton, Box, TextField } from "@mui/material";
-import SideBar from "../../components/Sidebar/Sidebar";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import Button from "@mui/material/Button";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-//import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { RootStore } from "../../redux/store";
-import { useSelector } from "react-redux";
+import * as Yup from "yup";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import SideBar from "../../components/Sidebar/Sidebar";
 import {
   allocateAssets,
   deallocateAssets,
@@ -26,150 +32,171 @@ import {
   getAssets,
   getEmployeeDetails,
 } from "../../redux/actions/AdminActions";
-import Checkbox from "@mui/material/Checkbox";
-import { useLocation } from "react-router-dom";
+import { RootStore } from "../../redux/store";
+import AllocateAsset from "../../components/AllocateAsset/AllocateAsset";
+import Toast from "../../components/ErrorHandling/Toast";
+import { Formik, Field, Form } from "formik";
+import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
+import Loader from "../../components/Loader/Loader";
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const re = /^[A-Z/a-z/ \b]+$/;
+let validationSchema = Yup?.object()?.shape({
+  phone: Yup.string()
+    .matches(phoneRegExp, "Invalid phone number")
+    .min(10, "to short")
+    .max(10, "to long")
+    .required("Required"),
+  location: Yup?.string()
+    .matches(re, "Location can have letters only!")
+    .required("Required"),
+  name: Yup?.string()
+    .matches(re, "Name can have letters only!")
+    .required("Please enter valid name")
+    .nullable(),
+  email: Yup.string().required("Required"),
+  jobTitle: Yup.string().required("Required"),
+});
 
 export default function EmployeeDetails() {
-  const { employeeDetails, employeeassetsdetails, message, assets } =
-    useSelector((state: RootStore) => state.admin);
+  const [open, setOpen] = useState(false);
+  const [empOpen, setEmpOpen] = useState(false);
+
+  const {
+    admin: { employeeDetails, employeeassetsdetails, loading, message },
+    employee: { message: empMessage },
+  } = useSelector((state: RootStore) => state);
+
   const dispatch: Dispatch<any> = useDispatch();
   const location = useLocation();
   const empId = location?.pathname.replace("/admin/employee/", "");
+
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
-    dispatch(getAssets());
-  }, [dispatch, message, empId]);
-
-  const [search, setSearch] = useState("");
-  const handleChange = (e: any) => {
-    setSearch(e?.target?.value);
-  };
-
-  const filteredAsset = assets?.filter((asset) => {
-    if (search?.length === 0) {
-      return asset?.status === "available" && asset?.usability === "usable";
-    }
-    return (
-      asset?.status === "available" &&
-      asset?.usability === "usable" &&
-      asset?.name?.toLowerCase()?.includes(search?.toLowerCase())
-    );
-  });
-
-  const [open, setOpen] = useState(false);
-  const [assetIdCheck, setAssetId] = useState<number[]>([]);
+  }, [dispatch, empId, message, empMessage]);
 
   const handleClickOpen = () => {
+    dispatch(getAssets({ allocate: true, name: "" }));
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const HandleDeallocate = (assetId: number) => {
     dispatch(deallocateAssets(employeeDetails?.empId, assetId));
   };
 
-  const handleCheckChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    assetId: number
-  ) => {
-    if (event?.target?.checked) setAssetId([...assetIdCheck, assetId]);
-    else {
-      setAssetId(assetIdCheck?.filter((e) => e !== assetId));
-    }
+  const onSubmit = (values: any) => {
+    dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
+    setEmpOpen(false);
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(allocateAssets(employeeDetails?.empId, assetIdCheck));
-    setAssetId([]);
-    setOpen(false);
-  };
+
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
+      <Toast />
+      {!employeeDetails?.empId?.length && loading && !open?<Loader/>:
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 1 }} elevation={5}>
-          <Grid container m={2}>
-            <Grid item xs={12} md={4}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
+        <Paper sx={{ marginY: 3 }} elevation={5}>
+          
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "10px",
+                }}
               >
-                {" "}
-                Employee ID:
-                <Typography variant="body1">
-                  {employeeDetails?.empId}
+                <Typography m={2} variant="h5">
+                  Employee Details
                 </Typography>
-              </Typography>
-              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                Name:
-                <Typography
-                  sx={{ textTransform: "capitalize" }}
-                  variant="body1"
-                >
-                  {employeeDetails?.name}
-                </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Job Title:
-                <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  {employeeDetails?.jobTitle}
-                </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Email:
-                <Typography variant="body1">
-                  {employeeDetails?.email}
-                </Typography>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Phone:
-                <Typography variant="body1">
-                  {employeeDetails?.phone}
-                </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Location:
-                <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  {employeeDetails?.location}
-                </Typography>
-              </Typography>
-            </Grid>
-          </Grid>
+                <Box m={2} display="flex">
+                  <Button variant="outlined" onClick={() => setEmpOpen(true)}>
+                    Edit
+                  </Button>
+                </Box>
+              </Box>
+              <Grid display="flex" padding={1} container m={2}>
+                <Grid item xs={12} md={4}>
+                  <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                    Employee ID:
+                    <Typography variant="body1">
+                      {employeeDetails?.empId}
+                    </Typography>
+                  </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Name:
+                    <Typography
+                      sx={{ textTransform: "capitalize" }}
+                      variant="body1"
+                    >
+                      {employeeDetails?.name}
+                    </Typography>
+                  </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Job Title:
+                    <Typography
+                      variant="body1"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {employeeDetails?.jobTitle}
+                    </Typography>
+                  </Typography>
+
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Email:
+                    <Typography variant="body1">
+                      {employeeDetails?.email}
+                    </Typography>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} md={8}>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Phone:
+                    <Typography variant="body1">
+                      {employeeDetails?.phone}
+                    </Typography>
+                  </Typography>
+                  <Typography
+                    fontFamily="serif"
+                    fontWeight="bold"
+                    variant="h6"
+                    mt={2}
+                  >
+                    Location:
+                    <Typography
+                      variant="body1"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {employeeDetails?.location}
+                    </Typography>
+                  </Typography>
+                </Grid>
+              </Grid>
+            </>
+     
         </Paper>
+
         <Paper sx={{ marginY: 3 }} elevation={5}>
           <Box
             sx={{
@@ -178,7 +205,7 @@ export default function EmployeeDetails() {
               margin: "10px",
             }}
           >
-            <Typography m={2} variant="h5">
+            <Typography m={2} variant="h5" mb={5}>
               Current Asset
             </Typography>
             <Box m={2} display="flex">
@@ -187,98 +214,180 @@ export default function EmployeeDetails() {
               </Button>
             </Box>
           </Box>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="right">Asset ID</TableCell>
-                  <TableCell align="right">Asset Name</TableCell>
-                  <TableCell align="right">Model No</TableCell>
-                  <TableCell align="right">Category</TableCell>
-                  <TableCell align="right">Allocation Time</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {employeeassetsdetails?.map((asset) => (
-                  <TableRow
-                    key={asset?.assetId}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="right" component="th" scope="row">
-                      {asset?.assetId}
-                    </TableCell>
-                    <TableCell align="right">{asset?.name}</TableCell>
-                    <TableCell align="right">{asset?.modelno}</TableCell>
-                    <TableCell align="right">{asset?.category}</TableCell>
-                    <TableCell align="right">{asset?.allocationTime}</TableCell>
-                    <IconButton>
-                      <RemoveCircleIcon
-                        sx={{ color: "#DC2626" }}
-                        onClick={() => {
-                          if (
-                            window.confirm("Do you want to Delete the Asset?")
-                          )
-                            HandleDeallocate(asset?.assetId);
-                        }}
-                      />
-                    </IconButton>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
-      </Grid>
-      {/* Allocate an Asset */}
-      <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={handleSubmit}>
-          <DialogTitle>Allocate Asset</DialogTitle>
-          <DialogContent>
-            <TextField
-              label="search by AssetName..."
-              onChange={handleChange}
-              value={search}
-            ></TextField>
+
+          { employeeassetsdetails?.length && loading && !open ? (
+            <Loader />
+          ) : employeeassetsdetails?.length ? (
             <TableContainer component={Paper}>
-              <Table aria-label="simple table">
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Asset Name</TableCell>
-                    <TableCell align="right">AssetID</TableCell>
-                    <TableCell align="right">Allocate</TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Asset ID
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Asset Name
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Model No
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Category
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      Allocation Date
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredAsset?.map((asset) => (
+                  {employeeassetsdetails?.map((asset) => (
                     <TableRow
                       key={asset?.assetId}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
-                      <TableCell component="th" scope="row">
-                        {asset?.name}
+                      <TableCell align="right" component="th" scope="row">
+                        {asset?.assetId}
                       </TableCell>
-                      <TableCell align="right">{asset?.assetId}</TableCell>
-
-                      <Checkbox
-                        sx={{ color: "darkblue" }}
-                        onChange={(event) =>
-                          handleCheckChange(event, asset?.assetId)
-                        }
-                      />
+                      <TableCell align="right">{asset?.name}</TableCell>
+                      <TableCell align="right">{asset?.modelno}</TableCell>
+                      <TableCell align="right">{asset?.category}</TableCell>
+                      <TableCell align="right">
+                        {asset?.allocationTime?.slice(0, 10)}
+                      </TableCell>
+                      <TableCell align="right">
+                        <IconButton>
+                          <RemoveCircleIcon
+                            sx={{ color: "#DC2626" }}
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  "Do you want to Delete the Asset?"
+                                )
+                              )
+                                HandleDeallocate(asset?.assetId);
+                            }}
+                          />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit" variant="contained">
-              Allocate
-            </Button>
-          </DialogActions>
-        </form>
+          ) : (
+            loading?(<Loader/>):
+            (<Typography textAlign={"center"} variant="h5" pb={2}>
+              No assets are allocated !!!
+            </Typography>)
+          )}
+        </Paper>
+      </Grid>}
+
+
+      <AllocateAsset open={open} setOpen={setOpen} />
+      <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
+        <Card>
+          <CardHeader title="Edit"></CardHeader>{" "}
+          <Formik
+            initialValues={{
+              name: employeeDetails?.name,
+              email: employeeDetails?.email,
+              phone: employeeDetails?.phone,
+              location: employeeDetails?.location,
+              jobTitle: employeeDetails?.jobTitle,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ dirty, isValid, errors, values, handleChange, handleBlur }) => {
+              return (
+                <>
+                  <Form>
+                    <CardContent>
+                      <Grid item container spacing={1}>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Name"
+                            variant="outlined"
+                            fullWidth
+                            name="name"
+                            id="name"
+                            value={values?.name}
+                            component={TextField}
+                            onChange={handleChange}
+                            error={errors?.name}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Job Title"
+                            variant="outlined"
+                            fullWidth
+                            name="jobTitle"
+                            id="jobTitle"
+                            onChange={handleChange}
+                            value={values?.jobTitle}
+                            component={TextField}
+                            error={errors.jobTitle}
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            name="email"
+                            id="email"
+                            onChange={handleChange}
+                            value={values?.email}
+                            component={TextField}
+                            error={errors?.email}
+                             disabled
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Phone No"
+                            variant="outlined"
+                            fullWidth
+                            name="phone"
+                            id="phone"
+                            onChange={handleChange}
+                            value={values?.phone}
+                            component={TextField}
+                            error={errors?.phone}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Location"
+                            variant="outlined"
+                            fullWidth
+                            name="location"
+                            id="location"
+                            onChange={handleChange}
+                            value={values?.location}
+                            component={TextField}
+                            error={errors?.location}
+                          />
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+
+                    <CardActions>
+                      <Button type="submit" size="large" variant="contained">
+                        EDIT
+                      </Button>
+                    </CardActions>
+                  </Form>
+                </>
+              );
+            }}
+          </Formik>
+        </Card>
       </Dialog>
     </Grid>
   );

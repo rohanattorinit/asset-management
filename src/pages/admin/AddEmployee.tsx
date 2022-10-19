@@ -1,199 +1,184 @@
-import React, { Dispatch } from "react";
 import {
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
   Button,
+  Card,
+  CardActions,
+  CardContent,
   CardHeader,
   Divider,
-  MenuItem,
   FormControl,
+  Grid,
   InputLabel,
+  MenuItem,
   Select,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-import SideBar from "../../components/Sidebar/Sidebar";
+import { Dispatch, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addEmployee } from "../../redux/actions/AdminActions";
+import { useNavigate } from "react-router-dom";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
-
+import Toast from "../../components/ErrorHandling/Toast";
+import { EmpValidationSchema } from "../../components/FormValidations/EmpValidationSchema";
+import SideBar from "../../components/Sidebar/Sidebar";
+import { addEmployee } from "../../redux/actions/AdminActions";
+import { RootStore } from "../../redux/store";
 const options = [
-  { label: "Senior Software Developer", value: "senior_software_developer" },
-  { label: "Software Developer", value: "software_developer" },
+  { label: "Senior Software Developer", value: "Senior Software Developer" },
+  { label: "Software Developer", value: "Software Developer" },
   {
     label: "Associate Software Developer",
-    value: "associate_software_developer",
+    value: "Associate Software Developer",
   },
-  { label: "Human Resourse", value: "human_resourse" },
-  { label: "Technical Delivery Manager", value: "technical_delivery_manager" },
+  { label: "Human Resourse", value: "Human Resourse" },
+  { label: "Technical Delivery Manager", value: "Technical Delivery Manager" },
 ];
-
-//password validation
-
-const uppercaseRegEx = /(?=.*[A-Z])/;
-const numericRegEx = /(?=.*[0-9])/;
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
-const re = /^[A-Z/a-z/ \b]+$/;
-
-//validation schema
-let validationSchema = Yup.object().shape({
-  empId: Yup.string()
-    .matches(numericRegEx, "Invalid employee ID")
-    .matches(uppercaseRegEx, "Invalid employee ID ")
-    .required("Required"),
-
-  name: Yup.string()
-    .matches(re, "Name can have letters only!")
-    .required("Required"),
-
-  email: Yup.string().email("Invalid email").required("Required"),
-
-  location: Yup.string()
-    .matches(re, "Location can have letters only!")
-
-    .required("Required!"),
-
-  phone: Yup.string()
-    .matches(phoneRegExp, "Invalid phone number")
-    .min(10, "to short")
-    .max(10, "to long")
-    .required("Required"),
-});
-
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  let navigate = useNavigate();
+  const { message } = useSelector((state: RootStore) => state.admin);
+  const navigate = useNavigate();
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: any, { resetForm }: any) => {
     dispatch(addEmployee(values));
-    navigate(`/admin/employee`);
+    resetForm({ values: "" });
   };
+
+  useEffect(() => {
+    if (message) {
+      navigate("/admin/employee");
+    }
+  }, [message]);
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
       <SideBar />
+      <Toast />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Card>
           <CardHeader title="Create Employee" />
-          <Formik
-            initialValues={{
-              empId: "",
-              name: "",
-              email: "",
-              jobTitle: "",
-              location: "",
-              phone: "",
-            }}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
+
+          <CardContent
+            sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}
           >
-            {({ dirty, isValid, values, handleChange, handleBlur }) => {
-              return (
-                <Form>
-                  <CardContent>
-                    <Grid item container spacing={4}>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Employee ID"
-                          variant="outlined"
-                          fullWidth
-                          name="empId"
-                          value={values.empId}
-                          component={TextField}
-                        />
+            <Grid item xs={12} md={5}>
+              <Formik
+                initialValues={{
+                  empId: "",
+                  name: "",
+                  email: "",
+                  jobTitle: "",
+                  location: "",
+                  phone: "",
+                }}
+                validationSchema={EmpValidationSchema}
+                onSubmit={onSubmit}
+              >
+                {({ isValid, values, handleChange, handleBlur }) => {
+                  return (
+                    <Form>
+                      <Grid item container spacing={2}>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <Field
+                            label="Employee ID"
+                            variant="outlined"
+                            fullWidth
+                            name="empId"
+                            value={values.empId}
+                            component={TextField}
+                            data-testid={"full_name"}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <FormControl fullWidth variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Job Title
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="Job Title"
+                              value={values?.jobTitle}
+                              onChange={handleChange}
+                              name="jobTitle"
+                              required
+                              role={"option"}
+                            >
+                              <MenuItem>None</MenuItem>
+                              {options.map((item) => (
+                                <MenuItem key={item.value} value={item.value}>
+                                  {item.label}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <Field
+                            label="Full Name"
+                            variant="outlined"
+                            fullWidth
+                            name="name"
+                            value={values.name}
+                            component={TextField}
+                            data-testid={"full_name"}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <Field
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            name="email"
+                            value={values.email}
+                            component={TextField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <Field
+                            label="Location"
+                            variant="outlined"
+                            fullWidth
+                            name="location"
+                            value={values.location}
+                            component={TextField}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <Field
+                            label="Phone No."
+                            variant="outlined"
+                            fullWidth
+                            name="phone"
+                            value={values.phone}
+                            component={TextField}
+                          />
+                        </Grid>
                       </Grid>
-
-                      <Grid item xs={12} sm={6} md={6}>
-                        <FormControl fullWidth variant="outlined">
-                          <InputLabel id="demo-simple-select-outlined-label">
-                            Job Title
-                          </InputLabel>
-                          <Select
-                            labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-outlined"
-                            label="Job Title"
-                            value={values.jobTitle}
-                            onChange={handleChange}
-                            name="jobTitle"
-                            required
-                          >
-                            <MenuItem>None</MenuItem>
-                            {options.map((item) => (
-                              <MenuItem key={item.value} value={item.value}>
-                                {item.label}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </Grid>
-
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Full Name"
-                          variant="outlined"
-                          fullWidth
-                          name="name"
-                          value={values.name}
-                          component={TextField}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Email"
-                          variant="outlined"
-                          fullWidth
-                          name="email"
-                          value={values.email}
-                          component={TextField}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Location"
-                          variant="outlined"
-                          fullWidth
-                          name="location"
-                          value={values.location}
-                          component={TextField}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Field
-                          label="Phone No."
-                          variant="outlined"
-                          fullWidth
-                          name="phone"
-                          value={values.phone}
-                          component={TextField}
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                  <CardActions>
-                    <Button type="submit" size="large" variant="contained">
-                      ADD EMPLOYEE
-                    </Button>
-                  </CardActions>
-                </Form>
-              );
-            }}
-          </Formik>
-          <Divider orientation="horizontal" />
-          <DragAndDrop />
+                      <CardActions>
+                        <Button
+                          type="submit"
+                          size="large"
+                          variant="contained"
+                          data-testid={"add_employee_button"}
+                        >
+                          ADD EMPLOYEE
+                        </Button>
+                      </CardActions>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Divider orientation={"vertical"} />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <DragAndDrop />
+            </Grid>
+          </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} md={6}></Grid>
     </Grid>
   );
 };
-
 export default AddEmployee;

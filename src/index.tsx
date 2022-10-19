@@ -6,6 +6,7 @@ import store from "./redux/store";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./utils/theme";
 import App from "./App";
+import { LayoutErrorBoundary } from "./components/ErrorHandling/ErrorBoundary";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <App />
+      <LayoutErrorBoundary>
+        <App />
+      </LayoutErrorBoundary>
     </ThemeProvider>
   </Provider>
 );

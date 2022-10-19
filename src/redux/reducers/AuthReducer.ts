@@ -29,8 +29,6 @@ const initialState: InitialState = {
   error: "",
 };
 
-//const i: MyInterface = { id: 's' }
-
 const authReducer = (
   state: InitialState = initialState,
   action: DispatchTypes
@@ -46,7 +44,7 @@ const authReducer = (
       return {
         ...state,
         authenticated: true,
-        user: action.payload.user,
+        user: action.payload?.user,
         loading: false,
         error: "",
       };

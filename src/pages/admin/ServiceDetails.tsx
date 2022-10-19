@@ -21,24 +21,29 @@ import {
   getServiceTicketDetails,
 } from "../../redux/actions/AdminActions";
 import { useLocation, useNavigate } from "react-router-dom";
+import Toast from "../../components/ErrorHandling/Toast";
+import Loader from "../../components/Loader/Loader";
 
 export const ServiceDetails = () => {
+  const [note, setNote] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const ticketId = parseInt(
-    location.pathname.replace("/admin/service/", ""),
+    location?.pathname?.replace("/admin/service/", ""),
     10
   );
   const dispatch: Dispatch<any> = useDispatch();
-  const { serviceticketdetails } = useSelector(
+  const { serviceticketdetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
-  const [note, setNote] = useState("");
-  const [select, setSelect] = useState("");
+  const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
 
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
-  }, []);
+    setSelect(serviceticketdetails?.ticketStatus);
+  }, [dispatch, ticketId, serviceticketdetails?.ticketStatus]);
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,7 +51,7 @@ export const ServiceDetails = () => {
       dispatch(addNote(serviceticketdetails?.ticketId, note));
     }
 
-    if (select !== serviceticketdetails?.ticketStatus) {
+    if (select?.length && select !== serviceticketdetails?.ticketStatus) {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
@@ -56,117 +61,136 @@ export const ServiceDetails = () => {
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
-      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
-          <Grid container m={2}>
-            <Grid item xs={12} md={4}>
-              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                {" "}
-                Ticket ID:
-                <Typography variant="body1">
-                  {serviceticketdetails?.ticketId}
-                </Typography>
-              </Typography>
-              <Typography fontFamily="serif" fontWeight="bold" variant="h6">
-                Emp ID:
-                <Typography
-                  sx={{ textTransform: "capitalize" }}
-                  variant="body1"
-                >
-                  {serviceticketdetails?.empId}
-                </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Asset ID:
-                <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  {serviceticketdetails?.assetId}
-                </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Time:
-                <Typography variant="body1">
-                  {serviceticketdetails?.createdAt}
-                </Typography>
-              </Typography>
-            </Grid>
+      <Toast />
+      {loading ? (
+        <Loader />
+      ) : (
+        <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
+          <Paper sx={{ display: "flex", padding: 1 }} elevation={3}>
 
-            <Grid item xs={12} md={8}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Title:
-                <Typography variant="body1">
-                  {serviceticketdetails?.title}
+            <Grid container m={2}>
+              <Grid item xs={12} md={4}>
+                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                  {" "}
+                  Ticket ID:
+                  <Typography variant="body1">
+                    {serviceticketdetails?.ticketId}
+                  </Typography>
                 </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Description:
+                <Typography fontFamily="serif" fontWeight="bold" variant="h6">
+                  Emp ID:
+                  <Typography
+                    sx={{ textTransform: "capitalize" }}
+                    variant="body1"
+                  >
+                    {serviceticketdetails?.empId}
+                  </Typography>
+                </Typography>
                 <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {serviceticketdetails?.description}
+                  Asset ID:
+                  {serviceticketdetails?.assetId ? (
+                    <Typography
+                      variant="body1"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {serviceticketdetails?.assetId}
+                    </Typography>
+                  ) : (
+                    <Typography> New request </Typography>
+                  )}
                 </Typography>
-              </Typography>
-            </Grid>
-          </Grid>
-        </Paper>
-        <form onSubmit={handleSubmit}>
-          <Paper
-            sx={{ marginY: "2rem", display: "flex", flexDirection: "column" }}
-            elevation={3}
-          >
-            <Box m={2}>
-              <FormControl>
-                <InputLabel id="status">Status</InputLabel>
-                <Select
-                  sx={{ minWidth: "100px" }}
-                  value={select}
-                  onChange={(event) => {
-                    setSelect(event.target.value);
-                  }}
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  <MenuItem value={"active"}>Active</MenuItem>
-                  <MenuItem value={"pending"}>Pending</MenuItem>
-                  <MenuItem value={"closed"}>Closed</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
+                  Time:
+                  <Typography variant="body1">
+                    {serviceticketdetails?.createdAt?.slice(0, 10)} <>&</>
+                    {serviceticketdetails?.createdAt?.slice(11, 19)}  
+                    </Typography>
+                </Typography>
+              </Grid>
 
-            <TextField
-              sx={{ marginX: "1.1rem" }}
-              margin="none"
-              name="Note"
-              label="Note..."
-              type="text"
-              variant="outlined"
-              multiline
-              rows={4}
-              onChange={(e) => {
-                setNote(e.target.value);
-              }}
-            />
+              <Grid item xs={12} md={8}>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Title:
+                  <Typography variant="body1">
+                    {serviceticketdetails?.title}
+                  </Typography>
+                </Typography>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Description:
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      textTransform: "capitalize",
+                      wordWrap: "break-word",
+                      width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                    }}
+                  >
+                    {serviceticketdetails?.description}
+                  </Typography>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Paper>
+          <form onSubmit={handleSubmit}>
+            <Paper
+              sx={{ marginY: "2rem", display: "flex", flexDirection: "column" }}
+              elevation={3}
+            >
+              <Box m={2}>
+                <FormControl>
+                  <InputLabel id="status">Status</InputLabel>
+                  <Select
+                    labelId="status"
+                    id="status"
+                    label="status"
+                    sx={{ minWidth: "100px" }}
+                    value={select}
+                    onChange={(event) => {
+                      setSelect(event?.target?.value);
+                    }}
+                  >
+                    <MenuItem value={"active"}>Active</MenuItem>
+                    <MenuItem value={"pending"}>Pending</MenuItem>
+                    <MenuItem value={"closed"}>Closed</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+
+
+              <TextField
+                sx={{ marginX: "1.1rem" }}
+                margin="none"
+                name="Note"
+                label="Note..."
+                type="text"
+                variant="outlined"
+                multiline
+                rows={4}
+                onChange={(e) => {
+                  setNote(e?.target?.value);
+                }}
+              />
+
 
             <Box
               sx={{
@@ -183,6 +207,7 @@ export const ServiceDetails = () => {
           </Paper>
         </form>
       </Grid>
+        )}
     </Grid>
   );
 };

@@ -5,86 +5,88 @@ import {
   Grid,
   InputLabel,
   MenuItem,
-  Paper,
+
   Select,
   SelectChangeEvent,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+  Tab,
+  Tabs,
+  TextField,
 
+} from "@mui/material";
+import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Link as RouterLink } from "react-router-dom";
 import { Dispatch } from "redux";
+import AssetsTable from "../../components/AssetTable/AssetsTable";
+import RentedAssetsTable from "../../components/AssetTable/RentedAssetsTable";
+import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 function Assets() {
-  const { assets, message } = useSelector((state: RootStore) => state.admin);
+  const [value, setValue] = useState(0);
+  const [isRented, setIsRented] = useState<boolean>(false);
+  const { message } = useSelector((state: RootStore) => state.admin);
 
+  const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
-
   const [category, setCategory] = useState("hardware");
 
+ // Debounce callback
+ const debounced = useDebouncedCallback(
+  // function
+  (search) => {
+    setSearch(search);
+  },
+  // delay in ms
+  300
+);
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+    newValue ? setIsRented(true) : setIsRented(false);
+  };
   const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value as string);
+    setCategory(event?.target?.value);
   };
-
   useEffect(() => {
-    dispatch(getAssets());
-  }, [dispatch, message]);
+    dispatch(
+      getAssets({ name: search, assetType: category, isRented: isRented ? 1 : 0 })
 
-  const AssetsTable = ({ category }: { category: string }) => {
-    return (
-      <>
-        {assets
-          ?.filter((asset) => asset?.assetType === category)
-          ?.map((filteredAsset) => (
-            <TableRow key={filteredAsset?.assetId}>
-              <TableCell align="center">{filteredAsset?.assetId}</TableCell>
-              <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
-              <TableCell align="center">
-                {filteredAsset?.name.toUpperCase()}
-              </TableCell>
-              <TableCell align="center">
-                {filteredAsset?.category.toUpperCase()}
-              </TableCell>
-              <TableCell align="center">
-                {filteredAsset?.status.toUpperCase()}
-              </TableCell>
-              <TableCell align="center">
-                {filteredAsset?.usability.toUpperCase()}
-              </TableCell>
-            </TableRow>
-          ))}
-      </>
     );
-  };
-
+  }, [dispatch, message, search,category, isRented]);
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
+      <Toast />
       <Grid item xs={12} md={10} p={3}>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <FormControl sx={{ width: 300 }}>
+        <Grid container alignItems="center"  spacing={3} >
+          <Grid item xs={3} >
+          <FormControl>
             <InputLabel>Category</InputLabel>
-            <Select value={category} onChange={handleChange}>
+            <Select
+              labelId="category"
+              id="Category"
+              label="Category"
+              value={category}
+              onChange={handleChange}
+            >
               <MenuItem value={"software"}>Software</MenuItem>
               <MenuItem value={"hardware"}>Hardware</MenuItem>
             </Select>
           </FormControl>
-
-          <Button
+          </Grid>
+          <Grid item xs={6} >
+          ​<TextField
+              label="search here by name..."
+              onChange={(e) => debounced(e?.target?.value)}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Box display="flex" justifyContent="flex-end" >
+            <Button
             variant="outlined"
             color="primary"
             component={RouterLink}
@@ -92,46 +94,24 @@ function Assets() {
           >
             Add new Asset
           </Button>
-        </Box>
+            </Box>
+          
+          </Grid>
+        </Grid>
+
+     
 
         <Box>
-          <TableContainer sx={{ marginY: 3 }} component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">
-                    <Typography>ID</Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography>Model No.</Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography>Name</Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography>Category</Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography>Status</Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography>Usability</Typography>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {category && category === "hardware" ? (
-                  <AssetsTable category="hardware" />
-                ) : (
-                  <AssetsTable category="software" />
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Tabs value={value} onChange={handleTabChange} centered>
+            <Tab label="Owned Assets" />
+            <Tab label="Rented Assets" />
+          </Tabs>
         </Box>
+        
+        
+        <Box>{isRented ? <RentedAssetsTable /> : <AssetsTable />}</Box>
       </Grid>
     </Grid>
   );
 }
-
 export default Assets;

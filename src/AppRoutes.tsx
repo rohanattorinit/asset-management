@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import AssetDetails from "./pages/admin/AssetDetails";
+import NotFound from "./components/ErrorHandling/NotFound";
 import Navbar from "./components/Navbar/Navbar";
-import PageNotFound from "./components/PageNotFound";
 import AddAsset from "./pages/admin/AddAsset";
 import AddEmployee from "./pages/admin/AddEmployee";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -15,7 +16,6 @@ import Asset from "./pages/employee/Asset";
 import Dashboard from "./pages/employee/Dashboard";
 import Profile from "./pages/employee/Profile";
 import Ticket from "./pages/employee/Ticket";
-import Login from "./pages/Login";
 import ProtectedAdminRoute, {
   ProtectedAdminRouteProps,
 } from "./utils/ProtectedAdminRoute";
@@ -143,6 +143,17 @@ function AppRoutes() {
             />
           }
         />
+
+        <Route
+          path="/admin/assets/:assetId"
+          element={
+            <ProtectedAdminRoute
+              {...defaultProtectedAdminRouteProps}
+              outlet={<AssetDetails />}
+            />
+          }
+        />
+
         <Route
           path="/admin/service/:ticketId"
           element={
@@ -152,7 +163,8 @@ function AppRoutes() {
             />
           }
         />
-        <Route path="*" element={<PageNotFound />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

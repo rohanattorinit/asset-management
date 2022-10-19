@@ -20,7 +20,6 @@ export const login =
       });
 
       const hour = new Date(new Date().getTime() + 200 * 36000);
-
       //set isAuth cookie
       const isAdmin = (res as any)?.data?.user?.isAdmin;
       Cookies.set("is_admin", isAdmin, { expires: hour });
@@ -34,7 +33,7 @@ export const login =
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: (error as any).response.data.error,
+        payload: (error as any)?.response?.data?.error || "",
       });
     }
   };
@@ -58,8 +57,24 @@ export const getUserProfile =
     dispatch({ type: LOADING });
     try {
       const res = await get("/api/auth/profile");
-      dispatch({ type: SET_AUTHENTICATED, payload: (res as any).data });
+      dispatch({ type: SET_AUTHENTICATED, payload: (res as any)?.data });
     } catch (error) {
+      dispatch({
+        type: SET_AUTHENTICATED,
+        payload: {
+          token: "",
+          message: "",
+          user: {
+            empId: "",
+            name: "",
+            email: "",
+            phone: "",
+            location: "",
+            isAdmin: false,
+            jobTitle: "",
+          },
+        },
+      });
       dispatch({
         type: SET_ERROR,
         payload: "Error occured while getting user profile details",

@@ -6,11 +6,13 @@ export const LOADING = 'LOADING'
 export const SET_EMPLOYEE_ASSETS = 'SET_EMPLOYEE_ASSETS'
 export const SET_ASSETS = 'SET_ASSETS'
 export const UPDATE_EMPLOYEE_DETAILS = 'UPDATE_EMPLOYEE_DETAILS'
+export const UPDATE_ASSET_DETAILS = 'UPDATE_ASSET_DETAILS'
 export const SET_EMPLOYEE = 'SET_EMPLOYEE'
 export const SET_LOGOUT = 'SET_LOGOUT'
 export const SET_ADDEMPLOYEE = 'SET_ADDEMPLOYEE'
 export const SET_ADDASSET = 'SET_ADDASSET'
 export const SET_EMPLOYEE_DETAILS = 'SET_EMPLOYEE_DETAILS'
+export const SET_SINGLE_ASSET_DETAILS = 'SET_SINGLE_ASSET_DETAILS'
 export const SET_EMPLOYEE_ASSETS_DETAILS = 'SET_EMPLOYEE_ASSETS_DETAILS'
 export const DEALLOCATE_EMPLOYEE_ASSET = 'DEALLOCATE_EMPLOYEE_ASSET'
 export const ALLOCATE_EMPLOYEE_ASSET = 'ALLOCATE_EMPLOYEE_ASSET'
@@ -20,6 +22,7 @@ export const SET_SERVICE_TICKET_DETAILS = 'SET_SERVICE_TICKET_DETAILS'
 export const SET_EMPTICKETS = 'SET_EMPTICKETS'
 export const SET_TICKET_STATUS = 'SET_TICKET_STATUS'
 export const SET_ADD_NOTE = 'SET_ADD_NOTE'
+export const GET_ADD_NOTE = 'GET_ADD_NOTE'
 
 export interface EmpTicketType {
   ticketId: number
@@ -29,7 +32,7 @@ export interface EmpTicketType {
   description: string
   ticketStatus: string
   createdAt: string
-  note : string
+  note: string
 }
 
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
@@ -47,8 +50,14 @@ export interface CreateAssetType {
   category: string
   modelNo: string
   description: string
-  status: string
+  //status: string
   usability: string
+  isRented: boolean
+  vendor: string
+  rent: string
+  deposit: string
+  rentStartDate: string
+  rentEndDate: string
 }
 
 export interface CreateEmployeeType {
@@ -78,6 +87,25 @@ export interface ServiceType {
   createdAt: string
 }
 
+export interface SingleAssetDetailsType {
+  assetId: number
+  brandName: string
+  name: string
+  modelNo: number
+  description: string
+  status: string
+  usability: string
+  asset_location: string
+  empName: string
+  empId: string
+  isRented: 0 | 1
+  vendor: string
+  rent: number
+  deposit: number
+  rentStartDate?: string
+  rentEndDate?: string
+}
+
 export interface EmployeeAssetType {
   assetId: number
   name: string
@@ -88,7 +116,7 @@ export interface EmployeeAssetType {
 
 export interface AssetTypes {
   assetId: number
-  brandId: number
+  brandName: string
   name: string
   assetType: string
   category: string
@@ -97,6 +125,13 @@ export interface AssetTypes {
   status: string
   usability: string
   addedTime: string
+  isRented?: boolean
+  vendor?: string
+  rent?: number
+  deposit?: number
+  rentStartDate?: string
+  rentEndDate?: string
+  asset_location: string
 }
 
 export interface AllocatedAssetType {
@@ -114,6 +149,12 @@ export interface DeAllocatAssetType {
   modelno: number
   allocationTime: string
 }
+export interface NoteType {
+  ticketId: number
+  note: string
+  createdAt: string
+}
+
 interface SetAllocateAsset {
   type: typeof ALLOCATE_EMPLOYEE_ASSET
   payload: {
@@ -186,6 +227,13 @@ interface SetAssets {
 
 interface UpdateEmployeeDetails {
   type: typeof UPDATE_EMPLOYEE_DETAILS
+  payload: {
+    message: string
+  }
+}
+
+interface UpdateAssetDetails {
+  type: typeof UPDATE_ASSET_DETAILS
   payload: {
     message: string
   }
@@ -264,6 +312,11 @@ interface SetServiceDetails {
   payload: { message: string; data: ServiceType[] }
 }
 
+interface SetSingleAssetDetails {
+  type: typeof SET_SINGLE_ASSET_DETAILS
+  payload: { message: string; data: SingleAssetDetailsType }
+}
+
 interface setEmployeeAssetDetails {
   type: typeof SET_EMPLOYEE_ASSETS_DETAILS
   payload: {
@@ -308,6 +361,14 @@ interface SetAddNote {
   }
 }
 
+interface GetAddNote {
+  type: typeof GET_ADD_NOTE
+  payload: {
+    message: string
+    data: NoteType[]
+  }
+}
+
 export type DispatchTypes =
   | LoadingData
   | SetEmployees
@@ -333,3 +394,6 @@ export type DispatchTypes =
   | SetServiceDetails
   | SetTicketStatus
   | SetAddNote
+  | SetSingleAssetDetails
+  | UpdateAssetDetails
+  | GetAddNote
