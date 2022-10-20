@@ -336,7 +336,6 @@ export const changeTicketStatus = (ticketId: number, status: string) => async (
   dispatch({ type: LOADING_DATA })
   try {
 
-    console.log(status)
     const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
       status
     })
