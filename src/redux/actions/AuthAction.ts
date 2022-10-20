@@ -38,19 +38,21 @@ export const login =
     }
   };
 
-export const logout = () => async (dispatch: Dispatch<DispatchTypes>) => {
-  dispatch({ type: LOADING });
-  try {
-    Cookies.remove("auth_token");
-    delete axios.defaults.headers.common["Authorization"];
-    dispatch({ type: SET_LOGOUT });
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload: "Error while logging out",
-    });
-  }
-};
+export const logout =
+  (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING });
+    try {
+      Cookies.remove("auth_token");
+      delete axios.defaults.headers.common["Authorization"];
+      const res = await post(`/api/auth/logout/${empId}`, {});
+      dispatch({ type: SET_LOGOUT });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload: "Error while logging out",
+      });
+    }
+  };
 
 export const getUserProfile =
   () => async (dispatch: Dispatch<DispatchTypes>) => {

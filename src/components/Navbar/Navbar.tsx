@@ -8,14 +8,16 @@ import { RootStore } from "../../redux/store";
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
-
+  const {
+    user: { isAdmin, empId },
+  } = useSelector((state: RootStore) => state.login);
   const open = Boolean(anchorEl);
   const dispatch: Dispatch<any> = useDispatch();
   const handleClose = () => {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout(empId));
     setAnchorEl(null);
     navigate("/");
   };

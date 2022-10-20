@@ -20,7 +20,7 @@ import { Dispatch, useState } from "react";
 
 export default function SideBar() {
   const {
-    user: { isAdmin },
+    user: { isAdmin, empId },
   } = useSelector((state: RootStore) => state.login);
   const [openDrawer, setOpenDrawer] = useState(false);
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function SideBar() {
   ];
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout(empId));
     navigate("/");
   };
   const MobileNav = () => {
