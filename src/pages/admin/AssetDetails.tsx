@@ -445,7 +445,7 @@ const AssetDetails = () => {
                             required
                           />
                         </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
+                        {/* <Grid item xs={12} sm={6} md={6}>
                           <TextField
                             label="Status"
                             variant="outlined"
@@ -456,7 +456,7 @@ const AssetDetails = () => {
                             value={values?.status}
                             required
                           />
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
                             label="Model No."
