@@ -218,7 +218,7 @@ export default function EmployeeDetails() {
 
           {/* //Deallocate Asset */}
 
-          {loading && !open ? (
+          {!employeeassetsdetails?.length && loading && !open ? (
             <Loader />
           ) : employeeassetsdetails?.length ? (
             <TableContainer component={Paper}>
@@ -279,6 +279,8 @@ export default function EmployeeDetails() {
                 </TableBody>
               </Table>
             </TableContainer>
+          ) : loading ? (
+            <Loader />
           ) : (
             <Typography textAlign={"center"} variant="h5" pb={2}>
               No assets are allocated !!!
@@ -346,6 +348,7 @@ export default function EmployeeDetails() {
                             value={values?.email}
                             component={TextField}
                             error={errors?.email}
+                            disabled
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
