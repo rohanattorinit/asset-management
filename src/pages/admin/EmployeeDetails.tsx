@@ -213,7 +213,9 @@ export default function EmployeeDetails() {
             </Box>
           </Box>
 
+
           {!loading && employeeassetsdetails?.length ? (
+
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -336,7 +338,7 @@ export default function EmployeeDetails() {
                             value={values?.email}
                             component={TextField}
                             error={errors?.email}
-                             disabled
+                            disabled
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
