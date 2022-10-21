@@ -29,7 +29,6 @@ export default function Dashboard() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
-      <Toast />
       <Grid item xs={12} md={10} p={3}>
         <Box p={2}>
           <Carousel />
