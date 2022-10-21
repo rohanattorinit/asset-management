@@ -31,6 +31,7 @@ function RentedAssetsTable() {
           <Loader />
         ) : (
           <TableContainer sx={{ marginY: 3 }} component={Paper}>
+            {assets.length ? (
             <Table sx={{ minWidth: 1200 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -92,6 +93,11 @@ function RentedAssetsTable() {
                 </TableRow>
               ))}
             </Table>
+            ) : (
+                  <Typography textAlign={"center"}>
+                    No Assets found!
+                  </Typography>
+                )}
           </TableContainer>
         )}
       </Box>
