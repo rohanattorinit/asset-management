@@ -26,6 +26,7 @@ import { useLocation } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
+  allocateAssets,
   deallocateAssets,
   getAssetDetails,
   getAssets,
@@ -94,12 +95,9 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-
+      { loading && !open?<Loader/>:
       <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
         <Paper sx={{ marginY: 3 }} elevation={5}>
-          {!employeeDetails?.empId?.length && loading && !open ? (
-            <Loader />
-          ) : (
             <>
               <Box
                 sx={{
@@ -195,7 +193,6 @@ export default function EmployeeDetails() {
                 </Grid>
               </Grid>
             </>
-          )}
         </Paper>
 
         <Paper sx={{ marginY: 3 }} elevation={5}>
@@ -216,11 +213,9 @@ export default function EmployeeDetails() {
             </Box>
           </Box>
 
-          {/* //Deallocate Asset */}
 
-          {loading && !open ? (
-            <Loader />
-          ) : employeeassetsdetails?.length ? (
+          {!loading && employeeassetsdetails?.length ? (
+
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -279,13 +274,10 @@ export default function EmployeeDetails() {
                 </TableBody>
               </Table>
             </TableContainer>
-          ) : (
-            <Typography textAlign={"center"} variant="h5" pb={2}>
-              No assets are allocated !!!
-            </Typography>
-          )}
+          ) : <></>}
         </Paper>
-      </Grid>
+      </Grid>}
+
 
       <AllocateAsset open={open} setOpen={setOpen} />
       <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
@@ -346,6 +338,7 @@ export default function EmployeeDetails() {
                             value={values?.email}
                             component={TextField}
                             error={errors?.email}
+                            disabled
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>

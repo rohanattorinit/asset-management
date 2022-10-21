@@ -5,11 +5,15 @@ import {
   Grid,
   InputLabel,
   MenuItem,
+
   Select,
   SelectChangeEvent,
   Tab,
   Tabs,
+  TextField,
+
 } from "@mui/material";
+import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
@@ -24,8 +28,21 @@ function Assets() {
   const [value, setValue] = useState(0);
   const [isRented, setIsRented] = useState<boolean>(false);
   const { message } = useSelector((state: RootStore) => state.admin);
+
+  const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
   const [category, setCategory] = useState("hardware");
+
+ // Debounce callback
+ const debounced = useDebouncedCallback(
+  // function
+  (search) => {
+    setSearch(search);
+  },
+  // delay in ms
+  300
+);
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     newValue ? setIsRented(true) : setIsRented(false);
@@ -35,27 +52,18 @@ function Assets() {
   };
   useEffect(() => {
     dispatch(
-      getAssets({ name: "", assetType: category, isRented: isRented ? 1 : 0 })
+      getAssets({ name: search, assetType: category, isRented: isRented ? 1 : 0 })
+
     );
-  }, [dispatch, message, category, isRented]);
+  }, [dispatch, message, search,category, isRented]);
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
       <Grid item xs={12} md={10} p={3}>
-        <Box>
-          <Tabs value={value} onChange={handleTabChange} centered>
-            <Tab label="Owned Assets" />
-            <Tab label="Rented Assets" />
-          </Tabs>
-        </Box>
-        ​
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="flex-start"
-        >
-          <FormControl sx={{ width: 300 }}>
+        <Grid container alignItems="center"  spacing={3} >
+          <Grid item xs={3} >
+          <FormControl>
             <InputLabel>Category</InputLabel>
             <Select
               labelId="category"
@@ -68,8 +76,17 @@ function Assets() {
               <MenuItem value={"hardware"}>Hardware</MenuItem>
             </Select>
           </FormControl>
-          ​
-          <Button
+          </Grid>
+          <Grid item xs={6} >
+          ​<TextField
+              label="search here by name..."
+              onChange={(e) => debounced(e?.target?.value)}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <Box display="flex" justifyContent="flex-end" >
+            <Button
             variant="outlined"
             color="primary"
             component={RouterLink}
@@ -77,7 +94,21 @@ function Assets() {
           >
             Add new Asset
           </Button>
+            </Box>
+          
+          </Grid>
+        </Grid>
+
+     
+
+        <Box>
+          <Tabs value={value} onChange={handleTabChange} centered>
+            <Tab label="Owned Assets" />
+            <Tab label="Rented Assets" />
+          </Tabs>
         </Box>
+        
+        
         <Box>{isRented ? <RentedAssetsTable /> : <AssetsTable />}</Box>
       </Grid>
     </Grid>

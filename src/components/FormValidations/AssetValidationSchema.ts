@@ -5,7 +5,7 @@ const maxMin = /^[1-9]\d*$/
 
 export const AssetValidationSchema = Yup.object().shape({
   usability: Yup.string().required('Required'),
-  status: Yup.string().required('Required'),
+  // status: Yup.string().required('Required'),
 
   brandName: Yup.string()
     .matches(re, 'Brand name can have letters only!')
