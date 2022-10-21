@@ -89,7 +89,6 @@ export default function Profile() {
   return (
     <Grid container sx={{ height: "100%" }}>
       <Sidebar />
-      <Toast />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box
           sx={{
