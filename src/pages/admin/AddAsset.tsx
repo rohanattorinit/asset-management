@@ -41,9 +41,10 @@ const AddAsset = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values: any, { resetForm }: any) => {
+    values.rent = parseInt(values.rent.split(",").join(""), 10);
+    values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
     //console.log(values);
-
     resetForm({ values: "" });
   };
   useEffect(() => {
