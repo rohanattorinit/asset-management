@@ -1,9 +1,9 @@
 import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const re = /^[A-Z/a-z/ \b]+$/
-//const maxMin = /^[1-9]\d*$/
+const amount = /^[1-9]\d*$/
 
-const amount = /[0-9]+([,.][0-9]{1,2})?/
+//const amount = /[0-9]+([,.][0-9]{1,2})?/
 
 export const AssetValidationSchema = Yup.object().shape({
   usability: Yup.string().required('Required'),
