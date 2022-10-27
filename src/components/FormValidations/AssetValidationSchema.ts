@@ -1,11 +1,11 @@
 import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const re = /^[A-Z/a-z/ \b]+$/
-const maxMin = /^[1-9]\d*$/
+//const maxMin = /^[1-9]\d*$/
+const amount = /\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})/
 
 export const AssetValidationSchema = Yup.object().shape({
   usability: Yup.string().required('Required'),
-  // status: Yup.string().required('Required'),
 
   brandName: Yup.string()
     .matches(re, 'Brand name can have letters only!')
@@ -38,7 +38,7 @@ export const AssetValidationSchema = Yup.object().shape({
     }),
 
   rent: Yup.string()
-    .matches(maxMin, 'Enter valid rent amount!')
+    .matches(amount, 'Enter valid rent amount!')
     .when('isRented', {
       is: true,
       then: Yup.string().required('Rent Required'),
@@ -46,7 +46,7 @@ export const AssetValidationSchema = Yup.object().shape({
     }),
 
   deposit: Yup.string()
-    .matches(maxMin, 'Enter valid deposit amount!')
+    .matches(amount, 'Enter valid deposit amount!')
     .when('isRented', {
       is: true,
       then: Yup.string().required('Deposit Required'),
