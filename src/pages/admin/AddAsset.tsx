@@ -41,9 +41,10 @@ const AddAsset = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values: any, { resetForm }: any) => {
+    values.rent = parseInt(values.rent.split(",").join(""), 10);
+    values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
     //console.log(values);
-
     resetForm({ values: "" });
   };
   useEffect(() => {
@@ -239,7 +240,10 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="rent"
-                                value={values?.rent}
+                                value={values?.rent
+                                       ?.replace(/,/gi, "")
+                                  .split(/(?=(?:\d{3})+$)/)
+                                  .join(",")}
                                 component={TextField}
                               />
                             </Grid>
@@ -250,7 +254,10 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="deposit"
-                                value={values?.deposit}
+                                value={values?.deposit
+                                       ?.replace(/,/gi, "")
+                                  .split(/(?=(?:\d{3})+$)/)
+                                  .join(",")}
                                 component={TextField}
                               />
                             </Grid>

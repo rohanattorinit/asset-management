@@ -144,7 +144,6 @@ export const addAsset = (assetDetails: CreateAssetType) => async (
     alert((res as any)?.data?.message)
     dispatch({ type: SET_ADDASSET, payload: (res as any)?.data })
   } catch (error) {
-    console.log('error')
 
     dispatch({
       type: SET_ERROR,

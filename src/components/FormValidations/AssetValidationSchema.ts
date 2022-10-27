@@ -1,11 +1,12 @@
 import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const re = /^[A-Z/a-z/ \b]+$/
-const maxMin = /^[1-9]\d*$/
+//const amount = /^[1-9]\d*$/
+
+const amount = /[0-9]+([,.][0-9]{1,2})?/
 
 export const AssetValidationSchema = Yup.object().shape({
   usability: Yup.string().required('Required'),
-  // status: Yup.string().required('Required'),
 
   brandName: Yup.string()
     .matches(re, 'Brand name can have letters only!')
@@ -38,7 +39,7 @@ export const AssetValidationSchema = Yup.object().shape({
     }),
 
   rent: Yup.string()
-    .matches(maxMin, 'Enter valid rent amount!')
+    .matches(amount, 'Enter valid rent amount!')
     .when('isRented', {
       is: true,
       then: Yup.string().required('Rent Required'),
@@ -46,7 +47,7 @@ export const AssetValidationSchema = Yup.object().shape({
     }),
 
   deposit: Yup.string()
-    .matches(maxMin, 'Enter valid deposit amount!')
+    .matches(amount, 'Enter valid deposit amount!')
     .when('isRented', {
       is: true,
       then: Yup.string().required('Deposit Required'),
@@ -63,7 +64,15 @@ export const AssetValidationSchema = Yup.object().shape({
     is: (isRented: boolean) => {
       return !!isRented
     },
-    then: Yup.date().required('Rent end date is required'),
+    then: Yup.date()
+      .required('Rent end date is required')
+      .test(
+        'biggerThanStart',
+        'End date should be after start date',
+        (value: any, schema: any) => {
+          return value?.getTime() > schema.parent.rentStartDate?.getTime()
+        }
+      ),
     otherwise: Yup.date().nullable()
   })
 })
