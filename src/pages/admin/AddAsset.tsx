@@ -239,7 +239,10 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="rent"
-                                value={values?.rent}
+                                value={values?.rent
+                                       ?.replace(/,/gi, "")
+                                  .split(/(?=(?:\d{3})+$)/)
+                                  .join(",")}
                                 component={TextField}
                               />
                             </Grid>
@@ -250,7 +253,10 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="deposit"
-                                value={values?.deposit}
+                                value={values?.deposit
+                                       ?.replace(/,/gi, "")
+                                  .split(/(?=(?:\d{3})+$)/)
+                                  .join(",")}
                                 component={TextField}
                               />
                             </Grid>
