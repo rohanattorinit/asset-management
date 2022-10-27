@@ -42,7 +42,9 @@ const AllocateAsset = ({
     // delay in ms
     300
   );
+  
   useEffect(() => {
+    setAssetId([]);
     dispatch(getAssets({ allocate: true, name: search }));
   }, [dispatch, search, message]);
   const handleClose = () => {
