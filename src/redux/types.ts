@@ -23,6 +23,8 @@ export const SET_EMPTICKETS = 'SET_EMPTICKETS'
 export const SET_TICKET_STATUS = 'SET_TICKET_STATUS'
 export const SET_ADD_NOTE = 'SET_ADD_NOTE'
 export const GET_ADD_NOTE = 'GET_ADD_NOTE'
+export const GET_BRAND_OPTIONS = 'GET_BRAND_OPTIONS'
+export const GET_FILTER_OPTIONS = 'GET_FILTER_OPTIONS'
 
 export interface EmpTicketType {
   ticketId: number
@@ -50,7 +52,7 @@ export interface CreateAssetType {
   category: string
   modelNo: string
   description: string
-  //status: string
+  status: string
   usability: string
   isRented: boolean
   vendor: string
@@ -58,6 +60,12 @@ export interface CreateAssetType {
   deposit: string
   rentStartDate: string
   rentEndDate: string
+  processor: string
+  ram: string
+  operating_system: string
+  screen_type: string
+  screen_size: string
+  asset_location: string
 }
 
 export interface CreateEmployeeType {
@@ -153,6 +161,22 @@ export interface NoteType {
   ticketId: number
   note: string
   createdAt: string
+}
+
+export interface BrandOptions {
+  brandId: number
+  name: string
+}
+
+export interface FilterOptions {
+  category: string[]
+  status: string[]
+  processor: string[]
+  screen_size: string[]
+  ram: string[]
+  screen_type: string[]
+  location: string[]
+  os: string[]
 }
 
 interface SetAllocateAsset {
@@ -361,6 +385,20 @@ interface SetAddNote {
   }
 }
 
+interface setBrandOptions {
+  type: typeof GET_BRAND_OPTIONS
+  payload: {
+    // message: string
+    data: BrandOptions[]
+  }
+}
+
+interface GetFilterOptions {
+  type: typeof GET_FILTER_OPTIONS
+  payload: {
+    data: FilterOptions
+  }
+}
 interface GetAddNote {
   type: typeof GET_ADD_NOTE
   payload: {
@@ -397,3 +435,5 @@ export type DispatchTypes =
   | SetSingleAssetDetails
   | UpdateAssetDetails
   | GetAddNote
+  | setBrandOptions
+  | GetFilterOptions

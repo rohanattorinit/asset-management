@@ -1,4 +1,8 @@
 import {
+  BrandOptions,
+  FilterOptions,
+  GET_BRAND_OPTIONS,
+  GET_FILTER_OPTIONS,
   SET_ADD_NOTE,
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
@@ -36,6 +40,8 @@ interface InitialState {
   serviceticketdetails: ServiceType
   error?: string
   message: string
+  brandOptions: BrandOptions[]
+  filterOptions: FilterOptions
 }
 
 const initialState: InitialState = {
@@ -81,6 +87,17 @@ const initialState: InitialState = {
     description: '',
     ticketStatus: '',
     createdAt: ''
+  },
+  brandOptions: [],
+  filterOptions: {
+    category: [],
+    status: [],
+    processor: [],
+    screen_size: [],
+    ram: [],
+    screen_type: [],
+    location: [],
+    os: []
   }
 }
 
@@ -193,6 +210,20 @@ const adminReducer = (
       return {
         ...state,
         error: action.payload,
+        loading: false
+      }
+
+    case GET_BRAND_OPTIONS:
+      return {
+        ...state,
+        brandOptions: action.payload?.data,
+        loading: false
+      }
+
+    case GET_FILTER_OPTIONS:
+      return {
+        ...state,
+        filterOptions: action.payload?.data,
         loading: false
       }
 

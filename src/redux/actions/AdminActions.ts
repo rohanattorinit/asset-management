@@ -3,6 +3,8 @@ import {
   AssetTypes,
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
+  GET_BRAND_OPTIONS,
+  GET_FILTER_OPTIONS,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
@@ -20,7 +22,6 @@ import {
   SET_ASSETS,
   SET_EMPLOYEES,
   SET_ERROR,
-
   SET_SERVICE_TICKET_DETAILS
 } from './../types'
 import { Dispatch } from 'redux'
@@ -31,7 +32,6 @@ interface GetAssetParams {
   name?: string
   assetType?: string
   isRented?: 0 | 1
-
 }
 
 interface GetAssetParams {
@@ -144,7 +144,6 @@ export const addAsset = (assetDetails: CreateAssetType) => async (
     alert((res as any)?.data?.message)
     dispatch({ type: SET_ADDASSET, payload: (res as any)?.data })
   } catch (error) {
-
     dispatch({
       type: SET_ERROR,
       payload:
@@ -163,7 +162,7 @@ export const updateAssetDetails = (
   dispatch({ type: LOADING_DATA })
   try {
     const res = await post(`/api/assets/update/${assetId}`, updateData)
-   
+
     alert('Profile Details Updated Successfully!')
     dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data })
   } catch (error) {
@@ -316,7 +315,6 @@ export const allocateAssets = (empId: string, assetId: number[]) => async (
     const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId })
 
     dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data })
-   
   } catch (error) {
     dispatch({
       type: SET_ERROR,
@@ -334,12 +332,10 @@ export const changeTicketStatus = (ticketId: number, status: string) => async (
 ) => {
   dispatch({ type: LOADING_DATA })
   try {
-
     const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
       status
     })
     dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data })
-
   } catch (error) {
     dispatch({
       type: SET_ERROR,
@@ -351,7 +347,6 @@ export const changeTicketStatus = (ticketId: number, status: string) => async (
     })
   }
 }
-
 
 export const addNote = (ticketId: number, note: string) => async (
   dispatch: Dispatch<DispatchTypes>
@@ -370,3 +365,38 @@ export const addNote = (ticketId: number, note: string) => async (
   }
 }
 
+export const getBrandOptions = () => async (
+  dispatch: Dispatch<DispatchTypes>
+) => {
+  dispatch({ type: LOADING_DATA })
+  try {
+    const res = await get(`/api/brands`)
+
+    dispatch({ type: GET_BRAND_OPTIONS, payload: (res as any)?.data })
+  } catch (error) {
+    dispatch({
+      type: SET_ERROR,
+      payload:
+        (error as any)?.response?.data?.error ||
+        `${(error as any).response.status}: Error occured while fetching brands`
+    })
+  }
+}
+
+export const getfilterOptions = () => async (
+  dispatch: Dispatch<DispatchTypes>
+) => {
+  dispatch({ type: LOADING_DATA })
+  try {
+    const res = await get(`/api/assets/filterOptions`)
+
+    dispatch({ type: GET_FILTER_OPTIONS, payload: (res as any)?.data })
+  } catch (error) {
+    dispatch({
+      type: SET_ERROR,
+      payload:
+        (error as any)?.response?.data?.error ||
+        `${(error as any).response.status}: Error occured while fetching brands`
+    })
+  }
+}

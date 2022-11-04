@@ -20,16 +20,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 import SideBar from "../../components/Sidebar/Sidebar";
-import { addAsset } from "../../redux/actions/AdminActions";
+import {
+  addAsset,
+  getBrandOptions,
+  getfilterOptions,
+} from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 
-const usabilityOptions = [
-  { label: "Usable", value: "usable" },
-  { label: "Unusable", value: "unusable" },
-  { label: "Disposed", value: "disposed" },
-];
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
   { label: "Software", value: "software" },
@@ -37,16 +36,22 @@ const assetTypeOptions = [
 
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const { message } = useSelector((state: RootStore) => state.admin);
+  const { message, brandOptions, filterOptions } = useSelector(
+    (state: RootStore) => state.admin
+  );
   const navigate = useNavigate();
 
   const onSubmit = (values: any, { resetForm }: any) => {
+    values.rent = parseInt(values.rent.split(",").join(""), 10);
+    values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
-    //console.log(values);
-
+    console.log(values);
     resetForm({ values: "" });
   };
   useEffect(() => {
+    dispatch(getBrandOptions());
+    dispatch(getfilterOptions());
+
     if (message) {
       navigate("/admin/assets");
     }
@@ -70,6 +75,8 @@ const AddAsset = () => {
                   assetName: "",
                   category: "",
                   modelNo: "",
+                  asset_location: "",
+                  receivedDate: "",
                   description: "",
                   usability: "",
                   vendor: "",
@@ -78,7 +85,11 @@ const AddAsset = () => {
                   rentStartDate: "",
                   rentEndDate: "",
                   isRented: false,
-                  asset_location: "",
+                  screenType: "",
+                  ramOptions: "",
+                  osOptions: "",
+                  processor: "",
+                  screenSize: "",
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -95,15 +106,36 @@ const AddAsset = () => {
                     <Form>
                       <Grid item container spacing={2}>
                         <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Brand Name"
-                            variant="outlined"
-                            fullWidth
-                            name="brandName"
-                            value={values?.brandName}
-                            component={TextField}
-                            data-testid={"brand_name"}
-                          />
+                          <FormControl fullWidth variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Brand Name
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="brandName"
+                              value={values?.brandName}
+                              onChange={handleChange}
+                              name="brandName"
+                              required
+                              MenuProps={{
+                                PaperProps: {
+                                  sx: {
+                                    maxHeight: {
+                                      xs: 48 * 4 + 8,
+                                      sm: 36 * 4 + 8,
+                                    },
+                                  },
+                                },
+                              }}
+                            >
+                              {brandOptions?.map((item) => (
+                                <MenuItem key={item?.name} value={item?.name}>
+                                  {item?.name}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={6}>
@@ -139,17 +171,208 @@ const AddAsset = () => {
                             component={TextField}
                           />
                         </Grid>
-
                         <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Category"
-                            variant="outlined"
-                            fullWidth
-                            name="category"
-                            value={values?.category}
-                            component={TextField}
-                          />
+                          <FormControl fullWidth variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Category
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="Category"
+                              value={values?.category}
+                              onChange={handleChange}
+                              name="category"
+                              required
+                            >
+                              {filterOptions.category.map((item) => (
+                                <MenuItem key={item} value={item}>
+                                  {item}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
                         </Grid>
+
+                        {values?.category === "Laptop" ||
+                        values?.category === "Mobile" ? (
+                          <>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Processor
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="Processor"
+                                  value={values?.processor}
+                                  onChange={handleChange}
+                                  name="processor"
+                                  required
+                                >
+                                  {filterOptions?.processor?.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Screen Type
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="Screen Type"
+                                  value={values?.screenType}
+                                  onChange={handleChange}
+                                  name="screenType"
+                                  required
+                                >
+                                  {filterOptions.screen_type.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  RAM (GB)
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="RAM (GB)"
+                                  value={values?.ramOptions}
+                                  onChange={handleChange}
+                                  name="ramOptions"
+                                  required
+                                >
+                                  {filterOptions.ram.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Operating System
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="operatingsystem"
+                                  value={values?.osOptions}
+                                  onChange={handleChange}
+                                  name="osOptions"
+                                  required
+                                >
+                                  {filterOptions.os?.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Screen Size (Inches)
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="operatingsystem"
+                                  value={values?.screenSize}
+                                  onChange={handleChange}
+                                  name="screenSize"
+                                  required
+                                >
+                                  {filterOptions.screen_size?.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                          </>
+                        ) : (
+                          <> </>
+                        )}
+
+                        {values.category === "Monitor" ? (
+                          <>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Screen Type
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="Screen Type"
+                                  value={values?.screenType}
+                                  onChange={handleChange}
+                                  name="screenType"
+                                  required
+                                >
+                                  {filterOptions.screen_type.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Screen Size (Inches)
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="operatingsystem"
+                                  value={values?.screenSize}
+                                  onChange={handleChange}
+                                  name="screenSize"
+                                  required
+                                >
+                                  {filterOptions.screen_size?.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                          </>
+                        ) : (
+                          <></>
+                        )}
 
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
@@ -163,30 +386,48 @@ const AddAsset = () => {
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Description"
-                            variant="outlined"
-                            fullWidth
-                            name="description"
-                            value={values?.description}
-                            component={TextField}
-                          />
+                          <FormControl fullWidth variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Asset Location
+                            </InputLabel>
+
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="operatingsystem"
+                              value={values?.asset_location}
+                              onChange={handleChange}
+                              name="asset_location"
+                              required
+                            >
+                              {filterOptions.location?.map((item) => (
+                                <MenuItem key={item} value={item}>
+                                  {item}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
                         </Grid>
+
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            label="Asset Location"
+                            type="date"
+                            label="Received date"
                             variant="outlined"
                             fullWidth
-                            name="asset_location"
-                            value={values?.asset_location}
+                            name="receivedDate"
+                            value={values?.receivedDate}
                             component={TextField}
+                            InputLabelProps={{ shrink: true }}
+                            onChange={handleChange}
+                            onKeyDown={(e: any) => e.preventDefault()}
                           />
                         </Grid>
 
                         <Grid item xs={12} sm={6} md={6}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">
-                              Usability
+                              Status
                             </InputLabel>
 
                             <Select
@@ -198,13 +439,24 @@ const AddAsset = () => {
                               name="usability"
                               required
                             >
-                              {usabilityOptions?.map((item) => (
-                                <MenuItem key={item?.value} value={item?.value}>
-                                  {item?.label}
+                              {filterOptions.status?.map((item) => (
+                                <MenuItem key={item} value={item}>
+                                  {item}
                                 </MenuItem>
                               ))}
                             </Select>
                           </FormControl>
+                        </Grid>
+
+                        <Grid item xs={12} sm={6} md={6}>
+                          <Field
+                            label="Description"
+                            variant="outlined"
+                            fullWidth
+                            name="description"
+                            value={values?.description}
+                            component={TextField}
+                          />
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={12}>
@@ -235,11 +487,14 @@ const AddAsset = () => {
 
                             <Grid item xs={12} sm={6} md={6}>
                               <Field
-                                label="Rent per month"
+                                label="Rent per month (GST inclusive)"
                                 variant="outlined"
                                 fullWidth
                                 name="rent"
-                                value={values?.rent}
+                                value={values?.rent
+                                  ?.replace(/,/gi, "")
+                                  .split(/(?=(?:\d{3})+$)/)
+                                  .join(",")}
                                 component={TextField}
                               />
                             </Grid>
@@ -250,7 +505,10 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="deposit"
-                                value={values?.deposit}
+                                value={values?.deposit
+                                  ?.replace(/,/gi, "")
+                                  .split(/(?=(?:\d{3})+$)/)
+                                  .join(",")}
                                 component={TextField}
                               />
                             </Grid>

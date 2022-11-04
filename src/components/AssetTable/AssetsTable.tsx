@@ -10,6 +10,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Stack } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
@@ -40,7 +41,7 @@ const AssetsTable = () => {
         <Loader />
       ) : (
         <TableContainer sx={{ marginY: 3 }} component={Paper}>
-          {assets.length ? (
+          {assets?.length ? (
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -101,7 +102,7 @@ const AssetsTable = () => {
                     onClick={() => setAssetDetails(filteredAsset?.assetId)}
                   >
                     <OpenInNewIcon sx={{ color: "darkblue" }} />
-                  </IconButton>
+                  </IconButton>{" "}
                 </TableRow>
               ))}
             </Table>
