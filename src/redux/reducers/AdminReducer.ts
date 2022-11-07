@@ -66,7 +66,7 @@ const initialState: InitialState = {
     modelNo: 0,
     description: '',
     status: '',
-    usability: '',
+    //usability: '',
     isRented: 0,
     empName: '',
     empId: '',
@@ -75,7 +75,10 @@ const initialState: InitialState = {
     deposit: 0,
     rentStartDate: '',
     rentEndDate: '',
-    asset_location: ''
+    asset_location: '',
+    processor: '',
+    screen_type: '',
+    received_date: ''
   },
   employeeassetsdetails: [],
   serviceDetails: [],

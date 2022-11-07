@@ -76,20 +76,20 @@ const AddAsset = () => {
                   category: "",
                   modelNo: "",
                   asset_location: "",
-                  receivedDate: "",
+                  received_date: "",
                   description: "",
-                  usability: "",
+                  status: "",
                   vendor: "",
                   rent: "",
                   deposit: "",
                   rentStartDate: "",
                   rentEndDate: "",
                   isRented: false,
-                  screenType: "",
-                  ramOptions: "",
-                  osOptions: "",
+                  screen_type: "",
+                  ram: "",
+                  operating_system: "",
                   processor: "",
-                  screenSize: "",
+                  screen_size: "",
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -230,9 +230,9 @@ const AddAsset = () => {
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
                                   label="Screen Type"
-                                  value={values?.screenType}
+                                  value={values?.screen_type}
                                   onChange={handleChange}
-                                  name="screenType"
+                                  name="screen_type"
                                   required
                                 >
                                   {filterOptions.screen_type.map((item) => (
@@ -254,9 +254,9 @@ const AddAsset = () => {
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
                                   label="RAM (GB)"
-                                  value={values?.ramOptions}
+                                  value={values?.ram}
                                   onChange={handleChange}
-                                  name="ramOptions"
+                                  name="ram"
                                   required
                                 >
                                   {filterOptions.ram.map((item) => (
@@ -278,9 +278,9 @@ const AddAsset = () => {
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
                                   label="operatingsystem"
-                                  value={values?.osOptions}
+                                  value={values?.operating_system}
                                   onChange={handleChange}
-                                  name="osOptions"
+                                  name="operating_system"
                                   required
                                 >
                                   {filterOptions.os?.map((item) => (
@@ -302,9 +302,9 @@ const AddAsset = () => {
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
                                   label="operatingsystem"
-                                  value={values?.screenSize}
+                                  value={values?.screen_size}
                                   onChange={handleChange}
-                                  name="screenSize"
+                                  name="screen_size"
                                   required
                                 >
                                   {filterOptions.screen_size?.map((item) => (
@@ -332,9 +332,9 @@ const AddAsset = () => {
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
                                   label="Screen Type"
-                                  value={values?.screenType}
+                                  value={values?.screen_type}
                                   onChange={handleChange}
-                                  name="screenType"
+                                  name="screen_type"
                                   required
                                 >
                                   {filterOptions.screen_type.map((item) => (
@@ -356,9 +356,9 @@ const AddAsset = () => {
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
                                   label="operatingsystem"
-                                  value={values?.screenSize}
+                                  value={values?.screen_size}
                                   onChange={handleChange}
-                                  name="screenSize"
+                                  name="screen_size"
                                   required
                                 >
                                   {filterOptions.screen_size?.map((item) => (
@@ -415,8 +415,8 @@ const AddAsset = () => {
                             label="Received date"
                             variant="outlined"
                             fullWidth
-                            name="receivedDate"
-                            value={values?.receivedDate}
+                            name="received_date"
+                            value={values?.received_date}
                             component={TextField}
                             InputLabelProps={{ shrink: true }}
                             onChange={handleChange}
@@ -433,10 +433,10 @@ const AddAsset = () => {
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              label="Usability"
-                              value={values?.usability}
+                              label="Status"
+                              value={values?.status}
                               onChange={handleChange}
-                              name="usability"
+                              name="status"
                               required
                             >
                               {filterOptions.status?.map((item) => (

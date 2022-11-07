@@ -53,7 +53,6 @@ export interface CreateAssetType {
   modelNo: string
   description: string
   status: string
-  usability: string
   isRented: boolean
   vendor: string
   rent: string
@@ -66,6 +65,7 @@ export interface CreateAssetType {
   screen_type: string
   screen_size: string
   asset_location: string
+  received_date: string
 }
 
 export interface CreateEmployeeType {
@@ -102,7 +102,7 @@ export interface SingleAssetDetailsType {
   modelNo: number
   description: string
   status: string
-  usability: string
+  //usability: string
   asset_location: string
   empName: string
   empId: string
@@ -112,6 +112,9 @@ export interface SingleAssetDetailsType {
   deposit: number
   rentStartDate?: string
   rentEndDate?: string
+  processor: string
+  screen_type: string
+  received_date?: string
 }
 
 export interface EmployeeAssetType {
@@ -140,6 +143,7 @@ export interface AssetTypes {
   rentStartDate?: string
   rentEndDate?: string
   asset_location: string
+  received_date: string
 }
 
 export interface AllocatedAssetType {

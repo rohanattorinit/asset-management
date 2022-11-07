@@ -264,7 +264,7 @@ export const getSingleAssetDetails = (assetId: string) => async (
 ) => {
   dispatch({ type: LOADING_DATA })
   try {
-    const res = await get(`/api/assets/${assetId}`)
+    const res = await get(`/api/assets/singleAsset/${assetId}`)
 
     dispatch({
       type: SET_SINGLE_ASSET_DETAILS,

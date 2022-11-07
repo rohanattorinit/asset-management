@@ -4,7 +4,7 @@ const re = /^[A-Z/a-z/ \b]+$/
 const amount = /[0-9]+([,.][0-9]{1,2})?/
 
 export const AssetValidationSchema = Yup.object().shape({
-  usability: Yup.string().required('Required'),
+  status: Yup.string().required('Required'),
 
   brandName: Yup.string()
     .matches(re, 'Brand name can have letters only!')

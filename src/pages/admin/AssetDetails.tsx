@@ -74,9 +74,13 @@ const AssetDetails = () => {
             }}
           >
             <Typography variant="h5">Asset Details</Typography>
-            <Box display="flex">
+            <Box>
               <Button variant="outlined" onClick={() => setAssetOpen(true)}>
                 Edit
+              </Button>
+              <> </>
+              <Button variant="outlined" color="warning">
+                Delete
               </Button>
             </Box>
           </Box>
@@ -143,8 +147,18 @@ const AssetDetails = () => {
                       variant="h6"
                       mt={2}
                     >
-                      Usability:{" "}
-                      <Typography>{singleAssetDetails?.usability}</Typography>
+                      Processor:{" "}
+                      <Typography>{singleAssetDetails?.processor}</Typography>
+                    </Typography>
+
+                    <Typography
+                      fontFamily="serif"
+                      fontWeight="bold"
+                      variant="h6"
+                      mt={2}
+                    >
+                      Screen Type:{" "}
+                      <Typography>{singleAssetDetails?.screen_type}</Typography>
                     </Typography>
 
                     <Typography
@@ -340,7 +354,7 @@ const AssetDetails = () => {
               assetId: singleAssetDetails?.assetId,
               assetName: singleAssetDetails?.name,
               description: singleAssetDetails?.description,
-              usability: singleAssetDetails?.usability,
+
               brandName: singleAssetDetails?.brandName,
               status: singleAssetDetails?.status,
               modelNo: singleAssetDetails?.modelNo,
@@ -410,7 +424,7 @@ const AssetDetails = () => {
                           />
                         </Grid>
 
-                        <Grid item xs={12} sm={6} md={6}>
+                        {/* <Grid item xs={12} sm={6} md={6}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">
                               Usability
@@ -432,7 +446,7 @@ const AssetDetails = () => {
                               ))}
                             </Select>
                           </FormControl>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12} sm={6} md={6}>
                           <TextField
                             label="Brand Name"
