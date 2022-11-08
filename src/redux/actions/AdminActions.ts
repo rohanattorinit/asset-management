@@ -26,13 +26,6 @@ import {
 import { Dispatch } from 'redux'
 import { get, post } from '../../services'
 import { useNavigate } from 'react-router-dom'
-interface GetAssetParams {
-  allocate?: boolean
-  name?: string
-  assetType?: string
-  isRented?: 0 | 1
-
-}
 
 interface GetAssetParams {
   allocate?: boolean
