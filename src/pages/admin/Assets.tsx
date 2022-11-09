@@ -49,8 +49,8 @@ function Assets() {
     dispatch(
       getAssets({
         name: search,
-        assetType: category,
-        isRented: isRented ? 1 : 0,
+        // assetType: category,
+        //isRented: isRented ? 1 : 0,
       })
     );
   }, [dispatch, message, search, category, isRented]);
