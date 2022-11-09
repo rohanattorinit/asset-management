@@ -1,4 +1,5 @@
 import {
+  Box,
   CircularProgress,
   Grid,
   IconButton,
@@ -21,6 +22,7 @@ import { LOADING } from "../../redux/types";
 import { Dispatch, useEffect, useState } from "react";
 import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
 import Asset from "../../pages/employee/Asset";
+import CountUp from "react-countup";
 
 const AssetsTable = () => {
   const navigate = useNavigate();
@@ -37,6 +39,19 @@ const AssetsTable = () => {
 
   return (
     <>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: "bold",
+            p: 1,
+            borderRadius: 1,
+          }}
+        >
+          Total Assets :
+          <CountUp end={assets?.length} duration={2} />
+        </Typography>
+      </Box>
       {loading ? (
         <Loader />
       ) : (

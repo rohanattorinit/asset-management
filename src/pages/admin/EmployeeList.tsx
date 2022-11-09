@@ -18,12 +18,16 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/Sidebar/Sidebar";
-import { getEmployeeDetails, getEmployees } from "../../redux/actions/AdminActions";
+import {
+  getEmployeeDetails,
+  getEmployees,
+} from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Toast from "../../components/ErrorHandling/Toast";
 import { useDebouncedCallback } from "use-debounce";
 import Loader from "../../components/Loader/Loader";
+import CountUp from "react-countup";
 function EmpList() {
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
@@ -67,9 +71,23 @@ function EmpList() {
             }}
           >
             <TextField
-              label="search here by name..."
+              label="search by name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
+
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Typography
+                sx={{
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  p: 1,
+                  borderRadius: 1,
+                }}
+              >
+                Total Employees :
+                <CountUp end={employees?.length} duration={2} />
+              </Typography>
+            </Box>
 
             <Button
               variant="outlined"
@@ -80,6 +98,7 @@ function EmpList() {
               Add new Employee
             </Button>
           </Box>
+
           <Box my={3}>
             {loading ? (
               <Loader />
