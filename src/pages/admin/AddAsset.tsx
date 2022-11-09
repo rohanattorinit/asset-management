@@ -301,7 +301,7 @@ const AddAsset = () => {
                                 <Select
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
-                                  label="operatingsystem"
+                                  label="Screen Size"
                                   value={values?.screen_size}
                                   onChange={handleChange}
                                   name="screen_size"
@@ -355,7 +355,7 @@ const AddAsset = () => {
                                 <Select
                                   labelId="demo-simple-select-outlined-label"
                                   id="demo-simple-select-outlined"
-                                  label="operatingsystem"
+                                  label="Screen Size"
                                   value={values?.screen_size}
                                   onChange={handleChange}
                                   name="screen_size"

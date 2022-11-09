@@ -1,5 +1,6 @@
 import {
   BrandOptions,
+  DELETE_ASSET,
   FilterOptions,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
@@ -78,7 +79,11 @@ const initialState: InitialState = {
     asset_location: '',
     processor: '',
     screen_type: '',
-    received_date: ''
+    received_date: '',
+    ram: '',
+    operating_system: '',
+    screen_size: '',
+    category: ''
   },
   employeeassetsdetails: [],
   serviceDetails: [],
@@ -190,6 +195,12 @@ const adminReducer = (
         loading: false
       }
 
+    case DELETE_ASSET:
+      return {
+        ...state,
+        message: action.payload?.message,
+        loading: false
+      }
     case ALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,

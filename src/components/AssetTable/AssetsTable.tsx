@@ -71,11 +71,6 @@ const AssetsTable = () => {
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>Status</Typography>
                   </TableCell>
-                  <TableCell align="center">
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      Usability
-                    </Typography>
-                  </TableCell>
                 </TableRow>
               </TableHead>
 
@@ -94,9 +89,6 @@ const AssetsTable = () => {
                   </TableCell>
                   <TableCell align="center">
                     {filteredAsset?.status?.toUpperCase()}
-                  </TableCell>
-                  <TableCell align="center">
-                    {filteredAsset?.usability?.toUpperCase()}
                   </TableCell>
                   <IconButton
                     onClick={() => setAssetDetails(filteredAsset?.assetId)}

@@ -25,6 +25,7 @@ export const SET_ADD_NOTE = 'SET_ADD_NOTE'
 export const GET_ADD_NOTE = 'GET_ADD_NOTE'
 export const GET_BRAND_OPTIONS = 'GET_BRAND_OPTIONS'
 export const GET_FILTER_OPTIONS = 'GET_FILTER_OPTIONS'
+export const DELETE_ASSET = 'DELETE_ASSET'
 
 export interface EmpTicketType {
   ticketId: number
@@ -115,6 +116,10 @@ export interface SingleAssetDetailsType {
   processor: string
   screen_type: string
   received_date?: string
+  ram: string
+  operating_system: string
+  screen_size: string
+  category: string
 }
 
 export interface EmployeeAssetType {
@@ -144,6 +149,7 @@ export interface AssetTypes {
   rentEndDate?: string
   asset_location: string
   received_date: string
+  operating_system: string
 }
 
 export interface AllocatedAssetType {
@@ -161,6 +167,30 @@ export interface DeAllocatAssetType {
   modelno: number
   allocationTime: string
 }
+
+export interface DeleteAssetType {
+  brandName: string
+  assetName: string
+  assetType: string
+  category: string
+  modelNo: string
+  description: string
+  status: string
+  isRented: boolean
+  vendor: string
+  rent: string
+  deposit: string
+  rentStartDate: string
+  rentEndDate: string
+  processor: string
+  ram: string
+  operating_system: string
+  screen_type: string
+  screen_size: string
+  asset_location: string
+  received_date: string
+}
+
 export interface NoteType {
   ticketId: number
   note: string
@@ -368,6 +398,13 @@ interface SetDeAllocateAsset {
   }
 }
 
+interface SetDeleteAsset {
+  type: typeof DELETE_ASSET
+  payload: {
+    message: string
+  }
+}
+
 interface CreateTicket {
   type: typeof CREATE_TICKET
   payload: {
@@ -441,3 +478,4 @@ export type DispatchTypes =
   | GetAddNote
   | setBrandOptions
   | GetFilterOptions
+  | SetDeleteAsset

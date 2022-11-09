@@ -1,46 +1,25 @@
-import {
-  Button,
-  Grid,
-  Paper,
-  Typography,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  TextField,
-  Dialog,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from "@mui/material";
+import { Button, Grid, Paper, Typography, Dialog } from "@mui/material";
 import { Box } from "@mui/system";
-import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
+import AssetEdit from "../../components/Button/AssetEdit";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
+  deleteAsset,
   getSingleAssetDetails,
-  updateAssetDetails,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-
-const usabilityOptions = [
-  { label: "Usable", value: "usable" },
-  { label: "Unusable", value: "unusable" },
-  { label: "Disposed", value: "disposed" },
-];
 
 const AssetDetails = () => {
   const [open, setOpen] = useState(false);
   const [assetOpen, setAssetOpen] = useState(false);
   const location = useLocation();
-
+  const navigate = useNavigate();
   const id = location.pathname.split("/")[3];
 
   const dispatch: Dispatch<any> = useDispatch();
@@ -54,10 +33,15 @@ const AssetDetails = () => {
     dispatch(getSingleAssetDetails(id));
   }, [message]);
 
-  const onSubmit = (values: any) => {
-    //console.log(values);
-    dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
-    setAssetOpen(false);
+  const closeFunc = (value: boolean) => {
+    setAssetOpen(value);
+  };
+
+  const HandleDelete = (assetId: number) => {
+    if (window.confirm("Are you sure you want to delete this asset?")) {
+      dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
+      navigate("/admin/assets/");
+    }
   };
 
   return (
@@ -79,7 +63,13 @@ const AssetDetails = () => {
                 Edit
               </Button>
               <> </>
-              <Button variant="outlined" color="warning">
+              <Button
+                variant="outlined"
+                color="warning"
+                onClick={() => {
+                  HandleDelete(singleAssetDetails.assetId);
+                }}
+              >
                 Delete
               </Button>
             </Box>
@@ -91,7 +81,7 @@ const AssetDetails = () => {
                 <Loader />
               ) : (
                 <>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <Typography
                       fontFamily="serif"
                       fontWeight="bold"
@@ -108,6 +98,16 @@ const AssetDetails = () => {
                     >
                       Asset Name:{" "}
                       <Typography>{singleAssetDetails?.name}</Typography>
+                    </Typography>
+
+                    <Typography
+                      fontFamily="serif"
+                      fontWeight="bold"
+                      variant="h6"
+                      mt={2}
+                    >
+                      Category:{" "}
+                      <Typography>{singleAssetDetails?.category}</Typography>
                     </Typography>
 
                     <Typography
@@ -147,31 +147,12 @@ const AssetDetails = () => {
                       variant="h6"
                       mt={2}
                     >
-                      Processor:{" "}
-                      <Typography>{singleAssetDetails?.processor}</Typography>
-                    </Typography>
-
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                    >
-                      Screen Type:{" "}
-                      <Typography>{singleAssetDetails?.screen_type}</Typography>
-                    </Typography>
-
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                    >
                       Brand Name:{" "}
                       <Typography>{singleAssetDetails?.brandName}</Typography>
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} md={6}>
+
+                  <Grid item xs={12} md={4}>
                     <Typography
                       fontFamily="serif"
                       fontWeight="bold"
@@ -186,6 +167,142 @@ const AssetDetails = () => {
                       Model No:{" "}
                       <Typography>{singleAssetDetails?.modelNo}</Typography>
                     </Typography>
+                    {singleAssetDetails?.category === "laptop" ? (
+                      <>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                        >
+                          Screen Type:{" "}
+                          <Typography>
+                            {singleAssetDetails?.screen_type}
+                          </Typography>
+                        </Typography>
+
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Processor:
+                          <Typography>
+                            {singleAssetDetails?.processor}
+                          </Typography>
+                        </Typography>
+
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          RAM:
+                          <Typography>{singleAssetDetails?.ram}</Typography>
+                        </Typography>
+
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Operating System:
+                          <Typography>
+                            {singleAssetDetails?.operating_system}
+                          </Typography>
+                        </Typography>
+
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Screen Size:
+                          <Typography>
+                            {singleAssetDetails?.screen_size}
+                          </Typography>
+                        </Typography>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+
+                    {singleAssetDetails?.category === "monitor" ? (
+                      <>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                        >
+                          Screen Type:{" "}
+                          <Typography>
+                            {singleAssetDetails?.screen_type}
+                          </Typography>
+                        </Typography>
+
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          Screen Size:
+                          <Typography>
+                            {singleAssetDetails?.screen_size}
+                          </Typography>
+                        </Typography>
+                      </>
+                    ) : (
+                      <> </>
+                    )}
+
+                    <Typography
+                      fontFamily="serif"
+                      fontWeight="bold"
+                      variant="h6"
+                      mt={2}
+                      sx={{
+                        textTransform: "capitalize",
+                        wordWrap: "break-word",
+                        width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                      }}
+                    >
+                      Received Date:
+                      <Typography>
+                        {singleAssetDetails?.received_date?.slice(0, 10)}
+                      </Typography>
+                    </Typography>
+
                     {singleAssetDetails?.status === "allocated" ? (
                       <>
                         <Typography
@@ -220,125 +337,111 @@ const AssetDetails = () => {
                     ) : (
                       <></>
                     )}
+                  </Grid>
 
-                    {singleAssetDetails?.isRented ? (
-                      <>
-                        <Grid item xs={12} md={8}>
-                          <Typography
-                            fontFamily="serif"
-                            fontWeight="bold"
-                            variant="h6"
-                            mt={2}
-                            sx={{
-                              textTransform: "capitalize",
-                              wordWrap: "break-word",
-                              width: {
-                                md: "31.25rem",
-                                xs: "15rem",
-                                sm: "30rem",
-                              },
-                            }}
-                          >
-                            Vendor :{" "}
-                            <Typography>
-                              {singleAssetDetails?.vendor}
-                            </Typography>
-                          </Typography>
-                        </Grid>
+                  {singleAssetDetails?.isRented ? (
+                    <Grid item xs={12} md={4}>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        Vendor :{" "}
+                        <Typography>{singleAssetDetails?.vendor}</Typography>
+                      </Typography>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        rent :{" "}
+                        <Typography>{singleAssetDetails?.rent}</Typography>
+                      </Typography>
 
-                        <Grid item xs={12} md={8}>
-                          <Typography
-                            fontFamily="serif"
-                            fontWeight="bold"
-                            variant="h6"
-                            mt={2}
-                            sx={{
-                              textTransform: "capitalize",
-                              wordWrap: "break-word",
-                              width: {
-                                md: "31.25rem",
-                                xs: "15rem",
-                                sm: "30rem",
-                              },
-                            }}
-                          >
-                            rent :{" "}
-                            <Typography>{singleAssetDetails?.rent}</Typography>
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12} md={8}>
-                          <Typography
-                            fontFamily="serif"
-                            fontWeight="bold"
-                            variant="h6"
-                            mt={2}
-                            sx={{
-                              textTransform: "capitalize",
-                              wordWrap: "break-word",
-                              width: {
-                                md: "31.25rem",
-                                xs: "15rem",
-                                sm: "30rem",
-                              },
-                            }}
-                          >
-                            Deposit :{" "}
-                            <Typography>
-                              {singleAssetDetails?.deposit}
-                            </Typography>
-                          </Typography>
-                        </Grid>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        Deposit :{" "}
+                        <Typography>{singleAssetDetails?.deposit}</Typography>
+                      </Typography>
 
-                        <Grid item xs={12} md={8}>
-                          <Typography
-                            fontFamily="serif"
-                            fontWeight="bold"
-                            variant="h6"
-                            mt={2}
-                            sx={{
-                              textTransform: "capitalize",
-                              wordWrap: "break-word",
-                              width: {
-                                md: "31.25rem",
-                                xs: "15rem",
-                                sm: "30rem",
-                              },
-                            }}
-                          >
-                            Rent Start From :{" "}
-                            <Typography>
-                              {singleAssetDetails?.rentStartDate?.slice(0, 10)}
-                            </Typography>
-                          </Typography>
-                        </Grid>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        Rent Start From :{" "}
+                        <Typography>
+                          {singleAssetDetails?.rentStartDate?.slice(0, 10)}
+                        </Typography>
+                      </Typography>
 
-                        <Grid item xs={12} md={8}>
-                          <Typography
-                            fontFamily="serif"
-                            fontWeight="bold"
-                            variant="h6"
-                            mt={2}
-                            sx={{
-                              textTransform: "capitalize",
-                              wordWrap: "break-word",
-                              width: {
-                                md: "31.25rem",
-                                xs: "15rem",
-                                sm: "30rem",
-                              },
-                            }}
-                          >
-                            Rent End Date :{" "}
-                            <Typography>
-                              {singleAssetDetails?.rentEndDate?.slice(0, 10)}
-                            </Typography>
-                          </Typography>
-                        </Grid>
-                      </>
-                    ) : (
-                      <> </>
-                    )}
-                  </Grid>{" "}
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        Rent End Date :{" "}
+                        <Typography>
+                          {singleAssetDetails?.rentEndDate?.slice(0, 10)}
+                        </Typography>
+                      </Typography>
+                    </Grid>
+                  ) : (
+                    <> </>
+                  )}
                 </>
               )}
             </Grid>
@@ -347,227 +450,7 @@ const AssetDetails = () => {
       </Grid>
 
       <Dialog open={assetOpen} onClose={() => setAssetOpen(false)}>
-        <Card>
-          <CardHeader title="Edit" />
-          <Formik
-            initialValues={{
-              assetId: singleAssetDetails?.assetId,
-              assetName: singleAssetDetails?.name,
-              description: singleAssetDetails?.description,
-
-              brandName: singleAssetDetails?.brandName,
-              status: singleAssetDetails?.status,
-              modelNo: singleAssetDetails?.modelNo,
-              vendor: singleAssetDetails?.vendor,
-              rent: singleAssetDetails?.rent,
-              deposit: singleAssetDetails?.deposit,
-              rentStartDate: singleAssetDetails?.rentStartDate,
-              rentEndDate: singleAssetDetails?.rentEndDate,
-              asset_location: singleAssetDetails?.asset_location,
-              isRented: singleAssetDetails?.isRented,
-            }}
-            // validationSchema={AssetValidationSchema}
-            onSubmit={onSubmit}
-          >
-            {({ dirty, isValid, values, handleChange, handleBlur, errors }) => {
-              return (
-                <>
-                  <Form>
-                    <CardContent>
-                      <Grid item container spacing={1}>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            label="Asset ID"
-                            variant="outlined"
-                            fullWidth
-                            name="assetId"
-                            id="assetId"
-                            value={values?.assetId}
-                            disabled
-                            onChange={handleChange}
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            label="Asset Name"
-                            variant="outlined"
-                            fullWidth
-                            name="assetName"
-                            id="assetName"
-                            onChange={handleChange}
-                            value={values?.assetName}
-                            required
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            label="Description"
-                            variant="outlined"
-                            fullWidth
-                            name="description"
-                            id="description"
-                            onChange={handleChange}
-                            value={values?.description}
-                          />
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            label="Location"
-                            variant="outlined"
-                            fullWidth
-                            name="asset_location"
-                            id="asset_location"
-                            onChange={handleChange}
-                            value={values?.asset_location}
-                            required
-                          />
-                        </Grid>
-
-                        {/* <Grid item xs={12} sm={6} md={6}>
-                          <FormControl fullWidth variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">
-                              Usability
-                            </InputLabel>
-
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              label="Usability"
-                              value={values?.usability}
-                              onChange={handleChange}
-                              name="usability"
-                              required
-                            >
-                              {usabilityOptions?.map((item) => (
-                                <MenuItem key={item?.value} value={item?.value}>
-                                  {item?.label}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        </Grid> */}
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            label="Brand Name"
-                            variant="outlined"
-                            fullWidth
-                            name="brandName"
-                            id="brandName"
-                            onChange={handleChange}
-                            value={values?.brandName}
-                            required
-                          />
-                        </Grid>
-                        {/* <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            label="Status"
-                            variant="outlined"
-                            fullWidth
-                            name="status"
-                            id="status"
-                            onChange={handleChange}
-                            value={values?.status}
-                            required
-                          />
-                        </Grid> */}
-                        <Grid item xs={12} sm={6} md={6}>
-                          <TextField
-                            label="Model No."
-                            variant="outlined"
-                            fullWidth
-                            name="modelNo"
-                            id="modelNo"
-                            onChange={handleChange}
-                            value={values?.modelNo}
-                            required
-                          />
-                        </Grid>
-                        {singleAssetDetails?.isRented ? (
-                          <>
-                            <Grid item xs={12} sm={6} md={6}>
-                              <TextField
-                                label="Vendor"
-                                variant="outlined"
-                                fullWidth
-                                name="vendor"
-                                id="vendor"
-                                onChange={handleChange}
-                                value={values?.vendor}
-                                required
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={6}>
-                              <TextField
-                                label="Rent"
-                                variant="outlined"
-                                fullWidth
-                                name="rent"
-                                id="rent"
-                                onChange={handleChange}
-                                value={values?.rent}
-                                required
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={6}>
-                              <TextField
-                                label="Deposit"
-                                variant="outlined"
-                                fullWidth
-                                name="deposit"
-                                id="deposit"
-                                onChange={handleChange}
-                                value={values?.deposit}
-                                required
-                              />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                              <TextField
-                                required
-                                label="Rent Start Date"
-                                variant="outlined"
-                                type="date"
-                                fullWidth
-                                name="rentStartDate"
-                                id="rentStartDate"
-                                onChange={handleChange}
-                                value={values?.rentStartDate?.slice(0, 10)}
-                                InputLabelProps={{ shrink: true }}
-                              />
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                              <TextField
-                                required
-                                label="Rent End Date"
-                                type="date"
-                                variant="outlined"
-                                fullWidth
-                                name="rentEndDate"
-                                id="rentEndDate"
-                                onChange={handleChange}
-                                value={values?.rentEndDate?.slice(0, 10)}
-                                InputLabelProps={{ shrink: true }}
-                              />
-                            </Grid>
-                          </>
-                        ) : (
-                          <> </>
-                        )}
-                      </Grid>
-                    </CardContent>
-                    <CardActions>
-                      <Button type="submit" size="large" variant="contained">
-                        EDIT
-                      </Button>
-                    </CardActions>{" "}
-                  </Form>
-                </>
-              );
-            }}
-          </Formik>
-        </Card>
+        <AssetEdit closeFunc={closeFunc} />
       </Dialog>
     </>
   );

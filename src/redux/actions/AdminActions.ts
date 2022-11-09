@@ -3,6 +3,7 @@ import {
   AssetTypes,
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
+  DELETE_ASSET,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
   SET_ADDASSET,
@@ -163,7 +164,7 @@ export const updateAssetDetails = (
   try {
     const res = await post(`/api/assets/update/${assetId}`, updateData)
 
-    alert('Profile Details Updated Successfully!')
+    alert('Asset Details Updated Successfully!')
     dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data })
   } catch (error) {
     dispatch({
@@ -397,6 +398,29 @@ export const getfilterOptions = () => async (
       payload:
         (error as any)?.response?.data?.error ||
         `${(error as any).response.status}: Error occured while fetching brands`
+    })
+  }
+}
+
+export const deleteAsset = (empId: string, assetId: number) => async (
+  dispatch: Dispatch<DispatchTypes>
+) => {
+  dispatch({ type: LOADING_DATA })
+  try {
+    const res = await post(`/api/assets/delete/${assetId}`, {})
+
+    dispatch({
+      type: DELETE_ASSET,
+      payload: (res as any)?.data
+    })
+  } catch (error) {
+    dispatch({
+      type: SET_ERROR,
+      payload:
+        (error as any)?.response?.data?.error ||
+        `${
+          (error as any).response.status
+        }: Error occured while Deleting an Assets`
     })
   }
 }

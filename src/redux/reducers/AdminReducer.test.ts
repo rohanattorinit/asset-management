@@ -58,7 +58,8 @@ export const test = describe('Reducer test', () => {
             rent: 5900,
             deposit: 4000,
             received_date: '20-09-2022',
-            asset_location: 'Pune'
+            asset_location: 'Pune',
+            operating_system: 'Windows'
           }
         ]
       }
