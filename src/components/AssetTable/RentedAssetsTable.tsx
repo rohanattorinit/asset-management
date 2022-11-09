@@ -27,23 +27,33 @@ function RentedAssetsTable() {
                     <TableCell align="center">
                       <Typography sx={{ fontWeight: "bold" }}>AssetID</Typography>
                     </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "bold" }}>Model No.</Typography>
-                    </TableCell>
+                    
                     <TableCell align="center">
                       <Typography sx={{ fontWeight: "bold" }}>Asset Name</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography sx={{ fontWeight: "bold" }}>Brand Name</Typography>
                     </TableCell>
                     <TableCell align="center">
                       <Typography sx={{ fontWeight: "bold" }}>Category</Typography>
                     </TableCell>
                     <TableCell align="center">
-                      <Typography sx={{ fontWeight: "bold" }}>Asset Location</Typography>
+                      <Typography sx={{ fontWeight: "bold" }}>Screen Type</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography sx={{ fontWeight: "bold" }}>Screen Size</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography sx={{ fontWeight: "bold" }}>Ram</Typography>
                     </TableCell>
                     <TableCell align="center">
                       <Typography sx={{ fontWeight: "bold" }}>Status</Typography>
                     </TableCell>
                     <TableCell align="center">
-                      <Typography sx={{ fontWeight: "bold" }}>Usability</Typography>
+                      <Typography sx={{ fontWeight: "bold" }}>Processor</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography sx={{ fontWeight: "bold" }}>Operating System</Typography>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -51,12 +61,18 @@ function RentedAssetsTable() {
                 {assets?.map((rentalAsset) => (
                   <TableRow key={rentalAsset?.assetId}>
                     <TableCell align="center">{rentalAsset?.assetId}</TableCell>
-                    <TableCell align="center">{rentalAsset?.modelNo}</TableCell>
+                    
                     <TableCell align="center">{rentalAsset?.name?.toUpperCase()}</TableCell>
+                    <TableCell align="center">{rentalAsset?.brandName}</TableCell>
                     <TableCell align="center">{rentalAsset?.category?.toUpperCase()}</TableCell>
-                    <TableCell align="center">{rentalAsset?.asset_location?.toUpperCase()}</TableCell>
+                    <TableCell align="center">{rentalAsset?.screen_type?.toUpperCase()}</TableCell>
+                    <TableCell align="center">{rentalAsset?.screen_size}</TableCell>
+                    <TableCell align="center">{rentalAsset?.ram}</TableCell>
                     <TableCell align="center">{rentalAsset?.status?.toUpperCase()}</TableCell>
-                    <TableCell align="center">{rentalAsset?.usability?.toUpperCase()}</TableCell>
+                    <TableCell align="center">{rentalAsset?.processor?.toUpperCase()}</TableCell>
+                    <TableCell align="center">{rentalAsset?.operating_system?.toUpperCase()}</TableCell>
+                   
+                    {/* <TableCell align="center">{rentalAsset?.usability?.toUpperCase()}</TableCell> */}
                     <IconButton onClick={() => setAssetDetails(rentalAsset?.assetId)}>
                       <OpenInNewIcon sx={{ color: "darkblue" }} />
                     </IconButton>

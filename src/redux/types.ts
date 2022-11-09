@@ -50,8 +50,9 @@ export interface CreateAssetType {
   category: string
   modelNo: string
   description: string
-  //status: string
+  status: string
   usability: string
+  
   isRented: boolean
   vendor: string
   rent: string
@@ -124,6 +125,11 @@ export interface AssetTypes {
   description: string
   status: string
   usability: string
+  processor:string;
+  screen_type:string;
+  ram:number;
+  operating_system:string;
+  screen_size:number;
   addedTime: string
   isRented?: boolean
   vendor?: string
