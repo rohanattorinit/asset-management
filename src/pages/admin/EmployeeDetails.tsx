@@ -109,10 +109,18 @@ export default function EmployeeDetails() {
                 <Typography m={2} variant="h5">
                   Employee Details
                 </Typography>
+                
                 <Box m={2} display="flex">
                   <Button variant="outlined" onClick={() => setEmpOpen(true)}>
                     Edit
                   </Button>
+                  <Button
+              sx={{ ml: 1 }}
+              variant="outlined"
+              
+            >
+              Change Password
+            </Button>
                 </Box>
               </Box>
               <Grid display="flex" padding={1} container m={2}>

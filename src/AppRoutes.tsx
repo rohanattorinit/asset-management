@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import AssetDetails from "./pages/admin/AssetDetails";
+import AssetDetails from "./pages/admin/AssetDetailsTransaction";
 import NotFound from "./components/ErrorHandling/NotFound";
 import Navbar from "./components/Navbar/Navbar";
 import AddAsset from "./pages/admin/AddAsset";
