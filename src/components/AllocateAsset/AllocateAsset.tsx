@@ -44,8 +44,7 @@ const AllocateAsset = ({
   );
   
   useEffect(() => {
-    setAssetId([]);
-    dispatch(getAssets({ allocate: true, name: search }));
+    dispatch(getAssets({ name: search }));
   }, [dispatch, search, message]);
   const handleClose = () => {
     setOpen(false);

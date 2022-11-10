@@ -10,6 +10,7 @@ import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
+import Filter from "../../components/Button/Filter";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 function Assets() {
   const [value, setValue] = useState(0);
@@ -34,9 +35,9 @@ function Assets() {
     setValue(newValue);
     newValue === 0 ? setIsRented(0) : newValue === 1 ? setIsRented(1) : newValue === 2 && setIsRented(1);
   };
-  const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event?.target?.value);
-  };
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setCategory(event?.target?.value);
+  // };
   useEffect(() => {
     dispatch(getAssets({ name: search, assetType: category, isRented: isRented ? 1 : 0 }));
   }, [dispatch, message, search, category, isRented]);
@@ -47,13 +48,20 @@ function Assets() {
       <Grid item xs={12} md={10} p={3}>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
-            <FormControl>
+            {/* <FormControl>
               <InputLabel>Category</InputLabel>
-              <Select labelId="category" id="Category" label="Category" value={category} onChange={handleChange}>
+              <Select
+                labelId="category"
+                id="Category"
+                label="Category"
+                value={category}
+                onChange={handleChange}
+              >
                 <MenuItem value={"software"}>Software</MenuItem>
                 <MenuItem value={"hardware"}>Hardware</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
+            <Filter />
           </Grid>
           <Grid item xs={6}>
             ​<TextField label="search here by name..." onChange={(e) => debounced(e?.target?.value)} fullWidth />
