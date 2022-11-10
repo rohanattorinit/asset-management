@@ -102,7 +102,7 @@ export interface SingleAssetDetailsType {
   name: string
   modelNo: number
   description: string
-  status: string
+  status?: string
   //usability: string
   asset_location: string
   empName: string

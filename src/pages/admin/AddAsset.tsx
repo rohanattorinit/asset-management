@@ -24,6 +24,7 @@ import {
   addAsset,
   getBrandOptions,
   getfilterOptions,
+  getEmployees,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
@@ -36,7 +37,7 @@ const assetTypeOptions = [
 
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const { message, brandOptions, filterOptions } = useSelector(
+  const { message, brandOptions, filterOptions, employees } = useSelector(
     (state: RootStore) => state.admin
   );
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const AddAsset = () => {
   useEffect(() => {
     dispatch(getBrandOptions());
     dispatch(getfilterOptions());
+    dispatch(getEmployees({ name: "" }));
 
     if (message) {
       navigate("/admin/assets");
@@ -90,6 +92,7 @@ const AddAsset = () => {
                   operating_system: "",
                   processor: "",
                   screen_size: "",
+                  empId: "",
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -447,6 +450,49 @@ const AddAsset = () => {
                             </Select>
                           </FormControl>
                         </Grid>
+
+                        {values.status === "allocated" ? (
+                          <>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Allocated To
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="empName"
+                                  value={values?.empId}
+                                  onChange={handleChange}
+                                  name="empId"
+                                  required
+                                  MenuProps={{
+                                    PaperProps: {
+                                      sx: {
+                                        maxHeight: {
+                                          xs: 48 * 4 + 8,
+                                          sm: 36 * 4 + 8,
+                                        },
+                                      },
+                                    },
+                                  }}
+                                >
+                                  {employees?.map((item) => (
+                                    <MenuItem
+                                      key={item?.name}
+                                      value={item?.name}
+                                    >
+                                      {item?.name} ({item.empId})
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                          </>
+                        ) : (
+                          <></>
+                        )}
 
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
