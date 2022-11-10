@@ -480,8 +480,8 @@ const AddAsset = () => {
                                 >
                                   {employees?.map((item) => (
                                     <MenuItem
-                                      key={item?.name}
-                                      value={item?.name}
+                                      key={item?.empId}
+                                      value={item?.empId}
                                     >
                                       {item?.name} ({item.empId})
                                     </MenuItem>

@@ -38,18 +38,18 @@ const AssetDetails = () => {
   };
 
   const HandleDelete = (assetId: number) => {
-    // if (singleAssetDetails.status === "allocated") {
-    //   alert("Firt deallocate this asset and then try deleting it");
-    // } else {
-    //   if (window.confirm("Are you sure you want to delete this asset?")) {
-    //     dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
-    //     navigate("/admin/assets/");
-    //   }
-    // }
-    if (window.confirm("Are you sure you want to delete this asset?")) {
-      dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
-      navigate("/admin/assets/");
+    if (singleAssetDetails.status === "allocated") {
+      alert("First deallocate this asset and then try deleting it");
+    } else {
+      if (window.confirm("Are you sure you want to delete this asset?")) {
+        dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
+        navigate("/admin/assets/");
+      }
     }
+    // if (window.confirm("Are you sure you want to delete this asset?")) {
+    //   dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
+    //   navigate("/admin/assets/");
+    // }
   };
 
   return (
