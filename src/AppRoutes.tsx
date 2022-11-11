@@ -16,6 +16,7 @@ import Asset from "./pages/employee/Asset";
 import Dashboard from "./pages/employee/Dashboard";
 import Profile from "./pages/employee/Profile";
 import Ticket from "./pages/employee/Ticket";
+import EmpAssetDetails from "./pages/employee/EmpAssetDetails";
 import ProtectedAdminRoute, {
   ProtectedAdminRouteProps,
 } from "./utils/ProtectedAdminRoute";
@@ -77,6 +78,17 @@ function AppRoutes() {
             />
           }
         />
+
+        <Route
+          path="/assets/:assetId"
+          element={
+            <ProtectedRoute
+              {...defaultProtectedRouteProps}
+              outlet={<EmpAssetDetails />}
+            />
+          }
+        />
+
         <Route
           path="/ticket"
           element={

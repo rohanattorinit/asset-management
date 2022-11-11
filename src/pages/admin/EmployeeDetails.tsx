@@ -80,7 +80,7 @@ export default function EmployeeDetails() {
   }, [dispatch, empId, message, empMessage]);
 
   const handleClickOpen = () => {
-    dispatch(getAssets({ allocate: true, name: "" }));
+    dispatch(getAssets({ name: "" }));
     setOpen(true);
   };
 
@@ -114,9 +114,11 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      { loading && !open?<Loader/>:
-      <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
-        <Paper sx={{ marginY: 3 }} elevation={5}>
+      {loading && !open ? (
+        <Loader />
+      ) : (
+        <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
+          <Paper sx={{ marginY: 3 }} elevation={5}>
             <>
               <Box
                 sx={{
@@ -216,91 +218,91 @@ export default function EmployeeDetails() {
                 </Grid>
               </Grid>
             </>
-        </Paper>
+          </Paper>
 
-        <Paper sx={{ marginY: 3 }} elevation={5}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin: "10px",
-            }}
-          >
-            <Typography m={2} variant="h5" mb={5}>
-              Current Asset
-            </Typography>
-            <Box m={2} display="flex">
-              <Button variant="outlined" onClick={handleClickOpen}>
-                Allocate
-              </Button>
+          <Paper sx={{ marginY: 3 }} elevation={5}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                margin: "10px",
+              }}
+            >
+              <Typography m={2} variant="h5" mb={5}>
+                Current Asset
+              </Typography>
+              <Box m={2} display="flex">
+                <Button variant="outlined" onClick={handleClickOpen}>
+                  Allocate
+                </Button>
+              </Box>
             </Box>
-          </Box>
 
-
-          {!loading && employeeassetsdetails?.length ? (
-
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                      Asset ID
-                    </TableCell>
-                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                      Asset Name
-                    </TableCell>
-                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                      Model No
-                    </TableCell>
-                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                      Category
-                    </TableCell>
-                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                      Allocation Date
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {employeeassetsdetails?.map((asset) => (
-                    <TableRow
-                      key={asset?.assetId}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
-                    >
-                      <TableCell align="right" component="th" scope="row">
-                        {asset?.assetId}
+            {!loading && employeeassetsdetails?.length ? (
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Asset ID
                       </TableCell>
-                      <TableCell align="right">{asset?.name}</TableCell>
-                      <TableCell align="right">{asset?.modelno}</TableCell>
-                      <TableCell align="right">{asset?.category}</TableCell>
-                      <TableCell align="right">
-                        {asset?.allocationTime?.slice(0, 10)}
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Asset Name
                       </TableCell>
-                      <TableCell align="right">
-                        <IconButton>
-                          <RemoveCircleIcon
-                            sx={{ color: "#DC2626" }}
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Do you want to Delete the Asset?"
-                                )
-                              )
-                                HandleDeallocate(asset?.assetId);
-                            }}
-                          />
-                        </IconButton>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Model No
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Category
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Allocation Date
                       </TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          ) : <></>}
-        </Paper>
-      </Grid>}
-
+                  </TableHead>
+                  <TableBody>
+                    {employeeassetsdetails?.map((asset) => (
+                      <TableRow
+                        key={asset?.assetId}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell align="right" component="th" scope="row">
+                          {asset?.assetId}
+                        </TableCell>
+                        <TableCell align="right">{asset?.name}</TableCell>
+                        <TableCell align="right">{asset?.modelno}</TableCell>
+                        <TableCell align="right">{asset?.category}</TableCell>
+                        <TableCell align="right">
+                          {asset?.allocationTime?.slice(0, 10)}
+                        </TableCell>
+                        <TableCell align="right">
+                          <IconButton>
+                            <RemoveCircleIcon
+                              sx={{ color: "#DC2626" }}
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Do you want to Delete the Asset?"
+                                  )
+                                )
+                                  HandleDeallocate(asset?.assetId);
+                              }}
+                            />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <></>
+            )}
+          </Paper>
+        </Grid>
+      )}
 
       <AllocateAsset open={open} setOpen={setOpen} />
       <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>

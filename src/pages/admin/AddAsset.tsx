@@ -57,7 +57,7 @@ const AddAsset = () => {
     if (message) {
       navigate("/admin/assets");
     }
-  }, [message]);
+  }, [message, navigate, dispatch]);
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>

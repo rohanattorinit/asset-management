@@ -12,8 +12,8 @@ import {
   SET_EMPLOYEE_ASSETS_DETAILS,
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
-  UPDATE_ASSET_DETAILS
-} from './../types'
+  UPDATE_ASSET_DETAILS,
+} from "./../types";
 
 import {
   SET_EMPLOYEE_DETAILS,
@@ -24,58 +24,62 @@ import {
   SET_ASSETS,
   SET_EMPLOYEES,
   SET_ERROR,
-  SET_SERVICE_TICKET_DETAILS
-} from './../types'
-import { Dispatch } from 'redux'
-import { get, post } from '../../services'
-import { useNavigate } from 'react-router-dom'
+  SET_SERVICE_TICKET_DETAILS,
+} from "./../types";
+import { Dispatch } from "redux";
+import { get, post } from "../../services";
+import { useNavigate } from "react-router-dom";
 interface GetAssetParams {
-  allocate?: boolean
-  name?: string
-  assetType?: string
-  isRented?: 0 | 1
-}
-
-interface GetAssetParams {
-  allocate?: boolean
-  name?: string
-  assetType?: string
-  isRented?: 0 | 1
+  name?: string;
 }
 
 interface GetEmployeeParams {
-  name?: string
+  name?: string;
 }
 
 interface GetTicketParams {
-  title?: string
-  status?: string
+  title?: string;
+  status?: string;
 }
 
-export const getEmployees = (employeeParams: GetEmployeeParams = {}) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const { name } = employeeParams
-    const res = await get(`/api/employees?name=${name}`)
-    dispatch({ type: SET_EMPLOYEES, payload: (res as any).data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching employee data`
-    })
-  }
+interface SetFilterParams {
+  screen_type?: string[];
+  ram?: string[];
+  status?: string[];
+  assetType?: string[];
+  category?: string[];
+  operating_system?: string[];
+  harddisk?: string[];
+  processor?: string[];
+  screen_size?: string[];
+  asset_location?: string[];
+  brands?: string[];
 }
 
-export const getAssets = (assetParams: GetAssetParams = {}) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
+export const getEmployees =
+  (employeeParams: GetEmployeeParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const { name } = employeeParams;
+      const res = await get(`/api/employees?name=${name}`);
+      dispatch({ type: SET_EMPLOYEES, payload: (res as any).data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching employee data`,
+      });
+    }
+  };
+
+export const getAssets =
+  (assetParams: GetAssetParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
 
   try {
     const { name, allocate,  isRented } = assetParams
@@ -96,74 +100,73 @@ export const getAssets = (assetParams: GetAssetParams = {}) => async (
   }
 }
 
-export const getTickets = (ticketParams: GetTicketParams = {}) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    let { title, status } = ticketParams
-    const res = await get(`/api/tickets?status=${status}&title=${title}`)
-    dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching ticket data`
-    })
-  }
-}
+export const getTickets =
+  (ticketParams: GetTicketParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      let { title, status } = ticketParams;
+      const res = await get(`/api/tickets?status=${status}&title=${title}`);
+      dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching ticket data`,
+      });
+    }
+  };
 
-export const addEmployee = (employeeDetails: CreateEmployeeType) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post('/api/employees', employeeDetails)
-    alert((res as any).data?.message)
-    dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while Adding Employee Details`
-    })
-  }
-}
+export const addEmployee =
+  (employeeDetails: CreateEmployeeType) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post("/api/employees", employeeDetails);
+      alert((res as any).data?.message);
+      dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Adding Employee Details`,
+      });
+    }
+  };
 
-export const addAsset = (assetDetails: CreateAssetType) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post('/api/assets/addAsset', assetDetails)
+export const addAsset =
+  (assetDetails: CreateAssetType) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post("/api/assets/addAsset", assetDetails);
 
-    alert((res as any)?.data?.message)
-    dispatch({ type: SET_ADDASSET, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response?.status
-        }: Error occured while Adding Assets Details`
-    })
-  }
-}
+      alert((res as any)?.data?.message);
+      dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response?.status
+          }: Error occured while Adding Assets Details`,
+      });
+    }
+  };
 
-export const updateAssetDetails = (
-  assetId: number,
-  updateData: AssetTypes
-) => async (dispatch: Dispatch<DispatchTypes>) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post(`/api/assets/update/${assetId}`, updateData)
+export const updateAssetDetails =
+  (assetId: number, updateData: AssetTypes) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post(`/api/assets/update/${assetId}`, updateData);
 
     alert('Asset Details Updated Successfully!')
     dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data })
@@ -179,155 +182,155 @@ export const updateAssetDetails = (
   }
 }
 
-export const getEmployeeDetails = (empId: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await get(`/api/employees/${empId}`)
-    dispatch({ type: SET_EMPLOYEE_DETAILS, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching Employee Details`
-    })
-  }
-}
+export const getEmployeeDetails =
+  (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/employees/${empId}`);
+      dispatch({ type: SET_EMPLOYEE_DETAILS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Employee Details`,
+      });
+    }
+  };
 
-export const getAssetDetails = (empId: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await get(`/api/assets/employeeAssets/${empId}`)
-    dispatch({
-      type: SET_EMPLOYEE_ASSETS_DETAILS,
-      payload: (res as any)?.data
-    })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching Assets Details`
-    })
-  }
-}
+export const getAssetDetails =
+  (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/assets/employeeAssets/${empId}`);
+      dispatch({
+        type: SET_EMPLOYEE_ASSETS_DETAILS,
+        payload: (res as any)?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Assets Details`,
+      });
+    }
+  };
 
-export const getServiceDetails = () => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await get(`/api/tickets`)
-    dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching Ticket Requests`
-    })
-  }
-}
+export const getServiceDetails =
+  () => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/tickets`);
+      dispatch({ type: SET_SERVICE_DETAILS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Ticket Requests`,
+      });
+    }
+  };
 
-export const getServiceTicketDetails = (ticketId: number) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await get(`/api/tickets/${ticketId}`)
-    dispatch({
-      type: SET_SERVICE_TICKET_DETAILS,
-      payload: (res as any)?.data
-    })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching Ticket Details`
-    })
-  }
-}
+export const getServiceTicketDetails =
+  (ticketId: number) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/tickets/${ticketId}`);
+      dispatch({
+        type: SET_SERVICE_TICKET_DETAILS,
+        payload: (res as any)?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Ticket Details`,
+      });
+    }
+  };
 
-export const getSingleAssetDetails = (assetId: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await get(`/api/assets/singleAsset/${assetId}`)
+export const getSingleAssetDetails =
+  (assetId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/assets/singleAsset/${assetId}`);
 
-    dispatch({
-      type: SET_SINGLE_ASSET_DETAILS,
-      payload: (res as any)?.data
-    })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching Asset Details`
-    })
-  }
-}
+      dispatch({
+        type: SET_SINGLE_ASSET_DETAILS,
+        payload: (res as any)?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching Asset Details`,
+      });
+    }
+  };
 
-export const deallocateAssets = (empId: string, assetId: number) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post(`/api/admin/deallocateAsset/${empId}/${assetId}`, {})
 
-    dispatch({
-      type: DEALLOCATE_EMPLOYEE_ASSET,
-      payload: (res as any)?.data
-    })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while Dealloting Assets`
-    })
-  }
-}
 
-export const allocateAssets = (empId: string, assetId: number[]) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
+export const deallocateAssets =
+  (empId: string, assetId: number) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post(
+        `/api/admin/deallocateAsset/${empId}/${assetId}`,
+        {}
+      );
 
-  try {
-    window.confirm('Do you want to allot asset?')
-    const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId })
+      dispatch({
+        type: DEALLOCATE_EMPLOYEE_ASSET,
+        payload: (res as any)?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Dealloting Assets`,
+      });
+    }
+  };
 
-    dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while allocating Assets`
-    })
-  }
-}
+export const allocateAssets =
+  (empId: string, assetId: number[]) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+
+    try {
+      window.confirm("Do you want to allot asset?");
+      const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId });
+
+      dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while allocating Assets`,
+      });
+    }
+  };
 
 export const changeTicketStatus = (ticketId: number, status: string) => async (
   dispatch: Dispatch<DispatchTypes>
@@ -392,13 +395,18 @@ export const getfilterOptions = () => async (
   try {
     const res = await get(`/api/assets/filterOptions`)
 
-    dispatch({ type: GET_FILTER_OPTIONS, payload: (res as any)?.data })
+    dispatch({
+      type: DELETE_EMPLOYEE,
+      payload: (res as any)?.data
+    })
   } catch (error) {
     dispatch({
       type: SET_ERROR,
       payload:
         (error as any)?.response?.data?.error ||
-        `${(error as any).response.status}: Error occured while fetching brands`
+        `${
+          (error as any).response.status
+        }: Error occured while Deleting an Assets`
     })
   }
 }

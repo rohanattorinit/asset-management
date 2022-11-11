@@ -8,9 +8,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Stack } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
@@ -41,21 +41,22 @@ const AssetsTable = () => {
         <Loader />
       ) : (
         <TableContainer sx={{ marginY: 3 }} component={Paper}>
-          {assets?.length ? (
+          {assets.length ? (
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>AssetID</Typography>
                   </TableCell>
+                  
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>
-                      Model No.
+                      Asset Name
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>
-                      Asset Name
+                     Brand Name
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
@@ -65,11 +66,36 @@ const AssetsTable = () => {
                   </TableCell>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>
-                      Asset Location
+                      Screen Type
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Screen Size
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Ram
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>Status</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Processor
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Operating System
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Details
+                    </Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -77,24 +103,46 @@ const AssetsTable = () => {
               {assets?.map((filteredAsset) => (
                 <TableRow key={filteredAsset?.assetId}>
                   <TableCell align="center">{filteredAsset?.assetId}</TableCell>
-                  <TableCell align="center">{filteredAsset?.modelNo}</TableCell>
+                  
                   <TableCell align="center">
                     {filteredAsset?.name?.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.category?.toUpperCase()}
+                    {filteredAsset?.brandName?.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.asset_location?.toUpperCase()}
+                    {filteredAsset?.category?.toUpperCase()}
+                  </TableCell>
+
+                  <TableCell align="center">{filteredAsset?.screen_type}</TableCell>
+                  <TableCell align="center">{filteredAsset?.screen_size}</TableCell>
+                  <TableCell align="center">
+                    {filteredAsset?.ram}
                   </TableCell>
                   <TableCell align="center">
                     {filteredAsset?.status?.toUpperCase()}
                   </TableCell>
-                  <IconButton
-                    onClick={() => setAssetDetails(filteredAsset?.assetId)}
-                  >
-                    <OpenInNewIcon sx={{ color: "darkblue" }} />
-                  </IconButton>{" "}
+                  <TableCell align="center">
+                    {filteredAsset?.processor?.toUpperCase()}
+                  </TableCell>
+                  <TableCell align="center">
+                    {filteredAsset?.operating_system?.toUpperCase()}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Tooltip
+                      title="Asset Details"
+                      children={
+                        <IconButton
+                          onClick={() =>
+                            setAssetDetails(filteredAsset?.assetId)
+                          }
+                        >
+                          <OpenInNewIcon sx={{ color: "darkblue" }} />
+                        </IconButton>
+                      }
+                    />
+                  </TableCell>
+
                 </TableRow>
               ))}
             </Table>
