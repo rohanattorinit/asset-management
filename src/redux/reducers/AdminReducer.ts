@@ -104,6 +104,7 @@ const initialState: InitialState = {
     location: [],
     harddisk: [],
     os: [],
+    connectivity: [],
   },
 };
 

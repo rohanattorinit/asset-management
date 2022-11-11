@@ -29,6 +29,7 @@ import { get, post } from "../../services";
 import { useNavigate } from "react-router-dom";
 interface GetAssetParams {
   name?: string;
+  isRented?: 0 | 1;
 }
 
 interface GetEmployeeParams {
@@ -52,6 +53,7 @@ interface SetFilterParams {
   screen_size?: string[];
   asset_location?: string[];
   brands?: string[];
+  connectivity?: string[];
 }
 
 export const getEmployees =
@@ -80,9 +82,9 @@ export const getAssets =
     dispatch({ type: LOADING_DATA });
 
     try {
-      const { name } = assetParams;
+      const { name, isRented } = assetParams;
 
-      const res = await get(`/api/assets?name=${name}`);
+      const res = await get(`/api/assets?name=${name}&isRented=${isRented}`);
       dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -100,7 +102,7 @@ export const setAssetFilters =
   (filterParams: SetFilterParams = {}) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
-    console.log(filterParams);
+    //console.log(filterParams);
     try {
       const res = await post(`/api/assets/filter`, filterParams);
       console.log("res", res);
@@ -299,8 +301,6 @@ export const getSingleAssetDetails =
       });
     }
   };
-
-
 
 export const deallocateAssets =
   (empId: string, assetId: number) =>

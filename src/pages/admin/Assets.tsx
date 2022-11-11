@@ -50,9 +50,8 @@ function Assets() {
     dispatch(
       getAssets({
         name: search,
-
         // assetType: category,
-        //isRented: isRented ? 1 : 0,
+        isRented: isRented ? 1 : 0,
       })
     );
   }, [dispatch, message, search, isRented]);
@@ -92,7 +91,6 @@ function Assets() {
             <Tab label="Owned Assets" />
             <Tab label="Rented Assets" />
             <Tab label="Rented Assets Financial" />
-
           </Tabs>
         </Box>
 

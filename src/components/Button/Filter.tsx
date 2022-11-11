@@ -31,7 +31,8 @@ import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import WebhookIcon from "@mui/icons-material/Webhook";
 import StorageIcon from "@mui/icons-material/Storage";
-//import { getFilterName, getFilterIcon } from "../../utils/objectMappers";
+import UsbIcon from "@mui/icons-material/Usb";
+import { keyboard } from "@testing-library/user-event/dist/keyboard";
 
 type Anchor = "right";
 
@@ -47,6 +48,7 @@ interface FILTEROBJ {
   harddisk: Array<string>;
   asset_location: Array<string>;
   brands: Array<string>;
+  connectivity: Array<string>;
 }
 
 const filterObj: FILTEROBJ = {
@@ -61,6 +63,7 @@ const filterObj: FILTEROBJ = {
   harddisk: [],
   asset_location: [],
   brands: [],
+  connectivity: [],
 };
 
 export default function SwipeableTemporaryDrawer() {
@@ -78,7 +81,7 @@ export default function SwipeableTemporaryDrawer() {
     right: false,
   });
 
-  const initialState = {
+  const initialOpenState = {
     menuOpen: false,
     statusOpen: false,
     brandOpen: false,
@@ -89,15 +92,67 @@ export default function SwipeableTemporaryDrawer() {
     locationOpen: false,
     osOpen: false,
     harddiskOpen: false,
+    connectivityOpen: false,
   };
 
-  const [openObject, setOpenObject] = useState(initialState);
+  const initialShowState = {
+    menuOpen: true,
+    statusOpen: true,
+    brandOpen: true,
+    pcOpen: true,
+    ramOpen: true,
+    screenTypeOpen: true,
+    screenSizeOpen: true,
+    locationOpen: true,
+    osOpen: true,
+    harddiskOpen: true,
+    connectivityOpen: true,
+  };
+
+  const [openObject, setOpenObject] = useState(initialOpenState);
+  const [show, setShow] = useState(initialShowState);
 
   const handleClick = (key: string, value: boolean) => {
     setOpenObject((prevState) => ({ ...prevState, [key]: value }));
   };
 
   const handleSubmitFilter = (key: string, value: string) => {
+    // if (value === "Mobile") {
+    //   setShow((prevState) => ({
+    //     ...prevState,
+    //     harddiskOpen: false,
+    //     pcOpen: true,
+    //     ramOpen: true,
+    //     screenTypeOpen: true,
+    //     screenSizeOpen: true,
+    //     osOpen: true,
+    //   }));
+    // }
+
+    // if (value === "Mouse" || "Keyboard" || "Headset") {
+    //   if (!filterObj.category.includes(value)) {
+    //     setShow((prevState) => ({
+    //       ...prevState,
+    //       pcOpen: false,
+    //       ramOpen: false,
+    //       screenTypeOpen: false,
+    //       screenSizeOpen: false,
+    //       osOpen: false,
+    //       harddiskOpen: false,
+    //     }));
+    //   } else {
+    //     setShow((prevState) => ({
+    //       ...prevState,
+    //       pcOpen: true,
+    //       ramOpen: true,
+    //       screenTypeOpen: true,
+    //       screenSizeOpen: true,
+    //       osOpen: true,
+    //       harddiskOpen: true,
+    //     }));
+    //   }
+    // }
+
     switch (key) {
       case "status":
         if (!filterObj.status.includes(value)) {
@@ -116,6 +171,16 @@ export default function SwipeableTemporaryDrawer() {
           const index = filterObj.ram.indexOf(value);
           if (index > -1) {
             filterObj.ram.splice(index, 1);
+          }
+        }
+        break;
+      case "operating_system":
+        if (!filterObj.operating_system.includes(value)) {
+          filterObj.operating_system.push(value);
+        } else {
+          const index = filterObj.operating_system.indexOf(value);
+          if (index > -1) {
+            filterObj.operating_system.splice(index, 1);
           }
         }
         break;
@@ -156,6 +221,16 @@ export default function SwipeableTemporaryDrawer() {
           const index = filterObj.harddisk.indexOf(value);
           if (index > -1) {
             filterObj.harddisk.splice(index, 1);
+          }
+        }
+        break;
+      case "connectivity":
+        if (!filterObj.connectivity.includes(value)) {
+          filterObj.connectivity.push(value);
+        } else {
+          const index = filterObj.connectivity.indexOf(value);
+          if (index > -1) {
+            filterObj.connectivity.splice(index, 1);
           }
         }
         break;
@@ -210,7 +285,11 @@ export default function SwipeableTemporaryDrawer() {
   const list = (anchor: Anchor) => (
     <Box sx={{ width: 250 }} role="presentation">
       <List
-        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        sx={{
+          width: "100%",
+          maxWidth: 360,
+          bgcolor: "background.paper",
+        }}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
@@ -219,7 +298,13 @@ export default function SwipeableTemporaryDrawer() {
           </ListSubheader>
         }
       >
+      </List>
+
+      <List>
         <ListItemButton
+          sx={{
+            display: filterOptions.category.includes("Laptop") ? "" : "none",
+          }}
           onClick={(e) => handleClick("menuOpen", !openObject.menuOpen)}
         >
           <ListItemIcon>
@@ -239,6 +324,7 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={filterObj.category.includes(item) ? true : false}
                       onChange={() => handleSubmitFilter("category", item)}
                     />
                   }
@@ -249,6 +335,7 @@ export default function SwipeableTemporaryDrawer() {
           </List>
         </Collapse>
       </List>
+
       <Divider />
 
       <List>
@@ -272,41 +359,8 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={filterObj.status.includes(item) ? true : false}
                       onChange={() => handleSubmitFilter("status", item)}
-                    />
-                  }
-                  label={item}
-                />
-              </ListItemButton>
-            ))}
-          </List>
-        </Collapse>
-      </List>
-
-      <Divider />
-
-      <List>
-        <ListItemButton
-          onClick={(e) => handleClick("harddiskOpen", !openObject.harddiskOpen)}
-        >
-          <ListItemIcon>
-            <StorageIcon />
-          </ListItemIcon>
-          <ListItemText primary="HDD" />
-          {openObject.harddiskOpen ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openObject.harddiskOpen} timeout="auto" unmountOnExit>
-          <List
-            component="div"
-            disablePadding
-            sx={{ height: "160px", overflow: "auto" }}
-          >
-            {filterOptions?.harddisk?.map((item) => (
-              <ListItemButton sx={{ pl: 4 }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={() => handleSubmitFilter("harddisk", item)}
                     />
                   }
                   label={item}
@@ -340,6 +394,9 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={
+                        filterObj.brands.includes(item.name) ? true : false
+                      }
                       onChange={() => handleSubmitFilter("brands", item.name)}
                     />
                   }
@@ -353,7 +410,122 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
+      <List sx={{ display: show.osOpen ? "" : "none" }}>
+        <ListItemButton
+          onClick={(e) => handleClick("osOpen", !openObject.osOpen)}
+        >
+          <ListItemIcon>
+            <WebhookIcon />
+          </ListItemIcon>
+          <ListItemText primary="Operating System" />
+          {openObject.osOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openObject.osOpen} timeout="auto" unmountOnExit>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
+            {filterOptions?.os?.map((item) => (
+              <ListItemButton sx={{ pl: 4 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={
+                        filterObj.operating_system.includes(item) ? true : false
+                      }
+                      onChange={() =>
+                        handleSubmitFilter("operating_system", item)
+                      }
+                    />
+                  }
+                  label={item}
+                />
+              </ListItemButton>
+            ))}
+          </List>
+        </Collapse>
+      </List>
+
+      <Divider />
+
+      <List sx={{ display: show.harddiskOpen ? "" : "none" }}>
+        <ListItemButton
+          onClick={(e) => handleClick("harddiskOpen", !openObject.harddiskOpen)}
+        >
+          <ListItemIcon>
+            <StorageIcon />
+          </ListItemIcon>
+          <ListItemText primary="HDD" />
+          {openObject.harddiskOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openObject.harddiskOpen} timeout="auto" unmountOnExit>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
+            {filterOptions?.harddisk?.map((item) => (
+              <ListItemButton sx={{ pl: 4 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={filterObj.harddisk.includes(item) ? true : false}
+                      onChange={() => handleSubmitFilter("harddisk", item)}
+                    />
+                  }
+                  label={item}
+                />
+              </ListItemButton>
+            ))}
+          </List>
+        </Collapse>
+      </List>
+
+      <Divider />
+
       <List>
+        <ListItemButton
+          onClick={(e) =>
+            handleClick("connectivityOpen", !openObject.connectivityOpen)
+          }
+        >
+          <ListItemIcon>
+            <UsbIcon />
+          </ListItemIcon>
+          <ListItemText primary="Connectivity" />
+          {openObject.connectivityOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openObject.connectivityOpen} timeout="auto" unmountOnExit>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
+            {filterOptions?.connectivity?.map((item) => (
+              <ListItemButton sx={{ pl: 4 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={
+                        filterObj.connectivity.includes(item) ? true : false
+                      }
+                      onChange={() => handleSubmitFilter("connectivity", item)}
+                    />
+                  }
+                  label={item}
+                />
+              </ListItemButton>
+            ))}
+          </List>
+        </Collapse>
+      </List>
+
+      <Divider />
+
+      
+
+      <List sx={{ display: show.pcOpen ? "" : "none" }}>
         <ListItemButton
           onClick={(e) => handleClick("pcOpen", !openObject.pcOpen)}
         >
@@ -370,6 +542,9 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={
+                        filterObj.processor.includes(item) ? true : false
+                      }
                       onChange={() => handleSubmitFilter("processor", item)}
                     />
                   }
@@ -383,7 +558,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List>
+      <List sx={{ display: show.screenSizeOpen ? "" : "none" }}>
         <ListItemButton
           onClick={(e) =>
             handleClick("screenSizeOpen", !openObject.screenSizeOpen)
@@ -402,6 +577,9 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={
+                        filterObj.screen_size.includes(item) ? true : false
+                      }
                       onChange={() => handleSubmitFilter("screen_size", item)}
                     />
                   }
@@ -415,7 +593,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List>
+      <List sx={{ display: show.screenTypeOpen ? "" : "none" }}>
         <ListItemButton
           onClick={(e) =>
             handleClick("screenTypeOpen", !openObject.screenTypeOpen)
@@ -434,6 +612,9 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={
+                        filterObj.screen_type.includes(item) ? true : false
+                      }
                       onChange={() => handleSubmitFilter("screen_type", item)}
                     />
                   }
@@ -446,7 +627,7 @@ export default function SwipeableTemporaryDrawer() {
       </List>
       <Divider />
 
-      <List>
+      <List sx={{ display: show.ramOpen ? "" : "none" }}>
         <ListItemButton
           onClick={(e) => handleClick("ramOpen", !openObject.ramOpen)}
         >
@@ -467,6 +648,7 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={filterObj.ram.includes(item) ? true : false}
                       onChange={() => handleSubmitFilter("ram", item)}
                     />
                   }
@@ -501,6 +683,9 @@ export default function SwipeableTemporaryDrawer() {
                 <FormControlLabel
                   control={
                     <Checkbox
+                      checked={
+                        filterObj.asset_location.includes(item) ? true : false
+                      }
                       onChange={() =>
                         handleSubmitFilter("asset_location", item)
                       }
@@ -516,37 +701,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List>
-        <ListItemButton
-          onClick={(e) => handleClick("osOpen", !openObject.osOpen)}
-        >
-          <ListItemIcon>
-            <WebhookIcon />
-          </ListItemIcon>
-          <ListItemText primary="Operating System" />
-          {openObject.osOpen ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openObject.osOpen} timeout="auto" unmountOnExit>
-          <List
-            component="div"
-            disablePadding
-            sx={{ height: "160px", overflow: "auto" }}
-          >
-            {filterOptions?.os?.map((item) => (
-              <ListItemButton sx={{ pl: 4 }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox onChange={() => handleSubmitFilter("os", item)} />
-                  }
-                  label={item}
-                />
-              </ListItemButton>
-            ))}
-          </List>
-        </Collapse>
-      </List>
-
-      <Divider />
+      
     </Box>
   );
   return (

@@ -214,6 +214,7 @@ export interface FilterOptions {
   location: string[];
   harddisk: string[];
   os: string[];
+  connectivity: string[];
 }
 
 interface SetAllocateAsset {
