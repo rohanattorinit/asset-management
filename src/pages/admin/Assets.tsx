@@ -19,6 +19,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import Filter from "../../components/Button/Filter";
+import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 function Assets() {
   const [value, setValue] = useState(0);
   const [isRented, setIsRented] = useState<boolean>(false);
@@ -62,19 +63,6 @@ function Assets() {
       <Grid item xs={12} md={10} p={3}>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
-            {/* <FormControl>
-              <InputLabel>Category</InputLabel>
-              <Select
-                labelId="category"
-                id="Category"
-                label="Category"
-                value={category}
-                onChange={handleChange}
-              >
-                <MenuItem value={"software"}>Software</MenuItem>
-                <MenuItem value={"hardware"}>Hardware</MenuItem>
-              </Select>
-            </FormControl> */}
             <Filter />
           </Grid>
           <Grid item xs={6}>
@@ -103,10 +91,21 @@ function Assets() {
           <Tabs value={value} onChange={handleTabChange} centered>
             <Tab label="Owned Assets" />
             <Tab label="Rented Assets" />
+            <Tab label="Rented Assets Financial" />
+
           </Tabs>
         </Box>
 
-        <Box>{isRented ? <RentedAssetsTable /> : <AssetsTable />}</Box>
+        {/* <Box>{isRented ? <RentedAssetsTable /> : <AssetsTable />}</Box> */}
+        <Box>
+          {value === 1 ? (
+            <RentedAssetsTable />
+          ) : value === 0 ? (
+            <AssetsTable />
+          ) : (
+            <RentedAssetsFinancialTable />
+          )}
+        </Box>
       </Grid>
     </Grid>
   );

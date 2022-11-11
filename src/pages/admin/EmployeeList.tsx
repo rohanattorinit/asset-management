@@ -149,6 +149,15 @@ function EmpList() {
                             Location
                           </Typography>
                         </TableCell>
+                        <TableCell align="right">
+                          <Typography
+                            align="center"
+                            sx={{ fontWeight: "bold" }}
+                          >
+                            Details
+                          </Typography>
+                        </TableCell>
+                        
                       </TableRow>
                     </TableHead>
                     <TableBody>

@@ -129,6 +129,11 @@ function Services() {
                           Ticket Status
                         </Typography>
                       </TableCell>
+                      <TableCell align="center">
+                        <Typography sx={{ fontWeight: "bold" }}>
+                          Details
+                        </Typography>
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -158,13 +163,6 @@ function Services() {
                         >
                           {serviceDetail?.ticketStatus?.toUpperCase()}
                         </TableCell>
-                        {/* <IconButton
-                          onClick={() =>
-                            SetEmployeeDetails(serviceDetail?.ticketId)
-                          }
-                        >
-                          <OpenInNewIcon sx={{ color: "darkblue" }} />
-                        </IconButton> */}
                         <TableCell align="right">
                           <Tooltip
                             title="Ticket Details"
