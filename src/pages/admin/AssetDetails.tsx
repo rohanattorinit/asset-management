@@ -31,6 +31,7 @@ const AssetDetails = () => {
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
+    
   }, [message]);
 
   const closeFunc = (value: boolean) => {
@@ -56,6 +57,7 @@ const AssetDetails = () => {
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
+       
         <Toast />
         <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
           <Box
@@ -259,7 +261,7 @@ const AssetDetails = () => {
                       <></>
                     )}
 
-                    {singleAssetDetails?.category === "monitor" ? (
+                    {singleAssetDetails?.category === "monitor" || singleAssetDetails?.category === "mobile"? (
                       <>
                         <Typography
                           fontFamily="serif"

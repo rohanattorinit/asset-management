@@ -368,6 +368,7 @@ function AssetEdit(props: Iprops) {
                       ) : (
                         <> </>
                       )}
+                     
 
                       {singleAssetDetails?.isRented ? (
                         <>
@@ -418,7 +419,7 @@ function AssetEdit(props: Iprops) {
                               name="rentStartDate"
                               id="rentStartDate"
                               onChange={handleChange}
-                              value={values?.rentStartDate?.slice(0, 10)}
+                              value={values?.rentStartDate}
                               InputLabelProps={{ shrink: true }}
                             />
                           </Grid>
@@ -433,7 +434,7 @@ function AssetEdit(props: Iprops) {
                               name="rentEndDate"
                               id="rentEndDate"
                               onChange={handleChange}
-                              value={values?.rentEndDate?.slice(0, 10)}
+                              value={values?.rentEndDate}
                               InputLabelProps={{ shrink: true }}
                             />
                           </Grid>

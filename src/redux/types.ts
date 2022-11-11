@@ -26,6 +26,7 @@ export const GET_ADD_NOTE = 'GET_ADD_NOTE'
 export const GET_BRAND_OPTIONS = 'GET_BRAND_OPTIONS'
 export const GET_FILTER_OPTIONS = 'GET_FILTER_OPTIONS'
 export const DELETE_ASSET = 'DELETE_ASSET'
+export const DELETE_EMPLOYEE= 'DELETE_EMPLOYEE'
 
 export interface EmpTicketType {
   ticketId: number
@@ -191,6 +192,15 @@ export interface DeleteAssetType {
   received_date: string
 }
 
+export interface DeleteEmployeeType {
+  empId?: string
+  name: string
+  email: string
+  phone?: string
+  location: string
+  jobTitle: string
+
+}
 export interface NoteType {
   ticketId: number
   note: string
@@ -405,6 +415,13 @@ interface SetDeleteAsset {
   }
 }
 
+interface SetDeleteEmployee {
+  type: typeof DELETE_EMPLOYEE
+  payload:{
+    message: string
+  }
+}
+
 interface CreateTicket {
   type: typeof CREATE_TICKET
   payload: {
@@ -479,3 +496,4 @@ export type DispatchTypes =
   | setBrandOptions
   | GetFilterOptions
   | SetDeleteAsset
+  |SetDeleteEmployee

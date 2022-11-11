@@ -22,12 +22,13 @@ import TableRow from "@mui/material/TableRow";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
   allocateAssets,
   deallocateAssets,
+  deleteEmployee,
   getAssetDetails,
   getAssets,
   getEmployeeDetails,
@@ -62,6 +63,7 @@ let validationSchema = Yup?.object()?.shape({
 export default function EmployeeDetails() {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
+  const navigate = useNavigate();
 
   const {
     admin: { employeeDetails, employeeassetsdetails, loading, message },
@@ -91,6 +93,23 @@ export default function EmployeeDetails() {
     setEmpOpen(false);
   };
 
+  const HandleDelete = (assetId: string)=> {
+
+    if (employeeassetsdetails?.length){
+      alert("First deallocate all the assets allocated to employee!")
+    }
+    else { 
+    if (window.confirm("Are you sure you want to delete this employee?")) {
+
+      dispatch(deleteEmployee(employeeDetails.empId))
+      navigate("/admin/employee/");
+     }
+    }
+    
+    
+    
+  }
+
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
@@ -109,9 +128,13 @@ export default function EmployeeDetails() {
                 <Typography m={2} variant="h5">
                   Employee Details
                 </Typography>
-                <Box m={2} display="flex">
+                <Box m={2} >
                   <Button variant="outlined" onClick={() => setEmpOpen(true)}>
                     Edit
+                  </Button>
+                  <> </>
+                  <Button variant="outlined" color="warning" onClick={()=>{HandleDelete(employeeDetails.empId)}}>
+                    Delete
                   </Button>
                 </Box>
               </Box>

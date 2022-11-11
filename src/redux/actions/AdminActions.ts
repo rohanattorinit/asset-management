@@ -4,6 +4,7 @@ import {
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
   DELETE_ASSET,
+  DELETE_EMPLOYEE,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
   SET_ADDASSET,
@@ -77,10 +78,10 @@ export const getAssets = (assetParams: GetAssetParams = {}) => async (
   dispatch({ type: LOADING_DATA })
 
   try {
-    const { name, allocate, assetType, isRented } = assetParams
+    const { name, allocate,  isRented } = assetParams
 
     const res = await get(
-      `/api/assets?allocate=${allocate}&assetType=${assetType}&isRented=${isRented}&name=${name}`
+      `/api/assets?allocate=${allocate}&isRented=${isRented}&name=${name}`
     )
     dispatch({ type: SET_ASSETS, payload: (res as any).data })
   } catch (error) {
@@ -411,6 +412,30 @@ export const deleteAsset = (empId: string, assetId: number) => async (
 
     dispatch({
       type: DELETE_ASSET,
+      payload: (res as any)?.data
+    })
+  } catch (error) {
+    dispatch({
+      type: SET_ERROR,
+      payload:
+        (error as any)?.response?.data?.error ||
+        `${
+          (error as any).response.status
+        }: Error occured while Deleting an Assets`
+    })
+  }
+}
+
+
+export const deleteEmployee = (empId: string) => async (
+  dispatch: Dispatch<DispatchTypes>
+) => {
+  dispatch({ type: LOADING_DATA })
+  try {
+    const res = await post(`/api/employees/delete/${empId}`, {})
+
+    dispatch({
+      type: DELETE_EMPLOYEE,
       payload: (res as any)?.data
     })
   } catch (error) {

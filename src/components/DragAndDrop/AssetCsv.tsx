@@ -1,17 +1,21 @@
 import { useState } from "react";
 import { Box, Button } from "@mui/material";
 import upload from "../../assets/upload.svg";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
+import { SET_ERROR } from "../../redux/types";
 export const AssetCsv = () => {
   const [file, setFile] = useState<Blob | string>();
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_API;
+  const dispatch = useDispatch()
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    
     const formData = new FormData();
     formData?.append("csvFile", file!);
     try {
@@ -31,6 +35,14 @@ export const AssetCsv = () => {
       alert("Assets added successfully");
     } catch (error) {
       //handle error
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response?.status
+          }: Error occured while Adding Assets Details`,
+      });
       console.error(error);
     }
   };

@@ -1,6 +1,7 @@
 import {
   BrandOptions,
   DELETE_ASSET,
+  DELETE_EMPLOYEE,
   FilterOptions,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
@@ -201,6 +202,14 @@ const adminReducer = (
         message: action.payload?.message,
         loading: false
       }
+
+      case DELETE_EMPLOYEE: 
+      return {
+        ...state,
+        message: action.payload?.message,
+        loading: false
+      }
+      
     case ALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,
