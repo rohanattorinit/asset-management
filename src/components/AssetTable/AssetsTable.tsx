@@ -1,4 +1,5 @@
 import {
+  Box,
   CircularProgress,
   Grid,
   IconButton,
@@ -8,8 +9,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { Stack } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,6 +23,7 @@ import { LOADING } from "../../redux/types";
 import { Dispatch, useEffect, useState } from "react";
 import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
 import Asset from "../../pages/employee/Asset";
+import CountUp from "react-countup";
 
 const AssetsTable = () => {
   const navigate = useNavigate();
@@ -36,11 +40,24 @@ const AssetsTable = () => {
 
   return (
     <>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: "bold",
+            p: 1,
+            borderRadius: 1,
+          }}
+        >
+          Total Assets :
+          <CountUp end={assets?.length} duration={2} />
+        </Typography>
+      </Box>
       {loading ? (
         <Loader />
       ) : (
         <TableContainer sx={{ marginY: 3 }} component={Paper}>
-          {assets.length ? (
+          {assets?.length ? (
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -97,11 +114,20 @@ const AssetsTable = () => {
                   <TableCell align="center">
                     {filteredAsset?.usability?.toUpperCase()}
                   </TableCell>
-                  <IconButton
-                    onClick={() => setAssetDetails(filteredAsset?.assetId)}
-                  >
-                    <OpenInNewIcon sx={{ color: "darkblue" }} />
-                  </IconButton>
+                  <TableCell align="right">
+                    <Tooltip
+                      title="Asset Details"
+                      children={
+                        <IconButton
+                          onClick={() =>
+                            setAssetDetails(filteredAsset?.assetId)
+                          }
+                        >
+                          <OpenInNewIcon sx={{ color: "darkblue" }} />
+                        </IconButton>
+                      }
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </Table>

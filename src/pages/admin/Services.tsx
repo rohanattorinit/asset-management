@@ -17,6 +17,7 @@ import {
   TextField,
   Typography,
   CircularProgress,
+  Tooltip,
 } from "@mui/material";
 import { Dispatch, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -157,13 +158,27 @@ function Services() {
                         >
                           {serviceDetail?.ticketStatus?.toUpperCase()}
                         </TableCell>
-                        <IconButton
+                        {/* <IconButton
                           onClick={() =>
                             SetEmployeeDetails(serviceDetail?.ticketId)
                           }
                         >
                           <OpenInNewIcon sx={{ color: "darkblue" }} />
-                        </IconButton>
+                        </IconButton> */}
+                        <TableCell align="right">
+                          <Tooltip
+                            title="Ticket Details"
+                            children={
+                              <IconButton
+                                onClick={() =>
+                                  SetEmployeeDetails(serviceDetail?.ticketId)
+                                }
+                              >
+                                <OpenInNewIcon sx={{ color: "darkblue" }} />
+                              </IconButton>
+                            }
+                          />
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
