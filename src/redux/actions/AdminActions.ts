@@ -47,6 +47,7 @@ interface SetFilterParams {
   assetType?: string[];
   category?: string[];
   operating_system?: string[];
+  harddisk?: string[];
   processor?: string[];
   screen_size?: string[];
   asset_location?: string[];
@@ -298,6 +299,8 @@ export const getSingleAssetDetails =
       });
     }
   };
+
+
 
 export const deallocateAssets =
   (empId: string, assetId: number) =>

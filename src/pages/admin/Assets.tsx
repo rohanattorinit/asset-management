@@ -26,7 +26,7 @@ function Assets() {
 
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
-  const [category, setCategory] = useState("hardware");
+  // const [category, setCategory] = useState("hardware");
 
   // Debounce callback
   const debounced = useDebouncedCallback(
@@ -49,11 +49,12 @@ function Assets() {
     dispatch(
       getAssets({
         name: search,
+
         // assetType: category,
         //isRented: isRented ? 1 : 0,
       })
     );
-  }, [dispatch, message, search, category, isRented]);
+  }, [dispatch, message, search, isRented]);
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />

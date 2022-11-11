@@ -8,6 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -98,11 +99,18 @@ function RentedAssetsTable() {
                   <TableCell align="center">
                     {rentalAsset?.status?.toUpperCase()}
                   </TableCell>
-                  <IconButton
-                    onClick={() => setAssetDetails(rentalAsset?.assetId)}
-                  >
-                    <OpenInNewIcon sx={{ color: "darkblue" }} />
-                  </IconButton>
+                  <TableCell align="right">
+                    <Tooltip
+                      title="Asset Details"
+                      children={
+                        <IconButton
+                          onClick={() => setAssetDetails(rentalAsset?.assetId)}
+                        >
+                          <OpenInNewIcon sx={{ color: "darkblue" }} />
+                        </IconButton>
+                      }
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </Table>

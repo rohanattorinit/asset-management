@@ -11,6 +11,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { Dispatch, useEffect, useState } from "react";
@@ -168,11 +169,25 @@ function EmpList() {
                           <TableCell align="center">
                             {employee?.location.toUpperCase()}
                           </TableCell>
-                          <IconButton
+                          {/* <IconButton
                             onClick={() => setEmployeeDetails(employee?.empId)}
                           >
                             <OpenInNewIcon sx={{ color: "darkblue" }} />
-                          </IconButton>
+                          </IconButton> */}
+                          <TableCell align="right">
+                            <Tooltip
+                              title="Employee Details"
+                              children={
+                                <IconButton
+                                  onClick={() =>
+                                    setEmployeeDetails(employee?.empId)
+                                  }
+                                >
+                                  <OpenInNewIcon sx={{ color: "darkblue" }} />
+                                </IconButton>
+                              }
+                            />
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

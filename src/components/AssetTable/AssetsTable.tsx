@@ -9,6 +9,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -113,11 +114,20 @@ const AssetsTable = () => {
                   <TableCell align="center">
                     {filteredAsset?.usability?.toUpperCase()}
                   </TableCell>
-                  <IconButton
-                    onClick={() => setAssetDetails(filteredAsset?.assetId)}
-                  >
-                    <OpenInNewIcon sx={{ color: "darkblue" }} />
-                  </IconButton>{" "}
+                  <TableCell align="right">
+                    <Tooltip
+                      title="Asset Details"
+                      children={
+                        <IconButton
+                          onClick={() =>
+                            setAssetDetails(filteredAsset?.assetId)
+                          }
+                        >
+                          <OpenInNewIcon sx={{ color: "darkblue" }} />
+                        </IconButton>
+                      }
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </Table>

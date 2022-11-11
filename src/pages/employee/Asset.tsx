@@ -27,6 +27,7 @@ import BuildIcon from "@mui/icons-material/Build";
 import { useNavigate } from "react-router-dom";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 export default function Asset() {
   const [open, setOpen] = useState(false);
@@ -35,6 +36,11 @@ export default function Asset() {
     title: "",
     description: "",
   });
+
+  const setAssetDetails = (assetId: number) => {
+    navigate(`/assets/${assetId}`);
+    //console.log(assetId);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -116,16 +122,25 @@ export default function Asset() {
                         Asset ID
                       </TableCell>
                       <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Name
+                        Model No.
                       </TableCell>
                       <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Model
+                        Asset Name
                       </TableCell>
+
                       <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Type of Asset
+                        Category
                       </TableCell>
+
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Description
+                      </TableCell>
+
                       <TableCell align="right" sx={{ fontWeight: "bold" }}>
                         Date of Allocation
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Details
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -140,20 +155,39 @@ export default function Asset() {
                         <TableCell component="th" scope="row">
                           {asset?.assetId}
                         </TableCell>
-                        <TableCell align="right">{asset?.name}</TableCell>
                         <TableCell align="right">{asset?.modelno}</TableCell>
+                        <TableCell align="right">{asset?.name}</TableCell>
                         <TableCell align="right">{asset?.category}</TableCell>
                         <TableCell align="right">
-                          {asset?.allocationTime?.slice(0,10)}
+                          {asset?.description}
                         </TableCell>
                         <TableCell align="right">
-                          <Tooltip title="Create Ticket">
+                          {asset?.allocationTime?.slice(0, 10)}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Tooltip title="Asset Details">
                             <IconButton
-                              onClick={() => handleClick(asset?.assetId)}
+                              onClick={() => setAssetDetails(asset?.assetId)}
                             >
-                              <BuildIcon sx={{ cursor: "pointer" }} />
+                              <OpenInNewIcon
+                                sx={{ cursor: "pointer", color: "darkblue" }}
+                              />
                             </IconButton>
                           </Tooltip>
+                        </TableCell>
+                        <TableCell align="right">
+                          <Tooltip
+                            title="Create Ticket"
+                            children={
+                              <IconButton
+                                onClick={() => handleClick(asset?.assetId)}
+                              >
+                                <BuildIcon sx={{ cursor: "pointer" }} />
+                              </IconButton>
+                            }
+                          />
+
+                          {/* </Tooltip> */}
                         </TableCell>
                       </TableRow>
                     ))}

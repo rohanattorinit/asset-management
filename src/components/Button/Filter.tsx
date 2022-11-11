@@ -30,6 +30,7 @@ import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
 import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import WebhookIcon from "@mui/icons-material/Webhook";
+import StorageIcon from "@mui/icons-material/Storage";
 //import { getFilterName, getFilterIcon } from "../../utils/objectMappers";
 
 type Anchor = "right";
@@ -43,6 +44,7 @@ interface FILTEROBJ {
   operating_system: Array<string>;
   processor: Array<string>;
   screen_size: Array<string>;
+  harddisk: Array<string>;
   asset_location: Array<string>;
   brands: Array<string>;
 }
@@ -56,6 +58,7 @@ const filterObj: FILTEROBJ = {
   operating_system: [],
   processor: [],
   screen_size: [],
+  harddisk: [],
   asset_location: [],
   brands: [],
 };
@@ -85,6 +88,7 @@ export default function SwipeableTemporaryDrawer() {
     screenSizeOpen: false,
     locationOpen: false,
     osOpen: false,
+    harddiskOpen: false,
   };
 
   const [openObject, setOpenObject] = useState(initialState);
@@ -142,6 +146,16 @@ export default function SwipeableTemporaryDrawer() {
           const index = filterObj.processor.indexOf(value);
           if (index > -1) {
             filterObj.processor.splice(index, 1);
+          }
+        }
+        break;
+      case "harddisk":
+        if (!filterObj.harddisk.includes(value)) {
+          filterObj.harddisk.push(value);
+        } else {
+          const index = filterObj.harddisk.indexOf(value);
+          if (index > -1) {
+            filterObj.harddisk.splice(index, 1);
           }
         }
         break;
@@ -259,6 +273,40 @@ export default function SwipeableTemporaryDrawer() {
                   control={
                     <Checkbox
                       onChange={() => handleSubmitFilter("status", item)}
+                    />
+                  }
+                  label={item}
+                />
+              </ListItemButton>
+            ))}
+          </List>
+        </Collapse>
+      </List>
+
+      <Divider />
+
+      <List>
+        <ListItemButton
+          onClick={(e) => handleClick("harddiskOpen", !openObject.harddiskOpen)}
+        >
+          <ListItemIcon>
+            <StorageIcon />
+          </ListItemIcon>
+          <ListItemText primary="HDD" />
+          {openObject.harddiskOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openObject.harddiskOpen} timeout="auto" unmountOnExit>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
+            {filterOptions?.harddisk?.map((item) => (
+              <ListItemButton sx={{ pl: 4 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={() => handleSubmitFilter("harddisk", item)}
                     />
                   }
                   label={item}

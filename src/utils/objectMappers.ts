@@ -1,5 +1,12 @@
 import CategoryIcon from "@mui/icons-material/Category";
-
+import LinearScaleIcon from "@mui/icons-material/LinearScale";
+//import InputIcon from "@mui/icons-material/Input";
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
+import MemoryIcon from "@mui/icons-material/Memory";
+import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
+import AddToQueueIcon from "@mui/icons-material/AddToQueue";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
+import WebhookIcon from "@mui/icons-material/Webhook";
 interface FILTERS {
   category: string;
   location: string;
@@ -44,13 +51,14 @@ interface FILTER_ICON {
 export const getFilterIcon = (name: string) => {
   const filterIcon: FILTER_ICON = {
     category: CategoryIcon,
-    location: "Location",
-    os: "Operating System",
-    processor: "Processor",
-    screen_size: "Screen Size",
-    screen_type: "Screen Type",
-    status: "Status",
-    ram: "RAM (GB)",
+    location: AddLocationIcon,
+    os: WebhookIcon,
+    processor: DeveloperBoardIcon,
+    screen_size: ScreenshotMonitorIcon,
+    screen_type: AddToQueueIcon,
+    status: LinearScaleIcon,
+    ram: MemoryIcon,
+    //brands: InputIcon,
   };
 
   //@ts-ignore
