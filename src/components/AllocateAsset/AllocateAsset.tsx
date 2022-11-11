@@ -42,6 +42,7 @@ const AllocateAsset = ({
     // delay in ms
     300
   );
+  
   useEffect(() => {
     dispatch(getAssets({ name: search }));
   }, [dispatch, search, message]);
