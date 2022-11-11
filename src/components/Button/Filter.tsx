@@ -297,8 +297,7 @@ export default function SwipeableTemporaryDrawer() {
             Filters
           </ListSubheader>
         }
-      >
-      </List>
+      ></List>
 
       <List>
         <ListItemButton
@@ -500,7 +499,7 @@ export default function SwipeableTemporaryDrawer() {
           <List
             component="div"
             disablePadding
-            sx={{ height: "160px", overflow: "auto" }}
+            sx={{ height: "100px", overflow: "auto" }}
           >
             {filterOptions?.connectivity?.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
@@ -522,8 +521,6 @@ export default function SwipeableTemporaryDrawer() {
       </List>
 
       <Divider />
-
-      
 
       <List sx={{ display: show.pcOpen ? "" : "none" }}>
         <ListItemButton
@@ -700,8 +697,6 @@ export default function SwipeableTemporaryDrawer() {
       </List>
 
       <Divider />
-
-      
     </Box>
   );
   return (
