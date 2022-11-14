@@ -17,6 +17,7 @@ import Loader from "../../components/Loader/Loader";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
+import CountUp from "react-countup";
 
 function RentedAssetsTable() {
   const navigate = useNavigate();
@@ -27,6 +28,19 @@ function RentedAssetsTable() {
 
   return (
     <>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: "bold",
+            p: 1,
+            borderRadius: 1,
+          }}
+        >
+          Total Assets :
+          <CountUp end={assets?.length} duration={2} />
+        </Typography>
+      </Box>
       <Box>
         {loading ? (
           <Loader />

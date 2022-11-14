@@ -265,7 +265,7 @@ export default function SwipeableTemporaryDrawer() {
         }
         break;
     }
-    console.log(filterObj);
+    // console.log(filterObj);
     dispatch(setAssetFilters(filterObj));
   };
 
@@ -495,7 +495,11 @@ export default function SwipeableTemporaryDrawer() {
           <ListItemText primary="Connectivity" />
           {openObject.connectivityOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-        <Collapse in={openObject.connectivityOpen} timeout="auto" unmountOnExit>
+        <Collapse
+          in={openObject?.connectivityOpen}
+          timeout="auto"
+          unmountOnExit
+        >
           <List
             component="div"
             disablePadding
@@ -507,7 +511,7 @@ export default function SwipeableTemporaryDrawer() {
                   control={
                     <Checkbox
                       checked={
-                        filterObj.connectivity.includes(item) ? true : false
+                        filterObj?.connectivity.includes(item) ? true : false
                       }
                       onChange={() => handleSubmitFilter("connectivity", item)}
                     />

@@ -1,4 +1,5 @@
 import {
+  Box,
   CircularProgress,
   Grid,
   IconButton,
@@ -17,14 +18,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
 import Loader from "../Loader/Loader";
-import { LOADING } from "../../redux/types";
+import { AssetTypes, LOADING } from "../../redux/types";
 import { Dispatch, useEffect, useState } from "react";
 import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
 import Asset from "../../pages/employee/Asset";
+import CountUp from "react-countup";
 
-const AssetsTable = () => {
+const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
   const navigate = useNavigate();
-  const { assets, singleAssetDetails, loading } = useSelector(
+  const { singleAssetDetails, loading } = useSelector(
     (state: RootStore) => state.admin
   );
 
@@ -37,18 +39,31 @@ const AssetsTable = () => {
 
   return (
     <>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: "bold",
+            p: 1,
+            borderRadius: 1,
+          }}
+        >
+          Total Assets :
+          <CountUp end={assets?.length} duration={2} />
+        </Typography>
+      </Box>
       {loading ? (
         <Loader />
       ) : (
         <TableContainer sx={{ marginY: 3 }} component={Paper}>
-          {assets.length ? (
+          {assets?.length ? (
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>AssetID</Typography>
                   </TableCell>
-                  
+
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>
                       Asset Name
@@ -56,7 +71,7 @@ const AssetsTable = () => {
                   </TableCell>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>
-                     Brand Name
+                      Brand Name
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
@@ -75,9 +90,7 @@ const AssetsTable = () => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      Ram
-                    </Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>Ram</Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>Status</Typography>
@@ -93,9 +106,7 @@ const AssetsTable = () => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      Details
-                    </Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>Details</Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -103,7 +114,7 @@ const AssetsTable = () => {
               {assets?.map((filteredAsset) => (
                 <TableRow key={filteredAsset?.assetId}>
                   <TableCell align="center">{filteredAsset?.assetId}</TableCell>
-                  
+
                   <TableCell align="center">
                     {filteredAsset?.name?.toUpperCase()}
                   </TableCell>
@@ -114,11 +125,13 @@ const AssetsTable = () => {
                     {filteredAsset?.category?.toUpperCase()}
                   </TableCell>
 
-                  <TableCell align="center">{filteredAsset?.screen_type}</TableCell>
-                  <TableCell align="center">{filteredAsset?.screen_size}</TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.ram}
+                    {filteredAsset?.screen_type}
                   </TableCell>
+                  <TableCell align="center">
+                    {filteredAsset?.screen_size}
+                  </TableCell>
+                  <TableCell align="center">{filteredAsset?.ram}</TableCell>
                   <TableCell align="center">
                     {filteredAsset?.status?.toUpperCase()}
                   </TableCell>
@@ -142,7 +155,6 @@ const AssetsTable = () => {
                       }
                     />
                   </TableCell>
-
                 </TableRow>
               ))}
             </Table>

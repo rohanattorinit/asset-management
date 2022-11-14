@@ -20,14 +20,15 @@ import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import Filter from "../../components/Button/Filter";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
+import { AssetTypes } from "../../redux/types";
 function Assets() {
   const [value, setValue] = useState(0);
   const [isRented, setIsRented] = useState<boolean>(false);
-  const { message } = useSelector((state: RootStore) => state.admin);
+  const { message, assets } = useSelector((state: RootStore) => state.admin);
 
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
-  // const [category, setCategory] = useState("hardware");
+  const [filteredAsset, setFilteredAssets] = useState<AssetTypes[]>([]);
 
   // Debounce callback
   const debounced = useDebouncedCallback(
@@ -43,18 +44,25 @@ function Assets() {
     setValue(newValue);
     newValue ? setIsRented(true) : setIsRented(false);
   };
-  // const handleChange = (event: SelectChangeEvent) => {
-  //   setCategory(event?.target?.value);
-  // };
+
   useEffect(() => {
     dispatch(
       getAssets({
         name: search,
-        // assetType: category,
-        isRented: isRented ? 1 : 0,
       })
     );
   }, [dispatch, message, search, isRented]);
+
+  useEffect(() => {
+    if (isRented) {
+      //@ts-ignore
+      setFilteredAssets(assets?.filter((asset) => asset?.isRented === 1));
+    } else {
+      //@ts-ignore
+      setFilteredAssets(assets?.filter((asset) => asset?.isRented === 0));
+    }
+  }, [assets, isRented]);
+
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
@@ -94,14 +102,13 @@ function Assets() {
           </Tabs>
         </Box>
 
-        {/* <Box>{isRented ? <RentedAssetsTable /> : <AssetsTable />}</Box> */}
         <Box>
           {value === 1 ? (
-            <RentedAssetsTable />
+            <AssetsTable assets={filteredAsset} />
           ) : value === 0 ? (
-            <AssetsTable />
+            <AssetsTable assets={filteredAsset} />
           ) : (
-            <RentedAssetsFinancialTable />
+            <RentedAssetsFinancialTable search={search} />
           )}
         </Box>
       </Grid>

@@ -29,7 +29,7 @@ import { get, post } from "../../services";
 import { useNavigate } from "react-router-dom";
 interface GetAssetParams {
   name?: string;
-  isRented?: 0 | 1;
+  // isRented?: 0 | 1;
 }
 
 interface GetEmployeeParams {
@@ -82,9 +82,9 @@ export const getAssets =
     dispatch({ type: LOADING_DATA });
 
     try {
-      const { name, isRented } = assetParams;
+      const { name } = assetParams;
 
-      const res = await get(`/api/assets?name=${name}&isRented=${isRented}`);
+      const res = await get(`/api/assets?name=${name}`);
       dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -105,7 +105,7 @@ export const setAssetFilters =
     //console.log(filterParams);
     try {
       const res = await post(`/api/assets/filter`, filterParams);
-      console.log("res", res);
+      // console.log("res", res);
 
       dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
     } catch (error) {
