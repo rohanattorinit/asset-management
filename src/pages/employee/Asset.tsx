@@ -14,7 +14,7 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  CircularProgress,
+
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
@@ -28,8 +28,10 @@ import { useNavigate } from "react-router-dom";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import Alert from "../../components/ConfirmAlert/Alert";
 
 export default function Asset() {
+  const [alert, setAlert] = useState(false)
   const [open, setOpen] = useState(false);
   const [assetId, setAssetId] = useState<number>();
   const [ticket, setTicket] = useState({
@@ -79,15 +81,20 @@ export default function Asset() {
       createTicket(empId, assetId as number, ticket?.title, ticket?.description)
     );
     setOpen(false);
+    setAlert(true);
     setTicket({
       title: "",
       description: "",
     });
-    navigate(`/ticket`);
+    // navigate(`/ticket`);
   };
-
+ const setAlrt =()=>{
+  setAlert(false)
+  navigate(`/ticket`);
+ }
   return (
     <Grid container sx={{ height: "100%" }}>
+      {alert && <Alert title="Ticket generated successfully" setNavigate={setAlrt}/>}
       <Sidebar />
       <Toast />
       <Grid
@@ -158,9 +165,9 @@ export default function Asset() {
                         <TableCell align="right">{asset?.modelno}</TableCell>
                         <TableCell align="right">{asset?.name}</TableCell>
                         <TableCell align="right">{asset?.category}</TableCell>
-                        <TableCell align="right">
+                        {/* <TableCell align="right">
                           {asset?.description}
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell align="right">
                           {asset?.allocationTime?.slice(0, 10)}
                         </TableCell>

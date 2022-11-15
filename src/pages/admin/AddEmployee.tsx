@@ -17,6 +17,7 @@ import { Dispatch, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/ConfirmAlert/Alert";
 import { DragAndDrop } from "../../components/DragAndDrop/DragAndDrop";
 import Toast from "../../components/ErrorHandling/Toast";
 import { EmpValidationSchema } from "../../components/FormValidations/EmpValidationSchema";
@@ -43,11 +44,15 @@ const AddEmployee = () => {
     resetForm({ values: "" });
   };
 
-  useEffect(() => {
-    if (message) {
-      navigate("/admin/employee");
-    }
-  }, [message]);
+  const setNavigate = ()=>{
+    navigate("/admin/employee");
+  }
+
+  // useEffect(() => {
+  //   if (message) {
+  //     navigate("/admin/employee");
+  //   }
+  // }, [message]);
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
@@ -177,6 +182,7 @@ const AddEmployee = () => {
             </Grid>
           </CardContent>
         </Card>
+        {message && <Alert title={message} setNavigate={setNavigate}/>}
       </Grid>
     </Grid>
   );

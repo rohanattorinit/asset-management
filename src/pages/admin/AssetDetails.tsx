@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
 import AssetEdit from "../../components/Button/AssetEdit";
+import Alert from "../../components/ConfirmAlert/Alert";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -28,36 +29,46 @@ const AssetDetails = () => {
   );
 
   const state = useSelector((state: RootStore) => state);
+  const [openAlert, setOpenAlert] = useState(false);
+  const[openAlertEdit, setOpenAlertEdit] =  useState(false);
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
-    
   }, [message]);
 
   const closeFunc = (value: boolean) => {
     setAssetOpen(value);
+    setOpenAlertEdit(true)
   };
+  const setNavigate =()=>{setOpenAlert(false)}
+  const setMessage = () =>{
+    setOpenAlertEdit(false)
+  }
 
   const HandleDelete = (assetId: number) => {
     if (singleAssetDetails.status === "allocated") {
-      alert("First deallocate this asset and then try deleting it");
+      setOpenAlert(true)
+       //alert("First deallocate this asset and then try deleting it");
+      
     } else {
       if (window.confirm("Are you sure you want to delete this asset?")) {
         dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
         navigate("/admin/assets/");
       }
     }
-    // if (window.confirm("Are you sure you want to delete this asset?")) {
-    //   dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
-    //   navigate("/admin/assets/");
-    // }
+    
   };
 
   return (
+    
     <>
+
+    
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
-       
+        {openAlert ? (<Alert title="First deallocate this asset and then try deleting it" setNavigate={setNavigate}/>): (<> </>)}
+        { openAlertEdit && <Alert title="Asset Details Updated Successfully!" setNavigate={setMessage}/> }
+        
         <Toast />
         <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
           <Box
@@ -459,7 +470,7 @@ const AssetDetails = () => {
         </Grid>
       </Grid>
 
-      <Dialog open={assetOpen} onClose={() => setAssetOpen(false)}>
+      <Dialog open={assetOpen} onClose={() => setAssetOpen(false) }>
         <AssetEdit closeFunc={closeFunc} />
       </Dialog>
     </>

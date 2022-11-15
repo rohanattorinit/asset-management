@@ -39,6 +39,7 @@ import Toast from "../../components/ErrorHandling/Toast";
 import { Formik, Field, Form } from "formik";
 import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
 import Loader from "../../components/Loader/Loader";
+import Alert from "../../components/ConfirmAlert/Alert";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -63,7 +64,9 @@ let validationSchema = Yup?.object()?.shape({
 export default function EmployeeDetails() {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
   const navigate = useNavigate();
+  const setNavigate =()=>{setOpenAlert(false)}
 
   const {
     admin: { employeeDetails, employeeassetsdetails, loading, message },
@@ -74,14 +77,17 @@ export default function EmployeeDetails() {
   const location = useLocation();
   const empId = location?.pathname.replace("/admin/employee/", "");
 
+  const [empEdit, setEmpEdit]= useState(false)
+
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
   }, [dispatch, empId, message, empMessage]);
 
   const handleClickOpen = () => {
-    dispatch(getAssets({ name: "" }));
+    dispatch(getAssets({ name: "", allocate:true }));
     setOpen(true);
+    
   };
 
   const HandleDeallocate = (assetId: number) => {
@@ -91,12 +97,14 @@ export default function EmployeeDetails() {
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
     setEmpOpen(false);
+    setEmpEdit(true)
   };
 
   const HandleDelete = (assetId: string)=> {
 
     if (employeeassetsdetails?.length){
-      alert("First deallocate all the assets allocated to employee!")
+      setOpenAlert(true)
+     // alert("First deallocate all the assets allocated to employee!")
     }
     else { 
     if (window.confirm("Are you sure you want to delete this employee?")) {
@@ -106,14 +114,18 @@ export default function EmployeeDetails() {
      }
     }
     
-    
-    
+  }
+
+  const setMessage =()=>{
+    setEmpEdit(false)
   }
 
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
+      {openAlert ? (<Alert title="First deallocate all the assets allocated to this employee" setNavigate={setNavigate}/>): (<> </>)}
+      {empEdit?(<Alert title="Employee details updated successfully" setNavigate={setMessage}/>):(<></>)}
       {loading && !open ? (
         <Loader />
       ) : (

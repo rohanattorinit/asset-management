@@ -29,6 +29,7 @@ import {
 import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
+import Alert from "../../components/ConfirmAlert/Alert";
 
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
@@ -46,18 +47,25 @@ const AddAsset = () => {
     values.rent = parseInt(values.rent.split(",").join(""), 10);
     values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
-    console.log(values);
+    console.log(values)
     resetForm({ values: "" });
   };
+
   useEffect(() => {
     dispatch(getBrandOptions());
     dispatch(getfilterOptions());
     dispatch(getEmployees({ name: "" }));
+  }, []); 
+  
+  const setNavigate = ()=>{
+    navigate("/admin/assets");
+  }
 
-    if (message) {
-      navigate("/admin/assets");
-    }
-  }, [message, navigate, dispatch]);
+  // useEffect(()=>{
+  //   if (message) {
+      
+  //   }
+  // },[message])
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
@@ -618,6 +626,7 @@ const AddAsset = () => {
             </Grid>
           </CardContent>
         </Card>
+        {message && <Alert title={message} setNavigate={setNavigate}/>}
       </Grid>
     </Grid>
   );

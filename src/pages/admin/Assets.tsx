@@ -1,13 +1,8 @@
-
-
 import {
   Box,
   Button,
-  
   Grid,
- 
-  Modal,
- 
+  
   Tab,
   Tabs,
   TextField,
@@ -32,7 +27,8 @@ function Assets() {
 
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
-  
+  // const [category, setCategory] = useState("hardware");
+
   // Debounce callback
   const debounced = useDebouncedCallback(
     // function
@@ -47,40 +43,27 @@ function Assets() {
     setValue(newValue);
     newValue ? setIsRented(true) : setIsRented(false);
   };
- 
-  const handleOpenmodal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setCategory(event?.target?.value);
+  // };
   useEffect(() => {
     dispatch(
       getAssets({
         name: search,
-        
+        // assetType: category,
         isRented: isRented ? 1 : 0,
       })
     );
-  }, [dispatch, message, search,  isRented]);
+  }, [dispatch, message, search, isRented]);
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
       <Grid item xs={12} md={10} p={3}>
-        <Grid container alignItems="center">
-          
+        <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
             <Filter />
           </Grid>
-          <Modal
-            open={openModal}
-            onClose={handleCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Filters
-              </Typography>
-              </Box>
-          </Modal>
           <Grid item xs={6}>
             ​
             <TextField
@@ -108,7 +91,6 @@ function Assets() {
             <Tab label="Owned Assets" />
             <Tab label="Rented Assets" />
             <Tab label="Rented Assets Financial" />
-
           </Tabs>
         </Box>
 

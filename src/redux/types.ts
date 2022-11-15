@@ -137,6 +137,11 @@ export interface AssetTypes {
   name: string
   assetType: string
   category: string
+  processor: string;
+  screen_type: string;
+  ram: number;
+  operating_system: string;
+  screen_size: number;
   modelNo: number
   description: string
   status: string
@@ -150,7 +155,6 @@ export interface AssetTypes {
   rentEndDate?: string
   asset_location: string
   received_date: string
-  operating_system: string
 }
 
 export interface AllocatedAssetType {

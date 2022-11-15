@@ -296,7 +296,7 @@ export default function SwipeableTemporaryDrawer() {
           {openObject.harddiskOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openObject.harddiskOpen} timeout="auto" unmountOnExit>
-          <List
+          {/* <List
             component="div"
             disablePadding
             sx={{ height: "160px", overflow: "auto" }}
@@ -313,7 +313,7 @@ export default function SwipeableTemporaryDrawer() {
                 />
               </ListItemButton>
             ))}
-          </List>
+          </List> */}
         </Collapse>
       </List>
 

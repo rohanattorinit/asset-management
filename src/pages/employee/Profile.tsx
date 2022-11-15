@@ -28,7 +28,7 @@ import {
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { getUserProfile } from "../../redux/actions/AuthAction";
-import Toast from "../../components/ErrorHandling/Toast";
+import Alert from "../../components/ConfirmAlert/Alert";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -59,6 +59,9 @@ export default function Profile() {
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
+  const [alertmsg, setAlertmsg] = useState(false)
+  const [passAlert, setPassAlert] = useState (false)
+  const [passChangeAlrt, setPassChangeAlrt] = useState (false)
   const dispatch: Dispatch<any> = useDispatch();
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -71,11 +74,12 @@ export default function Profile() {
     if (password?.password === password?.confirmPassword) {
       e.preventDefault();
       dispatch(changePassword(password?.password!));
-
+      setPassChangeAlrt(true)
       setOpenPasswordDialog(false);
     } else {
       e.preventDefault();
-      alert("Password must match!!");
+      setPassAlert(true)
+      // alert("Password must match!!");
     }
   };
   useEffect(() => {
@@ -85,9 +89,29 @@ export default function Profile() {
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(user?.empId, values));
     setOpen(false);
+    setAlertmsg (true)
+    
   };
+
+  const setNavigate =()=>{
+    setAlertmsg(false)
+    
+  }
+
+  const setPassAlrt =()=>{
+    setPassAlert (false)
+  }
+
+  const setPas=()=>{
+    setPassChangeAlrt(false)
+
+  }
   return (
     <Grid container sx={{ height: "100%" }}>
+      {alertmsg  && <Alert title="Profile details updated successfully" setNavigate={setNavigate}/>}
+      {passAlert  && <Alert title="Password must match" setNavigate={setPassAlrt}/>}
+      {passChangeAlrt && <Alert title="Password updated successfully!" setNavigate={setPas}/>}
+
       <Sidebar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
         <Box

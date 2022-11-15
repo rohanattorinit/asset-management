@@ -17,7 +17,7 @@ export const test = describe("Reducer test", () => {
             name: "John",
             category: "software",
             modelno: 2345,
-            description: "string",
+            //description: "string",
             allocationTime: "string",
           },
         ],

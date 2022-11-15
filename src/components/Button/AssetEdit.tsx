@@ -24,6 +24,8 @@ import {
   getBrandOptions,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
+import Alert from "../ConfirmAlert/Alert";
+
 interface Iprops {
   closeFunc: (value: boolean) => void;
 }
@@ -37,15 +39,21 @@ function AssetEdit(props: Iprops) {
     dispatch(getfilterOptions());
   }, [message]);
 
+ 
   const onSubmit = (values: any) => {
-    console.log(values);
-    //
+    
+    
     dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
-
     props.closeFunc(false);
+
+  
   };
+
+ 
+
   return (
     <>
+    
       <Card>
         <CardHeader title="Edit" />
         <Formik
@@ -528,7 +536,10 @@ function AssetEdit(props: Iprops) {
             );
           }}
         </Formik>
+
+        
       </Card>
+     {/* {message && <Alert title="Asset details updated successfully" setNavigate={setNavigate}/>} */}
     </>
   );
 }

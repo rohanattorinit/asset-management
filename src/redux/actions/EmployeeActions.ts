@@ -63,7 +63,7 @@ export const updateEmployeeDetails = (
   dispatch({ type: LOADING })
   try {
     const res = await post(`/api/employees/update/${empId}`, updateData)
-    alert('Profile Details Updated Successfully!')
+   // alert('Profile Details Updated Successfully!')
     dispatch({ type: UPDATE_EMPLOYEE_DETAILS, payload: (res as any)?.data })
   } catch (error) {
     dispatch({
@@ -85,7 +85,7 @@ export const changePassword = (password: string) => async (
     const res = await post(`/api/auth/changePassword/`, {
       password: password
     })
-    alert('Password changed successfully!')
+    //alert('Password changed successfully!')
     dispatch({ type: CHANGE_PASSWORD, payload: (res as any)?.data })
   } catch (error) {
     dispatch({
@@ -113,7 +113,7 @@ export const createTicket = (
       title,
       description
     })
-    alert('Ticket created successfully!')
+   // alert('Ticket created successfully!')
     dispatch({ type: CREATE_TICKET, payload: (res as any)?.data })
   } catch (error) {
     dispatch({

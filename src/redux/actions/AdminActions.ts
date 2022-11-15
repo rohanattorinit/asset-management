@@ -31,6 +31,8 @@ import { get, post } from "../../services";
 import { useNavigate } from "react-router-dom";
 interface GetAssetParams {
   name?: string;
+  allocate?:boolean,
+  isRented?:0|1
 }
 
 interface GetEmployeeParams {
@@ -76,6 +78,27 @@ export const getEmployees =
     }
   };
 
+  export const setAssetFilters =
+  (filterParams: SetFilterParams = {}) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    console.log(filterParams);
+    try {
+      const res = await post(`/api/assets/filter`, filterParams);
+      console.log("res", res);
+
+      dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response?.status
+          }: Error occured while fetching asset filter data`,
+      });
+    }
+  };
 export const getAssets =
   (assetParams: GetAssetParams = {}) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
@@ -126,7 +149,7 @@ export const addEmployee =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post("/api/employees", employeeDetails);
-      alert((res as any).data?.message);
+      //alert((res as any).data?.message);
       dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -147,7 +170,7 @@ export const addAsset =
     try {
       const res = await post("/api/assets/addAsset", assetDetails);
 
-      alert((res as any)?.data?.message);
+      //alert((res as any)?.data?.message);
       dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -156,7 +179,7 @@ export const addAsset =
           (error as any)?.response?.data?.error ||
           `${
             (error as any).response?.status
-          }: Error occured while Adding Assets Details`,
+          }: Error occured while Adding Asset`,
       });
     }
   };
@@ -168,7 +191,8 @@ export const updateAssetDetails =
     try {
       const res = await post(`/api/assets/update/${assetId}`, updateData);
 
-    alert('Asset Details Updated Successfully!')
+     //alert('Asset Details Updated Successfully!')
+   
     dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data })
   } catch (error) {
     dispatch({
@@ -316,7 +340,7 @@ export const allocateAssets =
     dispatch({ type: LOADING_DATA });
 
     try {
-      window.confirm("Do you want to allot asset?");
+      window.confirm("Do you want to allocate asset?");
       const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId });
 
       dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data });
@@ -396,7 +420,7 @@ export const getfilterOptions = () => async (
     const res = await get(`/api/assets/filterOptions`)
 
     dispatch({
-      type: DELETE_EMPLOYEE,
+      type: GET_FILTER_OPTIONS,
       payload: (res as any)?.data
     })
   } catch (error) {
