@@ -105,7 +105,7 @@ function RentedAssetsTable() {
           <Loader />
         ) : (
           <TableContainer sx={{ marginY: 3 }} component={Paper}>
-            {assets.length ? (
+            {assets?.length ? (
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>

@@ -137,15 +137,7 @@ import {
                         </Typography>
                       </Typography>
   
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                      >
-                        Usability:{" "}
-                        <Typography>{singleAssetDetails?.usability}</Typography>
-                      </Typography>
+                      
   
                       <Typography
                         fontFamily="serif"
@@ -340,7 +332,7 @@ import {
                 assetId: singleAssetDetails?.assetId,
                 assetName: singleAssetDetails?.name,
                 description: singleAssetDetails?.description,
-                usability: singleAssetDetails?.usability,
+                
                 brandName: singleAssetDetails?.brandName,
                 status: singleAssetDetails?.status,
                 modelNo: singleAssetDetails?.modelNo,
@@ -410,7 +402,7 @@ import {
                             />
                           </Grid>
   
-                          <Grid item xs={12} sm={6} md={6}>
+                          {/* <Grid item xs={12} sm={6} md={6}>
                             <FormControl fullWidth variant="outlined">
                               <InputLabel id="demo-simple-select-outlined-label">
                                 Usability
@@ -432,7 +424,7 @@ import {
                                 ))}
                               </Select>
                             </FormControl>
-                          </Grid>
+                          </Grid> */}
                           <Grid item xs={12} sm={6} md={6}>
                             <TextField
                               label="Brand Name"

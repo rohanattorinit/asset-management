@@ -1,3 +1,5 @@
+// import { TypeOf } from "yup"
+
 export const LOADING_DATA = 'LOADING_DATA'
 export const SET_EMPLOYEES = 'SET_EMPLOYEES'
 export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
@@ -25,6 +27,7 @@ export const SET_ADD_NOTE = 'SET_ADD_NOTE'
 export const GET_ADD_NOTE = 'GET_ADD_NOTE'
 export const GET_BRAND_OPTIONS = 'GET_BRAND_OPTIONS'
 export const GET_FILTER_OPTIONS = 'GET_FILTER_OPTIONS'
+export const GET_TOTAL_ASSETSCATEGORY_COUNT = 'GET_TOTAL_ASSETSCATEGORY_COUNT'
 
 export interface EmpTicketType {
   ticketId: number
@@ -38,6 +41,11 @@ export interface EmpTicketType {
 }
 
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
+
+export interface TotalAssetCountType {
+  totalAssetCount: AssetCategoryCount[]
+  totalSurplusAssetCount: AssetCategoryCount[]
+}
 
 export interface CreateTicketType {
   empId: string
@@ -54,7 +62,6 @@ export interface CreateAssetType {
   description: string
   status: string
   usability: string
-  
   isRented: boolean
   vendor: string
   rent: string
@@ -188,6 +195,11 @@ export interface FilterOptions {
   screen_type: string[]
   location: string[]
   os: string[]
+}
+
+export interface AssetCategoryCount {
+  category : string
+  count : number
 }
 
 interface SetAllocateAsset {
@@ -404,6 +416,13 @@ interface setBrandOptions {
   }
 }
 
+interface GetAssetCategoryCount {
+  type : typeof GET_TOTAL_ASSETSCATEGORY_COUNT 
+  payload : {
+    data : TotalAssetCountType
+  }
+}
+
 interface GetFilterOptions {
   type: typeof GET_FILTER_OPTIONS
   payload: {
@@ -448,3 +467,4 @@ export type DispatchTypes =
   | GetAddNote
   | setBrandOptions
   | GetFilterOptions
+  | GetAssetCategoryCount

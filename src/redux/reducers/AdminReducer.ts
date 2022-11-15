@@ -1,8 +1,10 @@
 import {
+  AssetCategoryCount,
   BrandOptions,
   FilterOptions,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
+  GET_TOTAL_ASSETSCATEGORY_COUNT,
   SET_ADD_NOTE,
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
@@ -41,6 +43,8 @@ interface InitialState {
   error?: string
   message: string
   brandOptions: BrandOptions[]
+  totalAssetCount : AssetCategoryCount[]
+  totalSurplusAssetCount : AssetCategoryCount[]
   filterOptions: FilterOptions
 }
 
@@ -92,6 +96,8 @@ const initialState: InitialState = {
     createdAt: ''
   },
   brandOptions: [],
+  totalSurplusAssetCount:[],
+  totalAssetCount:[],
   filterOptions: {
     category: [],
     status: [],
@@ -222,6 +228,14 @@ const adminReducer = (
         brandOptions: action.payload?.data,
         loading: false
       }
+
+      case GET_TOTAL_ASSETSCATEGORY_COUNT:
+        return {
+          ...state,
+          totalAssetCount: action.payload?.data?.totalAssetCount,
+          totalSurplusAssetCount: action.payload?.data?.totalSurplusAssetCount,
+          loading:false
+        }
 
     case GET_FILTER_OPTIONS:
       return {
