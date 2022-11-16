@@ -7,6 +7,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
 import AssetEdit from "../../components/Button/AssetEdit";
 import Alert from "../../components/ConfirmAlert/Alert";
+import Confirm from "../../components/ConfirmAlert/Confirm";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
 import SideBar from "../../components/Sidebar/Sidebar";
@@ -19,6 +20,8 @@ import { RootStore } from "../../redux/store";
 const AssetDetails = () => {
   const [open, setOpen] = useState(false);
   const [assetOpen, setAssetOpen] = useState(false);
+  const [assetConfirmdel, setAssetConfirmdel] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('')
   const location = useLocation();
   const navigate = useNavigate();
   const id = location.pathname.split("/")[3];
@@ -40,25 +43,43 @@ const AssetDetails = () => {
     setAssetOpen(value);
     setOpenAlertEdit(true)
   };
-  const setNavigate =()=>{setOpenAlert(false)}
+  const setNavigate =()=>{setOpenAlert(false)
+    if(alertMessage === "asset Deleted successfully"){
+      navigate("/admin/assets/")
+    }
+    }
+  
   const setMessage = () =>{
     setOpenAlertEdit(false)
   }
 
+  
+
   const HandleDelete = (assetId: number) => {
     if (singleAssetDetails.status === "allocated") {
       setOpenAlert(true)
+      setAlertMessage("First deallocate this asset and then try deleting it" )
        //alert("First deallocate this asset and then try deleting it");
       
     } else {
-      if (window.confirm("Are you sure you want to delete this asset?")) {
-        dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
-        navigate("/admin/assets/");
-      }
+      setAssetConfirmdel(true)
+      // if (window.confirm("Are you sure you want to delete this asset?")) {
+      //   dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
+      //   navigate("/admin/assets/");
+      // }
     }
     
   };
 
+  const handleDelConfirm=(assetId: number)=>{
+    dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
+    setAssetConfirmdel(false)
+    setOpenAlert(true)
+    setAlertMessage("asset Deleted successfully")
+        // navigate("/admin/assets/");
+
+  }
+ 
   return (
     
     <>
@@ -66,9 +87,9 @@ const AssetDetails = () => {
     
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
-        {openAlert ? (<Alert title="First deallocate this asset and then try deleting it" setNavigate={setNavigate}/>): (<> </>)}
+        {openAlert ? (<Alert title={alertMessage} setNavigate={setNavigate}/>): (<> </>)}
         { openAlertEdit && <Alert title="Asset Details Updated Successfully!" setNavigate={setMessage}/> }
-        
+       
         <Toast />
         <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
           <Box
@@ -88,11 +109,13 @@ const AssetDetails = () => {
                 variant="outlined"
                 color="warning"
                 onClick={() => {
+                
                   HandleDelete(singleAssetDetails.assetId);
                 }}
               >
                 Delete
               </Button>
+              {assetConfirmdel && <Confirm  title="Are you sure?" handleOk={()=>{handleDelConfirm(singleAssetDetails.assetId)}} handlecancel={()=>{setAssetConfirmdel(false)}}/>}
             </Box>
           </Box>
 

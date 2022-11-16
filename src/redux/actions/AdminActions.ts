@@ -340,7 +340,7 @@ export const allocateAssets =
     dispatch({ type: LOADING_DATA });
 
     try {
-      window.confirm("Do you want to allocate asset?");
+      // window.confirm("Do you want to allocate asset?");
       const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId });
 
       dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data });

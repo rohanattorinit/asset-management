@@ -12,44 +12,38 @@ const Transition = React.forwardRef(function Transition(
   },
   ref: React.Ref<unknown>,
 ) {
-  return <Slide ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
-
 interface Iprops {
-    title:string,
-    setNavigate: ()=> void
+    title: string, 
+    handleOk:()=> void
+    handlecancel: () =>void
 }
 
-export default function Alert(props:Iprops) {
-  
-  const handleClose = () => {
-    props?.setNavigate()
+export default function Confirm(props: Iprops) {
+  const [open, setOpen] = React.useState(true);
 
+  const handleClose = () => {
+    props.handlecancel()
+    setOpen(false);
   };
 
   return (
-    <>
-     
+    <div>
       <Dialog
-        open={true}
+        open={open}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
-        PaperProps={{
-            style: {
-              backgroundColor: '#f3f4f6',
-              boxShadow: '2',
-            },
-          }}
       >
         <DialogTitle>{props.title}</DialogTitle>
         
         <DialogActions>
-          
-          <Button variant="outlined" onClick={handleClose}>OK</Button>
+          <Button onClick={props.handleOk}>OK</Button>
+          <Button onClick={handleClose}>CANCEL</Button>
         </DialogActions>
       </Dialog>
-    </>
+    </div>
   );
 }

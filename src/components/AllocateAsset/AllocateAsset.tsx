@@ -21,6 +21,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { allocateAssets, getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import { useDebouncedCallback } from "use-debounce";
+import Confirm from "../ConfirmAlert/Confirm";
+import Alert from "../ConfirmAlert/Alert";
+import { useNavigate } from "react-router-dom";
 const AllocateAsset = ({
   open,
   setOpen,
@@ -29,6 +32,11 @@ const AllocateAsset = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [search, setSearch] = useState("");
+  const [openConfirm, setOpenConfirm] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [openAlert, setOpenAlert] = useState(false);
+  const navigate = useNavigate();
+
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
   const dispatch: Dispatch<any> = useDispatch();
   const { employeeDetails, assets, loading, message } = useSelector(
@@ -60,13 +68,31 @@ const AllocateAsset = ({
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(allocateAssets(employeeDetails?.empId, assetIdCheck));
-    setAssetId([]);
+    setOpenConfirm(true)
+    setAlertMessage("Do you want to allocate asset?")
+   
     setOpen(false);
   };
+  const handleOK = () =>{
+    dispatch(allocateAssets(employeeDetails?.empId, assetIdCheck));
+    setOpenConfirm(false)
+    setOpenAlert(true)
+    setAssetId([]);
+    setAlertMessage('Asset Allocated')
+   // navigate("/admin/employee/");
+  }
+  const handleCancel= () =>{
+    setOpenConfirm(false)
+  }
+  const setNavigate =()=>{
+    setOpenAlert(false)
+   
+  }
   return (
     <>
       {/* Allocate an Asset */}
+      {openConfirm &&<Confirm  title={alertMessage} handleOk={handleOK} handlecancel={handleCancel}></Confirm>}
+      {openAlert ? (<Alert title={alertMessage} setNavigate={setNavigate}/>): (<> </>)}
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
           <DialogContent>
