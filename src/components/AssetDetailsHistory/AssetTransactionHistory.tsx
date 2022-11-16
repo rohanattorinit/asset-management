@@ -2,10 +2,31 @@ import { Box, Grid, Paper } from '@mui/material'
 import { red, yellow } from '@mui/material/colors'
 import { bgcolor } from '@mui/system'
 import TextField from '@mui/material/TextField';
-import React from 'react'
+import React, { Dispatch, useEffect } from 'react'
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent } from '@mui/lab';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAssetTransactionLog } from '../../redux/actions/AdminActions';
+import { useLocation } from 'react-router-dom';
+import { RootStore } from '../../redux/store';
 
 function AssetTransactionHistory() {
+
+  const location = useLocation();
+
+  const id = location.pathname.split("/")[3];
+const dispatch: Dispatch<any> = useDispatch()
+
+const {assetTrasactionLogs } = useSelector(
+  (state: RootStore) => state.admin
+);
+
+  useEffect(()=>{
+    dispatch(getAssetTransactionLog(id))
+  },[])
+
+
+
+
   return (
     // <Box
     //   sx={{
@@ -23,7 +44,9 @@ function AssetTransactionHistory() {
       <Box   sx={{width: "50%",
                height: "50%",}}>
     {/* <Paper sx={{  padding: 1 }} elevation={3}> */}
-    <Timeline>
+
+
+    {   <Timeline>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot />
@@ -31,7 +54,7 @@ function AssetTransactionHistory() {
         </TimelineSeparator>
         <TimelineContent>Asset Recived on 2022-09-30	</TimelineContent>
       </TimelineItem>
-      <TimelineItem>
+      {/* <TimelineItem>
         <TimelineSeparator>
           <TimelineDot />
           <TimelineConnector />
@@ -43,8 +66,8 @@ function AssetTransactionHistory() {
           <TimelineDot />
         </TimelineSeparator>
         <TimelineContent>Asset Deallocated from Archana Gangurde on 2022-11-09</TimelineContent>
-      </TimelineItem>
-    </Timeline>
+      </TimelineItem> */}
+    </Timeline>}
       {/* </Paper> */}
       </Box>
       </Grid>

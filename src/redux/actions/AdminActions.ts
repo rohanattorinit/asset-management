@@ -416,8 +416,8 @@ export const getBrandOptions =
   (assetId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await get(`/api/transactions/logs/${105}`);
-
+      const res = await get(`/api/transactions/logs/${assetId}`);
+console.log({res})
       dispatch({ type: ASSET_TRANSACTION_LOGS , payload: (res as any)?.data });
     } catch (error) {
       dispatch({
