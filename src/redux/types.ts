@@ -1,440 +1,550 @@
 // import { TypeOf } from "yup"
 
-export const LOADING_DATA = 'LOADING_DATA'
-export const SET_EMPLOYEES = 'SET_EMPLOYEES'
-export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
-export const SET_ERROR = 'SET_ERROR'
-export const LOADING = 'LOADING'
-export const SET_EMPLOYEE_ASSETS = 'SET_EMPLOYEE_ASSETS'
-export const SET_ASSETS = 'SET_ASSETS'
-export const UPDATE_EMPLOYEE_DETAILS = 'UPDATE_EMPLOYEE_DETAILS'
-export const UPDATE_ASSET_DETAILS = 'UPDATE_ASSET_DETAILS'
-export const SET_EMPLOYEE = 'SET_EMPLOYEE'
-export const SET_LOGOUT = 'SET_LOGOUT'
-export const SET_ADDEMPLOYEE = 'SET_ADDEMPLOYEE'
-export const SET_ADDASSET = 'SET_ADDASSET'
-export const SET_EMPLOYEE_DETAILS = 'SET_EMPLOYEE_DETAILS'
-export const SET_SINGLE_ASSET_DETAILS = 'SET_SINGLE_ASSET_DETAILS'
-export const SET_EMPLOYEE_ASSETS_DETAILS = 'SET_EMPLOYEE_ASSETS_DETAILS'
-export const DEALLOCATE_EMPLOYEE_ASSET = 'DEALLOCATE_EMPLOYEE_ASSET'
-export const ALLOCATE_EMPLOYEE_ASSET = 'ALLOCATE_EMPLOYEE_ASSET'
-export const CREATE_TICKET = 'CREATE_TICKET'
-export const SET_SERVICE_DETAILS = 'SET_SERVICE_DETAILS'
-export const SET_SERVICE_TICKET_DETAILS = 'SET_SERVICE_TICKET_DETAILS'
-export const SET_EMPTICKETS = 'SET_EMPTICKETS'
-export const SET_TICKET_STATUS = 'SET_TICKET_STATUS'
-export const SET_ADD_NOTE = 'SET_ADD_NOTE'
-export const GET_ADD_NOTE = 'GET_ADD_NOTE'
-export const GET_BRAND_OPTIONS = 'GET_BRAND_OPTIONS'
-export const GET_FILTER_OPTIONS = 'GET_FILTER_OPTIONS'
-export const GET_TOTAL_ASSETSCATEGORY_COUNT = 'GET_TOTAL_ASSETSCATEGORY_COUNT'
+export const LOADING_DATA = "LOADING_DATA";
+export const SET_EMPLOYEES = "SET_EMPLOYEES";
+export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
+export const SET_ERROR = "SET_ERROR";
+export const LOADING = "LOADING";
+export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
+export const SET_ASSETS = "SET_ASSETS";
+export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
+export const UPDATE_ASSET_DETAILS = "UPDATE_ASSET_DETAILS";
+export const SET_EMPLOYEE = "SET_EMPLOYEE";
+export const SET_LOGOUT = "SET_LOGOUT";
+export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
+export const SET_ADDASSET = "SET_ADDASSET";
+export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
+export const SET_SINGLE_ASSET_DETAILS = "SET_SINGLE_ASSET_DETAILS";
+export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
+export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
+export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
+export const CREATE_TICKET = "CREATE_TICKET";
+export const SET_SERVICE_DETAILS = "SET_SERVICE_DETAILS";
+export const SET_SERVICE_TICKET_DETAILS = "SET_SERVICE_TICKET_DETAILS";
+export const SET_EMPTICKETS = "SET_EMPTICKETS";
+export const SET_TICKET_STATUS = "SET_TICKET_STATUS";
+export const SET_ADD_NOTE = "SET_ADD_NOTE";
+export const GET_ADD_NOTE = "GET_ADD_NOTE";
+export const GET_BRAND_OPTIONS = "GET_BRAND_OPTIONS";
+export const GET_FILTER_OPTIONS = "GET_FILTER_OPTIONS";
+export const GET_TOTAL_ASSETSCATEGORY_COUNT = "GET_TOTAL_ASSETSCATEGORY_COUNT";
+// export const ASSET_UPDATED_LOG = 'ASSET_UPDATED_LOG'
+// export const ASSET_TICKET_LOG = 'Asset_TICKET_LOG'
+// export const ASSET_ALLOCATION_DEALLOCATION_LOG = 'ASSET_ALLOCATION_DEALLOCATION_LOG'
+// export const ASSET_ACTIVATE_DEACTIVATE_LOG = 'ASSET_ACTIVATE_DEACTIVATE_LOG'
+export const ASSET_TRANSACTION_LOGS = "ASSET_TRANSACTION_LOGS";
+
+export interface AllAssetTransactionLog {
+  asset_updation_logs: [{
+    asset_update_id: number,
+    asset_id: number,
+    updated_feature: string,
+    description: string,
+    effective_date: string
+}];
+  ticket_logs: [{
+    ticketId: number,
+    empId: string,
+    assetId: number,
+    title: string,
+    description: string,
+    ticketStatus: string,
+    createdAt: String,
+    closedAt: string
+}];
+  allocation_logs: [{
+    transaction_id: number,
+    asset_id: number,
+    emp_id: string,
+    emp_name: string,
+    allocation_date: string,
+    deallocation_date: string,
+    status: string
+}];
+  received_at: string;
+  deleted_at: string | null;
+}
+// export interface AssetUpdatedLog{
+//   asset_update_id : number
+//    asset_id : number
+//    updated_feature : string
+//    description : string
+//    effective_date : string
+// }
+
+// export interface AssetTicketLog{
+//   ticketId : number
+//   empId : string
+//   assetId : number
+//   title  : string
+//   description : string
+//   ticketStatus :string
+//   createdAt : String
+//   closedAt : string
+// }
+
+// export interface AssetAllocateDeallocateLog{
+//   transaction_id : number
+//   asset_id : number
+//   emp_id : string
+//   emp_name:string
+//   allocation_date : string
+//   deallocation_date : string
+//   status : string
+// }
+
+// export interface AssetReceiveDeleteLog{
+//   assetId:string
+//   received_date : string
+//   deleted_at : string
+// }
 
 export interface EmpTicketType {
-  ticketId: number
-  empId: string
-  assetId: number
-  title: string
-  description: string
-  ticketStatus: string
-  createdAt: string
-  note: string
+  ticketId: number;
+  empId: string;
+  assetId: number;
+  title: string;
+  description: string;
+  ticketStatus: string;
+  createdAt: string;
+  note: string;
 }
 
-export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 
 export interface TotalAssetCountType {
-  totalAssetCount: AssetCategoryCount[]
-  totalSurplusAssetCount: AssetCategoryCount[]
+  totalAssetCount: AssetCategoryCount[];
+  totalSurplusCount: AssetCategoryCount[];
 }
 
 export interface CreateTicketType {
-  empId: string
-  assetId: number
-  title: string
-  description: string
+  empId: string;
+  assetId: number;
+  title: string;
+  description: string;
 }
 export interface CreateAssetType {
-  brandName: string
-  assetName: string
-  assetType: string
-  category: string
-  modelNo: string
-  description: string
-  status: string
-  usability: string
-  isRented: boolean
-  vendor: string
-  rent: string
-  deposit: string
-  rentStartDate: string
-  rentEndDate: string
-  processor: string
-  ram: string
-  operating_system: string
-  screen_type: string
-  screen_size: string
-  asset_location: string
-  received_date: string
+  brandName: string;
+  assetName: string;
+  assetType: string;
+  category: string;
+  modelNo: string;
+  description: string;
+  status: string;
+  usability: string;
+  isRented: boolean;
+  vendor: string;
+  rent: string;
+  deposit: string;
+  rentStartDate: string;
+  rentEndDate: string;
+  processor: string;
+  ram: string;
+  operating_system: string;
+  screen_type: string;
+  screen_size: string;
+  asset_location: string;
+  received_date: string;
 }
 
 export interface CreateEmployeeType {
-  empId?: string
-  name: string
-  email: string
-  phone?: string
-  location: string
-  jobTitle: string
+  empId?: string;
+  name: string;
+  email: string;
+  phone?: string;
+  location: string;
+  jobTitle: string;
 }
 export interface EmployeeType {
-  empId: string
-  name: string
-  email: string
-  phone?: string
-  location: string
-  isAdmin: boolean
-  jobTitle: string
+  empId: string;
+  name: string;
+  email: string;
+  phone?: string;
+  location: string;
+  isAdmin: boolean;
+  jobTitle: string;
 }
 export interface ServiceType {
-  empId: string
-  assetId: number
-  ticketId: number
-  title: string
-  description: string
-  ticketStatus: string
-  createdAt: string
+  empId: string;
+  assetId: number;
+  ticketId: number;
+  title: string;
+  description: string;
+  ticketStatus: string;
+  createdAt: string;
 }
 
 export interface SingleAssetDetailsType {
-  assetId: number
-  brandName: string
-  name: string
-  modelNo: number
-  description: string
-  status: string
+  assetId: number;
+  brandName: string;
+  name: string;
+  modelNo: number;
+  description: string;
+  status: string;
   //usability: string
-  asset_location: string
-  empName: string
-  empId: string
-  isRented: 0 | 1
-  vendor: string
-  rent: number
-  deposit: number
-  rentStartDate?: string
-  rentEndDate?: string
-  processor: string
-  screen_type: string
-  received_date?: string
+  asset_location: string;
+  empName: string;
+  empId: string;
+  isRented: 0 | 1;
+  vendor: string;
+  rent: number;
+  deposit: number;
+  rentStartDate?: string;
+  rentEndDate?: string;
+  processor: string;
+  screen_type: string;
+  received_date?: string;
 }
 
 export interface EmployeeAssetType {
-  assetId: number
-  name: string
-  category: string
-  modelno: number
-  allocationTime: string
+  assetId: number;
+  name: string;
+  category: string;
+  modelno: number;
+  allocationTime: string;
 }
 
 export interface AssetTypes {
-  assetId: number
-  brandName: string
-  name: string
-  assetType: string
-  category: string
-  modelNo: number
-  description: string
-  status: string
-  usability: string
-  processor:string;
-  screen_type:string;
-  ram:number;
-  operating_system:string;
-  screen_size:number;
-  addedTime: string
-  isRented?: boolean
-  vendor?: string
-  rent?: number
-  deposit?: number
-  rentStartDate?: string
-  rentEndDate?: string
-  asset_location: string
-  received_date: string
+  assetId: number;
+  brandName: string;
+  name: string;
+  assetType: string;
+  category: string;
+  modelNo: number;
+  description: string;
+  status: string;
+  usability: string;
+  processor: string;
+  screen_type: string;
+  ram: number;
+  operating_system: string;
+  screen_size: number;
+  addedTime: string;
+  isRented?: boolean;
+  vendor?: string;
+  rent?: number;
+  deposit?: number;
+  rentStartDate?: string;
+  rentEndDate?: string;
+  asset_location: string;
+  received_date: string;
 }
 
 export interface AllocatedAssetType {
-  assetId: number
-  name: string
-  category: string
-  modelno: number
-  allocationTime: string
+  assetId: number;
+  name: string;
+  category: string;
+  modelno: number;
+  allocationTime: string;
 }
 
 export interface DeAllocatAssetType {
-  assetId: number
-  name: string
-  category: string
-  modelno: number
-  allocationTime: string
+  assetId: number;
+  name: string;
+  category: string;
+  modelno: number;
+  allocationTime: string;
 }
 export interface NoteType {
-  ticketId: number
-  note: string
-  createdAt: string
+  ticketId: number;
+  note: string;
+  createdAt: string;
 }
 
 export interface BrandOptions {
-  brandId: number
-  name: string
+  brandId: number;
+  name: string;
 }
 
 export interface FilterOptions {
-  category: string[]
-  status: string[]
-  processor: string[]
-  screen_size: string[]
-  ram: string[]
-  screen_type: string[]
-  location: string[]
-  os: string[]
+  category: string[];
+  status: string[];
+  processor: string[];
+  screen_size: string[];
+  ram: string[];
+  screen_type: string[];
+  location: string[];
+  os: string[];
 }
 
 export interface AssetCategoryCount {
-  category : string
-  count : number
+  category: string;
+  count: number;
 }
 
 interface SetAllocateAsset {
-  type: typeof ALLOCATE_EMPLOYEE_ASSET
+  type: typeof ALLOCATE_EMPLOYEE_ASSET;
   payload: {
-    message: string
-  }
+    message: string;
+  };
+}
+
+interface GetTransactionLogs {
+  type: typeof ASSET_TRANSACTION_LOGS;
+  payload: {
+    meassage: string;
+    data: AllAssetTransactionLog;
+  };
 }
 
 interface LoadingData {
-  type: typeof LOADING_DATA
+  type: typeof LOADING_DATA;
 }
 
 interface Loading {
-  type: typeof LOADING
+  type: typeof LOADING;
 }
 
 interface SetEmployees {
-  type: typeof SET_EMPLOYEES
+  type: typeof SET_EMPLOYEES;
   payload: {
-    meassage: string
-    data: EmployeeType[]
-  }
+    meassage: string;
+    data: EmployeeType[];
+  };
 }
 
 interface SetEmployee {
-  type: typeof SET_EMPLOYEE
+  type: typeof SET_EMPLOYEE;
   payload: {
-    data: EmployeeType
-  }
+    data: EmployeeType;
+  };
 }
 
 interface SetEmployeeTicket {
-  type: typeof SET_EMPTICKETS
+  type: typeof SET_EMPTICKETS;
   payload: {
-    meassage: string
-    data: EmpTicketType[]
-  }
+    meassage: string;
+    data: EmpTicketType[];
+  };
 }
 
 interface SetError {
-  type: typeof SET_ERROR
-  payload: string
+  type: typeof SET_ERROR;
+  payload: string;
 }
 
 interface SetAuthenticated {
-  type: typeof SET_AUTHENTICATED
+  type: typeof SET_AUTHENTICATED;
   payload: {
-    message: string
-    user: EmployeeType
-    token: string
-  }
+    message: string;
+    user: EmployeeType;
+    token: string;
+  };
 }
 
 interface SetLogout {
-  type: typeof SET_LOGOUT
+  type: typeof SET_LOGOUT;
 }
 interface SetEmployeeAssets {
-  type: typeof SET_EMPLOYEE_ASSETS
+  type: typeof SET_EMPLOYEE_ASSETS;
   payload: {
-    message: string
-    data: EmployeeAssetType[]
-  }
+    message: string;
+    data: EmployeeAssetType[];
+  };
 }
 interface SetAssets {
-  type: typeof SET_ASSETS
+  type: typeof SET_ASSETS;
   payload: {
-    message: string
-    data: AssetTypes[]
-  }
+    message: string;
+    data: AssetTypes[];
+  };
 }
 
 interface UpdateEmployeeDetails {
-  type: typeof UPDATE_EMPLOYEE_DETAILS
+  type: typeof UPDATE_EMPLOYEE_DETAILS;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface UpdateAssetDetails {
-  type: typeof UPDATE_ASSET_DETAILS
+  type: typeof UPDATE_ASSET_DETAILS;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetAddEmployee {
-  type: typeof SET_ADDEMPLOYEE
+  type: typeof SET_ADDEMPLOYEE;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetAddAsset {
-  type: typeof SET_ADDASSET
+  type: typeof SET_ADDASSET;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface ChangePassword {
-  type: typeof CHANGE_PASSWORD
+  type: typeof CHANGE_PASSWORD;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetAddEmployee {
-  type: typeof SET_ADDEMPLOYEE
+  type: typeof SET_ADDEMPLOYEE;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetAddAsset {
-  type: typeof SET_ADDASSET
+  type: typeof SET_ADDASSET;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface ChangePassword {
-  type: typeof CHANGE_PASSWORD
+  type: typeof CHANGE_PASSWORD;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetAddEmployee {
-  type: typeof SET_ADDEMPLOYEE
+  type: typeof SET_ADDEMPLOYEE;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetAddAsset {
-  type: typeof SET_ADDASSET
+  type: typeof SET_ADDASSET;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface ChangePassword {
-  type: typeof CHANGE_PASSWORD
+  type: typeof CHANGE_PASSWORD;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetEmployeeDetails {
-  type: typeof SET_EMPLOYEE_DETAILS
-  payload: { message: string; data: EmployeeType }
+  type: typeof SET_EMPLOYEE_DETAILS;
+  payload: { message: string; data: EmployeeType };
 }
 
 interface SetServiceDetails {
-  type: typeof SET_SERVICE_DETAILS
-  payload: { message: string; data: ServiceType[] }
+  type: typeof SET_SERVICE_DETAILS;
+  payload: { message: string; data: ServiceType[] };
 }
 
 interface SetSingleAssetDetails {
-  type: typeof SET_SINGLE_ASSET_DETAILS
-  payload: { message: string; data: SingleAssetDetailsType }
+  type: typeof SET_SINGLE_ASSET_DETAILS;
+  payload: { message: string; data: SingleAssetDetailsType };
 }
 
 interface setEmployeeAssetDetails {
-  type: typeof SET_EMPLOYEE_ASSETS_DETAILS
+  type: typeof SET_EMPLOYEE_ASSETS_DETAILS;
   payload: {
-    message: string
-    data: AllocatedAssetType[]
-  }
+    message: string;
+    data: AllocatedAssetType[];
+  };
 }
 
 interface SetServiceTicketDetails {
-  type: typeof SET_SERVICE_TICKET_DETAILS
+  type: typeof SET_SERVICE_TICKET_DETAILS;
   payload: {
-    message: string
-    data: ServiceType
-  }
+    message: string;
+    data: ServiceType;
+  };
 }
 
 interface SetDeAllocateAsset {
-  type: typeof DEALLOCATE_EMPLOYEE_ASSET
+  type: typeof DEALLOCATE_EMPLOYEE_ASSET;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface CreateTicket {
-  type: typeof CREATE_TICKET
+  type: typeof CREATE_TICKET;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetTicketStatus {
-  type: typeof SET_TICKET_STATUS
+  type: typeof SET_TICKET_STATUS;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface SetAddNote {
-  type: typeof SET_ADD_NOTE
+  type: typeof SET_ADD_NOTE;
   payload: {
-    message: string
-  }
+    message: string;
+  };
 }
 
 interface setBrandOptions {
-  type: typeof GET_BRAND_OPTIONS
+  type: typeof GET_BRAND_OPTIONS;
   payload: {
     // message: string
-    data: BrandOptions[]
-  }
+    data: BrandOptions[];
+  };
 }
 
+// interface SetAssetUpdateLog {
+//   type : typeof ASSET_UPDATED_LOG
+//   payload:{
+//     message : string
+//     data : AssetUpdatedLog[]
+//   }
+// }
+
+// interface SetAssetTicketLog {
+//   type : typeof ASSET_TICKET_LOG
+//   payload:{
+//     message : string
+//     data : AssetTicketLog[]
+//   }
+// }
+
+// interface SetAllocationDeallocationLog {
+//   type : typeof ASSET_ALLOCATION_DEALLOCATION_LOG
+//   payload:{
+//     message : string
+//     data : AssetAllocateDeallocateLog[]
+//   }
+// }
+
+// interface SetAssetReceivedDeleteLog {
+//   type : typeof ASSET_ACTIVATE_DEACTIVATE_LOG
+//   payload:{
+//     message : string
+//     data : AssetReceiveDeleteLog[]
+//   }
+// }
+
 interface GetAssetCategoryCount {
-  type : typeof GET_TOTAL_ASSETSCATEGORY_COUNT 
-  payload : {
-    data : TotalAssetCountType
-  }
+  type: typeof GET_TOTAL_ASSETSCATEGORY_COUNT;
+  payload: {
+    data: TotalAssetCountType;
+  };
 }
 
 interface GetFilterOptions {
-  type: typeof GET_FILTER_OPTIONS
+  type: typeof GET_FILTER_OPTIONS;
   payload: {
-    data: FilterOptions
-  }
+    data: FilterOptions;
+  };
 }
 interface GetAddNote {
-  type: typeof GET_ADD_NOTE
+  type: typeof GET_ADD_NOTE;
   payload: {
-    message: string
-    data: NoteType[]
-  }
+    message: string;
+    data: NoteType[];
+  };
 }
 
 export type DispatchTypes =
@@ -468,3 +578,4 @@ export type DispatchTypes =
   | setBrandOptions
   | GetFilterOptions
   | GetAssetCategoryCount
+  | GetTransactionLogs;

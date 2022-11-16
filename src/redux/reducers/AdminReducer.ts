@@ -1,5 +1,7 @@
 import {
+  AllAssetTransactionLog,
   AssetCategoryCount,
+  ASSET_TRANSACTION_LOGS,
   BrandOptions,
   FilterOptions,
   GET_BRAND_OPTIONS,
@@ -9,8 +11,8 @@ import {
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
   SingleAssetDetailsType,
-  UPDATE_ASSET_DETAILS
-} from './../types'
+  UPDATE_ASSET_DETAILS,
+} from "./../types";
 import {
   AllocatedAssetType,
   ALLOCATE_EMPLOYEE_ASSET,
@@ -28,76 +30,108 @@ import {
   SET_EMPLOYEES,
   SET_ERROR,
   ServiceType,
-  SET_SERVICE_TICKET_DETAILS
-} from '../types'
+  SET_SERVICE_TICKET_DETAILS,
+} from "../types";
 
 interface InitialState {
-  loading: boolean
-  employees: EmployeeType[]
-  assets: AssetTypes[]
-  employeeDetails: EmployeeType
-  singleAssetDetails: SingleAssetDetailsType
-  employeeassetsdetails: AllocatedAssetType[]
-  serviceDetails: ServiceType[]
-  serviceticketdetails: ServiceType
-  error?: string
-  message: string
-  brandOptions: BrandOptions[]
-  totalAssetCount : AssetCategoryCount[]
-  totalSurplusAssetCount : AssetCategoryCount[]
-  filterOptions: FilterOptions
+  loading: boolean;
+  employees: EmployeeType[];
+  assets: AssetTypes[];
+  employeeDetails: EmployeeType;
+  singleAssetDetails: SingleAssetDetailsType;
+  employeeassetsdetails: AllocatedAssetType[];
+  serviceDetails: ServiceType[];
+  serviceticketdetails: ServiceType;
+  error?: "";
+  message: "";
+  brandOptions: BrandOptions[];
+  totalAssetCount: AssetCategoryCount[];
+  totalSurplusAssetCount: AssetCategoryCount[];
+  filterOptions: FilterOptions;
+  assetTransactionLogs: AllAssetTransactionLog;
 }
 
 const initialState: InitialState = {
   loading: false,
   employees: [],
   assets: [],
-  message: '',
-  error: '',
+  message: "",
+  error: "",
   employeeDetails: {
-    empId: '',
-    name: '',
-    email: '',
-    phone: '',
-    location: '',
+    empId: "",
+    name: "",
+    email: "",
+    phone: "",
+    location: "",
     isAdmin: false,
-    jobTitle: ''
+    jobTitle: "",
   },
   singleAssetDetails: {
     assetId: 0,
-    brandName: '',
-    name: '',
+    brandName: "",
+    name: "",
     modelNo: 0,
-    description: '',
-    status: '',
+    description: "",
+    status: "",
     //usability: '',
     isRented: 0,
-    empName: '',
-    empId: '',
-    vendor: '',
+    empName: "",
+    empId: "",
+    vendor: "",
     rent: 0,
     deposit: 0,
-    rentStartDate: '',
-    rentEndDate: '',
-    asset_location: '',
-    processor: '',
-    screen_type: '',
-    received_date: ''
+    rentStartDate: "",
+    rentEndDate: "",
+    asset_location: "",
+    processor: "",
+    screen_type: "",
+    received_date: "",
   },
   employeeassetsdetails: [],
   serviceDetails: [],
+  assetTransactionLogs: {
+    asset_updation_logs: [{
+      asset_update_id: 0,
+      asset_id: 0,
+      updated_feature: "",
+      description: "",
+      effective_date: ""
+  }],
+    ticket_logs: [{
+      ticketId: 0,
+      empId: "",
+      assetId: 0,
+      title: "",
+      description: "",
+      ticketStatus: "",
+      createdAt: "",
+      closedAt: "",
+  }],
+    allocation_logs: [{
+      transaction_id: 0,
+      asset_id: 0,
+      emp_id: "",
+      emp_name: "",
+      allocation_date: "",
+      deallocation_date: "",
+      status: ""
+  }],
+    received_at: "",
+    deleted_at: ""
+  },
+
   serviceticketdetails: {
-    empId: '',
+    empId: "",
     assetId: 0,
     ticketId: 0,
-    title: '',
-    description: '',
-    ticketStatus: '',
-    createdAt: ''
+    title: "",
+    description: "",
+    ticketStatus: "",
+    createdAt: "",
   },
   brandOptions: [],
-  totalSurplusAssetCount:[],
-  totalAssetCount:[],
+  totalSurplusAssetCount: [],
+  totalAssetCount: [],
   filterOptions: {
     category: [],
     status: [],
@@ -106,9 +140,9 @@ const initialState: InitialState = {
     ram: [],
     screen_type: [],
     location: [],
-    os: []
-  }
-}
+    os: [],
+  },
+};
 
 const adminReducer = (
   state: InitialState = initialState,
@@ -119,134 +153,141 @@ const adminReducer = (
       return {
         ...state,
         loading: true,
-        message: '',
-        error: ''
-      }
+        message: "",
+        error: "",
+      };
     case SET_EMPLOYEES:
       return {
         ...state,
         employees: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
 
     case SET_ASSETS:
       return {
         ...state,
         assets: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
     case SET_ADDEMPLOYEE:
       return {
         ...state,
         message: action.payload?.message,
-        loading: false
-      }
+        loading: false,
+      };
 
     case UPDATE_ASSET_DETAILS:
       return {
         ...state,
         loading: false,
-        message: action.payload?.message
-      }
+        message: action.payload?.message,
+      };
     case SET_ADDASSET:
       return {
         ...state,
         message: action.payload?.message,
-        loading: false
-      }
+        loading: false,
+      };
 
     case SET_EMPLOYEE_DETAILS:
       return {
         ...state,
         employeeDetails: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
 
     case SET_EMPLOYEE_ASSETS_DETAILS:
       return {
         ...state,
         employeeassetsdetails: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
 
     case SET_SERVICE_TICKET_DETAILS:
       return {
         ...state,
         serviceticketdetails: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
     case SET_SINGLE_ASSET_DETAILS:
       return {
         ...state,
         singleAssetDetails: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
 
     case SET_SERVICE_DETAILS:
       return {
         ...state,
         serviceDetails: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
 
     case DEALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,
         message: action.payload?.message,
-        loading: false
-      }
+        loading: false,
+      };
 
     case ALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,
         message: action.payload?.message,
-        loading: false
-      }
+        loading: false,
+      };
     case SET_TICKET_STATUS:
       return {
         ...state,
         message: action.payload?.message,
-        loading: false
-      }
+        loading: false,
+      };
     case SET_ADD_NOTE:
       return {
         ...state,
         message: action.payload?.message,
-        loading: false
-      }
+        loading: false,
+      };
 
     case SET_ERROR:
       return {
         ...state,
         error: action.payload,
-        loading: false
-      }
+        loading: false,
+      };
 
     case GET_BRAND_OPTIONS:
       return {
         ...state,
         brandOptions: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
 
-      case GET_TOTAL_ASSETSCATEGORY_COUNT:
-        return {
+    case GET_TOTAL_ASSETSCATEGORY_COUNT:
+      return {
+        ...state,
+        totalAssetCount: action.payload?.data?.totalAssetCount,
+        totalSurplusAssetCount: action.payload?.data?.totalSurplusCount,
+        loading: false,
+      };
+
+      case ASSET_TRANSACTION_LOGS:
+        return{
           ...state,
-          totalAssetCount: action.payload?.data?.totalAssetCount,
-          totalSurplusAssetCount: action.payload?.data?.totalSurplusAssetCount,
-          loading:false
+          assetTransactionLogs: action.payload?.data,
+          loading : false,
         }
 
     case GET_FILTER_OPTIONS:
       return {
         ...state,
         filterOptions: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default adminReducer
+export default adminReducer;

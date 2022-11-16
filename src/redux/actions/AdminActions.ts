@@ -2,6 +2,8 @@
 import {
   ALLOCATE_EMPLOYEE_ASSET,
   AssetTypes,
+  ASSET_TRANSACTION_LOGS,
+  
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
   GET_BRAND_OPTIONS,
@@ -410,11 +412,30 @@ export const getBrandOptions =
     }
   };
 
+  export const getAssetTransactionLog =
+  (assetId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/transactions/logs/${105}`);
+
+      dispatch({ type: ASSET_TRANSACTION_LOGS , payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching brands`,
+      });
+    }
+  };
+
   export const getTotalAssetCategoryCount =
   () => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await get(`api/assets/categoryCount`);
+      const res = await get(`/api/assets/categoryCount`);
       
       dispatch({ type: GET_TOTAL_ASSETSCATEGORY_COUNT, payload: (res as any)?.data });
     } catch (error) {

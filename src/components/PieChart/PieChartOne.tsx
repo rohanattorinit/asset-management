@@ -9,27 +9,15 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PiechartOne() {
     const { assets,totalAssetCount,totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
-    
-    const names:string[] = assets.map((el) => {
-        return el.category
-    })
-    console.log({names})
-    const countedNames = names?.reduce((allNames:any, name) => {
-        const currCount = allNames[name] ?? 0;
-        return {
-          ...allNames,
-          [name]: currCount + 1,
-        };
-      }, {});
 
-      console.log(Object.values(countedNames))
+    
 
       const data = {
-        labels: ["lapt"],
+        labels: ["laptop"],
        datasets: [
          {
            label: 'Count of category',
-           data: Object.values(countedNames),
+           data: Object.values(totalAssetCount),
            backgroundColor: [
             "#fbbf24",
             "#dc2626",
