@@ -75,7 +75,7 @@ function Services() {
           <Box my={3} sx={{ display: "flex", justifyContent: "space-between" }}>
             <FormControl sx={{ width: 300 }}>
               <TextField
-                label="search here by name..."
+                label="search by title..."
                 onChange={(e) => debounced(e?.target?.value)}
               ></TextField>
             </FormControl>

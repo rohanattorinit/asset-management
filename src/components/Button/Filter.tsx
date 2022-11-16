@@ -32,7 +32,7 @@ import AddLocationIcon from "@mui/icons-material/AddLocation";
 import WebhookIcon from "@mui/icons-material/Webhook";
 import StorageIcon from "@mui/icons-material/Storage";
 import UsbIcon from "@mui/icons-material/Usb";
-import { keyboard } from "@testing-library/user-event/dist/keyboard";
+import CableIcon from "@mui/icons-material/Cable";
 
 type Anchor = "right";
 
@@ -45,8 +45,10 @@ interface FILTEROBJ {
   operating_system: Array<string>;
   processor: Array<string>;
   screen_size: Array<string>;
-  harddisk: Array<string>;
+  hdd: Array<string>;
+  ssd: Array<string>;
   asset_location: Array<string>;
+  cable_type: Array<string>;
   brands: Array<string>;
   connectivity: Array<string>;
 }
@@ -60,7 +62,9 @@ const filterObj: FILTEROBJ = {
   operating_system: [],
   processor: [],
   screen_size: [],
-  harddisk: [],
+  hdd: [],
+  ssd: [],
+  cable_type: [],
   asset_location: [],
   brands: [],
   connectivity: [],
@@ -91,7 +95,9 @@ export default function SwipeableTemporaryDrawer() {
     screenSizeOpen: false,
     locationOpen: false,
     osOpen: false,
-    harddiskOpen: false,
+    hddOpen: false,
+    ssdOpen: false,
+    cableOpen: false,
     connectivityOpen: false,
   };
 
@@ -105,7 +111,9 @@ export default function SwipeableTemporaryDrawer() {
     screenSizeOpen: true,
     locationOpen: true,
     osOpen: true,
-    harddiskOpen: true,
+    hddOpen: true,
+    ssdOpen: true,
+    cableOpen: true,
     connectivityOpen: true,
   };
 
@@ -120,7 +128,7 @@ export default function SwipeableTemporaryDrawer() {
     // if (value === "Mobile") {
     //   setShow((prevState) => ({
     //     ...prevState,
-    //     harddiskOpen: false,
+    //     hddOpen: false,
     //     pcOpen: true,
     //     ramOpen: true,
     //     screenTypeOpen: true,
@@ -138,7 +146,7 @@ export default function SwipeableTemporaryDrawer() {
     //       screenTypeOpen: false,
     //       screenSizeOpen: false,
     //       osOpen: false,
-    //       harddiskOpen: false,
+    //       hddOpen: false,
     //     }));
     //   } else {
     //     setShow((prevState) => ({
@@ -148,7 +156,7 @@ export default function SwipeableTemporaryDrawer() {
     //       screenTypeOpen: true,
     //       screenSizeOpen: true,
     //       osOpen: true,
-    //       harddiskOpen: true,
+    //       hddOpen: true,
     //     }));
     //   }
     // }
@@ -160,7 +168,7 @@ export default function SwipeableTemporaryDrawer() {
         } else {
           const index = filterObj.status.indexOf(value);
           if (index > -1) {
-            filterObj.status.splice(index, 1);
+            filterObj.status?.splice(index, 1);
           }
         }
         break;
@@ -214,13 +222,33 @@ export default function SwipeableTemporaryDrawer() {
           }
         }
         break;
-      case "harddisk":
-        if (!filterObj.harddisk.includes(value)) {
-          filterObj.harddisk.push(value);
+      case "hdd":
+        if (!filterObj.hdd.includes(value)) {
+          filterObj.hdd.push(value);
         } else {
-          const index = filterObj.harddisk.indexOf(value);
+          const index = filterObj.hdd.indexOf(value);
           if (index > -1) {
-            filterObj.harddisk.splice(index, 1);
+            filterObj.hdd.splice(index, 1);
+          }
+        }
+        break;
+      case "ssd":
+        if (!filterObj.ssd.includes(value)) {
+          filterObj.ssd.push(value);
+        } else {
+          const index = filterObj.ssd.indexOf(value);
+          if (index > -1) {
+            filterObj.ssd.splice(index, 1);
+          }
+        }
+        break;
+      case "cable_type":
+        if (!filterObj.cable_type.includes(value)) {
+          filterObj.cable_type.push(value);
+        } else {
+          const index = filterObj.cable_type.indexOf(value);
+          if (index > -1) {
+            filterObj.cable_type.splice(index, 1);
           }
         }
         break;
@@ -294,7 +322,7 @@ export default function SwipeableTemporaryDrawer() {
         aria-labelledby="nested-list-subheader"
         subheader={
           <ListSubheader component="div" id="nested-list-subheader">
-            Filters
+            Filter By
           </ListSubheader>
         }
       ></List>
@@ -409,7 +437,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List sx={{ display: show.osOpen ? "" : "none" }}>
+      <List>
         <ListItemButton
           onClick={(e) => handleClick("osOpen", !openObject.osOpen)}
         >
@@ -448,29 +476,29 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List sx={{ display: show.harddiskOpen ? "" : "none" }}>
+      <List>
         <ListItemButton
-          onClick={(e) => handleClick("harddiskOpen", !openObject.harddiskOpen)}
+          onClick={(e) => handleClick("hddOpen", !openObject.hddOpen)}
         >
           <ListItemIcon>
             <StorageIcon />
           </ListItemIcon>
           <ListItemText primary="HDD" />
-          {openObject.harddiskOpen ? <ExpandLess /> : <ExpandMore />}
+          {openObject.hddOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-        <Collapse in={openObject.harddiskOpen} timeout="auto" unmountOnExit>
+        <Collapse in={openObject.hddOpen} timeout="auto" unmountOnExit>
           <List
             component="div"
             disablePadding
             sx={{ height: "160px", overflow: "auto" }}
           >
-            {filterOptions?.harddisk?.map((item) => (
+            {filterOptions?.hdd?.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={filterObj.harddisk.includes(item) ? true : false}
-                      onChange={() => handleSubmitFilter("harddisk", item)}
+                      checked={filterObj.hdd.includes(item) ? true : false}
+                      onChange={() => handleSubmitFilter("hdd", item)}
                     />
                   }
                   label={item}
@@ -485,6 +513,79 @@ export default function SwipeableTemporaryDrawer() {
 
       <List>
         <ListItemButton
+          onClick={(e) => handleClick("ssdOpen", !openObject.ssdOpen)}
+        >
+          <ListItemIcon>
+            <StorageIcon />
+          </ListItemIcon>
+          <ListItemText primary="SSD" />
+          {openObject.ssdOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openObject.ssdOpen} timeout="auto" unmountOnExit>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
+            {filterOptions?.ssd?.map((item) => (
+              <ListItemButton sx={{ pl: 4 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={filterObj.ssd.includes(item) ? true : false}
+                      onChange={() => handleSubmitFilter("ssd", item)}
+                    />
+                  }
+                  label={item}
+                />
+              </ListItemButton>
+            ))}
+          </List>
+        </Collapse>
+      </List>
+
+      <Divider />
+
+      <List>
+        <ListItemButton
+          onClick={(e) => handleClick("cableOpen", !openObject.cableOpen)}
+        >
+          <ListItemIcon>
+            <CableIcon />
+          </ListItemIcon>
+          <ListItemText primary="Cable Type" />
+          {openObject.cableOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openObject.cableOpen} timeout="auto" unmountOnExit>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
+            {filterOptions?.cable_type?.map((item) => (
+              <ListItemButton sx={{ pl: 4 }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={
+                        filterObj.cable_type.includes(item) ? true : false
+                      }
+                      onChange={() => handleSubmitFilter("cable_type", item)}
+                    />
+                  }
+                  label={item}
+                />
+              </ListItemButton>
+            ))}
+          </List>
+        </Collapse>
+      </List>
+
+      <Divider />
+
+      <List>
+        <ListItemButton
+          // disabled
           onClick={(e) =>
             handleClick("connectivityOpen", !openObject.connectivityOpen)
           }
@@ -526,7 +627,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List sx={{ display: show.pcOpen ? "" : "none" }}>
+      <List>
         <ListItemButton
           onClick={(e) => handleClick("pcOpen", !openObject.pcOpen)}
         >
@@ -537,7 +638,11 @@ export default function SwipeableTemporaryDrawer() {
           {openObject?.pcOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openObject?.pcOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
             {filterOptions?.processor?.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
                 <FormControlLabel
@@ -559,7 +664,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List sx={{ display: show.screenSizeOpen ? "" : "none" }}>
+      <List>
         <ListItemButton
           onClick={(e) =>
             handleClick("screenSizeOpen", !openObject.screenSizeOpen)
@@ -572,7 +677,11 @@ export default function SwipeableTemporaryDrawer() {
           {openObject.screenSizeOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openObject.screenSizeOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
             {filterOptions.screen_size?.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
                 <FormControlLabel
@@ -594,7 +703,7 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List sx={{ display: show.screenTypeOpen ? "" : "none" }}>
+      <List>
         <ListItemButton
           onClick={(e) =>
             handleClick("screenTypeOpen", !openObject.screenTypeOpen)
@@ -607,7 +716,11 @@ export default function SwipeableTemporaryDrawer() {
           {openObject.screenTypeOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openObject.screenTypeOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+          <List
+            component="div"
+            disablePadding
+            sx={{ height: "160px", overflow: "auto" }}
+          >
             {filterOptions.screen_type.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
                 <FormControlLabel
@@ -626,16 +739,17 @@ export default function SwipeableTemporaryDrawer() {
           </List>
         </Collapse>
       </List>
+
       <Divider />
 
-      <List sx={{ display: show.ramOpen ? "" : "none" }}>
+      <List>
         <ListItemButton
           onClick={(e) => handleClick("ramOpen", !openObject.ramOpen)}
         >
           <ListItemIcon>
             <MemoryIcon />
           </ListItemIcon>
-          <ListItemText primary="RAM (GB)" />
+          <ListItemText primary="RAM" />
           {openObject.ramOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openObject.ramOpen} timeout="auto" unmountOnExit>

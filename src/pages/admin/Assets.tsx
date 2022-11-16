@@ -51,7 +51,7 @@ function Assets() {
         name: search,
       })
     );
-  }, [dispatch, message, search, isRented]);
+  }, [dispatch, message, search]);
 
   useEffect(() => {
     if (isRented) {
@@ -73,9 +73,8 @@ function Assets() {
             <Filter />
           </Grid>
           <Grid item xs={6}>
-            ​
             <TextField
-              label="search here by name..."
+              label="search by asset name..."
               onChange={(e) => debounced(e?.target?.value)}
               fullWidth
             />

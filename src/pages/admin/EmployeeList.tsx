@@ -48,6 +48,8 @@ function EmpList() {
     (state: RootStore) => state.admin
   );
 
+  console.log("emp",employees);
+  
   const setEmployeeDetails = (empId: string) => {
     dispatch(getEmployeeDetails(empId));
     navigate(`/admin/employee/${empId}`);

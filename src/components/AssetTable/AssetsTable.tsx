@@ -1,7 +1,6 @@
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {
   Box,
-  CircularProgress,
-  Grid,
   IconButton,
   Paper,
   Table,
@@ -12,25 +11,19 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { Stack } from "@mui/system";
-import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from "react";
+import CountUp from "react-countup";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
+import { AssetTypes } from "../../redux/types";
 import Loader from "../Loader/Loader";
-import { AssetTypes, LOADING } from "../../redux/types";
-import { Dispatch, useEffect, useState } from "react";
-import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
-import Asset from "../../pages/employee/Asset";
-import CountUp from "react-countup";
 
 const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
   const navigate = useNavigate();
-  const { singleAssetDetails, loading } = useSelector(
-    (state: RootStore) => state.admin
-  );
+  const { loading } = useSelector((state: RootStore) => state.admin);
 
-  const dispatch: Dispatch<any> = useDispatch();
+  // const dispatch: Dispatch<any> = useDispatch();
 
   const setAssetDetails = (assetId: number) => {
     // dispatch(getSingleAssetDetails(assetId));

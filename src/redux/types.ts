@@ -139,7 +139,7 @@ export interface SingleAssetDetailsType {
   ram?: string;
   operating_system?: string;
   screen_size?: string;
-  harddisk?: string;
+  hdd?: string;
   category: string;
 }
 
@@ -153,29 +153,29 @@ export interface EmployeeAssetType {
 }
 
 export interface AssetTypes {
-  assetId: number
-  brandName: string
-  name: string
-  assetType: string
-  category: string
+  assetId: number;
+  brandName: string;
+  name: string;
+  assetType: string;
+  category: string;
   processor: string;
   screen_type: string;
   ram: number;
   operating_system: string;
   screen_size: number;
-  modelNo: number
-  description: string
-  status: string
-  usability: string
-  addedTime: string
-  isRented?: boolean
-  vendor?: string
-  rent?: number
-  deposit?: number
-  rentStartDate?: string
-  rentEndDate?: string
-  asset_location: string
-  received_date: string
+  modelNo: number;
+  description: string;
+  status: string;
+  usability: string;
+  addedTime: string;
+  isRented?: boolean;
+  vendor?: string;
+  rent?: number;
+  deposit?: number;
+  rentStartDate?: string;
+  rentEndDate?: string;
+  asset_location: string;
+  received_date: string;
 }
 
 export interface AllocatedAssetType {
@@ -212,9 +212,11 @@ export interface FilterOptions {
   ram: string[];
   screen_type: string[];
   location: string[];
-  harddisk: string[];
+  hdd: string[];
   os: string[];
   connectivity: string[];
+  ssd: string[];
+  cable_type: string[];
 }
 
 interface SetAllocateAsset {

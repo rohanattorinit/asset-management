@@ -48,12 +48,14 @@ interface SetFilterParams {
   assetType?: string[];
   category?: string[];
   operating_system?: string[];
-  harddisk?: string[];
+  hdd?: string[];
   processor?: string[];
   screen_size?: string[];
   asset_location?: string[];
   brands?: string[];
   connectivity?: string[];
+  ssd?: string[];
+  cable_type?: string[];
 }
 
 export const getEmployees =

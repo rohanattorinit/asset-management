@@ -102,9 +102,11 @@ const initialState: InitialState = {
     ram: [],
     screen_type: [],
     location: [],
-    harddisk: [],
+    hdd: [],
     os: [],
     connectivity: [],
+    ssd: [],
+    cable_type: [],
   },
 };
 
