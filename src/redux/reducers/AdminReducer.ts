@@ -80,6 +80,9 @@ const initialState: InitialState = {
     processor: "",
     screen_type: "",
     received_date: "",
+    ssd: "",
+  connectivity: "",
+  cable_type: "",
   },
 
   employeeassetsdetails: [],

@@ -141,6 +141,9 @@ export interface SingleAssetDetailsType {
   screen_size?: string;
   hdd?: string;
   category: string;
+  ssd?: string;
+  connectivity?: string;
+  cable_type?: string;
 }
 
 export interface EmployeeAssetType {
@@ -176,6 +179,8 @@ export interface AssetTypes {
   rentEndDate?: string;
   asset_location: string;
   received_date: string;
+  ssd?: string;
+  cable_type: string;
 }
 
 export interface AllocatedAssetType {

@@ -167,6 +167,16 @@ const AssetDetails = () => {
                       variant="h6"
                       mt={2}
                     >
+                      Screen Size:{" "}
+                      <Typography>{singleAssetDetails?.screen_size}</Typography>
+                    </Typography>
+
+                    <Typography
+                      fontFamily="serif"
+                      fontWeight="bold"
+                      variant="h6"
+                      mt={2}
+                    >
                       Brand Name:{" "}
                       <Typography>{singleAssetDetails?.brandName}</Typography>
                     </Typography>
@@ -215,6 +225,48 @@ const AssetDetails = () => {
                         >
                           Employee ID:
                           <Typography>{singleAssetDetails?.empId}</Typography>
+                        </Typography>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          RAM:
+                          <Typography>{singleAssetDetails?.ram}</Typography>
+                        </Typography>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          HDD:
+                          <Typography>{singleAssetDetails?.hdd}</Typography>
+                        </Typography>
+                        <Typography
+                          fontFamily="serif"
+                          fontWeight="bold"
+                          variant="h6"
+                          mt={2}
+                          sx={{
+                            textTransform: "capitalize",
+                            wordWrap: "break-word",
+                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
+                          }}
+                        >
+                          SSD:
+                          <Typography>{singleAssetDetails?.ssd}</Typography>
                         </Typography>
                       </>
                     ) : (

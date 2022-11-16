@@ -66,6 +66,11 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                     </TableCell>
                     <TableCell align="center">
                       <Typography sx={{ fontWeight: "bold" }}>
+                        Asset Name
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography sx={{ fontWeight: "bold" }}>
                         Vendor
                       </Typography>
                     </TableCell>
@@ -99,6 +104,7 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                 {filteredAsset?.map((rentalAsset) => (
                   <TableRow key={rentalAsset?.assetId}>
                     <TableCell align="center">{rentalAsset?.assetId}</TableCell>
+                    <TableCell align="center">{rentalAsset?.name}</TableCell>
                     <TableCell align="center">{rentalAsset?.vendor}</TableCell>
                     <TableCell align="center">{rentalAsset?.rent}</TableCell>
                     <TableCell align="center">
