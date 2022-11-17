@@ -222,6 +222,7 @@ export interface FilterOptions {
   connectivity: string[];
   ssd: string[];
   cable_type: string[];
+  brandName: string[];
 }
 
 interface SetAllocateAsset {

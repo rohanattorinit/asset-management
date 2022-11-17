@@ -429,3 +429,22 @@ export const getfilterOptions =
       });
     }
   };
+
+export const getFiltersByCategory =
+  (category: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/assets/filterOptions/${category}`);
+
+      dispatch({ type: GET_FILTER_OPTIONS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching brands`,
+      });
+    }
+  };

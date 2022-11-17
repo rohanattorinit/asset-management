@@ -81,8 +81,8 @@ const initialState: InitialState = {
     screen_type: "",
     received_date: "",
     ssd: "",
-  connectivity: "",
-  cable_type: "",
+    connectivity: "",
+    cable_type: "",
   },
 
   employeeassetsdetails: [],
@@ -110,6 +110,7 @@ const initialState: InitialState = {
     connectivity: [],
     ssd: [],
     cable_type: [],
+    brandName: [],
   },
 };
 

@@ -19,8 +19,7 @@ import LinearScaleIcon from "@mui/icons-material/LinearScale";
 import InputIcon from "@mui/icons-material/Input";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getBrandOptions,
-  getfilterOptions,
+  getFiltersByCategory,
   setAssetFilters,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -72,14 +71,15 @@ const filterObj: FILTEROBJ = {
 
 export default function SwipeableTemporaryDrawer() {
   const dispatch: Dispatch<any> = useDispatch();
-  const { brandOptions, filterOptions } = useSelector(
-    (state: RootStore) => state.admin
-  );
+  const { filterOptions } = useSelector((state: RootStore) => state.admin);
+
+  console.log("filterOptions", filterOptions);
+
+  const [selectedCategory, setSelectedCategory] = useState("laptop");
 
   useEffect(() => {
-    dispatch(getBrandOptions());
-    dispatch(getfilterOptions());
-  }, [dispatch]);
+    dispatch(getFiltersByCategory(selectedCategory));
+  }, [dispatch, selectedCategory]);
 
   const [state, setState] = useState({
     right: false,
@@ -118,7 +118,7 @@ export default function SwipeableTemporaryDrawer() {
   };
 
   const [openObject, setOpenObject] = useState(initialOpenState);
-  const [show, setShow] = useState(initialShowState);
+  //const [show, setShow] = useState(initialShowState);
 
   const handleClick = (key: string, value: boolean) => {
     setOpenObject((prevState) => ({ ...prevState, [key]: value }));
@@ -297,6 +297,11 @@ export default function SwipeableTemporaryDrawer() {
     dispatch(setAssetFilters(filterObj));
   };
 
+  const handleCategorySelect = (value: string) => {
+    handleSubmitFilter("category", value);
+    setSelectedCategory(value);
+  };
+
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -352,7 +357,7 @@ export default function SwipeableTemporaryDrawer() {
                   control={
                     <Checkbox
                       checked={filterObj.category.includes(item) ? true : false}
-                      onChange={() => handleSubmitFilter("category", item)}
+                      onChange={() => handleCategorySelect(item)}
                     />
                   }
                   label={item}
@@ -402,38 +407,77 @@ export default function SwipeableTemporaryDrawer() {
 
       <List>
         <ListItemButton
-          onClick={(e) => handleClick("brandOpen", !openObject.brandOpen)}
+          onClick={(e) => handleClick("locationOpen", !openObject.locationOpen)}
         >
           <ListItemIcon>
-            <InputIcon />
+            <AddLocationIcon />
           </ListItemIcon>
-          <ListItemText primary="Brands" />
-          {openObject?.brandOpen ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary="Asset Location" />
+          {openObject.locationOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
-        <Collapse in={openObject?.brandOpen} timeout="auto" unmountOnExit>
+        <Collapse in={openObject.locationOpen} timeout="auto" unmountOnExit>
           <List
             component="div"
             disablePadding
             sx={{ height: "160px", overflow: "auto" }}
           >
-            {brandOptions?.map((item) => (
+            {filterOptions?.location?.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
                 <FormControlLabel
                   control={
                     <Checkbox
                       checked={
-                        filterObj.brands.includes(item.name) ? true : false
+                        filterObj.asset_location.includes(item) ? true : false
                       }
-                      onChange={() => handleSubmitFilter("brands", item.name)}
+                      onChange={() =>
+                        handleSubmitFilter("asset_location", item)
+                      }
                     />
                   }
-                  label={item?.name}
+                  label={item}
                 />
               </ListItemButton>
             ))}
           </List>
         </Collapse>
       </List>
+
+      <Divider />
+
+      {filterOptions?.brandName?.length && (
+        <List>
+          <ListItemButton
+            onClick={(e) => handleClick("brandOpen", !openObject.brandOpen)}
+          >
+            <ListItemIcon>
+              <InputIcon />
+            </ListItemIcon>
+            <ListItemText primary="Brands" />
+            {openObject?.brandOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openObject?.brandOpen} timeout="auto" unmountOnExit>
+            <List
+              component="div"
+              disablePadding
+              sx={{ height: "160px", overflow: "auto" }}
+            >
+              {filterOptions?.brandName?.map((item) => (
+                <ListItemButton sx={{ pl: 4 }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filterObj.brands.includes(item) ? true : false}
+                        onChange={() => handleSubmitFilter("brands", item)}
+                      />
+                    }
+                    label={item}
+                  />
+                </ListItemButton>
+              ))}
+            </List>
+          </Collapse>
+        </List>
+      )}
 
       <Divider />
 
@@ -476,40 +520,44 @@ export default function SwipeableTemporaryDrawer() {
 
       <Divider />
 
-      <List>
-        <ListItemButton
-          onClick={(e) => handleClick("hddOpen", !openObject.hddOpen)}
-        >
-          <ListItemIcon>
-            <StorageIcon />
-          </ListItemIcon>
-          <ListItemText primary="HDD" />
-          {openObject.hddOpen ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openObject.hddOpen} timeout="auto" unmountOnExit>
-          <List
-            component="div"
-            disablePadding
-            sx={{ height: "160px", overflow: "auto" }}
-          >
-            {filterOptions?.hdd?.map((item) => (
-              <ListItemButton sx={{ pl: 4 }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={filterObj.hdd.includes(item) ? true : false}
-                      onChange={() => handleSubmitFilter("hdd", item)}
+      {filterOptions?.hdd?.length && (
+        <>
+          <List>
+            <ListItemButton
+              onClick={(e) => handleClick("hddOpen", !openObject.hddOpen)}
+            >
+              <ListItemIcon>
+                <StorageIcon />
+              </ListItemIcon>
+              <ListItemText primary="HDD" />
+              {openObject.hddOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openObject.hddOpen} timeout="auto" unmountOnExit>
+              <List
+                component="div"
+                disablePadding
+                sx={{ height: "160px", overflow: "auto" }}
+              >
+                {filterOptions?.hdd?.map((item) => (
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={filterObj.hdd.includes(item) ? true : false}
+                          onChange={() => handleSubmitFilter("hdd", item)}
+                        />
+                      }
+                      label={item}
                     />
-                  }
-                  label={item}
-                />
-              </ListItemButton>
-            ))}
+                  </ListItemButton>
+                ))}
+              </List>
+            </Collapse>
           </List>
-        </Collapse>
-      </List>
 
-      <Divider />
+          <Divider />
+        </>
+      )}
 
       <List>
         <ListItemButton
@@ -682,7 +730,7 @@ export default function SwipeableTemporaryDrawer() {
             disablePadding
             sx={{ height: "160px", overflow: "auto" }}
           >
-            {filterOptions.screen_size?.map((item) => (
+            {filterOptions?.screen_size?.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
                 <FormControlLabel
                   control={
@@ -721,7 +769,7 @@ export default function SwipeableTemporaryDrawer() {
             disablePadding
             sx={{ height: "160px", overflow: "auto" }}
           >
-            {filterOptions.screen_type.map((item) => (
+            {filterOptions?.screen_type?.map((item) => (
               <ListItemButton sx={{ pl: 4 }}>
                 <FormControlLabel
                   control={
@@ -776,50 +824,11 @@ export default function SwipeableTemporaryDrawer() {
       </List>
 
       <Divider />
-
-      <List>
-        <ListItemButton
-          onClick={(e) => handleClick("locationOpen", !openObject.locationOpen)}
-        >
-          <ListItemIcon>
-            <AddLocationIcon />
-          </ListItemIcon>
-          <ListItemText primary="Asset Location" />
-          {openObject.locationOpen ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={openObject.locationOpen} timeout="auto" unmountOnExit>
-          <List
-            component="div"
-            disablePadding
-            sx={{ height: "160px", overflow: "auto" }}
-          >
-            {filterOptions?.location?.map((item) => (
-              <ListItemButton sx={{ pl: 4 }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={
-                        filterObj.asset_location.includes(item) ? true : false
-                      }
-                      onChange={() =>
-                        handleSubmitFilter("asset_location", item)
-                      }
-                    />
-                  }
-                  label={item}
-                />
-              </ListItemButton>
-            ))}
-          </List>
-        </Collapse>
-      </List>
-
-      <Divider />
     </Box>
   );
   return (
     <div>
-      {(["right"] as const).map((anchor) => (
+      {(["right"] as const)?.map((anchor) => (
         <Fragment key={anchor}>
           <Button
             variant="outlined"
