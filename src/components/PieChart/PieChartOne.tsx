@@ -10,14 +10,15 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export function PiechartOne() {
     const { assets,totalAssetCount,totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
 
+    console.log('totalAssetCount',Object.values(totalAssetCount))
     
 
       const data = {
-        labels: ["laptop"],
+        labels: totalAssetCount?.map(({category}) => category),
        datasets: [
          {
-           label: 'Count of category',
-           data: Object.values(totalAssetCount),
+           label:totalAssetCount?.map(({category}) => category) ,
+           data: totalAssetCount?.map(({count}) => count),
            backgroundColor: [
             "#fbbf24",
             "#dc2626",
@@ -55,6 +56,7 @@ export function PiechartOne() {
  >
    Total Assets
   </Typography>
+  {/* @ts-ignore */}
   <Pie data={data} />
   </>
 )}

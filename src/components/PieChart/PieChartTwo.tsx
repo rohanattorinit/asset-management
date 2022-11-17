@@ -4,48 +4,36 @@ import { Pie } from 'react-chartjs-2';
 import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../redux/store';
-import { ElementFlags } from 'typescript';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PiechartTwo() {
-    const { assets } = useSelector((state: RootStore) => state.admin);
+    const { totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
 
-    const surplusAssets = assets?.filter((el) => el?.status === "surplus")
-    const names = surplusAssets?.map((asset) => {
-        return asset?.category
-    })
-    console.log({names})
-    const countedNames = names?.reduce((allNames:any, name) => {
-        const currCount = allNames[name] ?? 0;
-        return {
-          ...allNames,
-          [name]: currCount + 1,
-        };
-      }, {});
+    //console.log('totalAssetCount',Object.values(totalAssetCount))
+    const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset'].includes(category?.category) && category )    
+    const moreNewData = newData?.filter((category) => category !== false)
+    //console.log('moreNewData',moreNewData)
 
-      console.log(Object.values(countedNames))
-
-      const data = {
-        labels: Object.keys(countedNames),
+    const data = {
+      // @ts-ignore
+        labels: moreNewData?.map(({category}) => category),
        datasets: [
          {
-           label: '# of Votes',
-           data: Object.values(countedNames),
+          // @ts-ignore
+           label:moreNewData?.map(({category}) => category) ,
+          // @ts-ignore
+           data: moreNewData?.map(({count}) => count),
            backgroundColor: [
-            "#fbbf24",
             "#dc2626",
+            "#fbbf24",
             "#22c55e",
             "#a21caf",
             "#14b8a6",
             "#a78bfa",
             "#3f6212",
-            //  'rgba(255, 162, 132, 0.2)',
-            //  'rgba(54, 162, 235, 0.2)',
-            //  'rgba(255, 206, 86, 0.2)',
-            //  'rgba(75, 192, 192, 0.2)',
-            //  'rgba(153, 102, 255, 0.2)',
-            //  'rgba(255, 159, 64, 0.2)',
+           
            ],
            borderColor: [
              '#f5f5f4',
@@ -55,9 +43,7 @@ export function PiechartTwo() {
              '#f5f5f4',
              '#f5f5f4',
              '#f5f5f4',
-
            ],
-     
             borderWidth: 3,
           },
          ],
@@ -69,8 +55,9 @@ export function PiechartTwo() {
    variant="h5"
    color="primary"
  >
-   Surplus Assets
+   Total Assets
   </Typography>
+  {/* @ts-ignore */}
   <Pie data={data} />
   </>
 )}
