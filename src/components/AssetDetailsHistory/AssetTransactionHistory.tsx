@@ -1,14 +1,11 @@
-import { Box, Grid, Paper } from "@mui/material";
-import { red, yellow } from "@mui/material/colors";
-import { bgcolor } from "@mui/system";
-import TextField from "@mui/material/TextField";
-import React, { Dispatch, useEffect } from "react";
+import { Box, Grid } from "@mui/material";
+import { Dispatch, useEffect } from "react";
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent, TimelineOppositeContent, timelineOppositeContentClasses } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { getAssetTransactionLog } from "../../redux/actions/AdminActions";
 import { useLocation } from "react-router-dom";
 import { RootStore } from "../../redux/store";
-import { AssetAllocateDeallocateLog, AssetTicketLog, AssetUpdatedLog, EmpTicketType } from "../../redux/types";
+import { AssetAllocateDeallocateLog, AssetTicketLog, AssetUpdatedLog } from "../../redux/types";
 
 function AssetTransactionHistory() {
   const location = useLocation();
@@ -39,18 +36,7 @@ function AssetTransactionHistory() {
   }, [dispatch, id]);
 
   return (
-    // <Box
-    //   sx={{
-    //     display: 'flex',
-    //     flexWrap: 'wrap',
-    //     '& > :not(style)': {
-    //       m: 1,
-    //       width: 128,
-    //       height: 128,
-    //       backgroundColor:"red"
-    //     },
-    //   }}
-    // >
+    
     <Grid>
       <Box>
         {/* <Paper sx={{  padding: 1 }} elevation={3}> */}

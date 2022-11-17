@@ -8,7 +8,7 @@ import { RootStore } from '../../redux/store';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PiechartOne() {
-    const { assets,totalAssetCount,totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
+    const { totalAssetCount } = useSelector((state: RootStore) => state.admin);
 
     console.log('totalAssetCount',Object.values(totalAssetCount))
     
@@ -27,12 +27,7 @@ export function PiechartOne() {
             "#14b8a6",
             "#a78bfa",
             "#3f6212",
-            //  'rgba(255, 162, 132, 0.2)',
-            //  'rgba(54, 162, 235, 0.2)',
-            //  'rgba(255, 206, 86, 0.2)',
-            //  'rgba(75, 192, 192, 0.2)',
-            //  'rgba(153, 102, 255, 0.2)',
-            //  'rgba(255, 159, 64, 0.2)',
+           
            ],
            borderColor: [
              '#f5f5f4',
