@@ -106,7 +106,8 @@ const initialState: InitialState = {
     ram: [],
     screen_type: [],
     location: [],
-    os: []
+    os: [],
+    cableType: []
   }
 }
 

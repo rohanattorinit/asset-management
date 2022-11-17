@@ -36,18 +36,24 @@ const assetTypeOptions = [
   { label: "Software", value: "software" },
 ];
 
+const connectivityOptions = [
+  { label: "Wired", value: "wired" },
+  { label: "Wireless", value: "wireless" },
+];
+
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const { message, brandOptions, filterOptions, employees } = useSelector(
     (state: RootStore) => state.admin
   );
+  
   const navigate = useNavigate();
 
   const onSubmit = (values: any, { resetForm }: any) => {
     values.rent = parseInt(values.rent.split(",").join(""), 10);
     values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
-    console.log(values)
+    console.log(values);
     resetForm({ values: "" });
   };
 
@@ -55,17 +61,85 @@ const AddAsset = () => {
     dispatch(getBrandOptions());
     dispatch(getfilterOptions());
     dispatch(getEmployees({ name: "" }));
-  }, []); 
-  
-  const setNavigate = ()=>{
-    navigate("/admin/assets");
-  }
+  }, []);
 
-  // useEffect(()=>{
-  //   if (message) {
-      
-  //   }
-  // },[message])
+  const setNavigate = () => {
+    navigate("/admin/assets");
+  };
+
+  const dropdownComp = (
+    label:string,
+    key: string,
+    value: string,
+    handleChange: {
+      (e: React.ChangeEvent<any>): void;
+      <T = string | React.ChangeEvent<any>>(
+        field: T
+      ): T extends React.ChangeEvent<any>
+        ? void
+        : (e: string | React.ChangeEvent<any>) => void;
+    }
+  ) => {
+    return (
+      <>
+        <Grid item xs={12} sm={6} md={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="demo-simple-select-outlined-label">
+              {label}
+            </InputLabel>
+
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              label={key}
+              value={value}
+              onChange={handleChange}
+              name={key}
+              required
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    maxHeight: {
+                      xs: 48 * 4 + 8,
+                      sm: 36 * 4 + 8,
+                    },
+                  },
+                },
+              }}
+            >
+              {
+                // @ts-ignore
+                filterOptions[key].map((item) => (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                ))
+              }
+            </Select>
+          </FormControl>
+        </Grid>
+      </>
+    );
+  };
+
+  const showMoniterFields = (
+    values: any,
+    handleChange: {
+      (e: React.ChangeEvent<any>): void;
+      <T = string | React.ChangeEvent<any>>(
+        field: T
+      ): T extends React.ChangeEvent<any>
+        ? void
+        : (e: string | React.ChangeEvent<any>) => void;
+    }
+  ) => {
+    return (
+      <>
+        {dropdownComp("Screen Type", "screen_type", values?.screen_type, handleChange)}
+        {dropdownComp("Screen Size", "screen_size", values?.screen_size, handleChange)}
+      </>
+    );
+  };
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
@@ -101,6 +175,14 @@ const AddAsset = () => {
                   processor: "",
                   screen_size: "",
                   empId: "",
+                  makeYear: "",
+                  imeiNo: "",
+                  connectivity: "",
+                  cableType: "",
+                  ssd: "",
+                  hdd: "",
+                  os_version: "",
+                  make_year: "",
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -116,6 +198,63 @@ const AddAsset = () => {
                   return (
                     <Form>
                       <Grid item container spacing={2}>
+
+                      <Grid item xs={12} sm={6} md={6}>
+                          <FormControl fullWidth variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Asset Type
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="Asset Type"
+                              value={values?.assetType}
+                              onChange={handleChange}
+                              name="assetType"
+                              required
+                            >
+                              {assetTypeOptions.map((item) => (
+                                <MenuItem key={item?.value} value={item?.value}>
+                                  {item?.label}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        
+                      <Grid item xs={12} sm={6} md={6}>
+                          <FormControl fullWidth variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Category
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="Category"
+                              value={values?.category}
+                              onChange={handleChange}
+                              name="category"
+                              required
+                              MenuProps={{
+                                PaperProps: {
+                                  sx: {
+                                    maxHeight: {
+                                      xs: 48 * 4 + 8,
+                                      sm: 36 * 4 + 8,
+                                    },
+                                  },
+                                },
+                              }}
+                            >
+                              {filterOptions.category.map((item) => (
+                                <MenuItem key={item} value={item}>
+                                  {item}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+
                         <Grid item xs={12} sm={6} md={6}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">
@@ -148,29 +287,7 @@ const AddAsset = () => {
                             </Select>
                           </FormControl>
                         </Grid>
-
-                        <Grid item xs={12} sm={6} md={6}>
-                          <FormControl fullWidth variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">
-                              Asset Type
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              label="Asset Type"
-                              value={values?.assetType}
-                              onChange={handleChange}
-                              name="assetType"
-                              required
-                            >
-                              {assetTypeOptions.map((item) => (
-                                <MenuItem key={item?.value} value={item?.value}>
-                                  {item?.label}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        </Grid>
+                        
 
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
@@ -183,208 +300,17 @@ const AddAsset = () => {
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
-                          <FormControl fullWidth variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">
-                              Category
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              label="Category"
-                              value={values?.category}
-                              onChange={handleChange}
-                              name="category"
-                              required
-                            >
-                              {filterOptions.category.map((item) => (
-                                <MenuItem key={item} value={item}>
-                                  {item}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
+                          <Field
+                            label="Make Year"
+                            variant="outlined"
+                            fullWidth
+                            name="makeYear"
+                            value={values?.makeYear}
+                            component={TextField}
+                          />
                         </Grid>
 
-                        {values?.category === "Laptop" ||
-                        values?.category === "Mobile" ? (
-                          <>
-                            <Grid item xs={12} sm={6} md={6}>
-                              <FormControl fullWidth variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                  Processor
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined"
-                                  label="Processor"
-                                  value={values?.processor}
-                                  onChange={handleChange}
-                                  name="processor"
-                                  required
-                                >
-                                  {filterOptions?.processor?.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                              <FormControl fullWidth variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                  Screen Type
-                                </InputLabel>
-
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined"
-                                  label="Screen Type"
-                                  value={values?.screen_type}
-                                  onChange={handleChange}
-                                  name="screen_type"
-                                  required
-                                >
-                                  {filterOptions.screen_type.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                              <FormControl fullWidth variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                  RAM (GB)
-                                </InputLabel>
-
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined"
-                                  label="RAM (GB)"
-                                  value={values?.ram}
-                                  onChange={handleChange}
-                                  name="ram"
-                                  required
-                                >
-                                  {filterOptions.ram.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                              <FormControl fullWidth variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                  Operating System
-                                </InputLabel>
-
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined"
-                                  label="operatingsystem"
-                                  value={values?.operating_system}
-                                  onChange={handleChange}
-                                  name="operating_system"
-                                  required
-                                >
-                                  {filterOptions.os?.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                              <FormControl fullWidth variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                  Screen Size (Inches)
-                                </InputLabel>
-
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined"
-                                  label="Screen Size"
-                                  value={values?.screen_size}
-                                  onChange={handleChange}
-                                  name="screen_size"
-                                  required
-                                >
-                                  {filterOptions.screen_size?.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </Grid>
-                          </>
-                        ) : (
-                          <> </>
-                        )}
-
-                        {values.category === "Monitor" ? (
-                          <>
-                            <Grid item xs={12} sm={6} md={6}>
-                              <FormControl fullWidth variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                  Screen Type
-                                </InputLabel>
-
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined"
-                                  label="Screen Type"
-                                  value={values?.screen_type}
-                                  onChange={handleChange}
-                                  name="screen_type"
-                                  required
-                                >
-                                  {filterOptions.screen_type.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={6}>
-                              <FormControl fullWidth variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">
-                                  Screen Size (Inches)
-                                </InputLabel>
-
-                                <Select
-                                  labelId="demo-simple-select-outlined-label"
-                                  id="demo-simple-select-outlined"
-                                  label="Screen Size"
-                                  value={values?.screen_size}
-                                  onChange={handleChange}
-                                  name="screen_size"
-                                  required
-                                >
-                                  {filterOptions.screen_size?.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </Grid>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-
+                       
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
                             label="Model No"
@@ -410,6 +336,16 @@ const AddAsset = () => {
                               onChange={handleChange}
                               name="asset_location"
                               required
+                              MenuProps={{
+                                PaperProps: {
+                                  sx: {
+                                    maxHeight: {
+                                      xs: 48 * 4 + 8,
+                                      sm: 36 * 4 + 8,
+                                    },
+                                  },
+                                },
+                              }}
                             >
                               {filterOptions.location?.map((item) => (
                                 <MenuItem key={item} value={item}>
@@ -435,29 +371,198 @@ const AddAsset = () => {
                           />
                         </Grid>
 
+                        {dropdownComp("Status", "status", values?.status, handleChange)}
                         <Grid item xs={12} sm={6} md={6}>
-                          <FormControl fullWidth variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">
-                              Status
-                            </InputLabel>
-
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              label="Status"
-                              value={values?.status}
-                              onChange={handleChange}
-                              name="status"
-                              required
-                            >
-                              {filterOptions.status?.map((item) => (
-                                <MenuItem key={item} value={item}>
-                                  {item}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
+                          <Field
+                            label="Description"
+                            variant="outlined"
+                            fullWidth
+                            name="description"
+                            value={values?.description}
+                            component={TextField}
+                          />
                         </Grid>
+
+                        {/* conditonal Rendering */}
+
+                        {values?.category === "Laptop" ||
+                        values?.category === "Mobile" ||
+                        values?.category === "Watch" ? (
+                          <>
+                            {values?.category === "Mobile" && (
+                              <Grid item xs={12} sm={6} md={6}>
+                                <Field
+                                  label="IMEI Number"
+                                  variant="outlined"
+                                  fullWidth
+                                  name="imeiNo"
+                                  value={values?.imeiNo}
+                                  component={TextField}
+                                />
+                              </Grid>
+                            )}
+                            {dropdownComp(
+                              "Processor",
+                              "processor",
+                              values?.processor,
+                              handleChange
+                            )}
+                            {dropdownComp(
+                              "Screen Type",
+                              "screen_type",
+                              values?.screen_type,
+                              handleChange
+                            )}
+                            {dropdownComp("RAM", "ram", values?.ram, handleChange)}
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Operating System
+                                </InputLabel>
+
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="operatingsystem"
+                                  value={values?.operating_system}
+                                  onChange={handleChange}
+                                  name="operating_system"
+                                  required
+                                  MenuProps={{
+                                    PaperProps: {
+                                      sx: {
+                                        maxHeight: {
+                                          xs: 48 * 4 + 8,
+                                          sm: 36 * 4 + 8,
+                                        },
+                                      },
+                                    },
+                                  }}
+                                >
+                                  {filterOptions.os?.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            {dropdownComp(
+                              "Screen Size",
+                              "screen_size",
+                              values?.screen_size,
+                              handleChange
+                            )}
+                            {values?.category === "Laptop" && dropdownComp(
+                              "HDD",
+                              "hdd",
+                              values?.hdd,
+                              handleChange
+                            ) }
+                            { values?.category !== "Watch"  && dropdownComp(
+                              "SSD",
+                              "ssd",
+                              values?.ssd,
+                              handleChange
+                            )}
+                             {/* {dropdownComp(
+                              "OS Version",
+                              "os_version",
+                              values?.os_version,
+                              handleChange
+                            )} */}
+
+                            
+                            <Grid item xs={12} sm={6} md={6}>
+                                <Field
+                                  label="OS Version"
+                                  variant="outlined"
+                                  fullWidth
+                                  name="os_version"
+                                  value={values?.os_version}
+                                  component={TextField}
+                                />
+                              </Grid> 
+                            
+                            
+                          </>
+                        ) : (
+                          <> </>
+                        )}
+
+                        {values.category === "Monitor" &&
+                          showMoniterFields(values, handleChange)}
+
+                        {values.category === "Mouse" ||
+                        values.category === "Keyboard" ||
+                        values.category === "Headset" ? (
+                          <Grid item xs={12} sm={6} md={6}>
+                            <FormControl fullWidth variant="outlined">
+                              <InputLabel id="demo-simple-select-outlined-label">
+                                Connectivity
+                              </InputLabel>
+                              <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                label="Connectivity"
+                                value={values?.connectivity}
+                                onChange={handleChange}
+                                name="connectivity"
+                                required
+                              >
+                                {connectivityOptions.map((item) => (
+                                  <MenuItem
+                                    key={item?.value}
+                                    value={item?.value}
+                                  >
+                                    {item?.label}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                        ) : (
+                          <> </>
+                        )}
+
+                        {values?.category === "Hdmi cable" ? (
+                          <>
+                            <Grid item xs={12} sm={6} md={6}>
+                              <FormControl fullWidth variant="outlined">
+                                <InputLabel id="demo-simple-select-outlined-label">
+                                  Cable Type
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-outlined-label"
+                                  id="demo-simple-select-outlined"
+                                  label="Hdmi cable"
+                                  value={values?.cableType}
+                                  onChange={handleChange}
+                                  name="cableType"
+                                  required
+                                  MenuProps={{
+                                    PaperProps: {
+                                      sx: {
+                                        maxHeight: {
+                                          xs: 48 * 4 + 8,
+                                          sm: 36 * 4 + 8,
+                                        },
+                                      },
+                                    },
+                                  }}
+                                >
+                                  {filterOptions?.cableType.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      {item}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                          </>
+                        ) : (
+                          <></>
+                        )}
 
                         {values.status === "allocated" ? (
                           <>
@@ -501,17 +606,6 @@ const AddAsset = () => {
                         ) : (
                           <></>
                         )}
-
-                        <Grid item xs={12} sm={6} md={6}>
-                          <Field
-                            label="Description"
-                            variant="outlined"
-                            fullWidth
-                            name="description"
-                            value={values?.description}
-                            component={TextField}
-                          />
-                        </Grid>
 
                         <Grid item xs={12} sm={12} md={12}>
                           <FormControl>
@@ -626,7 +720,7 @@ const AddAsset = () => {
             </Grid>
           </CardContent>
         </Card>
-        {message && <Alert title={message} setNavigate={setNavigate}/>}
+        {message && <Alert title={message} setNavigate={setNavigate} />}
       </Grid>
     </Grid>
   );

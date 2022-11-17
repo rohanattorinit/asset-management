@@ -68,6 +68,13 @@ export interface CreateAssetType {
   screen_size: string
   asset_location: string
   received_date: string
+  ssd: string
+  hdd: string
+  os_version: string
+  imeiNo: string
+  make_year: number
+  connectivity: string
+  cableType: string
 }
 
 export interface CreateEmployeeType {
@@ -225,6 +232,7 @@ export interface FilterOptions {
   screen_type: string[]
   location: string[]
   os: string[]
+  cableType: string[]
 }
 
 interface SetAllocateAsset {

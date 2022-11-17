@@ -18,7 +18,7 @@ export default function Toast() {
     admin: { error: adminError },
   } = useSelector((state: RootStore) => state);
 
-  console.log(error);
+  
 
   useEffect(() => {
     if (error?.trim()?.length || adminError?.trim()?.length) {
