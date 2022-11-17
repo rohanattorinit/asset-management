@@ -75,6 +75,7 @@ export interface CreateAssetType {
   make_year: number
   connectivity: string
   cableType: string
+  allocationTime: string
 }
 
 export interface CreateEmployeeType {

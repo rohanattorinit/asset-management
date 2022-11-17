@@ -121,6 +121,7 @@ const AssetDetails = () => {
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
+        <Toast />
         {openAlert ? (
           <Alert title={alertMessage} setNavigate={setNavigate} />
         ) : (
@@ -133,7 +134,7 @@ const AssetDetails = () => {
           />
         )}
 
-        <Toast />
+        
         <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
           <Box
             sx={{
@@ -273,6 +274,7 @@ const AssetDetails = () => {
               )}
             </Grid>
           </Paper>
+          
         </Grid>
       </Grid>
 

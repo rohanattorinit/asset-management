@@ -182,7 +182,8 @@ const AddAsset = () => {
                   ssd: "",
                   hdd: "",
                   os_version: "",
-                  make_year: "",
+                  make_year: "2022",
+                  allocationTime: ""
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -611,6 +612,19 @@ const AddAsset = () => {
                                 </Select>
                               </FormControl>
                             </Grid>
+                            <Grid item xs={12} sm={6} md={6}>
+                                <Field
+                                  label="Allocation Date"
+                                  type="date"
+                                  variant="outlined"
+                                  fullWidth
+                                  name="allocationTime"
+                                  value={values?.allocationTime}
+                                  component={TextField}
+                                />
+                              </Grid> 
+
+
                           </>
                         ) : (
                           <></>
