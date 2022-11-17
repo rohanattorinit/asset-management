@@ -28,7 +28,7 @@ import {
 } from "./../types";
 import { Dispatch } from "redux";
 import { get, post } from "../../services";
-import { useNavigate } from "react-router-dom";
+
 interface GetAssetParams {
   name?: string;
   allocate?:boolean,
@@ -149,7 +149,6 @@ export const addEmployee =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post("/api/employees", employeeDetails);
-      //alert((res as any).data?.message);
       dispatch({ type: SET_ADDEMPLOYEE, payload: (res as any)?.data });
     } catch (error) {
       dispatch({

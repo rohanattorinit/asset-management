@@ -24,7 +24,12 @@ import {
   getBrandOptions,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-import Alert from "../ConfirmAlert/Alert";
+
+const connectivityOptions = [
+  { label: "Wired", value: "wired" },
+  { label: "Wireless", value: "wireless" },
+];
+
 
 interface Iprops {
   closeFunc: (value: boolean) => void;
@@ -47,6 +52,108 @@ function AssetEdit(props: Iprops) {
     props.closeFunc(false);
 
   
+  };
+
+  const textField =(
+    label:string,
+    name: string,
+    id: string,
+    value: any,
+    handleChange: {
+      (e: React.ChangeEvent<any>): void;
+      <T = string | React.ChangeEvent<any>>(field: T): T extends React.ChangeEvent<any> ? void : (e: string | React.ChangeEvent<any>) => void;
+  }
+
+  )=>{
+
+    return (
+      <Grid item xs={12} sm={6} md={6}>
+                        <TextField
+                          label={label}
+                          variant="outlined"
+                          fullWidth
+                          name={name}
+                          id={id}
+                          onChange={handleChange}
+                          value={value}
+                        />
+                      </Grid>
+    )
+
+  }
+
+  const dropdownComp = (
+    label:string,
+    key: string,
+    value: string,
+    handleChange: {
+      (e: React.ChangeEvent<any>): void;
+      <T = string | React.ChangeEvent<any>>(
+        field: T
+      ): T extends React.ChangeEvent<any>
+        ? void
+        : (e: string | React.ChangeEvent<any>) => void;
+    }
+  ) => {
+    return (
+      <>
+        <Grid item xs={12} sm={6} md={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="demo-simple-select-outlined-label">
+              {label}
+            </InputLabel>
+
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              label={key}
+              value={value}
+              onChange={handleChange}
+              name={key}
+              required
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    maxHeight: {
+                      xs: 48 * 4 + 8,
+                      sm: 36 * 4 + 8,
+                    },
+                  },
+                },
+              }}
+            >
+              {
+                // @ts-ignore
+                filterOptions[key]?.map((item) => (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                ))
+              }
+            </Select>
+          </FormControl>
+        </Grid>
+      </>
+    );
+  };
+
+  const showMoniterFields = (
+    values: any,
+    handleChange: {
+      (e: React.ChangeEvent<any>): void;
+      <T = string | React.ChangeEvent<any>>(
+        field: T
+      ): T extends React.ChangeEvent<any>
+        ? void
+        : (e: string | React.ChangeEvent<any>) => void;
+    }
+  ) => {
+    return (
+      <>
+        {dropdownComp("Screen Type", "screen_type", values?.screen_type, handleChange)}
+        {dropdownComp("Screen Size", "screen_size", values?.screen_size, handleChange)}
+      </>
+    );
   };
 
  
@@ -77,6 +184,13 @@ function AssetEdit(props: Iprops) {
             ram: singleAssetDetails.ram,
             screen_size: singleAssetDetails.screen_size,
             operating_system: singleAssetDetails.operating_system,
+            imeiNo: singleAssetDetails.imeiNo,
+            connectivity: singleAssetDetails.connectivity,
+            cableType: singleAssetDetails.cableType,
+            ssd: singleAssetDetails.ssd,
+            hdd: singleAssetDetails.hdd,
+            os_version: singleAssetDetails.os_version,
+            make_year: singleAssetDetails.make_year,
           }}
           onSubmit={onSubmit}
         >
@@ -86,29 +200,10 @@ function AssetEdit(props: Iprops) {
                 <Form>
                   <CardContent>
                     <Grid item container spacing={1}>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <TextField
-                          label="Asset Name"
-                          variant="outlined"
-                          fullWidth
-                          name="assetName"
-                          id="assetName"
-                          onChange={handleChange}
-                          value={values?.assetName}
-                          required
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <TextField
-                          label="Description"
-                          variant="outlined"
-                          fullWidth
-                          name="description"
-                          id="description"
-                          onChange={handleChange}
-                          value={values?.description}
-                        />
-                      </Grid>
+
+                    {textField("Asset Name", "assetName","assetName", values?.assetName, handleChange)}
+
+                     {textField("Description", "description","description", values?.description, handleChange)}
 
                       <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth variant="outlined">
@@ -143,6 +238,8 @@ function AssetEdit(props: Iprops) {
                           </Select>
                         </FormControl>
                       </Grid>
+                    
+                    
 
                       <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth variant="outlined">
@@ -177,19 +274,8 @@ function AssetEdit(props: Iprops) {
                           </Select>
                         </FormControl>
                       </Grid>
-
-                      <Grid item xs={12} sm={6} md={6}>
-                        <TextField
-                          label="Model No."
-                          variant="outlined"
-                          fullWidth
-                          name="modelNo"
-                          id="modelNo"
-                          onChange={handleChange}
-                          value={values?.modelNo}
-                          required
-                        />
-                      </Grid>
+                       {textField("Model No", "modelNo","modelNo", values?.modelNo, handleChange)}
+                   
 
                       <Grid item xs={12} sm={6} md={6}>
                         <TextField
@@ -204,141 +290,30 @@ function AssetEdit(props: Iprops) {
                           onChange={handleChange}
                         />
                       </Grid>
-                      {singleAssetDetails?.category === "laptop" ? (
+                     {textField("Make Year", "make_year","make_year", values?.make_year, handleChange)}
+
+
+                      
+
+
+                      {singleAssetDetails?.category === "laptop" ||
+                      singleAssetDetails?.category === "mobile" ||
+                      singleAssetDetails?.category === "watch" ? (
                         <>
-                          {" "}
-                          <Grid item xs={12} sm={6} md={6}>
-                            <FormControl fullWidth variant="outlined">
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Processor
-                              </InputLabel>
+                          {singleAssetDetails?.category==="mobile" &&  
+                          textField("IMEI Number", "imeiNo","imeiNo", values?.imeiNo, handleChange)
+                          
+                        }
 
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="processor"
-                                value={values?.processor}
-                                onChange={handleChange}
-                                name="processor"
-                                required
-                                MenuProps={{
-                                  PaperProps: {
-                                    sx: {
-                                      maxHeight: {
-                                        xs: 48 * 4 + 8,
-                                        sm: 36 * 4 + 8,
-                                      },
-                                    },
-                                  },
-                                }}
-                              >
-                                {filterOptions.processor?.map((item) => (
-                                  <MenuItem key={item} value={item}>
-                                    {item}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <FormControl fullWidth variant="outlined">
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Screen type
-                              </InputLabel>
+                          
+                          {dropdownComp("Processor", "processor", values?.processor, handleChange)}
+                          {dropdownComp("Screen Type", "screen_type", values?.screen_type, handleChange)}
+                          {dropdownComp("RAM", "ram", values?.ram, handleChange)}
+                          {dropdownComp("Screen Size", "screen_size", values?.screen_size, handleChange)}
+                          {singleAssetDetails?.category === "laptop" && dropdownComp("HDD", "hdd", values?.hdd, handleChange) }
+                          {singleAssetDetails?.category !== "watch"  && dropdownComp("SSD","ssd",values?.ssd,handleChange)}
 
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="processor"
-                                value={values?.screen_type}
-                                onChange={handleChange}
-                                name="screen_type"
-                                required
-                                MenuProps={{
-                                  PaperProps: {
-                                    sx: {
-                                      maxHeight: {
-                                        xs: 48 * 4 + 8,
-                                        sm: 36 * 4 + 8,
-                                      },
-                                    },
-                                  },
-                                }}
-                              >
-                                {filterOptions.screen_type?.map((item) => (
-                                  <MenuItem key={item} value={item}>
-                                    {item}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <FormControl fullWidth variant="outlined">
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Ram
-                              </InputLabel>
 
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="ram"
-                                value={values?.ram}
-                                onChange={handleChange}
-                                name="ram"
-                                required
-                                MenuProps={{
-                                  PaperProps: {
-                                    sx: {
-                                      maxHeight: {
-                                        xs: 48 * 4 + 8,
-                                        sm: 36 * 4 + 8,
-                                      },
-                                    },
-                                  },
-                                }}
-                              >
-                                {filterOptions.ram?.map((item) => (
-                                  <MenuItem key={item} value={item}>
-                                    {item}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <FormControl fullWidth variant="outlined">
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Screen Size
-                              </InputLabel>
-
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="screen_size"
-                                value={values?.screen_size}
-                                onChange={handleChange}
-                                name="screen_size"
-                                required
-                                MenuProps={{
-                                  PaperProps: {
-                                    sx: {
-                                      maxHeight: {
-                                        xs: 48 * 4 + 8,
-                                        sm: 36 * 4 + 8,
-                                      },
-                                    },
-                                  },
-                                }}
-                              >
-                                {filterOptions.screen_size?.map((item) => (
-                                  <MenuItem key={item} value={item}>
-                                    {item}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
                           <Grid item xs={12} sm={6} md={6}>
                             <FormControl fullWidth variant="outlined">
                               <InputLabel id="demo-simple-select-outlined-label">
@@ -364,7 +339,7 @@ function AssetEdit(props: Iprops) {
                                   },
                                 }}
                               >
-                                {filterOptions.os?.map((item) => (
+                                {filterOptions?.os?.map((item) => (
                                   <MenuItem key={item} value={item}>
                                     {item}
                                   </MenuItem>
@@ -372,50 +347,76 @@ function AssetEdit(props: Iprops) {
                               </Select>
                             </FormControl>
                           </Grid>
+
+                          
+
+                              
+                         {textField("OS Version", "os_version","os_version", values?.os_version, handleChange)}
+                        
+
                         </>
                       ) : (
                         <> </>
                       )}
-                     
 
+                  {singleAssetDetails.category === "mouse" ||
+                        singleAssetDetails.category === "keyboard" ||
+                        singleAssetDetails.category === "headset" ? (
+                          <Grid item xs={12} sm={6} md={6}>
+                          <FormControl fullWidth variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Connectivity
+                            </InputLabel>
+  
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="Connectivity"
+                              value={values?.connectivity}
+                              onChange={handleChange}
+                              name="connectivity"
+                              required
+                              MenuProps={{
+                                PaperProps: {
+                                  sx: {
+                                    maxHeight: {
+                                      xs: 48 * 4 + 8,
+                                      sm: 36 * 4 + 8,
+                                    },
+                                  },
+                                },
+                              }}
+                            >
+                              {connectivityOptions?.map((item) => (
+                                <MenuItem key={item.value} value={item.value}>
+                                  {item.value}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                          
+                        ) : (
+                          <> </>
+                        )}
+
+                        {singleAssetDetails?.category === "hdmi cable" && dropdownComp("Cable Type", "cableType", values?.cableType, handleChange)}
+                     
+                         
                       {singleAssetDetails?.isRented ? (
                         <>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <TextField
-                              label="Vendor"
-                              variant="outlined"
-                              fullWidth
-                              name="vendor"
-                              id="vendor"
-                              onChange={handleChange}
-                              value={values?.vendor}
-                              required
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <TextField
-                              label="Rent"
-                              variant="outlined"
-                              fullWidth
-                              name="rent"
-                              id="rent"
-                              onChange={handleChange}
-                              value={values?.rent}
-                              required
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <TextField
-                              label="Deposit"
-                              variant="outlined"
-                              fullWidth
-                              name="deposit"
-                              id="deposit"
-                              onChange={handleChange}
-                              value={values?.deposit}
-                              required
-                            />
-                          </Grid>
+                          
+                          {textField("Vendor", "vendor","vendor", values?.vendor, handleChange)}
+
+
+                         
+                     {textField("Rent", "rent","rent", values?.rent, handleChange)}
+
+                           
+
+                         
+                            {textField("Model No", "modelNo","modelNo", values?.modelNo, handleChange)}
+
 
                           <Grid item xs={12} sm={6} md={6}>
                             <TextField
@@ -451,79 +452,7 @@ function AssetEdit(props: Iprops) {
                         <> </>
                       )}
 
-                      {singleAssetDetails?.category === "monitor" ? (
-                        <>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <FormControl fullWidth variant="outlined">
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Screen type
-                              </InputLabel>
-
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="processor"
-                                value={values?.screen_type}
-                                onChange={handleChange}
-                                name="screen_type"
-                                required
-                                MenuProps={{
-                                  PaperProps: {
-                                    sx: {
-                                      maxHeight: {
-                                        xs: 48 * 4 + 8,
-                                        sm: 36 * 4 + 8,
-                                      },
-                                    },
-                                  },
-                                }}
-                              >
-                                {filterOptions.screen_type?.map((item) => (
-                                  <MenuItem key={item} value={item}>
-                                    {item}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-
-                          <Grid item xs={12} sm={6} md={6}>
-                            <FormControl fullWidth variant="outlined">
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Screen Size
-                              </InputLabel>
-
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                label="screen_size"
-                                value={values?.screen_size}
-                                onChange={handleChange}
-                                name="screen_size"
-                                required
-                                MenuProps={{
-                                  PaperProps: {
-                                    sx: {
-                                      maxHeight: {
-                                        xs: 48 * 4 + 8,
-                                        sm: 36 * 4 + 8,
-                                      },
-                                    },
-                                  },
-                                }}
-                              >
-                                {filterOptions.screen_size?.map((item) => (
-                                  <MenuItem key={item} value={item}>
-                                    {item}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                        </>
-                      ) : (
-                        <> </>
-                      )}
+                      {singleAssetDetails?.category === "monitor" && showMoniterFields(values, handleChange)}
                     </Grid>
                   </CardContent>
                   <CardActions>
@@ -539,7 +468,7 @@ function AssetEdit(props: Iprops) {
 
         
       </Card>
-     {/* {message && <Alert title="Asset details updated successfully" setNavigate={setNavigate}/>} */}
+     
     </>
   );
 }

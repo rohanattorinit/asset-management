@@ -128,6 +128,13 @@ export interface SingleAssetDetailsType {
   operating_system: string
   screen_size: string
   category: string
+  imeiNo: string
+  connectivity: string
+  cableType: string
+  ssd: string
+  hdd: string
+  os_version: string
+  make_year: string
 }
 
 export interface EmployeeAssetType {
@@ -233,6 +240,7 @@ export interface FilterOptions {
   location: string[]
   os: string[]
   cableType: string[]
+  connectivity: string[]
 }
 
 interface SetAllocateAsset {

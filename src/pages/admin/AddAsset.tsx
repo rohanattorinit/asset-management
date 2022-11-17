@@ -31,6 +31,7 @@ import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 import Alert from "../../components/ConfirmAlert/Alert";
 
+
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
   { label: "Software", value: "software" },
@@ -175,7 +176,6 @@ const AddAsset = () => {
                   processor: "",
                   screen_size: "",
                   empId: "",
-                  makeYear: "",
                   imeiNo: "",
                   connectivity: "",
                   cableType: "",
@@ -301,14 +301,23 @@ const AddAsset = () => {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
+                            
+                            InputProps={{
+                              inputProps: {
+                                type: 'number',
+                                min: 1990, max: 4000,
+                              },
+                            }}
                             label="Make Year"
                             variant="outlined"
                             fullWidth
-                            name="makeYear"
-                            value={values?.makeYear}
+                            name="make_year"
+                            value={values?.make_year}
                             component={TextField}
-                          />
+                          /> 
+                          
                         </Grid>
+                        
 
                        
                         <Grid item xs={12} sm={6} md={6}>

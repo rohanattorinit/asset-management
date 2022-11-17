@@ -84,7 +84,14 @@ const initialState: InitialState = {
     ram: '',
     operating_system: '',
     screen_size: '',
-    category: ''
+    category: '',
+    imeiNo: "",
+    connectivity: "",
+    cableType: "",
+    ssd: "",
+    hdd: "",
+    os_version: "",
+    make_year: "",
   },
   employeeassetsdetails: [],
   serviceDetails: [],
@@ -107,7 +114,8 @@ const initialState: InitialState = {
     screen_type: [],
     location: [],
     os: [],
-    cableType: []
+    cableType: [],
+    connectivity:[]
   }
 }
 
