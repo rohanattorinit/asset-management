@@ -134,7 +134,7 @@ const initialState: InitialState = {
     asset_id: 0,
     updated_feature: '',
     description: '',
-    effective_date: ''
+    updated_at: ''
 }],
   ticket_logs: [{
     ticketId: 0,
@@ -143,16 +143,16 @@ const initialState: InitialState = {
     title: '',
     description: '',
     ticketStatus: '',
-    createdAt: '',
-    closedAt: ''
+    created_at: '',
+    closed_at: ''
 }],
   allocation_logs: [{
     transaction_id: 0,
     asset_id: 0,
     emp_id: '',
     emp_name: '',
-    allocation_date: '',
-    deallocation_date: '',
+    allocated_at: '',
+    deallocated_at: '',
     status: ''
 }],
   received_at: '',

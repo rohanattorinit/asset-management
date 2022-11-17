@@ -59,7 +59,7 @@ export const test = describe('Reducer test', () => {
             title: 'title',
             description: 'desc',
             ticketStatus: 'active',
-            createdAt: 'string',
+            created_at: 'string',
             note: 'nothhing'
           }
         ]

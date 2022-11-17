@@ -40,7 +40,7 @@ export interface AllAssetTransactionLog {
     asset_id: number,
     updated_feature: string,
     description: string,
-    effective_date: string
+    updated_at: string
 }];
   ticket_logs: [{
     ticketId: number,
@@ -49,55 +49,55 @@ export interface AllAssetTransactionLog {
     title: string,
     description: string,
     ticketStatus: string,
-    createdAt: String,
-    closedAt: string
+    created_at: String,
+    closed_at: string
 }];
   allocation_logs: [{
     transaction_id: number,
     asset_id: number,
     emp_id: string,
     emp_name: string,
-    allocation_date: string,
-    deallocation_date: string,
+    allocated_at: string,
+    deallocated_at: string,
     status: string
 }];
   received_at: string;
   deleted_at: string | null;
 }
-// export interface AssetUpdatedLog{
-//   asset_update_id : number
-//    asset_id : number
-//    updated_feature : string
-//    description : string
-//    effective_date : string
-// }
+export interface AssetUpdatedLog{
+  asset_update_id : number
+   asset_id : number
+   updated_feature : string
+   description : string
+   updated_at : string
+}
 
-// export interface AssetTicketLog{
-//   ticketId : number
-//   empId : string
-//   assetId : number
-//   title  : string
-//   description : string
-//   ticketStatus :string
-//   createdAt : String
-//   closedAt : string
-// }
+export interface AssetTicketLog{
+  ticketId : number
+  empId : string
+  assetId : number
+  title  : string
+  description : string
+  ticketStatus :string
+  created_at : String
+  closed_at : string
+}
 
-// export interface AssetAllocateDeallocateLog{
-//   transaction_id : number
-//   asset_id : number
-//   emp_id : string
-//   emp_name:string
-//   allocation_date : string
-//   deallocation_date : string
-//   status : string
-// }
+export interface AssetAllocateDeallocateLog{
+  transaction_id : number
+  asset_id : number
+  emp_id : string
+  emp_name:string
+  allocated_at : string
+  deallocated_at : string
+  status : string
+}
 
-// export interface AssetReceiveDeleteLog{
-//   assetId:string
-//   received_date : string
-//   deleted_at : string
-// }
+export interface AssetReceiveDeleteLog{
+  assetId:string
+  received_date : string
+  deleted_at : string
+}
 
 export interface EmpTicketType {
   ticketId: number;
@@ -106,7 +106,7 @@ export interface EmpTicketType {
   title: string;
   description: string;
   ticketStatus: string;
-  createdAt: string;
+  created_at: string;
   note: string;
 }
 
