@@ -28,76 +28,88 @@ export const GET_ADD_NOTE = "GET_ADD_NOTE";
 export const GET_BRAND_OPTIONS = "GET_BRAND_OPTIONS";
 export const GET_FILTER_OPTIONS = "GET_FILTER_OPTIONS";
 export const GET_TOTAL_ASSETSCATEGORY_COUNT = "GET_TOTAL_ASSETSCATEGORY_COUNT";
-// export const ASSET_UPDATED_LOG = 'ASSET_UPDATED_LOG'
-// export const ASSET_TICKET_LOG = 'Asset_TICKET_LOG'
-// export const ASSET_ALLOCATION_DEALLOCATION_LOG = 'ASSET_ALLOCATION_DEALLOCATION_LOG'
-// export const ASSET_ACTIVATE_DEACTIVATE_LOG = 'ASSET_ACTIVATE_DEACTIVATE_LOG'
-export const ASSET_TRANSACTION_LOGS = "ASSET_TRANSACTION_LOGS";
+//export const ASSET_TRANSACTION_LOGS = "ASSET_TRANSACTION_LOGS";
+export const ASSET_TRANSACTION_HISTORY="ASSET_TRANSACTION_HISTORY"
 
-export interface AllAssetTransactionLog {
-  asset_updation_logs: [{
-    asset_update_id: number,
-    asset_id: number,
-    updated_feature: string,
-    description: string,
-    updated_at: string
-}];
-  ticket_logs: [{
-    ticketId: number,
-    empId: string,
-    assetId: number,
-    title: string,
-    description: string,
-    ticketStatus: string,
-    created_at: String,
-    closed_at: string
-}];
-  allocation_logs: [{
-    transaction_id: number,
-    asset_id: number,
-    emp_id: string,
-    emp_name: string,
-    allocated_at: string,
-    deallocated_at: string,
-    status: string
-}];
-  received_at: string;
-  deleted_at: string | null;
-}
-export interface AssetUpdatedLog{
-  asset_update_id : number
-   asset_id : number
-   updated_feature : string
-   description : string
-   updated_at : string
-}
+// export interface AllAssetTransactionLog {
+//   asset_updation_logs: [{
+//     asset_update_id: number,
+//     asset_id: number,
+//     updated_feature: string,
+//     description: string,
+//     updated_at: string
+// }];
+//   ticket_logs: [{
+//     ticketId: number,
+//     empId: string,
+//     assetId: number,
+//     title: string,
+//     description: string,
+//     ticketStatus: string,
+//     created_at: String,
+//     closed_at: string
+// }];
+//   allocation_logs: [{
+//     transaction_id: number,
+//     asset_id: number,
+//     emp_id: string,
+//     emp_name: string,
+//     allocated_at: string,
+//     deallocated_at: string,
+//     status: string
+// }];
+//   received_at: string;
+//   deleted_at: string | null;
+// }
 
-export interface AssetTicketLog{
-  ticketId : number
-  empId : string
-  assetId : number
-  title  : string
-  description : string
-  ticketStatus :string
-  created_at : String
-  closed_at : string
-}
-
-export interface AssetAllocateDeallocateLog{
-  transaction_id : number
-  asset_id : number
-  emp_id : string
+export interface AssetTransactionHistory{
+  log_id:number
+  event_name:string
+  asset_id:number
+  ticket_id:number
+  emp_id:string
   emp_name:string
-  allocated_at : string
-  deallocated_at : string
-  status : string
+  asset_status:string
+  update_feature:string
+  update_description:string
+  date:string
 }
 
-export interface AssetReceiveDeleteLog{
-  assetId:string
-  received_date : string
-  deleted_at : string
-}
+
+// export interface AssetUpdatedLog{
+//   asset_update_id : number
+//    asset_id : number
+//    updated_feature : string
+//    description : string
+//    updated_at : string
+// }
+
+// export interface AssetTicketLog{
+//   ticketId : number
+//   empId : string
+//   assetId : number
+//   title  : string
+//   description : string
+//   ticketStatus :string
+//   created_at : String
+//   closed_at : string
+// }
+
+// export interface AssetAllocateDeallocateLog{
+//   transaction_id : number
+//   asset_id : number
+//   emp_id : string
+//   emp_name:string
+//   allocated_at : string
+//   deallocated_at : string
+//   status : string
+// }
+
+// export interface AssetReceiveDeleteLog{
+//   assetId:string
+//   received_date : string
+//   deleted_at : string
+// }
 
 export interface EmpTicketType {
   ticketId: number;
@@ -173,27 +185,7 @@ export interface ServiceType {
   createdAt: string;
 }
 
-// export interface SingleAssetDetailsType {
-//   assetId: number;
-//   brandName: string;
-//   name: string;
-//   modelNo: number;
-//   description: string;
-//   status: string;
-//   //usability: string
-//   asset_location: string;
-//   empName: string;
-//   empId: string;
-//   isRented: 0 | 1;
-//   vendor: string;
-//   rent: number;
-//   deposit: number;
-//   rentStartDate?: string;
-//   rentEndDate?: string;
-//   processor: string;
-//   screen_type: string;
-//   received_date?: string;
-// }
+
 
 export interface SingleAssetDetailsType {
   assetId: number;
@@ -307,10 +299,10 @@ interface SetAllocateAsset {
 }
 
 interface GetTransactionLogs {
-  type: typeof ASSET_TRANSACTION_LOGS;
+  type: typeof ASSET_TRANSACTION_HISTORY;
   payload: {
     meassage: string;
-    data: AllAssetTransactionLog;
+    data: AssetTransactionHistory;
   };
 }
 
@@ -470,10 +462,7 @@ interface SetSingleAssetDetails {
   payload: { message: string; data: SingleAssetDetailsType };
 }
 
-// interface SetSingleEmpAssetDetails {
-//   type: typeof SET_SINGLE_EMP_ASSET_DETAILS;
-//   payload: { message: string; data: SingleEmpAssetDetailsType };
-// }
+
 
 interface setEmployeeAssetDetails {
   type: typeof SET_EMPLOYEE_ASSETS_DETAILS;

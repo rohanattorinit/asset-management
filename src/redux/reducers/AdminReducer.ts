@@ -1,14 +1,9 @@
 import {
-  AllAssetTransactionLog,
-  // AssetAllocateDeallocateLog,
+  AssetTransactionHistory,
+  
   AssetCategoryCount,
-  ASSET_TRANSACTION_LOGS,
-  // AssetReceiveDeleteLog,
-  // AssetTicketLog,
-  // AssetUpdatedLog,
-  // ASSET_ALLOCATION_DEALLOCATION_LOG,
-  // ASSET_TICKET_LOG,
-  // ASSET_UPDATED_LOG,
+  ASSET_TRANSACTION_HISTORY,
+  
   BrandOptions,
   FilterOptions,
   GET_BRAND_OPTIONS,
@@ -55,11 +50,8 @@ interface InitialState {
   totalAssetCount : AssetCategoryCount[]
   totalSurplusAssetCount : AssetCategoryCount[]
   filterOptions: FilterOptions;
-  // assetUpdateLogs: AssetUpdatedLog[]
-  // assetTicketLogs:AssetTicketLog[]
-  // assetAllocateDeallocateLogs:AssetAllocateDeallocateLog[]
-  // assetReceivedDeleteLog : AssetReceiveDeleteLog[]
-  assetTrasactionLogs:AllAssetTransactionLog
+  
+  assetTrasactionLogs:AssetTransactionHistory[];
   
 }
 
@@ -103,10 +95,7 @@ const initialState: InitialState = {
 
   employeeassetsdetails: [],
   serviceDetails: [],
-  // assetUpdateLogs:[],
-  // assetTicketLogs:[],
-  // assetAllocateDeallocateLogs:[],
-  // assetReceivedDeleteLog:[],
+  
   serviceticketdetails: {
     empId: "",
     assetId: 0,
@@ -130,37 +119,40 @@ const initialState: InitialState = {
     harddisk: [],
     os: [],
   },
+  assetTrasactionLogs:[],
 
-  assetTrasactionLogs :  
-  {asset_updation_logs: [{
-    asset_update_id: 0,
-    asset_id: 0,
-    updated_feature: '',
-    description: '',
-    updated_at: ''
-}],
-  ticket_logs: [{
-    ticketId: 0,
-    empId: '',
-    assetId: 0,
-    title: '',
-    description: '',
-    ticketStatus: '',
-    created_at: '',
-    closed_at: ''
-}],
-  allocation_logs: [{
-    transaction_id: 0,
-    asset_id: 0,
-    emp_id: '',
-    emp_name: '',
-    allocated_at: '',
-    deallocated_at: '',
-    status: ''
-}],
-  received_at: '',
-  deleted_at: '' 
-},
+  
+
+//   assetTrasactionLogs :  
+//   {asset_updation_logs: [{
+//     asset_update_id: 0,
+//     asset_id: 0,
+//     updated_feature: '',
+//     description: '',
+//     updated_at: ''
+// }],
+//   ticket_logs: [{
+//     ticketId: 0,
+//     empId: '',
+//     assetId: 0,
+//     title: '',
+//     description: '',
+//     ticketStatus: '',
+//     created_at: '',
+//     closed_at: ''
+// }],
+//   allocation_logs: [{
+//     transaction_id: 0,
+//     asset_id: 0,
+//     emp_id: '',
+//     emp_name: '',
+//     allocated_at: '',
+//     deallocated_at: '',
+//     status: ''
+// }],
+//   received_at: '',
+//   deleted_at: '' 
+// },
 };
 
 const adminReducer = (
@@ -242,35 +234,8 @@ const adminReducer = (
         loading: false,
       };
 
-      // case ASSET_UPDATED_LOG:
-      //   return {
-      //     ...state,
-      //     assetUpdateLogs: action.payload?.data,
-      //     loading: false
-      //   }
-
-        // case ASSET_TICKET_LOG:
-        //   return {
-        //     ...state,
-        //     assetTicketLogs: action.payload?.data,
-        //     loading: false
-        //   }
-
-        //   case ASSET_ALLOCATION_DEALLOCATION_LOG :
-        //   return {
-        //     ...state,
-        //     assetAllocateDeallocateLogs: action.payload?.data,
-        //     loading: false
-        //   }
-
-        //   case ASSET_TICKET_LOG:
-        //   return {
-        //     ...state,
-        //     assetReceivedDeleteLog: action.payload?.data,
-        //     loading: false
-        //   }
- 
-        case ASSET_TRANSACTION_LOGS:
+      
+        case ASSET_TRANSACTION_HISTORY:
           return {
             ...state,
             assetTrasactionLogs: action.payload?.data,
