@@ -185,7 +185,7 @@ const AddAsset = () => {
                               name="category"
                               required
                             >
-                              {filterOptions.category.map((item) => (
+                              {filterOptions?.category?.map((item) => (
                                 <MenuItem key={item} value={item}>
                                   {item}
                                 </MenuItem>

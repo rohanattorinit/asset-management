@@ -1,3 +1,5 @@
+// import { TypeOf } from "yup"
+
 export const LOADING_DATA = "LOADING_DATA";
 export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
@@ -25,6 +27,77 @@ export const SET_ADD_NOTE = "SET_ADD_NOTE";
 export const GET_ADD_NOTE = "GET_ADD_NOTE";
 export const GET_BRAND_OPTIONS = "GET_BRAND_OPTIONS";
 export const GET_FILTER_OPTIONS = "GET_FILTER_OPTIONS";
+export const GET_TOTAL_ASSETSCATEGORY_COUNT = "GET_TOTAL_ASSETSCATEGORY_COUNT";
+// export const ASSET_UPDATED_LOG = 'ASSET_UPDATED_LOG'
+// export const ASSET_TICKET_LOG = 'Asset_TICKET_LOG'
+// export const ASSET_ALLOCATION_DEALLOCATION_LOG = 'ASSET_ALLOCATION_DEALLOCATION_LOG'
+// export const ASSET_ACTIVATE_DEACTIVATE_LOG = 'ASSET_ACTIVATE_DEACTIVATE_LOG'
+export const ASSET_TRANSACTION_LOGS = "ASSET_TRANSACTION_LOGS";
+
+export interface AllAssetTransactionLog {
+  asset_updation_logs: [{
+    asset_update_id: number,
+    asset_id: number,
+    updated_feature: string,
+    description: string,
+    updated_at: string
+}];
+  ticket_logs: [{
+    ticketId: number,
+    empId: string,
+    assetId: number,
+    title: string,
+    description: string,
+    ticketStatus: string,
+    created_at: String,
+    closed_at: string
+}];
+  allocation_logs: [{
+    transaction_id: number,
+    asset_id: number,
+    emp_id: string,
+    emp_name: string,
+    allocated_at: string,
+    deallocated_at: string,
+    status: string
+}];
+  received_at: string;
+  deleted_at: string | null;
+}
+export interface AssetUpdatedLog{
+  asset_update_id : number
+   asset_id : number
+   updated_feature : string
+   description : string
+   updated_at : string
+}
+
+export interface AssetTicketLog{
+  ticketId : number
+  empId : string
+  assetId : number
+  title  : string
+  description : string
+  ticketStatus :string
+  created_at : String
+  closed_at : string
+}
+
+export interface AssetAllocateDeallocateLog{
+  transaction_id : number
+  asset_id : number
+  emp_id : string
+  emp_name:string
+  allocated_at : string
+  deallocated_at : string
+  status : string
+}
+
+export interface AssetReceiveDeleteLog{
+  assetId:string
+  received_date : string
+  deleted_at : string
+}
 
 export interface EmpTicketType {
   ticketId: number;
@@ -33,11 +106,16 @@ export interface EmpTicketType {
   title: string;
   description: string;
   ticketStatus: string;
-  createdAt: string;
+  created_at: string;
   note: string;
 }
 
 export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+
+export interface TotalAssetCountType {
+  totalAssetCount: AssetCategoryCount[];
+  totalSurplusCount: AssetCategoryCount[];
+}
 
 export interface CreateTicketType {
   empId: string;
@@ -216,10 +294,23 @@ export interface FilterOptions {
   os: string[];
 }
 
+export interface AssetCategoryCount {
+  category: string;
+  count: number;
+}
+
 interface SetAllocateAsset {
   type: typeof ALLOCATE_EMPLOYEE_ASSET;
   payload: {
     message: string;
+  };
+}
+
+interface GetTransactionLogs {
+  type: typeof ASSET_TRANSACTION_LOGS;
+  payload: {
+    meassage: string;
+    data: AllAssetTransactionLog;
   };
 }
 
@@ -233,6 +324,7 @@ interface Loading {
 
 interface SetEmployees {
   type: typeof SET_EMPLOYEES;
+  
   payload: {
     meassage: string;
     data: EmployeeType[];
@@ -421,6 +513,7 @@ interface SetTicketStatus {
 }
 
 interface SetAddNote {
+ 
   type: typeof SET_ADD_NOTE;
   payload: {
     message: string;
@@ -428,6 +521,7 @@ interface SetAddNote {
 }
 
 interface setBrandOptions {
+ 
   type: typeof GET_BRAND_OPTIONS;
   payload: {
     // message: string
@@ -435,18 +529,32 @@ interface setBrandOptions {
   };
 }
 
+
+
+interface GetAssetCategoryCount {
+  type: typeof GET_TOTAL_ASSETSCATEGORY_COUNT;
+  payload: {
+    data: TotalAssetCountType;
+  };
+    
+}
+
 interface GetFilterOptions {
+  
   type: typeof GET_FILTER_OPTIONS;
   payload: {
     data: FilterOptions;
   };
+   
 }
 interface GetAddNote {
+  
   type: typeof GET_ADD_NOTE;
   payload: {
     message: string;
     data: NoteType[];
   };
+    
 }
 
 export type DispatchTypes =
@@ -478,4 +586,6 @@ export type DispatchTypes =
   | UpdateAssetDetails
   | GetAddNote
   | setBrandOptions
-  | GetFilterOptions;
+  | GetFilterOptions
+  | GetAssetCategoryCount
+  | GetTransactionLogs;
