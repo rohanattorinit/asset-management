@@ -1,33 +1,49 @@
 import CategoryIcon from "@mui/icons-material/Category";
-import LinearScaleIcon from "@mui/icons-material/LinearScale";
-//import InputIcon from "@mui/icons-material/Input";
-import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
-import MemoryIcon from "@mui/icons-material/Memory";
-import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
-import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import WebhookIcon from "@mui/icons-material/Webhook";
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
+import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
+import AddToQueueIcon from "@mui/icons-material/AddToQueue";
+import LinearScaleIcon from "@mui/icons-material/LinearScale";
+import MemoryIcon from "@mui/icons-material/Memory";
+import InputIcon from "@mui/icons-material/Input";
+import CableIcon from "@mui/icons-material/Cable";
+import StorageIcon from "@mui/icons-material/Storage";
+import UsbIcon from "@mui/icons-material/Usb";
+
 interface FILTERS {
+  screen_type: string;
+  ram: string;
+  status: string;
+  assetType: string;
   category: string;
-  location: string;
   os: string;
   processor: string;
   screen_size: string;
-  screen_type: string;
-  status: string;
-  ram: string;
+  hdd: string;
+  ssd: string;
+  cableType: string;
+  location: string;
+  brandName: string;
+  connectivity: string;
 }
 
 export const getFilterName = (name: string) => {
   const filters: FILTERS = {
+    screen_type: "Screen Type",
+    ram: "RAM",
+    status: "Status",
+    assetType: "Asset Type",
     category: "Category",
-    location: "Location",
     os: "Operating System",
     processor: "Processor",
     screen_size: "Screen Size",
-    screen_type: "Screen Type",
-    status: "Status",
-    ram: "RAM (GB)",
+    hdd: "HDD",
+    ssd: "SSD",
+    cableType: "Cable Type",
+    location: "Asset Location",
+    brandName: "BrandName",
+    connectivity: "Connectivity",
   };
 
   //@ts-ignore
@@ -46,6 +62,11 @@ interface FILTER_ICON {
   screen_type: any;
   status: any;
   ram: any;
+  brandName: any;
+  cableType: any;
+  hdd: any;
+  ssd: any;
+  connectivity: any;
 }
 
 export const getFilterIcon = (name: string) => {
@@ -58,7 +79,11 @@ export const getFilterIcon = (name: string) => {
     screen_type: AddToQueueIcon,
     status: LinearScaleIcon,
     ram: MemoryIcon,
-    //brands: InputIcon,
+    brandName: InputIcon,
+    cableType: CableIcon,
+    hdd: StorageIcon,
+    ssd: StorageIcon,
+    connectivity: UsbIcon,
   };
 
   //@ts-ignore

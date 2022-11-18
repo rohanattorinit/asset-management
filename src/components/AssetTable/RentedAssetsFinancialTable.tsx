@@ -25,7 +25,10 @@ function RentedAssetsFinancialTable() {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center">
-                      <Typography sx={{ fontWeight: "bold" }}>AssetID</Typography>
+                      <Typography sx={{ fontWeight: "bold" }}>Asset ID</Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography sx={{ fontWeight: "bold" }}>Asset Name</Typography>
                     </TableCell>
                     <TableCell align="center">
                       <Typography sx={{ fontWeight: "bold" }}>Vendor</Typography>
@@ -52,7 +55,9 @@ function RentedAssetsFinancialTable() {
                 {assets?.map((rentalAsset) => (
                   <TableRow key={rentalAsset?.assetId}>
                     <TableCell align="center">{rentalAsset?.assetId}</TableCell>
-                    <TableCell align="center">{rentalAsset?.vendor}</TableCell>
+                    <TableCell align="center">{rentalAsset?.name}</TableCell>
+
+                      <TableCell align="center">{rentalAsset?.vendor}</TableCell>
                     <TableCell align="center">{rentalAsset?.rent}</TableCell>
                     <TableCell align="center">{rentalAsset?.rentStartDate?.slice(0, 10)}</TableCell>
                     <TableCell align="center">{rentalAsset?.rentEndDate?.slice(0, 10)}</TableCell>

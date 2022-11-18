@@ -24,12 +24,50 @@ const EmpAssetDetails = () => {
     dispatch(getSingleAssetDetails(id));
   }, [message, dispatch, id]);
 
+  const detailsComp = (value: any, label: string) => {
+    return (
+      <>
+        {
+          // @ts-ignore
+        singleAssetDetails[value] && (
+          <Grid item xs={2} sm={4} md={4}>
+            <Typography
+              fontFamily="serif"
+              fontWeight="bold"
+              variant="h6"
+              mt={2}
+              sx={{
+                textTransform: "capitalize",
+                wordWrap: "break-word",
+                width: {
+                  md: "31.25rem",
+                  xs: "15rem",
+                  sm: "30rem",
+                },
+              }}
+            >
+              {label} :{" "}
+              <Typography>
+                {
+                  // @ts-ignore
+
+                  singleAssetDetails[value]
+                }
+              </Typography>
+            </Typography>
+          </Grid>
+        )}
+      </>
+    );
+  };
+
+
   return (
     <>
-      <Grid container sx={{ height: "100%" }}>
+      <Grid container sx={{ height: "100%", overflow: "hidden"}}>
         <SideBar />
         <Toast />
-        <Grid item xs={12} md={10} p={2} sx={{ overflowX: "auto" }}>
+        <Grid item xs={12} md={10} p={2} >
           <Box
             sx={{
               display: "flex",
@@ -41,70 +79,22 @@ const EmpAssetDetails = () => {
           </Box>
 
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
-            <Grid container m={2}>
+
+<Grid container spacing={1}>
               {!singleAssetDetails?.empId?.length && loading ? (
                 <Loader />
               ) : (
                 <>
-                  <Grid item xs={12} md={6}>
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                    >
-                      Asset ID :{" "}
-                      <Typography>{singleAssetDetails?.assetId}</Typography>
-                    </Typography>
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                    >
-                      Asset Name:{" "}
-                      <Typography>{singleAssetDetails?.name}</Typography>
-                    </Typography>
+                  {detailsComp("assetId", "Asset ID")}
+                  {detailsComp("name", "Asset Name")}
+                  {detailsComp("category", "Category")}
+                  {detailsComp("status", "Status")}
+                  {detailsComp("asset_location", "Location")}
+                 
+                  {detailsComp("brandName", "Brand Name")}
+                  {detailsComp("modelNo", "Model No")}
 
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                    >
-                      Location:{" "}
-                      <Typography>
-                        {singleAssetDetails?.asset_location}
-                      </Typography>
-                    </Typography>
-
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                    >
-                      Description :{" "}
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                        }}
-                      >
-                        {singleAssetDetails?.description}
-                      </Typography>
-                    </Typography>
-
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                    >
-                      Brand Name:{" "}
-                      <Typography>{singleAssetDetails?.brandName}</Typography>
-                    </Typography>
+                  <Grid item xs={2} sm={4} md={4}>
                     <Typography
                       fontFamily="serif"
                       fontWeight="bold"
@@ -116,127 +106,77 @@ const EmpAssetDetails = () => {
                         width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
                       }}
                     >
-                      Model No:{" "}
-                      <Typography>{singleAssetDetails?.modelNo}</Typography>
+                      Received Date:
+                      <Typography>
+                        {singleAssetDetails?.received_date?.slice(0, 10)}
+                      </Typography>
                     </Typography>
                   </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    {singleAssetDetails?.category === "laptop" ||
-                    singleAssetDetails?.category === "mobile" ? (
-                      <>
-                        <Typography
-                          fontFamily="serif"
-                          fontWeight="bold"
-                          variant="h6"
-                          mt={2}
-                        >
-                          Processor:{" "}
-                          <Typography>
-                            {singleAssetDetails?.processor}
-                          </Typography>
+                  {detailsComp("vendor", "Vendor")}
+                  {detailsComp("rent", "Rent")}
+                  {detailsComp("deposit", "Deposit")}
+                  {singleAssetDetails?.rentStartDate && (
+                    <Grid item xs={2} sm={4} md={4}>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        Rent Start From :{" "}
+                        <Typography>
+                          {singleAssetDetails?.rentStartDate?.slice(0, 10)}
                         </Typography>
-
-                        <Typography
-                          fontFamily="serif"
-                          fontWeight="bold"
-                          variant="h6"
-                          mt={2}
-                          sx={{
-                            textTransform: "capitalize",
-                            wordWrap: "break-word",
-                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                          }}
-                        >
-                          RAM (GB)
-                          <Typography>{singleAssetDetails?.ram}</Typography>
+                      </Typography>
+                    </Grid>
+                  )}
+                  {singleAssetDetails?.rentEndDate && (
+                    <Grid item xs={2} sm={4} md={4}>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        Rent End Date :{" "}
+                        <Typography>
+                          {singleAssetDetails?.rentEndDate?.slice(0, 10)}
                         </Typography>
-
-                        <Typography
-                          fontFamily="serif"
-                          fontWeight="bold"
-                          variant="h6"
-                          mt={2}
-                          sx={{
-                            textTransform: "capitalize",
-                            wordWrap: "break-word",
-                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                          }}
-                        >
-                          Operating System
-                          <Typography>
-                            {singleAssetDetails?.operating_system}
-                          </Typography>
-                        </Typography>
-
-                        <Typography
-                          fontFamily="serif"
-                          fontWeight="bold"
-                          variant="h6"
-                          mt={2}
-                        >
-                          Screen Type:{" "}
-                          <Typography>
-                            {singleAssetDetails?.screen_type}
-                          </Typography>
-                        </Typography>
-
-                        <Typography
-                          fontFamily="serif"
-                          fontWeight="bold"
-                          variant="h6"
-                          mt={2}
-                          sx={{
-                            textTransform: "capitalize",
-                            wordWrap: "break-word",
-                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                          }}
-                        >
-                          Screen Size
-                          <Typography>
-                            {singleAssetDetails?.screen_size}
-                          </Typography>
-                        </Typography>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-
-                    {singleAssetDetails?.category === "monitor" ? (
-                      <>
-                        <Typography
-                          fontFamily="serif"
-                          fontWeight="bold"
-                          variant="h6"
-                          mt={2}
-                        >
-                          Screen Type:{" "}
-                          <Typography>
-                            {singleAssetDetails?.screen_type}
-                          </Typography>
-                        </Typography>
-
-                        <Typography
-                          fontFamily="serif"
-                          fontWeight="bold"
-                          variant="h6"
-                          mt={2}
-                          sx={{
-                            textTransform: "capitalize",
-                            wordWrap: "break-word",
-                            width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                          }}
-                        >
-                          Screen Size
-                          <Typography>
-                            {singleAssetDetails?.screen_size}
-                          </Typography>
-                        </Typography>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </Grid>
+                      </Typography>
+                    </Grid>
+                  )}
+                  {detailsComp("screen_type", "Screen Type ")}
+                  {detailsComp("processor", "Processor")}
+                  {detailsComp("ram", "RAM")}
+                  {detailsComp("screen_size", "Screen Size")}
+                  {detailsComp("empName", "Employee Name")}
+                  {detailsComp("empId", "Employee ID")}
+                  {detailsComp("ssd", "SSD")}
+                  {detailsComp("hdd", "HDD")}
+                  {detailsComp("connectivity", " Connectivity")}
+                  {detailsComp("make_year", "Make Year")}
+                  {detailsComp("os_version", "OS Version")}
+                  {detailsComp("imeiNo", "IMEI Number")}
+                  {detailsComp("cableType", "Cable type")}
+                  {detailsComp("description", "Description")}
                 </>
               )}
             </Grid>

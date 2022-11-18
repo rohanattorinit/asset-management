@@ -161,7 +161,7 @@ function AssetEdit(props: Iprops) {
   return (
     <>
     
-      <Card>
+      <Card sx={{overflowY: "scroll"}}>
         <CardHeader title="Edit" />
         <Formik
           initialValues={{
@@ -198,7 +198,8 @@ function AssetEdit(props: Iprops) {
             return (
               <>
                 <Form>
-                  <CardContent>
+                  
+                  <CardContent >
                     <Grid item container spacing={1}>
 
                     {textField("Asset Name", "assetName","assetName", values?.assetName, handleChange)}
@@ -238,10 +239,7 @@ function AssetEdit(props: Iprops) {
                           </Select>
                         </FormControl>
                       </Grid>
-                    
-                    
-
-                      <Grid item xs={12} sm={6} md={6}>
+                                            <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth variant="outlined">
                           <InputLabel id="demo-simple-select-outlined-label">
                             Brand name
@@ -291,9 +289,6 @@ function AssetEdit(props: Iprops) {
                         />
                       </Grid>
                      {textField("Make Year", "make_year","make_year", values?.make_year, handleChange)}
-
-
-                      
 
 
                       {singleAssetDetails?.category === "laptop" ||
@@ -459,7 +454,7 @@ function AssetEdit(props: Iprops) {
                     <Button type="submit" size="large" variant="contained">
                       EDIT
                     </Button>
-                  </CardActions>{" "}
+                  </CardActions>
                 </Form>
               </>
             );

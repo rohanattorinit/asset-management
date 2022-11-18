@@ -74,7 +74,11 @@ export default function EmployeeDetails() {
   const [openAlrtDeallocate, setOpenAlrtDeallocate] = useState(false)
   const navigate = useNavigate();
   const setNavigate =()=>{
-    setOpenAlert(false)
+
+    alertMessage==="Emplyoee deleted"? (navigate("/admin/employee/") ):( setOpenAlert(false) )
+    
+    
+
    
   }
 
@@ -144,7 +148,7 @@ export default function EmployeeDetails() {
     setOpenConfirm(false)
     setOpenAlert(true)
     setAlertMessage('Emplyoee deleted')
-   navigate("/admin/employee/");
+   
   }
   const handleCancel= () =>{
     setOpenConfirm(false)
@@ -343,12 +347,7 @@ export default function EmployeeDetails() {
                               onClick={() => {
 
                                 setOpenConfirmDeallocate(true);
-                                // if (                            
-                                //   window.confirm(
-                                //     "Do you want to Delete the Asset?"
-                                //   )
-                                // )
-                                //   HandleDeallocate(asset?.assetId);
+                                
                               }}
                             />
                              {openConfirmDeallocate &&  <Dialog

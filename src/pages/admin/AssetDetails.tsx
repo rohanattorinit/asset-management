@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { Dispatch } from "redux";
 import AssetEdit from "../../components/Button/AssetEdit";
 import Alert from "../../components/ConfirmAlert/Alert";
@@ -31,7 +31,6 @@ const AssetDetails = () => {
     (state: RootStore) => state.admin
   );
 
-  const state = useSelector((state: RootStore) => state);
   const [openAlert, setOpenAlert] = useState(false);
   const[openAlertEdit, setOpenAlertEdit] =  useState(false);
 
@@ -44,7 +43,7 @@ const AssetDetails = () => {
     setOpenAlertEdit(true)
   };
   const setNavigate =()=>{setOpenAlert(false)
-    if(alertMessage === "asset Deleted successfully"){
+    if(alertMessage === "Asset Deleted Successfully"){
       navigate("/admin/assets/")
     }
     }

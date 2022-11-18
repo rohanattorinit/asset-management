@@ -11,7 +11,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { Dispatch, useEffect } from "react";
+import { Dispatch, useEffect, useState } from "react";
 
 import FormLabel from "@mui/material/FormLabel";
 import { Field, Form, Formik } from "formik";
@@ -22,9 +22,9 @@ import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
   addAsset,
-  getBrandOptions,
-  getfilterOptions,
+
   getEmployees,
+  getFiltersByCategory,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
@@ -44,7 +44,8 @@ const connectivityOptions = [
 
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const { message, brandOptions, filterOptions, employees } = useSelector(
+  const [category, setCategory] = useState<string[]>([])
+  const { message, filterOptions, employees } = useSelector(
     (state: RootStore) => state.admin
   );
   
@@ -57,12 +58,20 @@ const AddAsset = () => {
     console.log(values);
     resetForm({ values: "" });
   };
+  const setChangeCategory = (value: string) => {
+    setCategory((prevValue) => {
+      return [ value]
+    })
+  }
 
   useEffect(() => {
-    dispatch(getBrandOptions());
-    dispatch(getfilterOptions());
+    // dispatch(getBrandOptions());
+    //dispatch(getfilterOptions());
+    dispatch(getFiltersByCategory(category))
     dispatch(getEmployees({ name: "" }));
-  }, []);
+  }, [category]);
+
+  console.log(category)
 
   const setNavigate = () => {
     navigate("/admin/assets");
@@ -110,7 +119,7 @@ const AddAsset = () => {
             >
               {
                 // @ts-ignore
-                filterOptions[key].map((item) => (
+                filterOptions[key]?.map((item) => (
                   <MenuItem key={item} value={item}>
                     {item}
                   </MenuItem>
@@ -214,7 +223,7 @@ const AddAsset = () => {
                               name="assetType"
                               required
                             >
-                              {assetTypeOptions.map((item) => (
+                              {assetTypeOptions?.map((item) => (
                                 <MenuItem key={item?.value} value={item?.value}>
                                   {item?.label}
                                 </MenuItem>
@@ -233,7 +242,10 @@ const AddAsset = () => {
                               id="demo-simple-select-outlined"
                               label="Category"
                               value={values?.category}
-                              onChange={handleChange}
+                              onChange={(e)=> {
+                                handleChange(e)
+                                setChangeCategory(e?.target?.value)
+                              }}
                               name="category"
                               required
                               MenuProps={{
@@ -247,7 +259,7 @@ const AddAsset = () => {
                                 },
                               }}
                             >
-                              {filterOptions.category.map((item) => (
+                              {filterOptions?.category?.map((item) => (
                                 <MenuItem key={item} value={item}>
                                   {item}
                                 </MenuItem>
@@ -280,9 +292,9 @@ const AddAsset = () => {
                                 },
                               }}
                             >
-                              {brandOptions?.map((item) => (
-                                <MenuItem key={item?.name} value={item?.name}>
-                                  {item?.name}
+                              {filterOptions?.brandName?.map((item) => (
+                                <MenuItem key={item} value={item}>
+                                  {item}
                                 </MenuItem>
                               ))}
                             </Select>
@@ -357,7 +369,7 @@ const AddAsset = () => {
                                 },
                               }}
                             >
-                              {filterOptions.location?.map((item) => (
+                              {filterOptions?.location?.map((item) => (
                                 <MenuItem key={item} value={item}>
                                   {item}
                                 </MenuItem>
@@ -449,7 +461,7 @@ const AddAsset = () => {
                                     },
                                   }}
                                 >
-                                  {filterOptions.os?.map((item) => (
+                                  {filterOptions?.os?.map((item) => (
                                     <MenuItem key={item} value={item}>
                                       {item}
                                     </MenuItem>
@@ -520,7 +532,7 @@ const AddAsset = () => {
                                 name="connectivity"
                                 required
                               >
-                                {connectivityOptions.map((item) => (
+                                {connectivityOptions?.map((item) => (
                                   <MenuItem
                                     key={item?.value}
                                     value={item?.value}
@@ -561,7 +573,7 @@ const AddAsset = () => {
                                     },
                                   }}
                                 >
-                                  {filterOptions?.cableType.map((item) => (
+                                  {filterOptions?.cableType?.map((item) => (
                                     <MenuItem key={item} value={item}>
                                       {item}
                                     </MenuItem>

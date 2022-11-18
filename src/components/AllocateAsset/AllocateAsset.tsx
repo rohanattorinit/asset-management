@@ -23,7 +23,6 @@ import { RootStore } from "../../redux/store";
 import { useDebouncedCallback } from "use-debounce";
 import Confirm from "../ConfirmAlert/Confirm";
 import Alert from "../ConfirmAlert/Alert";
-import { useNavigate } from "react-router-dom";
 const AllocateAsset = ({
   open,
   setOpen,
@@ -35,7 +34,6 @@ const AllocateAsset = ({
   const [openConfirm, setOpenConfirm] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const [openAlert, setOpenAlert] = useState(false);
-  const navigate = useNavigate();
 
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
   const dispatch: Dispatch<any> = useDispatch();

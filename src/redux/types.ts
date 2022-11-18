@@ -144,6 +144,7 @@ export interface EmployeeAssetType {
   category: string
   modelno: number
   allocationTime: string
+  description: string
 }
 
 export interface AssetTypes {
@@ -242,6 +243,9 @@ export interface FilterOptions {
   os: string[]
   cableType: string[]
   connectivity: string[]
+  ssd:string[]
+  hdd:string[]
+  brandName:string[]
 }
 
 interface SetAllocateAsset {

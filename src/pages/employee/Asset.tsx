@@ -165,9 +165,9 @@ export default function Asset() {
                         <TableCell align="right">{asset?.modelno}</TableCell>
                         <TableCell align="right">{asset?.name}</TableCell>
                         <TableCell align="right">{asset?.category}</TableCell>
-                        {/* <TableCell align="right">
+                        <TableCell align="right">
                           {asset?.description}
-                        </TableCell> */}
+                        </TableCell>
                         <TableCell align="right">
                           {asset?.allocationTime?.slice(0, 10)}
                         </TableCell>

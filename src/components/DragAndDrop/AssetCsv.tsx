@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
-import { SET_ERROR } from "../../redux/types";
+import { LOADING_DATA, SET_ERROR } from "../../redux/types";
 export const AssetCsv = () => {
   const [file, setFile] = useState<Blob | string>();
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export const AssetCsv = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+    dispatch({ type: LOADING_DATA });
     const formData = new FormData();
     formData?.append("csvFile", file!);
     try {
@@ -57,6 +57,7 @@ export const AssetCsv = () => {
   };
   return (
     <>
+     
       <Box
         sx={{
           display: "flex",

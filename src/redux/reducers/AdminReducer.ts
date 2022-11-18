@@ -115,7 +115,10 @@ const initialState: InitialState = {
     location: [],
     os: [],
     cableType: [],
-    connectivity:[]
+    connectivity:[],
+    ssd:[],
+    hdd:[],
+    brandName:[]
   }
 }
 
