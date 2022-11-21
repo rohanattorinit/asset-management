@@ -71,7 +71,7 @@ const AddAsset = () => {
     dispatch(getEmployees({ name: "" }));
   }, [category]);
 
-  console.log(category)
+ 
 
   const setNavigate = () => {
     navigate("/admin/assets");
@@ -191,7 +191,7 @@ const AddAsset = () => {
                   ssd: "",
                   hdd: "",
                   os_version: "",
-                  make_year: "2022",
+                  make_year: "",
                   allocationTime: ""
                 }}
                 validationSchema={AssetValidationSchema}
@@ -586,7 +586,7 @@ const AddAsset = () => {
                           <></>
                         )}
 
-                        {values.status === "allocated" ? (
+                        {values.status === "Allocated" ? (
                           <>
                             <Grid item xs={12} sm={6} md={6}>
                               <FormControl fullWidth variant="outlined">

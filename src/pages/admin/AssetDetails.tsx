@@ -118,7 +118,7 @@ const AssetDetails = () => {
 
   return (
     <>
-      <Grid container sx={{ height: "100%" }}>
+      <Grid container sx={{ height: "100%"}}>
         <SideBar />
         <Toast />
         {openAlert ? (
@@ -171,7 +171,7 @@ const AssetDetails = () => {
             </Box>
           </Box>
 
-          <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
+          <Paper sx={{ display: "flex", padding: 1, marginY: 3, overflow: "hidden"}} elevation={3}>
             <Grid container spacing={1}>
               {!singleAssetDetails?.empId?.length && loading && !open ? (
                 <Loader />

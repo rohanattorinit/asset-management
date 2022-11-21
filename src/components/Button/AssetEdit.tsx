@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Grid,
@@ -22,6 +22,7 @@ import {
   getfilterOptions,
   updateAssetDetails,
   getBrandOptions,
+  getFiltersByCategory
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
@@ -36,13 +37,17 @@ interface Iprops {
 }
 function AssetEdit(props: Iprops) {
   const dispatch: Dispatch<any> = useDispatch();
-  const { singleAssetDetails, message, filterOptions, brandOptions } =
+  // const [category, setCategory] = useState<string[]>([])
+  const { singleAssetDetails, message, filterOptions, } =
     useSelector((state: RootStore) => state.admin);
 
+
   useEffect(() => {
-    dispatch(getBrandOptions());
-    dispatch(getfilterOptions());
-  }, [message]);
+    // dispatch(getBrandOptions());
+    // dispatch(getfilterOptions());
+    dispatch(getFiltersByCategory([singleAssetDetails?.category]));
+
+  }, [message, singleAssetDetails]);
 
  
   const onSubmit = (values: any) => {
@@ -264,9 +269,9 @@ function AssetEdit(props: Iprops) {
                               },
                             }}
                           >
-                            {brandOptions?.map((item) => (
-                              <MenuItem key={item.name} value={item.name}>
-                                {item.name}
+                            {filterOptions?.brandName?.map((item) => (
+                              <MenuItem key={item} value={item}>
+                                {item}
                               </MenuItem>
                             ))}
                           </Select>

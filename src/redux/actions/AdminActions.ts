@@ -334,13 +334,13 @@ export const deallocateAssets =
   };
 
 export const allocateAssets =
-  (empId: string, assetId: number[]) =>
+  (empId: string, allocationObj:any) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
 
     try {
-      // window.confirm("Do you want to allocate asset?");
-      const res = await post(`/api/admin/allocateAsset/${empId}/`, { assetId });
+      
+      const res = await post(`/api/admin/allocateAsset/${empId}/`, { allocationObj });
 
       dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data });
     } catch (error) {
