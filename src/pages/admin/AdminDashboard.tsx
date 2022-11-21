@@ -39,7 +39,7 @@ const commonStyles = {
         <Grid item xs={12} md={10} >
           
 
-      <Grid container  sx={{  padding: 5, display : " flex", justifyContent:"space-around"  }} >
+      <Grid container  sx={{  padding: 3, display : " flex", justifyContent:"space-around"  }} >
           <Grid item xs={12} md={2} sx={{ ...commonStyles, borderRadius: '16px', display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center' }} >
           <Typography
                  sx={{ fontSize: "28px" }}
@@ -105,7 +105,7 @@ const commonStyles = {
           </Grid>
           </Grid>
 
-          <Grid container  sx={{  padding: 5, display : " flex", justifyContent:"space-around" }} >
+          <Grid container  sx={{  padding: 3, display : " flex", justifyContent:"space-around" }} >
           <Grid item xs={12} md={2} sx={{  ...commonStyles, borderRadius: '16px', display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}} >
           <Typography
                  sx={{ fontSize: "28px" }}
@@ -200,7 +200,7 @@ const commonStyles = {
                
           </Grid>
           </Grid>
-          <Grid container  sx={{  padding: 5, display : " flex", justifyContent:"space-around" }} >
+          <Grid container  sx={{  padding: 1, display : " flex", justifyContent:"space-around" }} >
               <Box sx={{  padding: 5,  justifyContent:"space-between" }}>
               <PiechartOne />
               </Box>

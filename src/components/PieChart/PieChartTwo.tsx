@@ -12,7 +12,7 @@ export function PiechartTwo() {
     const { totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
 
     //console.log('totalAssetCount',Object.values(totalAssetCount))
-    const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset'].includes(category?.category) && category )    
+    const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset','mobile'].includes(category?.category) && category )    
     const moreNewData = newData?.filter((category) => category !== false)
     //console.log('moreNewData',moreNewData)
 
@@ -55,7 +55,7 @@ export function PiechartTwo() {
    variant="h5"
    color="primary"
  >
-   Total Assets
+   Surplus Assets
   </Typography>
   {/* @ts-ignore */}
   <Pie data={data} />

@@ -1,16 +1,6 @@
-import {
-  Box,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+
+
+import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
 
@@ -27,13 +17,12 @@ function RentedAssetsTable() {
 
   return (
     <>
-      
       <Box>
         {loading ? (
           <Loader />
         ) : (
           <TableContainer sx={{ marginY: 3 }} component={Paper}>
-            {assets?.length ? (
+            {assets.length ? (
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
@@ -72,23 +61,42 @@ function RentedAssetsTable() {
                 </TableHead>
 
                 {assets?.map((rentalAsset) => (
-                  <TableRow key={rentalAsset?.assetId}>
+                  <TableRow key={rentalAsset?.assetId} sx={{background:!rentalAsset?.is_active?'lightgrey':""}}>
                     <TableCell align="center">{rentalAsset?.assetId}</TableCell>
                     
                     <TableCell align="center">{rentalAsset?.name?.toUpperCase()}</TableCell>
                     <TableCell align="center">{rentalAsset?.brandName}</TableCell>
                     <TableCell align="center">{rentalAsset?.category?.toUpperCase()}</TableCell>
-                    <TableCell align="center">{rentalAsset?.screen_type?.toUpperCase()}</TableCell>
-                    <TableCell align="center">{rentalAsset?.screen_size}</TableCell>
-                    <TableCell align="center">{rentalAsset?.ram}</TableCell>
+                    <TableCell align="center">{rentalAsset?.screen_type?.length?rentalAsset?.screen_type:'-'}</TableCell>
+                    <TableCell align="center">{rentalAsset?.screen_size?rentalAsset?.screen_size:'-'}</TableCell>
+                    <TableCell align="center">{rentalAsset?.ram?rentalAsset?.ram:'-'}</TableCell>
                     <TableCell align="center">{rentalAsset?.status?.toUpperCase()}</TableCell>
-                    <TableCell align="center">{rentalAsset?.processor?.toUpperCase()}</TableCell>
-                    <TableCell align="center">{rentalAsset?.operating_system?.toUpperCase()}</TableCell>
+                    <TableCell align="center">{rentalAsset?.processor?.length?rentalAsset?.processor?.toUpperCase():'-'}</TableCell>
+                    <TableCell align="center">{rentalAsset?.operating_system?.length?rentalAsset?.operating_system.toUpperCase():'-'}</TableCell>
                    
                     {/* <TableCell align="center">{rentalAsset?.usability?.toUpperCase()}</TableCell> */}
-                    <IconButton onClick={() => setAssetDetails(rentalAsset?.assetId)}>
-                      <OpenInNewIcon sx={{ color: "darkblue" }} />
-                    </IconButton>
+                    
+                    <TableCell align="right">
+                    <Tooltip
+                      title="Asset Details"
+                      children={
+                        <IconButton
+                        onClick={() => setAssetDetails(rentalAsset?.assetId)}
+                          
+                        >
+                          <OpenInNewIcon sx={{ color: "darkblue" }} />
+                        </IconButton>
+                      }
+                    />
+                  </TableCell>
+
+
+
+
+
+
+
+
                   </TableRow>
                 ))}
               </Table>
@@ -103,3 +111,7 @@ function RentedAssetsTable() {
 }
 
 export default RentedAssetsTable;
+
+
+
+

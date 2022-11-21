@@ -9,6 +9,7 @@ import {
   
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
+  DELETE_ASSET,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
   GET_TOTAL_ASSETSCATEGORY_COUNT,
@@ -474,6 +475,29 @@ export const getfilterOptions =
       });
     }
   };
+
+  export const deleteAsset = (empId: string, assetId: number) => async (
+    dispatch: Dispatch<DispatchTypes>
+  ) => {
+    dispatch({ type: LOADING_DATA })
+    try {
+      const res = await post(`/api/assets/delete/${assetId}`, {})
+  
+      dispatch({
+        type: DELETE_ASSET,
+        payload: (res as any)?.data
+      })
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Deleting an Assets`
+      })
+    }
+  }
 
 
 

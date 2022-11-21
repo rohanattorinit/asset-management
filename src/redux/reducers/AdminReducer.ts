@@ -72,25 +72,35 @@ const initialState: InitialState = {
   },
   singleAssetDetails: {
     assetId: 0,
-    brandName: "",
-    name: "",
+    brandName: '',
+    name: '',
     modelNo: 0,
-    description: "",
-    category: "",
-    status: "",
+    description: '',
+    status: '',
     //usability: '',
     isRented: 0,
-    empName: "",
-    empId: "",
-    vendor: "",
+    empName: '',
+    empId: '',
+    vendor: '',
     rent: 0,
     deposit: 0,
-    rentStartDate: "",
-    rentEndDate: "",
-    asset_location: "",
-    processor: "",
-    screen_type: "",
-    received_date: "",
+    rentStartDate: '',
+    rentEndDate: '',
+    asset_location: '',
+    processor: '',
+    screen_type: '',
+    received_date: '',
+    ram: '',
+    operating_system: '',
+    screen_size: '',
+    category: '',
+    imeiNo: "",
+    connectivity: "",
+    cableType: "",
+    ssd: "",
+    hdd: "",
+    os_version: "",
+    make_year: "",
   },
 
   employeeassetsdetails: [],
@@ -123,36 +133,7 @@ const initialState: InitialState = {
 
   
 
-//   assetTrasactionLogs :  
-//   {asset_updation_logs: [{
-//     asset_update_id: 0,
-//     asset_id: 0,
-//     updated_feature: '',
-//     description: '',
-//     updated_at: ''
-// }],
-//   ticket_logs: [{
-//     ticketId: 0,
-//     empId: '',
-//     assetId: 0,
-//     title: '',
-//     description: '',
-//     ticketStatus: '',
-//     created_at: '',
-//     closed_at: ''
-// }],
-//   allocation_logs: [{
-//     transaction_id: 0,
-//     asset_id: 0,
-//     emp_id: '',
-//     emp_name: '',
-//     allocated_at: '',
-//     deallocated_at: '',
-//     status: ''
-// }],
-//   received_at: '',
-//   deleted_at: '' 
-// },
+
 };
 
 const adminReducer = (

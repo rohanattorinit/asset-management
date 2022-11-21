@@ -28,39 +28,11 @@ export const GET_ADD_NOTE = "GET_ADD_NOTE";
 export const GET_BRAND_OPTIONS = "GET_BRAND_OPTIONS";
 export const GET_FILTER_OPTIONS = "GET_FILTER_OPTIONS";
 export const GET_TOTAL_ASSETSCATEGORY_COUNT = "GET_TOTAL_ASSETSCATEGORY_COUNT";
-//export const ASSET_TRANSACTION_LOGS = "ASSET_TRANSACTION_LOGS";
+export const DELETE_ASSET = 'DELETE_ASSET'
+export const DELETE_EMPLOYEE= 'DELETE_EMPLOYEE'
 export const ASSET_TRANSACTION_HISTORY="ASSET_TRANSACTION_HISTORY"
 
-// export interface AllAssetTransactionLog {
-//   asset_updation_logs: [{
-//     asset_update_id: number,
-//     asset_id: number,
-//     updated_feature: string,
-//     description: string,
-//     updated_at: string
-// }];
-//   ticket_logs: [{
-//     ticketId: number,
-//     empId: string,
-//     assetId: number,
-//     title: string,
-//     description: string,
-//     ticketStatus: string,
-//     created_at: String,
-//     closed_at: string
-// }];
-//   allocation_logs: [{
-//     transaction_id: number,
-//     asset_id: number,
-//     emp_id: string,
-//     emp_name: string,
-//     allocated_at: string,
-//     deallocated_at: string,
-//     status: string
-// }];
-//   received_at: string;
-//   deleted_at: string | null;
-// }
+
 
 export interface AssetTransactionHistory{
   log_id:number
@@ -76,40 +48,7 @@ export interface AssetTransactionHistory{
 }
 
 
-// export interface AssetUpdatedLog{
-//   asset_update_id : number
-//    asset_id : number
-//    updated_feature : string
-//    description : string
-//    updated_at : string
-// }
 
-// export interface AssetTicketLog{
-//   ticketId : number
-//   empId : string
-//   assetId : number
-//   title  : string
-//   description : string
-//   ticketStatus :string
-//   created_at : String
-//   closed_at : string
-// }
-
-// export interface AssetAllocateDeallocateLog{
-//   transaction_id : number
-//   asset_id : number
-//   emp_id : string
-//   emp_name:string
-//   allocated_at : string
-//   deallocated_at : string
-//   status : string
-// }
-
-// export interface AssetReceiveDeleteLog{
-//   assetId:string
-//   received_date : string
-//   deleted_at : string
-// }
 
 export interface EmpTicketType {
   ticketId: number;
@@ -188,29 +127,36 @@ export interface ServiceType {
 
 
 export interface SingleAssetDetailsType {
-  assetId: number;
-  brandName: string;
-  name: string;
-  modelNo: number;
-  description: string;
-  status: string;
-  asset_location: string;
-  empName: string;
-  empId: string;
-  vendor: string;
-  rent: number;
-  isRented: 0 | 1;
-  deposit: number;
-  rentStartDate?: string;
-  rentEndDate?: string;
-  processor: string;
-  screen_type: string;
-  received_date?: string;
-  ram?: string;
-  operating_system?: string;
-  screen_size?: string;
-  harddisk?: string;
-  category: string;
+  assetId: number
+  brandName: string
+  name: string
+  modelNo: number
+  description: string
+  status?: string
+  //usability: string
+  asset_location: string
+  empName: string
+  empId: string
+  isRented: 0 | 1
+  vendor: string
+  rent: number
+  deposit: number
+  rentStartDate?: string
+  rentEndDate?: string
+  processor: string
+  screen_type: string
+  received_date?: string
+  ram: string
+  operating_system: string
+  screen_size: string
+  category: string
+  imeiNo: string
+  connectivity: string
+  cableType: string
+  ssd: string
+  hdd: string
+  os_version: string
+  make_year: string
 }
 
 export interface EmployeeAssetType {
@@ -246,6 +192,7 @@ export interface AssetTypes {
   rentEndDate?: string
   asset_location: string
   received_date: string
+  is_active : boolean
 }
 
 export interface AllocatedAssetType {
@@ -262,6 +209,29 @@ export interface DeAllocatAssetType {
   category: string;
   modelno: number;
   allocationTime: string;
+}
+
+export interface DeleteAssetType {
+  brandName: string
+  assetName: string
+  assetType: string
+  category: string
+  modelNo: string
+  description: string
+  status: string
+  isRented: boolean
+  vendor: string
+  rent: string
+  deposit: string
+  rentStartDate: string
+  rentEndDate: string
+  processor: string
+  ram: string
+  operating_system: string
+  screen_type: string
+  screen_size: string
+  asset_location: string
+  received_date: string
 }
 export interface NoteType {
   ticketId: number;
@@ -302,7 +272,7 @@ interface GetTransactionLogs {
   type: typeof ASSET_TRANSACTION_HISTORY;
   payload: {
     meassage: string;
-    data: AssetTransactionHistory;
+    data: AssetTransactionHistory[];
   };
 }
 
@@ -487,6 +457,20 @@ interface SetDeAllocateAsset {
   };
 }
 
+interface SetDeleteAsset {
+  type: typeof DELETE_ASSET
+  payload: {
+    message: string
+  }
+}
+
+interface SetDeleteEmployee {
+  type: typeof DELETE_EMPLOYEE
+  payload:{
+    message: string
+  }
+}
+
 interface CreateTicket {
   type: typeof CREATE_TICKET;
   payload: {
@@ -577,4 +561,6 @@ export type DispatchTypes =
   | setBrandOptions
   | GetFilterOptions
   | GetAssetCategoryCount
-  | GetTransactionLogs;
+  | GetTransactionLogs
+  | SetDeleteAsset
+  |SetDeleteEmployee;
