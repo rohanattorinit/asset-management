@@ -236,7 +236,7 @@ function AssetEdit(props: Iprops) {
                               },
                             }}
                           >
-                            {filterOptions.location?.map((item) => (
+                            {filterOptions.asset_location?.map((item) => (
                               <MenuItem key={item} value={item}>
                                 {item}
                               </MenuItem>
@@ -339,7 +339,7 @@ function AssetEdit(props: Iprops) {
                                   },
                                 }}
                               >
-                                {filterOptions?.os?.map((item) => (
+                                {filterOptions?.operating_system?.map((item) => (
                                   <MenuItem key={item} value={item}>
                                     {item}
                                   </MenuItem>

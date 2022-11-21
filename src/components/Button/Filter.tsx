@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useState, Fragment, Dispatch, useEffect } from "react";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
@@ -10,10 +9,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {
   Checkbox,
   Collapse,
-  Divider,
-  FormControlLabel,
   ListItemIcon,
   ListSubheader,
+  Divider,
+  FormControlLabel,
   Typography,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -34,63 +33,60 @@ interface FILTEROBJ {
   status: Array<string>;
   assetType: Array<string>;
   category: Array<string>;
-  os: Array<string>;
+  operating_system: Array<string>;
   processor: Array<string>;
   screen_size: Array<string>;
   hdd: Array<string>;
   ssd: Array<string>;
-  location: Array<string>;
+  asset_location: Array<string>;
   cableType: Array<string>;
   brandName: Array<string>;
   connectivity: Array<string>;
 }
 
-const filterObj: FILTEROBJ = {
+const FilterState = {
   screen_type: [],
   ram: [],
   status: [],
   assetType: [],
   category: [],
-  os: [],
+  operating_system: [],
   processor: [],
   screen_size: [],
   hdd: [],
   ssd: [],
   cableType: [],
-  location: [],
+  asset_location: [],
   brandName: [],
   connectivity: [],
+};
+
+const initialOpenState = {
+  menuOpen: false,
+  statusOpen: false,
+  brandOpen: false,
+  pcOpen: false,
+  ramOpen: false,
+  screenTypeOpen: false,
+  screenSizeOpen: false,
+  locationOpen: false,
+  osOpen: false,
+  hddOpen: false,
+  ssdOpen: false,
+  cableOpen: false,
+  connectivityOpen: false,
 };
 
 export default function SwipeableTemporaryDrawer() {
   const dispatch: Dispatch<any> = useDispatch();
   const { filterOptions }: any = useSelector((state: RootStore) => state.admin);
+  const [filterObject, setFilterObject] = useState<any>(FilterState);
 
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
-
-  useEffect(() => {
-    dispatch(getFiltersByCategory(selectedCategory));
-  }, [selectedCategory]);
 
   const [state, setState] = useState({
     right: false,
   });
-
-  const initialOpenState = {
-    menuOpen: false,
-    statusOpen: false,
-    brandOpen: false,
-    pcOpen: false,
-    ramOpen: false,
-    screenTypeOpen: false,
-    screenSizeOpen: false,
-    locationOpen: false,
-    osOpen: false,
-    hddOpen: false,
-    ssdOpen: false,
-    cableOpen: false,
-    connectivityOpen: false,
-  };
 
   const [openObject, setOpenObject] = useState<any>(initialOpenState);
 
@@ -98,149 +94,50 @@ export default function SwipeableTemporaryDrawer() {
     setOpenObject((prevState: any) => ({ ...prevState, [key]: value }));
   };
 
-  const handleSubmitFilter = (key: string, value: string) => {
-    switch (key) {
-      case "status":
-        if (!filterObj.status.includes(value)) {
-          filterObj.status.push(value);
-        } else {
-          const index = filterObj.status.indexOf(value);
-          if (index > -1) {
-            filterObj.status?.splice(index, 1);
-          }
-        }
-        break;
-      case "ram":
-        if (!filterObj.ram.includes(value)) {
-          filterObj.ram.push(value);
-        } else {
-          const index = filterObj.ram.indexOf(value);
-          if (index > -1) {
-            filterObj.ram.splice(index, 1);
-          }
-        }
-        break;
-      case "os":
-        if (!filterObj.os.includes(value)) {
-          filterObj.os.push(value);
-        } else {
-          const index = filterObj.os.indexOf(value);
-          if (index > -1) {
-            filterObj.os.splice(index, 1);
-          }
-        }
-        break;
-      case "screen_type":
-        if (!filterObj.screen_type.includes(value)) {
-          filterObj.screen_type.push(value);
-        } else {
-          const index = filterObj.screen_type.indexOf(value);
-          if (index > -1) {
-            filterObj.screen_type.splice(index, 1);
-          }
-        }
-        break;
-      case "category":
-        if (selectedCategory.includes(value))
-          setSelectedCategory([
-            ...selectedCategory?.filter((category) => category !== value),
-          ]);
-        else {
-          setSelectedCategory([...selectedCategory, value]);
-        }
+  useEffect(() => {
+    dispatch(getFiltersByCategory(selectedCategory));
+  }, [selectedCategory]);
 
-        if (!filterObj.category.includes(value)) {
-          filterObj.category.push(value);
-        } else {
-          const index = filterObj.category.indexOf(value);
-          if (index > -1) {
-            filterObj.category.splice(index, 1);
-          }
-        }
-        break;
-      case "processor":
-        if (!filterObj.processor.includes(value)) {
-          filterObj.processor.push(value);
-        } else {
-          const index = filterObj.processor.indexOf(value);
-          if (index > -1) {
-            filterObj.processor.splice(index, 1);
-          }
-        }
-        break;
-      case "hdd":
-        if (!filterObj.hdd.includes(value)) {
-          filterObj.hdd.push(value);
-        } else {
-          const index = filterObj.hdd.indexOf(value);
-          if (index > -1) {
-            filterObj.hdd.splice(index, 1);
-          }
-        }
-        break;
-      case "ssd":
-        if (!filterObj.ssd.includes(value)) {
-          filterObj.ssd.push(value);
-        } else {
-          const index = filterObj.ssd.indexOf(value);
-          if (index > -1) {
-            filterObj.ssd.splice(index, 1);
-          }
-        }
-        break;
-      case "cableType":
-        if (!filterObj.cableType.includes(value)) {
-          filterObj.cableType.push(value);
-        } else {
-          const index = filterObj.cableType.indexOf(value);
-          if (index > -1) {
-            filterObj.cableType.splice(index, 1);
-          }
-        }
-        break;
-      case "connectivity":
-        if (!filterObj.connectivity.includes(value)) {
-          filterObj.connectivity.push(value);
-        } else {
-          const index = filterObj.connectivity.indexOf(value);
-          if (index > -1) {
-            filterObj.connectivity.splice(index, 1);
-          }
-        }
-        break;
-      case "screen_size":
-        if (!filterObj.screen_size.includes(value)) {
-          filterObj.screen_size.push(value);
-        } else {
-          const index = filterObj.screen_size.indexOf(value);
-          if (index > -1) {
-            filterObj.screen_size.splice(index, 1);
-          }
-        }
-        break;
-      case "location":
-        if (!filterObj.location.includes(value)) {
-          filterObj.location.push(value);
-        } else {
-          const index = filterObj.location.indexOf(value);
-          if (index > -1) {
-            filterObj.location.splice(index, 1);
-          }
-        }
-        break;
-      case "brandName":
-        if (!filterObj.brandName.includes(value)) {
-          filterObj.brandName.push(value);
-        } else {
-          const index = filterObj.brandName.indexOf(value);
-          if (index > -1) {
-            filterObj.brandName.splice(index, 1);
-          }
-        }
-        break;
+  useEffect(() => {
+    if (JSON.stringify(filterObject) === JSON.stringify(FilterState)) {
+      setFilterObject(JSON.parse(localStorage.getItem("filterObject")!));
     }
-    // console.log(filterObj);
-    dispatch(setAssetFilters(filterObj));
+    if (JSON.stringify(openObject) === JSON.stringify(initialOpenState)) {
+      setOpenObject(JSON.parse(localStorage.getItem("openObject")!));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("filterObject", JSON.stringify(filterObject));
+    localStorage.setItem("openObject", JSON.stringify(openObject));
+
+    dispatch(setAssetFilters(filterObject));
+  }, [filterObject, openObject]);
+
+  const handleSubmitFilter = (key: string, value: string) => {
+    if (key === "category") {
+      if (selectedCategory.includes(value))
+        setSelectedCategory([
+          ...selectedCategory?.filter((category) => category !== value),
+        ]);
+      else {
+        setSelectedCategory([...selectedCategory, value]);
+      }
+    }
+
+    if (!filterObject[key]?.includes(value)) {
+      setFilterObject({
+        ...filterObject,
+
+        [key]: [...filterObject[key], value],
+      });
+    } else {
+      setFilterObject((filterObject: any) => ({
+        ...filterObject,
+
+        [key]: filterObject[key]?.filter((item: any) => item !== value),
+      }));
+    }
   };
 
   const toggleDrawer =
@@ -283,23 +180,24 @@ export default function SwipeableTemporaryDrawer() {
             }}
           >
             {filterOptions[filter]?.map((type: any) => (
-              <ListItemButton
-                sx={{
-                  pl: 4,
-                  textTransform: "capitalize",
-                }}
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      // @ts-ignore
-                      checked={filterObj[filter]?.includes(type) ? true : false}
-                      onChange={() => handleSubmitFilter(filter, type)}
-                    />
-                  }
-                  label={type}
-                />
-              </ListItemButton>
+              <>
+                <ListItemButton
+                  sx={{
+                    pl: 4,
+                    textTransform: "capitalize",
+                  }}
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={filterObject[filter]?.includes(type)}
+                        onChange={() => handleSubmitFilter(filter, type)}
+                      />
+                    }
+                    label={type}
+                  />
+                </ListItemButton>
+              </>
             ))}
           </List>
         </Collapse>
@@ -315,9 +213,22 @@ export default function SwipeableTemporaryDrawer() {
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Filter By
-          </ListSubheader>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <ListSubheader component="div" id="nested-list-subheader">
+              Filter By
+            </ListSubheader>
+            <Button
+              sx={{ mr: 2, my: 2 }}
+              variant="outlined"
+              onClick={() => {
+                setFilterObject(FilterState);
+                setSelectedCategory([]);
+                setOpenObject([]);
+              }}
+            >
+              Clear
+            </Button>
+          </Box>
         }
       >
         <Divider />

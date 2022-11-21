@@ -13,25 +13,36 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
-
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
-
+import CountUp from "react-countup";
 function RentedAssetsTable() {
   const navigate = useNavigate();
   const setAssetDetails = (assetId: number) => {
     navigate(`/admin/assets/${assetId}`);
   };
   const { assets, loading } = useSelector((state: RootStore) => state.admin);
-
   return (
     <>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Typography
+          sx={{
+            fontSize: 20,
+            fontWeight: "bold",
+            p: 1,
+            borderRadius: 1,
+          }}
+        >
+          Total Assets :
+          <CountUp end={assets?.length} duration={2} />
+        </Typography>
+      </Box>
       <Box>
         {loading ? (
           <Loader />
         ) : (
-          <TableContainer sx={{ marginY: 3 }} component={Paper}>
+          <TableContainer sx={{ marginY: 3 }}>
             {assets.length ? (
               <Table aria-label="simple table">
                 <TableHead>
@@ -41,7 +52,6 @@ function RentedAssetsTable() {
                         AssetID
                       </Typography>
                     </TableCell>
-
                     <TableCell align="center">
                       <Typography sx={{ fontWeight: "bold" }}>
                         Asset Name
@@ -92,11 +102,9 @@ function RentedAssetsTable() {
                     </TableCell>
                   </TableRow>
                 </TableHead>
-
                 {assets?.map((rentalAsset) => (
                   <TableRow key={rentalAsset?.assetId}>
                     <TableCell align="center">{rentalAsset?.assetId}</TableCell>
-
                     <TableCell align="center">
                       {rentalAsset?.name?.toUpperCase()}
                     </TableCell>
@@ -122,9 +130,7 @@ function RentedAssetsTable() {
                     <TableCell align="center">
                       {rentalAsset?.operating_system?.toUpperCase()}
                     </TableCell>
-
                     {/* <TableCell align="center">{rentalAsset?.usability?.toUpperCase()}</TableCell> */}
-
                     <TableCell align="right">
                       <Tooltip
                         title="Asset Details"
@@ -151,5 +157,4 @@ function RentedAssetsTable() {
     </>
   );
 }
-
 export default RentedAssetsTable;

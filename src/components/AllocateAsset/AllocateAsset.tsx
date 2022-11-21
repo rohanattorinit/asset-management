@@ -26,7 +26,7 @@ import Alert from "../ConfirmAlert/Alert";
 
 interface AllocateObj{
   empId: string,
-  assetID: string,
+  assetId: number,
   allocationTime: string
 }
 
@@ -44,14 +44,15 @@ const AllocateAsset = ({
   const [openAlert, setOpenAlert] = useState(false);
   const [allocationObj, setAllocationObj] = useState<AllocateObj[]>([])
   const [date, setDate] = useState('')
-  console.log(allocationObj)
-
+  
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
-  const [datecheck, setDatecheck]= useState(false)
+  // const [datecheck, setDatecheck]= useState(false)
+  const [dateID, setDateID] = useState<Array<number>>([])
+  console.log('allocationObj',allocationObj, 'assetIdCheck', assetIdCheck, 'dateID', dateID);
   const dispatch: Dispatch<any> = useDispatch();
   const { employeeDetails, assets, loading, message } = useSelector(
     (state: RootStore) => state.admin
-  );
+    );
   // Debounce callback
   const debounced = useDebouncedCallback(
     (value) => {
@@ -60,40 +61,45 @@ const AllocateAsset = ({
     // delay in ms
     300
   );
-  useEffect(()=>{
-    console.log(allocationObj)
-  },[allocationObj])
   
   useEffect(() => {
-    dispatch(getAssets({ name: search }));
+    dispatch(getAssets({ name: search, allocate: true }));
   }, [dispatch, search, message]);
 
   const handleClose = () => {
     setOpen(false);
   };
-  const handleCheckChange = (
-    
-    event: React.ChangeEvent<HTMLInputElement>,
-    assetId: number, assetAllocationObj: any
-  ) => {
 
-   
-    if (event?.target?.checked) {
-       setAllocationObj((prev:AllocateObj[]) => {
-      return [...prev, {...assetAllocationObj}]
-    })
-      setAssetId([...assetIdCheck, assetId])}
-    else {
-      setAssetId(assetIdCheck?.filter((e) => e !== assetId));
+
+  const handleCheckChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    assetID: number, assetAllocationObj: any
+    ) => {  
+    if(allocationObj?.map((asset) => asset.assetId).includes(assetID)){
+      setAllocationObj(allocationObj?.filter(({ assetId }) => (assetId) !== assetID));
+      setAssetId(assetIdCheck?.filter((id) => id !== assetID ));
+    } else {
+      setAllocationObj((prev:AllocateObj[]) => [...prev,assetAllocationObj])
+      setAssetId((prev) => [...prev, assetID])
     }
   };
 
-  const handlechange = (e: any) =>{
-   //console.log(e)
+  const handleDateChange = (e: any, id:number) =>{
     setDate(e?.target?.value)
-    setDatecheck(true)
+    // setDatecheck(true)
+    if(dateID?.includes(id)){
+      // @ts-ignore
+      if(!e?.target?.value){
+        setDateID(dateID?.filter((ID) => id !== ID ))
+      }
+      setAllocationObj(allocationObj?.filter(({ assetId }) => (assetId) !== id));
+      setAssetId(assetIdCheck?.filter((ID) => ID !== id ));
+    } else {
+      setDateID([...dateID, id])
+    }
 
   }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -161,6 +167,7 @@ const AllocateAsset = ({
                   </TableHead>
                   <TableBody>
                     {assets?.map((asset) => (
+                      // @ts-ignore
                       <TableRow
                         key={asset?.assetId}
                         sx={{
@@ -171,17 +178,18 @@ const AllocateAsset = ({
                           {asset?.name}
                         </TableCell>
                         <TableCell align="right">{asset?.assetId}</TableCell>
-                        <TableCell align="right"> <TextField variant="filled" type="date" name={`${asset.assetId}date`} onChange={handlechange} required ={assetIdCheck?.includes(asset?.assetId)? true: false}> </TextField></TableCell>
+                        <TableCell align="right"> <TextField variant="filled" type="date" name={`${asset.assetId}date`} onChange={(e) => handleDateChange(e, asset.assetId)} required ={assetIdCheck?.includes(asset?.assetId)? true: false}> </TextField></TableCell>
                         <TableCell align="right">
                           <Checkbox
-                       
-                          // disabled={datecheck? false: true}
+                      //  @ts-ignore
+                            checked={assetIdCheck?.includes(asset.assetId)}
+                           disabled={!dateID?.includes(asset.assetId)}
                             sx={{ color: "darkblue" }}
-                            onChange={(event) => {                          
-                              const assetAllocationObj = {empId: employeeDetails?.empId, assetId: asset?.assetId, allocationTime: date  }
-                              handleCheckChange(event, asset?.assetId, assetAllocationObj)
-
-                              
+                            onChange={(event) => {
+                              if(date.length !== 0){
+                                const assetAllocationObj = {empId: employeeDetails?.empId, assetId: asset?.assetId, allocationTime: date  }
+                                handleCheckChange(event, asset?.assetId, assetAllocationObj)
+                              }              
                               
                             }
                             }

@@ -327,6 +327,7 @@ const AddAsset = () => {
                             name="make_year"
                             value={values?.make_year}
                             component={TextField}
+                            
                           /> 
                           
                         </Grid>
@@ -369,7 +370,7 @@ const AddAsset = () => {
                                 },
                               }}
                             >
-                              {filterOptions?.location?.map((item) => (
+                              {filterOptions?.asset_location?.map((item) => (
                                 <MenuItem key={item} value={item}>
                                   {item}
                                 </MenuItem>
@@ -461,7 +462,7 @@ const AddAsset = () => {
                                     },
                                   }}
                                 >
-                                  {filterOptions?.os?.map((item) => (
+                                  {filterOptions?.operating_system?.map((item) => (
                                     <MenuItem key={item} value={item}>
                                       {item}
                                     </MenuItem>
@@ -633,6 +634,7 @@ const AddAsset = () => {
                                   name="allocationTime"
                                   value={values?.allocationTime}
                                   component={TextField}
+                                  InputLabelProps={{ shrink: true }}
                                 />
                               </Grid> 
 

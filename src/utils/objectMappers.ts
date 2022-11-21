@@ -17,13 +17,13 @@ interface FILTERS {
   status: string;
   assetType: string;
   category: string;
-  os: string;
+  operating_system: string;
   processor: string;
   screen_size: string;
   hdd: string;
   ssd: string;
   cableType: string;
-  location: string;
+  asset_location: string;
   brandName: string;
   connectivity: string;
 }
@@ -35,13 +35,13 @@ export const getFilterName = (name: string) => {
     status: "Status",
     assetType: "Asset Type",
     category: "Category",
-    os: "Operating System",
+    operating_system: "Operating System",
     processor: "Processor",
     screen_size: "Screen Size",
     hdd: "HDD",
     ssd: "SSD",
     cableType: "Cable Type",
-    location: "Asset Location",
+    asset_location: "Asset Location",
     brandName: "BrandName",
     connectivity: "Connectivity",
   };
@@ -55,8 +55,8 @@ export const getFilterName = (name: string) => {
 
 interface FILTER_ICON {
   category: any;
-  location: any;
-  os: any;
+  asset_location: any;
+  operating_system: any;
   processor: any;
   screen_size: any;
   screen_type: any;
@@ -72,8 +72,8 @@ interface FILTER_ICON {
 export const getFilterIcon = (name: string) => {
   const filterIcon: FILTER_ICON = {
     category: CategoryIcon,
-    location: AddLocationIcon,
-    os: WebhookIcon,
+    asset_location: AddLocationIcon,
+    operating_system: WebhookIcon,
     processor: DeveloperBoardIcon,
     screen_size: ScreenshotMonitorIcon,
     screen_type: AddToQueueIcon,

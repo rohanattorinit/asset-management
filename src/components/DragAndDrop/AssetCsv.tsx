@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
 import { LOADING_DATA, SET_ERROR } from "../../redux/types";
+import Alert from "../ConfirmAlert/Alert";
 export const AssetCsv = () => {
   const [file, setFile] = useState<Blob | string>();
+  const [alert, setAlert]= useState(false)
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_API;
   const dispatch = useDispatch()
@@ -31,8 +33,9 @@ export const AssetCsv = () => {
       });
       setFile(undefined);
       (event.target as HTMLFormElement)?.reset();
-      navigate(`/admin/assets`);
-      alert("Assets added successfully");
+      setAlert(true)
+      //navigate(`/admin/assets`);
+     // alert("Assets added successfully");
     } catch (error) {
       //handle error
       dispatch({
@@ -46,6 +49,9 @@ export const AssetCsv = () => {
       console.error(error);
     }
   };
+  const setNavigate=()=>{
+    navigate(`/admin/assets`);
+  }
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
 
@@ -67,6 +73,7 @@ export const AssetCsv = () => {
         }}
       >
         <img src={upload} alt="upload" />
+        {alert && <Alert title="Assets added successfully" setNavigate={setNavigate}/>}
 
         <StyledTypography>Upload CSV</StyledTypography>
         <form
