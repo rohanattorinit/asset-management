@@ -129,7 +129,7 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                 ))}
               </Table>
             ) : (
-              <Typography textAlign={"center"}>No Asset found!</Typography>
+              <Typography textAlign={"center"}>No Assets found!</Typography>
             )}
           </TableContainer>
         )}
