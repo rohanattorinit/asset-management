@@ -48,6 +48,9 @@ export function PiechartOne() {
             "#14b8a6",
             "#a78bfa",
             "#3f6212",
+            "#404040",
+            "#831843",
+            "#7f1d1d"
            
            ],
            borderColor: [
@@ -58,6 +61,10 @@ export function PiechartOne() {
              '#f5f5f4',
              '#f5f5f4',
              '#f5f5f4',
+             '#f5f5f4',
+             '#f5f5f4',
+             '#f5f5f4',
+
            ],
             borderWidth: 3,
           },

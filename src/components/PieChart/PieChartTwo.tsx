@@ -12,7 +12,7 @@ export function PiechartTwo() {
     const { totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
 
     //console.log('totalAssetCount',Object.values(totalAssetCount))
-    const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset','mobile'].includes(category?.category) && category )    
+    const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset','mobile','keyboard','mouse'].includes(category?.category) && category )    
     const moreNewData = newData?.filter((category) => category !== false)
     //console.log('moreNewData',moreNewData)
 
@@ -26,6 +26,7 @@ export function PiechartTwo() {
           // @ts-ignore
            data: moreNewData?.map(({count}) => count),
            backgroundColor: [
+            
             "#dc2626",
             "#fbbf24",
             "#22c55e",
@@ -33,9 +34,15 @@ export function PiechartTwo() {
             "#14b8a6",
             "#a78bfa",
             "#3f6212",
+            "#404040",
+            "#831843",
+            "#7f1d1d"
            
            ],
            borderColor: [
+             '#f5f5f4',
+             '#f5f5f4',
+             '#f5f5f4',
              '#f5f5f4',
              '#f5f5f4',
              '#f5f5f4',
