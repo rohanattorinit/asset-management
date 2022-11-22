@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import BuildIcon from '@mui/icons-material/Build';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import Loader from "../Loader/Loader";
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 
 function AssetTransactionHistory() {
@@ -65,7 +66,7 @@ function AssetTransactionHistory() {
               <AssignmentIndIcon sx={{ color: "#16a34a" }}  />
               <TimelineConnector />
             </TimelineSeparator>
-            <TimelineContent>{`Asset allocated to ${transaction?.emp_name}(${transaction.emp_id})`}</TimelineContent>
+            <TimelineContent>{`Asset allocated to ${transaction?.emp_name}(${transaction.emp_id}) `}</TimelineContent>
           </TimelineItem>
             }
 
@@ -87,7 +88,7 @@ function AssetTransactionHistory() {
               < SecurityUpdateGoodIcon  sx={{ color: "#1e40af" }} />
               <TimelineConnector />
             </TimelineSeparator>
-            <TimelineContent>{`Asset ${transaction?.update_feature} upgraded  (${transaction.update_description})`}</TimelineContent>
+            <TimelineContent>{`Asset ${transaction?.update_feature} upgraded  (${transaction.update_description}) `}</TimelineContent>
           </TimelineItem>
             }
 
@@ -112,6 +113,20 @@ function AssetTransactionHistory() {
             <TimelineContent>{`Asset deallocated from  ${transaction?.emp_name}(${transaction.emp_id})`}</TimelineContent>
           </TimelineItem>
             }
+
+
+{transaction?.event_name==='Asset status changed'&&
+            <TimelineItem>
+            <TimelineOppositeContent color="textSecondary">{transaction?.date?.replace("T", "~").slice(0, 19)}</TimelineOppositeContent>
+            <TimelineSeparator>
+              <AutorenewIcon sx={{ color: "#fbbf24" }}  />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>{`Asset status changed from ${transaction?.asset_status}`}</TimelineContent>
+          </TimelineItem>
+            }
+
+
 
 {transaction?.event_name==='Asset Deleted'&&
             <TimelineItem>
