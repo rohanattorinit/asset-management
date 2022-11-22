@@ -18,6 +18,8 @@ export default function Toast() {
     admin: { error: adminError },
   } = useSelector((state: RootStore) => state);
 
+  
+
   useEffect(() => {
     if (error?.trim()?.length || adminError?.trim()?.length) {
       setOpen(true);
@@ -51,7 +53,6 @@ export default function Toast() {
   );
 
   return (
-    <div>
       <Snackbar
         open={open}
         autoHideDuration={4000}
@@ -63,6 +64,5 @@ export default function Toast() {
           {error}
         </Alert>
       </Snackbar>
-    </div>
   );
 }

@@ -21,6 +21,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { allocateAssets, getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import { useDebouncedCallback } from "use-debounce";
+import Confirm from "../ConfirmAlert/Confirm";
+import Alert from "../ConfirmAlert/Alert";
+
+interface AllocateObj{
+  empId: string,
+  assetId: number,
+  allocationTime: string
+}
+
+
 const AllocateAsset = ({
   open,
   setOpen,
@@ -29,11 +39,20 @@ const AllocateAsset = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [search, setSearch] = useState("");
+  const [openConfirm, setOpenConfirm] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [openAlert, setOpenAlert] = useState(false);
+  const [allocationObj, setAllocationObj] = useState<AllocateObj[]>([])
+  const [date, setDate] = useState('')
+  
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
+  // const [datecheck, setDatecheck]= useState(false)
+  const [dateID, setDateID] = useState<Array<number>>([])
+  console.log('allocationObj',allocationObj, 'assetIdCheck', assetIdCheck, 'dateID', dateID);
   const dispatch: Dispatch<any> = useDispatch();
   const { employeeDetails, assets, loading, message } = useSelector(
     (state: RootStore) => state.admin
-  );
+    );
   // Debounce callback
   const debounced = useDebouncedCallback(
     (value) => {
@@ -44,30 +63,73 @@ const AllocateAsset = ({
   );
   
   useEffect(() => {
-    setAssetId([]);
-    dispatch(getAssets({ allocate: true, name: search }));
+    dispatch(getAssets({ name: search, allocate: true }));
   }, [dispatch, search, message]);
+
   const handleClose = () => {
     setOpen(false);
   };
+
+
   const handleCheckChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    assetId: number
-  ) => {
-    if (event?.target?.checked) setAssetId([...assetIdCheck, assetId]);
-    else {
-      setAssetId(assetIdCheck?.filter((e) => e !== assetId));
+    assetID: number, assetAllocationObj: any
+    ) => {  
+    if(allocationObj?.map((asset) => asset.assetId).includes(assetID)){
+      setAllocationObj(allocationObj?.filter(({ assetId }) => (assetId) !== assetID));
+      setAssetId(assetIdCheck?.filter((id) => id !== assetID ));
+    } else {
+      setAllocationObj((prev:AllocateObj[]) => [...prev,assetAllocationObj])
+      setAssetId((prev) => [...prev, assetID])
     }
   };
+
+  const handleDateChange = (e: any, id:number) =>{
+    setDate(e?.target?.value)
+    // setDatecheck(true)
+    if(dateID?.includes(id)){
+      // @ts-ignore
+      if(!e?.target?.value){
+        setDateID(dateID?.filter((ID) => id !== ID ))
+      }
+      setAllocationObj(allocationObj?.filter(({ assetId }) => (assetId) !== id));
+      setAssetId(assetIdCheck?.filter((ID) => ID !== id ));
+    } else {
+      setDateID([...dateID, id])
+    }
+
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(allocateAssets(employeeDetails?.empId, assetIdCheck));
-    setAssetId([]);
+    
+    setOpenConfirm(true)
+    setAlertMessage("Do you want to allocate asset?")
+   
     setOpen(false);
   };
+  const handleOK = () =>{
+    
+    dispatch(allocateAssets(employeeDetails?.empId, allocationObj));
+    setAllocationObj([])
+    setOpenConfirm(false)
+    setOpenAlert(true)
+    setAssetId([]);
+    setAlertMessage('Asset Allocated')
+   // navigate("/admin/employee/");
+  }
+  const handleCancel= () =>{
+    setOpenConfirm(false)
+  }
+  const setNavigate =()=>{
+    setOpenAlert(false)
+   
+  }
   return (
     <>
       {/* Allocate an Asset */}
+      {openConfirm &&<Confirm  title={alertMessage} handleOk={handleOK} handlecancel={handleCancel}></Confirm>}
+      {openAlert ? (<Alert title={alertMessage} setNavigate={setNavigate}/>): (<> </>)}
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
           <DialogContent>
@@ -95,12 +157,17 @@ const AllocateAsset = ({
                         AssetID
                       </TableCell>
                       <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                        Allocation Date
+                      </TableCell>
+                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
                         Allocate
                       </TableCell>
+                      
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {assets?.map((asset) => (
+                      // @ts-ignore
                       <TableRow
                         key={asset?.assetId}
                         sx={{
@@ -111,11 +178,20 @@ const AllocateAsset = ({
                           {asset?.name}
                         </TableCell>
                         <TableCell align="right">{asset?.assetId}</TableCell>
+                        <TableCell align="right"> <TextField variant="filled" type="date" name={`${asset.assetId}date`} onChange={(e) => handleDateChange(e, asset.assetId)} required ={assetIdCheck?.includes(asset?.assetId)? true: false}> </TextField></TableCell>
                         <TableCell align="right">
                           <Checkbox
+                      //  @ts-ignore
+                            checked={assetIdCheck?.includes(asset.assetId)}
+                           disabled={!dateID?.includes(asset.assetId)}
                             sx={{ color: "darkblue" }}
-                            onChange={(event) =>
-                              handleCheckChange(event, asset?.assetId)
+                            onChange={(event) => {
+                              if(date.length !== 0){
+                                const assetAllocationObj = {empId: employeeDetails?.empId, assetId: asset?.assetId, allocationTime: date  }
+                                handleCheckChange(event, asset?.assetId, assetAllocationObj)
+                              }              
+                              
+                            }
                             }
                           />
                         </TableCell>

@@ -23,6 +23,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
+import Alert from "../../components/ConfirmAlert/Alert";
 
 export const ServiceDetails = () => {
   const [note, setNote] = useState("");
@@ -34,7 +35,7 @@ export const ServiceDetails = () => {
     10
   );
   const dispatch: Dispatch<any> = useDispatch();
-  const { serviceticketdetails, loading } = useSelector(
+  const { serviceticketdetails, loading , message} = useSelector(
     (state: RootStore) => state.admin
   );
   const [select, setSelect] = useState(serviceticketdetails?.ticketStatus);
@@ -55,13 +56,18 @@ export const ServiceDetails = () => {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
-    alert("Ticket Updated Successfully!");
-    navigate(`/admin/service`);
+   // alert("Ticket Updated Successfully!");
+    //navigate(`/admin/service`);
   };
+
+  const setNavigate = ()=>{
+    navigate("/admin/service");
+  }
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
+      {message && <Alert title="Ticket updated successfully!" setNavigate={setNavigate}/>}
       {loading ? (
         <Loader />
       ) : (
