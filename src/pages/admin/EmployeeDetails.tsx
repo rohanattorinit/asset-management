@@ -43,7 +43,7 @@ import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
 import Loader from "../../components/Loader/Loader";
 import Alert from "../../components/ConfirmAlert/Alert";
 import Confirm from "../../components/ConfirmAlert/Confirm";
-import { TransitionProps } from '@mui/material/transitions';
+import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
 
 const phoneRegExp =
@@ -70,17 +70,14 @@ export default function EmployeeDetails() {
   const [open, setOpen] = useState(false);
   const [empOpen, setEmpOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
-  const [openConfirmDeallocate, setOpenConfirmDeallocate] = useState(false)
-  const [openAlrtDeallocate, setOpenAlrtDeallocate] = useState(false)
+  const [openConfirmDeallocate, setOpenConfirmDeallocate] = useState(false);
+  const [openAlrtDeallocate, setOpenAlrtDeallocate] = useState(false);
   const navigate = useNavigate();
-  const setNavigate =()=>{
-
-    alertMessage==="Emplyoee deleted"? (navigate("/admin/employee/") ):( setOpenAlert(false) )
-    
-    
-
-   
-  }
+  const setNavigate = () => {
+    alertMessage === "Emplyoee deleted"
+      ? navigate("/admin/employee/")
+      : setOpenAlert(false);
+  };
 
   const {
     admin: { employeeDetails, employeeassetsdetails, loading, message },
@@ -91,92 +88,103 @@ export default function EmployeeDetails() {
   const location = useLocation();
   const empId = location?.pathname.replace("/admin/employee/", "");
 
-  const [empEdit, setEmpEdit]= useState(false)
-  const [openConfirm, setOpenConfirm] = useState(false)
-  const [alertMessage, setAlertMessage] = useState('')
-
+  const [empEdit, setEmpEdit] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [currentAssetId, setCurrentAssetId] = useState(0);
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
   }, [dispatch, empId, message, empMessage]);
 
   const handleClickOpen = () => {
-    dispatch(getAssets({ name: "", allocate:true }));
+    dispatch(getAssets({ name: "", allocate: true }));
     setOpen(true);
-    
   };
 
   const HandleDeallocate = (assetId: number) => {
     dispatch(deallocateAssets(employeeDetails?.empId, assetId));
-    setOpenConfirmDeallocate(false)
-    setOpenAlrtDeallocate(true)
+    setOpenConfirmDeallocate(false);
+    setOpenAlrtDeallocate(true);
   };
 
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
     setEmpOpen(false);
-    setEmpEdit(true)
+    setEmpEdit(true);
   };
 
-  const HandleDelete = (assetId: string)=> {
-    
-    if (employeeassetsdetails?.length){
-      setOpenAlert(true)
-      setAlertMessage("First deallocate all the assets allocated to employee!")
-      
-     // alert("First deallocate all the assets allocated to employee!")
+  const HandleDelete = (assetId: string) => {
+    if (employeeassetsdetails?.length) {
+      setOpenAlert(true);
+      setAlertMessage("First deallocate all the assets allocated to employee!");
+
+      // alert("First deallocate all the assets allocated to employee!")
+    } else {
+      setOpenConfirm(true);
+      setAlertMessage("Are you sure?");
+      // if (window.confirm("Are you sure you want to delete this employee?")) {
+
+      //   dispatch(deleteEmployee(employeeDetails.empId))
+      //   navigate("/admin/employee/");
+      //  }
     }
-    else { 
-      setOpenConfirm(true)
-      setAlertMessage("Are you sure?")
-    // if (window.confirm("Are you sure you want to delete this employee?")) {
+  };
 
-    //   dispatch(deleteEmployee(employeeDetails.empId))
-    //   navigate("/admin/employee/");
-    //  }
-    }
-    
-  }
+  const setMessage = () => {
+    setEmpEdit(false);
+  };
 
-  const setMessage =()=>{
-    setEmpEdit(false)
-    
-  }
+  const handleOK = () => {
+    dispatch(deleteEmployee(employeeDetails.empId));
+    setOpenConfirm(false);
+    setOpenAlert(true);
+    setAlertMessage("Emplyoee deleted");
+  };
+  const handleCancel = () => {
+    setOpenConfirm(false);
+  };
 
-  const handleOK = () =>{
-    dispatch(deleteEmployee(employeeDetails.empId))
-    setOpenConfirm(false)
-    setOpenAlert(true)
-    setAlertMessage('Emplyoee deleted')
-   
-  }
-  const handleCancel= () =>{
-    setOpenConfirm(false)
-  }
-
-  const handleAlrtDeallocate=()=>{
-    setOpenAlrtDeallocate(false)
-  }
+  const handleAlrtDeallocate = () => {
+    setOpenAlrtDeallocate(false);
+  };
 
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
       children: React.ReactElement<any, any>;
     },
-    ref: React.Ref<unknown>,
+    ref: React.Ref<unknown>
   ) {
     return <Slide ref={ref} {...props} />;
   });
-
-  
 
   return (
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      {openConfirm && <Confirm  title={alertMessage} handleOk={handleOK} handlecancel={handleCancel}></Confirm>}   
-      {openAlert ? (<Alert title={alertMessage} setNavigate={setNavigate}/>): (<>  </>)}
-      {empEdit?(<Alert title="Employee details updated successfully" setNavigate={setMessage}/>):(<></>)}
-      {openAlrtDeallocate && <Alert title="Asset deallocated" setNavigate={handleAlrtDeallocate}/> }
+      {openConfirm && (
+        <Confirm
+          title={alertMessage}
+          handleOk={handleOK}
+          handlecancel={handleCancel}
+        ></Confirm>
+      )}
+      {openAlert ? (
+        <Alert title={alertMessage} setNavigate={setNavigate} />
+      ) : (
+        <> </>
+      )}
+      {empEdit ? (
+        <Alert
+          title="Employee details updated successfully"
+          setNavigate={setMessage}
+        />
+      ) : (
+        <></>
+      )}
+      {openAlrtDeallocate && (
+        <Alert title="Asset deallocated" setNavigate={handleAlrtDeallocate} />
+      )}
       {loading && !open ? (
         <Loader />
       ) : (
@@ -193,12 +201,18 @@ export default function EmployeeDetails() {
                 <Typography m={2} variant="h5">
                   Employee Details
                 </Typography>
-                <Box m={2} >
+                <Box m={2}>
                   <Button variant="outlined" onClick={() => setEmpOpen(true)}>
                     Edit
                   </Button>
                   <> </>
-                  <Button variant="outlined" color="warning" onClick={()=>{HandleDelete(employeeDetails.empId)}}>
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    onClick={() => {
+                      HandleDelete(employeeDetails.empId);
+                    }}
+                  >
                     Delete
                   </Button>
                 </Box>
@@ -345,30 +359,38 @@ export default function EmployeeDetails() {
                             <RemoveCircleIcon
                               sx={{ color: "#DC2626" }}
                               onClick={() => {
-
+                                setCurrentAssetId(asset?.assetId);
                                 setOpenConfirmDeallocate(true);
-                                
                               }}
                             />
-                             {openConfirmDeallocate &&  <Dialog
-        open={true}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={()=>{
-          
-        }}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>Are you sure?</DialogTitle>
-        
-        <DialogActions>
-          <Button onClick={()=>{HandleDeallocate(asset?.assetId)
-          
-          }}>OK</Button>
-          <Button onClick={()=>{setOpenConfirmDeallocate(false)}}>CANCEL</Button>
-        </DialogActions>
-      </Dialog>}
-                            
+                            {openConfirmDeallocate && (
+                              <Dialog
+                                open={true}
+                                TransitionComponent={Transition}
+                                keepMounted
+                                onClose={() => {}}
+                                aria-describedby="alert-dialog-slide-description"
+                              >
+                                <DialogTitle>Are you sure?</DialogTitle>
+
+                                <DialogActions>
+                                  <Button
+                                    onClick={() => {
+                                      HandleDeallocate(currentAssetId);
+                                    }}
+                                  >
+                                    OK
+                                  </Button>
+                                  <Button
+                                    onClick={() => {
+                                      setOpenConfirmDeallocate(false);
+                                    }}
+                                  >
+                                    CANCEL
+                                  </Button>
+                                </DialogActions>
+                              </Dialog>
+                            )}
                           </IconButton>
                         </TableCell>
                       </TableRow>
@@ -382,8 +404,6 @@ export default function EmployeeDetails() {
           </Paper>
         </Grid>
       )}
-
-      
 
       <AllocateAsset open={open} setOpen={setOpen} />
       <Dialog open={empOpen} onClose={() => setEmpOpen(false)}>
