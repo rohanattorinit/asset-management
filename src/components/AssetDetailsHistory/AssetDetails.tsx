@@ -168,7 +168,7 @@ const navigate = useNavigate();
             {assetConfirmdel && <Confirm  title="Are you sure?" handleOk={()=>{handleDelConfirm(singleAssetDetails.assetId)}} handlecancel={()=>{setAssetConfirmdel(false)}}/>}
           </Box>
 ):(
-  <Typography textAlign={"center"}>Asset is deleted</Typography>
+  <Typography  sx={{ fontSize: 20 , color : "red"}}>THIS ASSET IS DELETED </Typography>
 )}
 
         </Box>
