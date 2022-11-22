@@ -46,7 +46,7 @@ function AssetDetailsTransaction() {
 
   return (
     <>
-    <Grid container sx={{ height: "100%" }}>
+    <Grid container sx={{ height: "100%", overflow: "hidden" }}>
       <SideBar />
       <Toast />
       <Grid item xs={12} md={10} p={3}>

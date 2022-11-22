@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Grid,
@@ -19,9 +19,8 @@ import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
 
 import {
-  getfilterOptions,
+
   updateAssetDetails,
-  getBrandOptions,
   getFiltersByCategory
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -29,6 +28,12 @@ import { RootStore } from "../../redux/store";
 const connectivityOptions = [
   { label: "Wired", value: "wired" },
   { label: "Wireless", value: "wireless" },
+];
+
+const statusOptions = [
+  { label: "Surplus", value: "Surplus" },
+  { label: "Broken", value: "Broken" },
+  { label: "Repairable", value: "Repairable" },
 ];
 
 
@@ -81,6 +86,7 @@ function AssetEdit(props: Iprops) {
                           id={id}
                           onChange={handleChange}
                           value={value}
+                          required
                         />
                       </Grid>
     )
@@ -160,6 +166,7 @@ function AssetEdit(props: Iprops) {
       </>
     );
   };
+ 
 
  
 
@@ -208,8 +215,48 @@ function AssetEdit(props: Iprops) {
                     <Grid item container spacing={1}>
 
                     {textField("Asset Name", "assetName","assetName", values?.assetName, handleChange)}
-
                      {textField("Description", "description","description", values?.description, handleChange)}
+                     {/* { singleAssetDetails?.status !== "Allocated" && dropdownComp("Status", "status", values?.status, handleChange) } */}
+
+                    {singleAssetDetails?.status !== "Allocated" &&  
+                    
+                    <Grid item xs={12} sm={6} md={6}>
+                        <FormControl fullWidth variant="outlined">
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Status
+                          </InputLabel>
+
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            label="Status"
+                            value={values?.status}
+                            onChange={handleChange}
+                            name="status"
+                            required
+                            MenuProps={{
+                              PaperProps: {
+                                sx: {
+                                  maxHeight: {
+                                    xs: 48 * 4 + 8,
+                                    sm: 36 * 4 + 8,
+                                  },
+                                },
+                              },
+                            }}
+                          >
+                            {statusOptions?.map((item) => (
+                              <MenuItem key={item.value} value={item.value}>
+                                {item.value}
+                              </MenuItem>
+                            ))}
+
+                          </Select>
+                        </FormControl>
+                      </Grid>}
+                     
+
+                     
 
                       <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth variant="outlined">
@@ -244,7 +291,7 @@ function AssetEdit(props: Iprops) {
                           </Select>
                         </FormControl>
                       </Grid>
-                                            <Grid item xs={12} sm={6} md={6}>
+                      <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth variant="outlined">
                           <InputLabel id="demo-simple-select-outlined-label">
                             Brand name
@@ -295,6 +342,7 @@ function AssetEdit(props: Iprops) {
                       </Grid>
                      {textField("Make Year", "make_year","make_year", values?.make_year, handleChange)}
 
+                     
 
                       {singleAssetDetails?.category === "laptop" ||
                       singleAssetDetails?.category === "mobile" ||

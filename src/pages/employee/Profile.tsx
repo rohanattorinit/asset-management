@@ -262,6 +262,7 @@ export default function Profile() {
                           onChange={handleChange}
                           value={values?.jobTitle}
                           component={TextField}
+                          
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
