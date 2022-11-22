@@ -104,7 +104,7 @@ function EmpList() {
             {loading ? (
               <Loader />
             ) : (
-              <TableContainer component={Paper}>
+              <TableContainer>
                 {employees.length ? (
                   <Table aria-label="simple table">
                     <TableHead>
@@ -157,7 +157,6 @@ function EmpList() {
                             Details
                           </Typography>
                         </TableCell>
-                        
                       </TableRow>
                     </TableHead>
                     <TableBody>

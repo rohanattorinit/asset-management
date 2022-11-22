@@ -149,6 +149,7 @@ const navigate = useNavigate();
           }}
         >
           <Typography variant="h5">Asset Details</Typography>
+          {singleAssetDetails?.is_active?(
           <Box  >
             <Button variant="outlined" onClick={() => setAssetOpen(true)}>
               Edit
@@ -166,8 +167,12 @@ const navigate = useNavigate();
             </Button>
             {assetConfirmdel && <Confirm  title="Are you sure?" handleOk={()=>{handleDelConfirm(singleAssetDetails.assetId)}} handlecancel={()=>{setAssetConfirmdel(false)}}/>}
           </Box>
-        </Box>
+):(
+  <Typography  sx={{ fontSize: 20 , color : "red"}}>THIS ASSET IS DELETED </Typography>
+)}
 
+        </Box>
+{loading ? (<Loader/>) : (
         <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
           <Grid container spacing={1}>
             {!singleAssetDetails?.empId?.length && loading && !open ? (
@@ -268,7 +273,7 @@ const navigate = useNavigate();
             )}
           </Grid>
         </Paper>
-
+)}
           
          
 

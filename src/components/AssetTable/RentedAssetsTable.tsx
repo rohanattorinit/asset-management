@@ -99,14 +99,6 @@ function RentedAssetsTable() {
                       }
                     />
                   </TableCell>
-
-
-
-
-
-
-
-
                   </TableRow>
                 ))}
               </Table>
