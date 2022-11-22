@@ -1,6 +1,6 @@
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {
-  Box,
+  CircularProgress,
+  Grid,
   IconButton,
   Paper,
   Table,
@@ -11,48 +11,44 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Dispatch } from "react";
-import CountUp from "react-countup";
-import { useDispatch, useSelector } from "react-redux";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Stack } from "@mui/system";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
-import { AssetTypes } from "../../redux/types";
 import Loader from "../Loader/Loader";
+import { AssetTypes, LOADING } from "../../redux/types";
+import { Dispatch, useEffect, useState } from "react";
+import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
+import Asset from "../../pages/employee/Asset";
+
 const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
   const navigate = useNavigate();
-  const { loading } = useSelector((state: RootStore) => state.admin);
-  // const dispatch: Dispatch<any> = useDispatch();
+  const {  loading } = useSelector(
+    (state: RootStore) => state.admin
+  );
+
+  const dispatch: Dispatch<any> = useDispatch();
+
   const setAssetDetails = (assetId: number) => {
     // dispatch(getSingleAssetDetails(assetId));
     navigate(`/admin/assets/${assetId}`);
   };
+
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Typography
-          sx={{
-            fontSize: 20,
-            fontWeight: "bold",
-            p: 1,
-            borderRadius: 1,
-          }}
-        >
-          Total Assets :
-          <CountUp end={assets?.length} duration={2} />
-        </Typography>
-      </Box>
       {loading ? (
         <Loader />
       ) : (
-         <TableContainer sx={{ marginY: 3 }} >
-          {assets?.length ? (
-            
+        <TableContainer sx={{ marginY: 3 }} component={Paper}>
+          {assets.length ? (
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>AssetID</Typography>
                   </TableCell>
+                  
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>
                       Asset Name
@@ -60,7 +56,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                   </TableCell>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>
-                      Brand Name
+                     Brand Name
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
@@ -79,7 +75,9 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography sx={{ fontWeight: "bold" }}>Ram</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Ram
+                    </Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography sx={{ fontWeight: "bold" }}>Status</Typography>
@@ -95,13 +93,17 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography sx={{ fontWeight: "bold" }}>Details</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                    Details
+                    </Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
+
               {assets?.map((filteredAsset) => (
                 <TableRow key={filteredAsset?.assetId} sx={{background:!filteredAsset?.is_active?'lightgrey':""}}>
                   <TableCell align="center">{filteredAsset?.assetId}</TableCell>
+                  
                   <TableCell align="center">
                     {filteredAsset?.name?.toUpperCase()}
                   </TableCell>
@@ -117,10 +119,6 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                   <TableCell align="center">
                     {filteredAsset?.ram?filteredAsset?.ram:'-'}
                   </TableCell>
-                  <TableCell align="center">
-                    {filteredAsset?.screen_size}
-                  </TableCell>
-                  <TableCell align="center">{filteredAsset?.ram}</TableCell>
                   <TableCell align="center">
                     {filteredAsset?.status?.toUpperCase()}
                   </TableCell>
@@ -144,9 +142,10 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                       }
                     />
                   </TableCell>
+
                 </TableRow>
               ))}
-            </Table> 
+            </Table>
           ) : (
             <Typography textAlign={"center"}>No Assets found!</Typography>
           )}
@@ -155,4 +154,5 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
     </>
   );
 };
+
 export default AssetsTable;

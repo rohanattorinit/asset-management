@@ -168,6 +168,7 @@ export interface SingleAssetDetailsType {
   hdd: string
   os_version: string
   make_year: string
+  is_active?:boolean
 }
 
 export interface EmployeeAssetType {
@@ -203,7 +204,7 @@ export interface AssetTypes {
   rentEndDate?: string
   asset_location: string
   received_date: string
-  is_active : boolean
+  is_active? : boolean
 }
 
 export interface AllocatedAssetType {

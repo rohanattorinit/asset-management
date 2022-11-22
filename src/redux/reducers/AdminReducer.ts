@@ -102,6 +102,7 @@ const initialState: InitialState = {
     hdd: "",
     os_version: "",
     make_year: "",
+    is_active:true,
   },
   employeeassetsdetails: [],
   serviceDetails: [],

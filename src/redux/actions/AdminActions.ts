@@ -85,11 +85,8 @@ export const getEmployees =
   (filterParams: SetFilterParams = {}) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
-    console.log(filterParams);
     try {
       const res = await post(`/api/assets/filter`, filterParams);
-      console.log("res", res);
-
       dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
