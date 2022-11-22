@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Grid,
@@ -19,10 +19,9 @@ import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
 
 import {
-  getfilterOptions,
+
   updateAssetDetails,
-  getBrandOptions,
-  getFiltersByCategory,
+  getFiltersByCategory
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
@@ -31,58 +30,71 @@ const connectivityOptions = [
   { label: "Wireless", value: "wireless" },
 ];
 
+const statusOptions = [
+  { label: "Surplus", value: "Surplus" },
+  { label: "Broken", value: "Broken" },
+  { label: "Repairable", value: "Repairable" },
+];
+
+
 interface Iprops {
   closeFunc: (value: boolean) => void;
 }
 function AssetEdit(props: Iprops) {
   const dispatch: Dispatch<any> = useDispatch();
   // const [category, setCategory] = useState<string[]>([])
-  const { singleAssetDetails, message, filterOptions } = useSelector(
-    (state: RootStore) => state.admin
-  );
+  const { singleAssetDetails, message, filterOptions, } =
+    useSelector((state: RootStore) => state.admin);
+
 
   useEffect(() => {
     // dispatch(getBrandOptions());
     // dispatch(getfilterOptions());
     dispatch(getFiltersByCategory([singleAssetDetails?.category]));
+
   }, [message, singleAssetDetails]);
 
+ 
   const onSubmit = (values: any) => {
+    
+    
     dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
     props.closeFunc(false);
+
+  
   };
 
-  const textField = (
-    label: string,
+  const textField =(
+    label:string,
     name: string,
     id: string,
     value: any,
     handleChange: {
       (e: React.ChangeEvent<any>): void;
-      <T = string | React.ChangeEvent<any>>(
-        field: T
-      ): T extends React.ChangeEvent<any>
-        ? void
-        : (e: string | React.ChangeEvent<any>) => void;
-    }
-  ) => {
+      <T = string | React.ChangeEvent<any>>(field: T): T extends React.ChangeEvent<any> ? void : (e: string | React.ChangeEvent<any>) => void;
+  }
+
+  )=>{
+
     return (
       <Grid item xs={12} sm={6} md={6}>
-        <TextField
-          label={label}
-          variant="outlined"
-          fullWidth
-          name={name}
-          id={id}
-          onChange={handleChange}
-          value={value}
-        />
-      </Grid>
-    );
-  };
+                        <TextField
+                          label={label}
+                          variant="outlined"
+                          fullWidth
+                          name={name}
+                          id={id}
+                          onChange={handleChange}
+                          value={value}
+                          required
+                        />
+                      </Grid>
+    )
+
+  }
 
   const dropdownComp = (
-    label: string,
+    label:string,
     key: string,
     value: string,
     handleChange: {
@@ -149,25 +161,19 @@ function AssetEdit(props: Iprops) {
   ) => {
     return (
       <>
-        {dropdownComp(
-          "Screen Type",
-          "screen_type",
-          values?.screen_type,
-          handleChange
-        )}
-        {dropdownComp(
-          "Screen Size",
-          "screen_size",
-          values?.screen_size,
-          handleChange
-        )}
+        {dropdownComp("Screen Type", "screen_type", values?.screen_type, handleChange)}
+        {dropdownComp("Screen Size", "screen_size", values?.screen_size, handleChange)}
       </>
     );
   };
+ 
+
+ 
 
   return (
     <>
-      <Card sx={{ overflowY: "scroll" }}>
+    
+      <Card sx={{overflowY: "scroll"}}>
         <CardHeader title="Edit" />
         <Formik
           initialValues={{
@@ -204,23 +210,53 @@ function AssetEdit(props: Iprops) {
             return (
               <>
                 <Form>
-                  <CardContent>
+                  
+                  <CardContent >
                     <Grid item container spacing={1}>
-                      {textField(
-                        "Asset Name",
-                        "assetName",
-                        "assetName",
-                        values?.assetName,
-                        handleChange
-                      )}
 
-                      {textField(
-                        "Description",
-                        "description",
-                        "description",
-                        values?.description,
-                        handleChange
-                      )}
+                    {textField("Asset Name", "assetName","assetName", values?.assetName, handleChange)}
+                     {textField("Description", "description","description", values?.description, handleChange)}
+                     {/* { singleAssetDetails?.status !== "Allocated" && dropdownComp("Status", "status", values?.status, handleChange) } */}
+
+                    {singleAssetDetails?.status !== "Allocated" &&  
+                    
+                    <Grid item xs={12} sm={6} md={6}>
+                        <FormControl fullWidth variant="outlined">
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Status
+                          </InputLabel>
+
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            label="Status"
+                            value={values?.status}
+                            onChange={handleChange}
+                            name="status"
+                            required
+                            MenuProps={{
+                              PaperProps: {
+                                sx: {
+                                  maxHeight: {
+                                    xs: 48 * 4 + 8,
+                                    sm: 36 * 4 + 8,
+                                  },
+                                },
+                              },
+                            }}
+                          >
+                            {statusOptions?.map((item) => (
+                              <MenuItem key={item.value} value={item.value}>
+                                {item.value}
+                              </MenuItem>
+                            ))}
+
+                          </Select>
+                        </FormControl>
+                      </Grid>}
+                     
+
+                     
 
                       <Grid item xs={12} sm={6} md={6}>
                         <FormControl fullWidth variant="outlined">
@@ -288,13 +324,8 @@ function AssetEdit(props: Iprops) {
                           </Select>
                         </FormControl>
                       </Grid>
-                      {textField(
-                        "Model No",
-                        "modelNo",
-                        "modelNo",
-                        values?.modelNo,
-                        handleChange
-                      )}
+                       {textField("Model No", "modelNo","modelNo", values?.modelNo, handleChange)}
+                   
 
                       <Grid item xs={12} sm={6} md={6}>
                         <TextField
@@ -309,69 +340,33 @@ function AssetEdit(props: Iprops) {
                           onChange={handleChange}
                         />
                       </Grid>
-                      {textField(
-                        "Make Year",
-                        "make_year",
-                        "make_year",
-                        values?.make_year,
-                        handleChange
-                      )}
+                     {textField("Make Year", "make_year","make_year", values?.make_year, handleChange)}
+
+                     
 
                       {singleAssetDetails?.category === "laptop" ||
                       singleAssetDetails?.category === "mobile" ||
                       singleAssetDetails?.category === "watch" ? (
                         <>
-                          {singleAssetDetails?.category === "mobile" &&
-                            textField(
-                              "IMEI Number",
-                              "imeiNo",
-                              "imeiNo",
-                              values?.imeiNo,
-                              handleChange
-                            )}
+                          {singleAssetDetails?.category==="mobile" &&  
+                          textField("IMEI Number", "imeiNo","imeiNo", values?.imeiNo, handleChange)
+                          
+                        }
 
-                          {dropdownComp(
-                            "Processor",
-                            "processor",
-                            values?.processor,
-                            handleChange
-                          )}
-                          {dropdownComp(
-                            "Screen Type",
-                            "screen_type",
-                            values?.screen_type,
-                            handleChange
-                          )}
-                          {dropdownComp(
-                            "RAM",
-                            "ram",
-                            values?.ram,
-                            handleChange
-                          )}
-                          {dropdownComp(
-                            "Screen Size",
-                            "screen_size",
-                            values?.screen_size,
-                            handleChange
-                          )}
-                          {singleAssetDetails?.category === "laptop" &&
-                            dropdownComp(
-                              "HDD",
-                              "hdd",
-                              values?.hdd,
-                              handleChange
-                            )}
-                          {singleAssetDetails?.category !== "watch" &&
-                            dropdownComp(
-                              "SSD",
-                              "ssd",
-                              values?.ssd,
-                              handleChange
-                            )}
+                          
+                          {dropdownComp("Processor", "processor", values?.processor, handleChange)}
+                          {dropdownComp("Screen Type", "screen_type", values?.screen_type, handleChange)}
+                          {dropdownComp("RAM", "ram", values?.ram, handleChange)}
+                          {dropdownComp("Screen Size", "screen_size", values?.screen_size, handleChange)}
+                          {singleAssetDetails?.category === "laptop" && dropdownComp("HDD", "hdd", values?.hdd, handleChange) }
+                          {singleAssetDetails?.category !== "watch"  && dropdownComp("SSD","ssd",values?.ssd,handleChange)}
+
 
                           <Grid item xs={12} sm={6} md={6}>
                             <FormControl fullWidth variant="outlined">
-                              <InputLabel id="Operating System">OS</InputLabel>
+                              <InputLabel id="demo-simple-select-outlined-label">
+                                Operating System
+                              </InputLabel>
 
                               <Select
                                 labelId="demo-simple-select-outlined-label"
@@ -392,38 +387,35 @@ function AssetEdit(props: Iprops) {
                                   },
                                 }}
                               >
-                                {filterOptions?.operating_system?.map(
-                                  (item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  )
-                                )}
+                                {filterOptions?.operating_system?.map((item) => (
+                                  <MenuItem key={item} value={item}>
+                                    {item}
+                                  </MenuItem>
+                                ))}
                               </Select>
                             </FormControl>
                           </Grid>
 
-                          {textField(
-                            "OS Version",
-                            "os_version",
-                            "os_version",
-                            values?.os_version,
-                            handleChange
-                          )}
+                          
+
+                              
+                         {textField("OS Version", "os_version","os_version", values?.os_version, handleChange)}
+                        
+
                         </>
                       ) : (
                         <> </>
                       )}
 
-                      {singleAssetDetails.category === "mouse" ||
-                      singleAssetDetails.category === "keyboard" ||
-                      singleAssetDetails.category === "headset" ? (
-                        <Grid item xs={12} sm={6} md={6}>
+                  {singleAssetDetails.category === "mouse" ||
+                        singleAssetDetails.category === "keyboard" ||
+                        singleAssetDetails.category === "headset" ? (
+                          <Grid item xs={12} sm={6} md={6}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">
                               Connectivity
                             </InputLabel>
-
+  
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
@@ -451,43 +443,28 @@ function AssetEdit(props: Iprops) {
                             </Select>
                           </FormControl>
                         </Grid>
-                      ) : (
-                        <> </>
-                      )}
-
-                      {singleAssetDetails?.category === "hdmi cable" &&
-                        dropdownComp(
-                          "Cable Type",
-                          "cableType",
-                          values?.cableType,
-                          handleChange
+                          
+                        ) : (
+                          <> </>
                         )}
 
+                        {singleAssetDetails?.category === "hdmi cable" && dropdownComp("Cable Type", "cableType", values?.cableType, handleChange)}
+                     
+                         
                       {singleAssetDetails?.isRented ? (
                         <>
-                          {textField(
-                            "Vendor",
-                            "vendor",
-                            "vendor",
-                            values?.vendor,
-                            handleChange
-                          )}
+                          
+                          {textField("Vendor", "vendor","vendor", values?.vendor, handleChange)}
 
-                          {textField(
-                            "Rent",
-                            "rent",
-                            "rent",
-                            values?.rent,
-                            handleChange
-                          )}
 
-                          {textField(
-                            "Model No",
-                            "modelNo",
-                            "modelNo",
-                            values?.modelNo,
-                            handleChange
-                          )}
+                         
+                     {textField("Rent", "rent","rent", values?.rent, handleChange)}
+
+                           
+
+                         
+                            {textField("Model No", "modelNo","modelNo", values?.modelNo, handleChange)}
+
 
                           <Grid item xs={12} sm={6} md={6}>
                             <TextField
@@ -523,8 +500,7 @@ function AssetEdit(props: Iprops) {
                         <> </>
                       )}
 
-                      {singleAssetDetails?.category === "monitor" &&
-                        showMoniterFields(values, handleChange)}
+                      {singleAssetDetails?.category === "monitor" && showMoniterFields(values, handleChange)}
                     </Grid>
                   </CardContent>
                   <CardActions>
@@ -537,7 +513,10 @@ function AssetEdit(props: Iprops) {
             );
           }}
         </Formik>
+
+        
       </Card>
+     
     </>
   );
 }

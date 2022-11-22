@@ -32,12 +32,14 @@ import {
   SET_EMPLOYEES,
   SET_ERROR,
   ServiceType,
-  SET_SERVICE_TICKET_DETAILS
+  SET_SERVICE_TICKET_DETAILS,
+  UPLOADING
 } from './../types'
 
 
 interface InitialState {
   loading: boolean;
+  uploading : boolean;
   employees: EmployeeType[];
   assets: AssetTypes[];
   employeeDetails: EmployeeType;
@@ -58,6 +60,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   loading: false,
+  uploading:false,
   employees: [],
   assets: [],
   message: '',
@@ -153,6 +156,10 @@ const adminReducer = (
         message: '',
         error: ''
       }
+
+      
+
+      
     case SET_EMPLOYEES:
       return {
         ...state,
