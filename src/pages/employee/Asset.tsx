@@ -14,7 +14,6 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../redux/store";
@@ -31,7 +30,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Alert from "../../components/ConfirmAlert/Alert";
 
 export default function Asset() {
-  const [alert, setAlert] = useState(false)
+  const [alert, setAlert] = useState(false);
   const [open, setOpen] = useState(false);
   const [assetId, setAssetId] = useState<number>();
   const [ticket, setTicket] = useState({
@@ -88,13 +87,15 @@ export default function Asset() {
     });
     // navigate(`/ticket`);
   };
- const setAlrt =()=>{
-  setAlert(false)
-  navigate(`/ticket`);
- }
+  const setAlrt = () => {
+    setAlert(false);
+    navigate(`/ticket`);
+  };
   return (
     <Grid container sx={{ height: "100%" }}>
-      {alert && <Alert title="Ticket generated successfully" setNavigate={setAlrt}/>}
+      {alert && (
+        <Alert title="Ticket generated successfully" setNavigate={setAlrt} />
+      )}
       <Sidebar />
       <Toast />
       <Grid
@@ -110,12 +111,12 @@ export default function Asset() {
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography>Current Asset</Typography>
+          <Typography variant="h5">Current Asset</Typography>
           <Button sx={{ ml: 1 }} variant="outlined" onClick={handleNewRequest}>
             Request for new asset
           </Button>
         </Box>
-
+        <br></br>
         <Box sx={{ overflowX: "auto" }}>
           {loading ? (
             <Loader />
@@ -193,8 +194,6 @@ export default function Asset() {
                               </IconButton>
                             }
                           />
-
-                          
                         </TableCell>
                       </TableRow>
                     ))}
