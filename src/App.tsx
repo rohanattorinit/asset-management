@@ -9,7 +9,6 @@ import { SET_AUTHENTICATED } from "./redux/types";
 
 import { get } from "./services";
 
-
 function App() {
   const [response, setResponse] = useState("");
   const [showLoader, setShowLoader] = useState(true);
@@ -19,7 +18,6 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-
         const res = (await get(`/api/auth/profile`)) as any;
 
         dispatch({ type: SET_AUTHENTICATED, payload: res.data });
@@ -40,5 +38,3 @@ function App() {
   );
 }
 export default App;
-
-

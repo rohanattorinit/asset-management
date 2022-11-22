@@ -31,6 +31,10 @@ export default function Navbar() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        position: "sticky",
+        width: "100%",
+        top: "0",
+        zIndex: "1"
       }}
     >
       <Box

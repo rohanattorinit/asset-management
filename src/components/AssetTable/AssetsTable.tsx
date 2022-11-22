@@ -44,9 +44,8 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
       {loading ? (
         <Loader />
       ) : (
-         <TableContainer sx={{ marginY: 3 }} >
+        <TableContainer sx={{ marginY: 3 }}>
           {assets?.length ? (
-            
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -100,7 +99,12 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                 </TableRow>
               </TableHead>
               {assets?.map((filteredAsset) => (
-                <TableRow key={filteredAsset?.assetId} sx={{background:!filteredAsset?.is_active?'lightgrey':""}}>
+                <TableRow
+                  key={filteredAsset?.assetId}
+                  sx={{
+                    background: !filteredAsset?.is_active ? "lightgrey" : "",
+                  }}
+                >
                   <TableCell align="center">{filteredAsset?.assetId}</TableCell>
                   <TableCell align="center">
                     {filteredAsset?.name?.toUpperCase()}
@@ -112,23 +116,31 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                     {filteredAsset?.category?.toUpperCase()}
                   </TableCell>
 
-                  <TableCell align="center">{filteredAsset?.screen_type?.length?filteredAsset?.screen_type:'-'}</TableCell>
-                  <TableCell align="center">{filteredAsset?.screen_size?filteredAsset?.screen_size:'-'}</TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.ram?filteredAsset?.ram:'-'}
+                    {filteredAsset?.screen_type?.length
+                      ? filteredAsset?.screen_type
+                      : "-"}
                   </TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.screen_size}
+                    {filteredAsset?.screen_size
+                      ? filteredAsset?.screen_size
+                      : "-"}
                   </TableCell>
-                  <TableCell align="center">{filteredAsset?.ram}</TableCell>
+                  <TableCell align="center">
+                    {filteredAsset?.ram ? filteredAsset?.ram : "-"}
+                  </TableCell>
                   <TableCell align="center">
                     {filteredAsset?.status?.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.processor?.length?filteredAsset?.processor?.toUpperCase():'-'}
+                    {filteredAsset?.processor?.length
+                      ? filteredAsset?.processor?.toUpperCase()
+                      : "-"}
                   </TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.operating_system?.length?filteredAsset?.operating_system.toUpperCase():'-'}
+                    {filteredAsset?.operating_system?.length
+                      ? filteredAsset?.operating_system.toUpperCase()
+                      : "-"}
                   </TableCell>
                   <TableCell align="right">
                     <Tooltip
@@ -146,7 +158,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                   </TableCell>
                 </TableRow>
               ))}
-            </Table> 
+            </Table>
           ) : (
             <Typography textAlign={"center"}>No Assets found!</Typography>
           )}
