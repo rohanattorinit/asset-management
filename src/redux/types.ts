@@ -5,7 +5,6 @@ export const SET_EMPLOYEES = "SET_EMPLOYEES";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 export const SET_ERROR = "SET_ERROR";
 export const LOADING = "LOADING";
-export const UPLOADING = "UPLOADING";
 export const SET_EMPLOYEE_ASSETS = "SET_EMPLOYEE_ASSETS";
 export const SET_ASSETS = "SET_ASSETS";
 export const UPDATE_EMPLOYEE_DETAILS = "UPDATE_EMPLOYEE_DETAILS";
@@ -337,9 +336,7 @@ interface Loading {
 }
 
 
-interface Uploading {
-  type: typeof LOADING
-}
+
 
 
 
@@ -612,7 +609,7 @@ export type DispatchTypes =
   | SetError
   | SetAuthenticated
   | Loading
-  | Uploading
+  
   | SetEmployeeAssets
   | SetAssets
   | UpdateEmployeeDetails

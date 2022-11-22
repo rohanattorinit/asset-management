@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import upload from "../../assets/upload.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +10,12 @@ import Alert from "../ConfirmAlert/Alert";
 export const DragAndDrop = () => {
   const [file, setFile] = useState<Blob | string>();
   const [alert, setAlert] = useState(false)
+  const [isUploading,setIsUploading]=useState(false)
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_API;
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setIsUploading(true)
     const formData = new FormData();
     formData.append("csvFile", file!);
     try {
@@ -37,6 +38,7 @@ export const DragAndDrop = () => {
       //handle error
       console.error(error);
     }
+    setIsUploading(false)
   };
   const setNavigate=()=>{
     navigate(`/admin/employee`);
@@ -84,8 +86,9 @@ export const DragAndDrop = () => {
               size="large"
               type="submit"
               variant="contained"
+              disabled={isUploading}
             >
-              Upload CSV
+             {isUploading ? <CircularProgress color="secondary" size={25} /> : "Upload CSV"}
             </Button>
           </Box>
         </form>

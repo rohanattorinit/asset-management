@@ -114,7 +114,7 @@ const commonStyles = {
               >
                 <CountUp
                    end={
-                    assets?.filter((asset) => asset?.status === "surplus")
+                    assets?.filter((asset) => asset?.status === "Surplus")
                        .length
                    }
                    duration={2}
@@ -138,7 +138,7 @@ const commonStyles = {
               >
                 <CountUp
                    end={
-                    assets?.filter((asset) => asset?.status === "allocated" ||  "surplus")
+                    assets?.filter((asset) => asset?.status === "Allocated" ||  "Surplus")
                        .length
                    }
                    duration={2}
@@ -161,7 +161,7 @@ const commonStyles = {
               >
                 <CountUp
                    end={
-                    assets?.filter((asset) => asset?.status === "repairable")
+                    assets?.filter((asset) => asset?.status === "Repairable")
                        .length
                    }
                    duration={2}
@@ -184,7 +184,7 @@ const commonStyles = {
               >
                 <CountUp
                    end={
-                    assets?.filter((asset) => asset?.status === "broken")
+                    assets?.filter((asset) => asset?.status === "Broken")
                        .length
                    }
                    duration={2}

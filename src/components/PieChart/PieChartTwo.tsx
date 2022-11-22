@@ -24,10 +24,9 @@ export function PiechartTwo() {
           // @ts-ignore
            data: moreNewData?.map(({count}) => count),
            backgroundColor: [
-            
-            "#dc2626",
-            "#fbbf24",
             "#22c55e",
+            "#fbbf24",
+            "#dc2626",
             "#a21caf",
             "#14b8a6",
             "#a78bfa",
