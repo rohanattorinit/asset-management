@@ -1,6 +1,6 @@
 
 
-import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Table, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";

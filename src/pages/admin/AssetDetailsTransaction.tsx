@@ -45,7 +45,16 @@ function AssetDetailsTransaction() {
 
   return (
     <>
-      <Grid container sx={{ height: "100%", overflow: "100%" }}>
+      <Grid
+        container
+        sx={{
+          height: "100%",
+          overflowX: "hidden",
+          "::-webkit-scrollbar ": {
+            display: "none",
+          },
+        }}
+      >
         <SideBar />
         <Toast />
         <Grid item xs={12} md={10} p={3}>

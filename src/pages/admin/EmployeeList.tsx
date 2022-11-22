@@ -3,7 +3,6 @@ import {
   Button,
   Grid,
   IconButton,
-  Paper,
   Table,
   TableBody,
   TableCell,
