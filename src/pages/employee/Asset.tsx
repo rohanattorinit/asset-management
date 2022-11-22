@@ -40,7 +40,6 @@ export default function Asset() {
 
   const setAssetDetails = (assetId: number) => {
     navigate(`/assets/${assetId}`);
-    //console.log(assetId);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

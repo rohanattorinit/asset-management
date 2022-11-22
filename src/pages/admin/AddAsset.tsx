@@ -22,7 +22,6 @@ import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
   addAsset,
-
   getEmployees,
   getFiltersByCategory,
 } from "../../redux/actions/AdminActions";
@@ -30,7 +29,6 @@ import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 import Alert from "../../components/ConfirmAlert/Alert";
-
 
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
@@ -44,11 +42,11 @@ const connectivityOptions = [
 
 const AddAsset = () => {
   const dispatch: Dispatch<any> = useDispatch();
-  const [category, setCategory] = useState<string[]>([])
+  const [category, setCategory] = useState<string[]>([]);
   const { message, filterOptions, employees } = useSelector(
     (state: RootStore) => state.admin
   );
-  
+
   const navigate = useNavigate();
 
   const onSubmit = (values: any, { resetForm }: any) => {
@@ -60,25 +58,21 @@ const AddAsset = () => {
   };
   const setChangeCategory = (value: string) => {
     setCategory((prevValue) => {
-      return [ value]
-    })
-  }
+      return [value];
+    });
+  };
 
   useEffect(() => {
-    // dispatch(getBrandOptions());
-    //dispatch(getfilterOptions());
-    dispatch(getFiltersByCategory(category))
+    dispatch(getFiltersByCategory(category));
     dispatch(getEmployees({ name: "" }));
   }, [category]);
-
- 
 
   const setNavigate = () => {
     navigate("/admin/assets");
   };
 
   const dropdownComp = (
-    label:string,
+    label: string,
     key: string,
     value: string,
     handleChange: {
@@ -145,8 +139,18 @@ const AddAsset = () => {
   ) => {
     return (
       <>
-        {dropdownComp("Screen Type", "screen_type", values?.screen_type, handleChange)}
-        {dropdownComp("Screen Size", "screen_size", values?.screen_size, handleChange)}
+        {dropdownComp(
+          "Screen Type",
+          "screen_type",
+          values?.screen_type,
+          handleChange
+        )}
+        {dropdownComp(
+          "Screen Size",
+          "screen_size",
+          values?.screen_size,
+          handleChange
+        )}
       </>
     );
   };
@@ -192,7 +196,7 @@ const AddAsset = () => {
                   hdd: "",
                   os_version: "",
                   make_year: "",
-                  allocationTime: ""
+                  allocationTime: "",
                 }}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
@@ -208,8 +212,7 @@ const AddAsset = () => {
                   return (
                     <Form>
                       <Grid item container spacing={2}>
-
-                      <Grid item xs={12} sm={6} md={6}>
+                        <Grid item xs={12} sm={6} md={6}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">
                               Asset Type
@@ -231,8 +234,8 @@ const AddAsset = () => {
                             </Select>
                           </FormControl>
                         </Grid>
-                        
-                      <Grid item xs={12} sm={6} md={6}>
+
+                        <Grid item xs={12} sm={6} md={6}>
                           <FormControl fullWidth variant="outlined">
                             <InputLabel id="demo-simple-select-outlined-label">
                               Category
@@ -242,9 +245,9 @@ const AddAsset = () => {
                               id="demo-simple-select-outlined"
                               label="Category"
                               value={values?.category}
-                              onChange={(e)=> {
-                                handleChange(e)
-                                setChangeCategory(e?.target?.value)
+                              onChange={(e) => {
+                                handleChange(e);
+                                setChangeCategory(e?.target?.value);
                               }}
                               name="category"
                               required
@@ -300,7 +303,6 @@ const AddAsset = () => {
                             </Select>
                           </FormControl>
                         </Grid>
-                        
 
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
@@ -314,11 +316,11 @@ const AddAsset = () => {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            
                             InputProps={{
                               inputProps: {
-                                type: 'number',
-                                min: 1990, max: 4000,
+                                type: "number",
+                                min: 1990,
+                                max: 4000,
                               },
                             }}
                             label="Make Year"
@@ -327,13 +329,9 @@ const AddAsset = () => {
                             name="make_year"
                             value={values?.make_year}
                             component={TextField}
-                            
-                          /> 
-                          
+                          />
                         </Grid>
-                        
 
-                       
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
                             label="Model No"
@@ -394,7 +392,12 @@ const AddAsset = () => {
                           />
                         </Grid>
 
-                        {dropdownComp("Status", "status", values?.status, handleChange)}
+                        {dropdownComp(
+                          "Status",
+                          "status",
+                          values?.status,
+                          handleChange
+                        )}
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
                             label="Description"
@@ -436,7 +439,12 @@ const AddAsset = () => {
                               values?.screen_type,
                               handleChange
                             )}
-                            {dropdownComp("RAM", "ram", values?.ram, handleChange)}
+                            {dropdownComp(
+                              "RAM",
+                              "ram",
+                              values?.ram,
+                              handleChange
+                            )}
                             <Grid item xs={12} sm={6} md={6}>
                               <FormControl fullWidth variant="outlined">
                                 <InputLabel id="demo-simple-select-outlined-label">
@@ -462,11 +470,13 @@ const AddAsset = () => {
                                     },
                                   }}
                                 >
-                                  {filterOptions?.operating_system?.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      {item}
-                                    </MenuItem>
-                                  ))}
+                                  {filterOptions?.operating_system?.map(
+                                    (item) => (
+                                      <MenuItem key={item} value={item}>
+                                        {item}
+                                      </MenuItem>
+                                    )
+                                  )}
                                 </Select>
                               </FormControl>
                             </Grid>
@@ -476,38 +486,37 @@ const AddAsset = () => {
                               values?.screen_size,
                               handleChange
                             )}
-                            {values?.category === "Laptop" && dropdownComp(
-                              "HDD",
-                              "hdd",
-                              values?.hdd,
-                              handleChange
-                            ) }
-                            { values?.category !== "Watch"  && dropdownComp(
-                              "SSD",
-                              "ssd",
-                              values?.ssd,
-                              handleChange
-                            )}
-                             {/* {dropdownComp(
+                            {values?.category === "Laptop" &&
+                              dropdownComp(
+                                "HDD",
+                                "hdd",
+                                values?.hdd,
+                                handleChange
+                              )}
+                            {values?.category !== "Watch" &&
+                              dropdownComp(
+                                "SSD",
+                                "ssd",
+                                values?.ssd,
+                                handleChange
+                              )}
+                            {/* {dropdownComp(
                               "OS Version",
                               "os_version",
                               values?.os_version,
                               handleChange
                             )} */}
 
-                            
                             <Grid item xs={12} sm={6} md={6}>
-                                <Field
-                                  label="OS Version"
-                                  variant="outlined"
-                                  fullWidth
-                                  name="os_version"
-                                  value={values?.os_version}
-                                  component={TextField}
-                                />
-                              </Grid> 
-                            
-                            
+                              <Field
+                                label="OS Version"
+                                variant="outlined"
+                                fullWidth
+                                name="os_version"
+                                value={values?.os_version}
+                                component={TextField}
+                              />
+                            </Grid>
                           </>
                         ) : (
                           <> </>
@@ -626,19 +635,17 @@ const AddAsset = () => {
                               </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6} md={6}>
-                                <Field
-                                  label="Allocation Date"
-                                  type="date"
-                                  variant="outlined"
-                                  fullWidth
-                                  name="allocationTime"
-                                  value={values?.allocationTime}
-                                  component={TextField}
-                                  InputLabelProps={{ shrink: true }}
-                                />
-                              </Grid> 
-
-
+                              <Field
+                                label="Allocation Date"
+                                type="date"
+                                variant="outlined"
+                                fullWidth
+                                name="allocationTime"
+                                value={values?.allocationTime}
+                                component={TextField}
+                                InputLabelProps={{ shrink: true }}
+                              />
+                            </Grid>
                           </>
                         ) : (
                           <></>
