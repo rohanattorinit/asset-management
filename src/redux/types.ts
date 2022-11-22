@@ -335,6 +335,12 @@ interface Loading {
   type: typeof LOADING
 }
 
+
+
+
+
+
+
 interface SetEmployees {
   type: typeof SET_EMPLOYEES
   payload: {
@@ -603,6 +609,7 @@ export type DispatchTypes =
   | SetError
   | SetAuthenticated
   | Loading
+  
   | SetEmployeeAssets
   | SetAssets
   | UpdateEmployeeDetails

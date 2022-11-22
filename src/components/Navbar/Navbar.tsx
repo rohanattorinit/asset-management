@@ -8,7 +8,7 @@ import { RootStore } from "../../redux/store";
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
-  
+
   const open = Boolean(anchorEl);
   const dispatch: Dispatch<any> = useDispatch();
   const handleClose = () => {
@@ -31,6 +31,9 @@ export default function Navbar() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        position: "sticky",
+        top: "0px",
+        zIndex: 1,
       }}
     >
       <Box
