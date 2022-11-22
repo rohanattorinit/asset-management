@@ -40,20 +40,11 @@ const navigate = useNavigate();
   const { singleAssetDetails, loading, message,assets } = useSelector(
     (state: RootStore) => state.admin
   );
-    console.log(singleAssetDetails)
-  console.log(assets)
-
-  
+    
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
   }, [message]);
-
-  // const onSubmit = (values: any) => {
-  //   //console.log(values);
-  //   dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
-  //   setAssetOpen(false);
-  // };
 
   const closeFunc = (value: boolean) => {
     setAssetOpen(value);
@@ -79,10 +70,6 @@ const navigate = useNavigate();
       
     } else {
       setAssetConfirmdel(true)
-      // if (window.confirm("Are you sure you want to delete this asset?")) {
-      //   dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
-      //   navigate("/admin/assets/");
-      // }
     }
     
   };
@@ -92,7 +79,6 @@ const navigate = useNavigate();
     setAssetConfirmdel(false)
     setOpenAlert(true)
     setAlertMessage("asset Deleted successfully")
-        // navigate("/admin/assets/");
 
   }
 
@@ -134,10 +120,7 @@ const navigate = useNavigate();
 
   return (
     <>
-      {/* <Grid container sx={{ height: "100%" }}>
-        <SideBar />
-        <Toast /> */}
-        {/* <Grid  xs={12} md={10} p={2} sx={{ overflowX: "auto" }}> */}
+      
         {openAlert ? (<Alert title={alertMessage} setNavigate={setNavigate}/>): (<> </>)}
       { openAlertEdit && <Alert title="Asset Details Updated Successfully!" setNavigate={setMessage}/> }
           

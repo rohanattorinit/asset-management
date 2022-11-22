@@ -1,7 +1,6 @@
 import {
   Box,
   IconButton,
-  Paper,
   Table,
   TableCell,
   TableContainer,
@@ -10,19 +9,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
 import CountUp from "react-countup";
-import { getAssets } from "../../redux/actions/AdminActions";
 import { useState, useEffect } from "react";
 import { AssetTypes } from "../../redux/types";
 function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
   const navigate = useNavigate();
-  const dispatch: Dispatch<any> = useDispatch();
   const setAssetDetails = (assetId: number) => {
     navigate(`/admin/assets/${assetId}`);
   };

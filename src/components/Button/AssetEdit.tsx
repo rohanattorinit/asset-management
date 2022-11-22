@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Grid,
@@ -19,9 +19,7 @@ import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
 
 import {
-  getfilterOptions,
   updateAssetDetails,
-  getBrandOptions,
   getFiltersByCategory,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -36,14 +34,12 @@ interface Iprops {
 }
 function AssetEdit(props: Iprops) {
   const dispatch: Dispatch<any> = useDispatch();
-  // const [category, setCategory] = useState<string[]>([])
   const { singleAssetDetails, message, filterOptions } = useSelector(
     (state: RootStore) => state.admin
   );
 
   useEffect(() => {
-    // dispatch(getBrandOptions());
-    // dispatch(getfilterOptions());
+    
     dispatch(getFiltersByCategory([singleAssetDetails?.category]));
   }, [message, singleAssetDetails]);
 
