@@ -1,11 +1,21 @@
 import {
+  AssetTransactionHistory,
+  
+  AssetCategoryCount,
+  ASSET_TRANSACTION_HISTORY,
+  
+  BrandOptions,
+  DELETE_ASSET,
+  DELETE_EMPLOYEE,
+  FilterOptions,
+  GET_BRAND_OPTIONS,
+  GET_FILTER_OPTIONS,
+  GET_TOTAL_ASSETSCATEGORY_COUNT,
   SET_ADD_NOTE,
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
   SingleAssetDetailsType,
-  UPDATE_ASSET_DETAILS
-} from './../types'
-import {
+  UPDATE_ASSET_DETAILS,
   AllocatedAssetType,
   ALLOCATE_EMPLOYEE_ASSET,
   DEALLOCATE_EMPLOYEE_ASSET,
@@ -23,19 +33,27 @@ import {
   SET_ERROR,
   ServiceType,
   SET_SERVICE_TICKET_DETAILS
-} from '../types'
+} from './../types'
+
 
 interface InitialState {
-  loading: boolean
-  employees: EmployeeType[]
-  assets: AssetTypes[]
-  employeeDetails: EmployeeType
-  singleAssetDetails: SingleAssetDetailsType
-  employeeassetsdetails: AllocatedAssetType[]
-  serviceDetails: ServiceType[]
-  serviceticketdetails: ServiceType
-  error?: string
-  message: string
+  loading: boolean;
+  employees: EmployeeType[];
+  assets: AssetTypes[];
+  employeeDetails: EmployeeType;
+  singleAssetDetails: SingleAssetDetailsType;
+  employeeassetsdetails: AllocatedAssetType[];
+  serviceDetails: ServiceType[];
+  serviceticketdetails: ServiceType;
+  error?: string;
+  message: string;
+  brandOptions: BrandOptions[];
+  totalAssetCount : AssetCategoryCount[]
+  totalSurplusAssetCount : AssetCategoryCount[]
+  filterOptions: FilterOptions;
+  
+  assetTrasactionLogs:AssetTransactionHistory[];
+  
 }
 
 const initialState: InitialState = {
@@ -60,7 +78,7 @@ const initialState: InitialState = {
     modelNo: 0,
     description: '',
     status: '',
-    usability: '',
+    //usability: '',
     isRented: 0,
     empName: '',
     empId: '',
@@ -69,10 +87,25 @@ const initialState: InitialState = {
     deposit: 0,
     rentStartDate: '',
     rentEndDate: '',
-    asset_location: ''
+    asset_location: '',
+    processor: '',
+    screen_type: '',
+    received_date: '',
+    ram: '',
+    operating_system: '',
+    screen_size: '',
+    category: '',
+    imeiNo: "",
+    connectivity: "",
+    cableType: "",
+    ssd: "",
+    hdd: "",
+    os_version: "",
+    make_year: "",
   },
   employeeassetsdetails: [],
   serviceDetails: [],
+  
   serviceticketdetails: {
     empId: '',
     assetId: 0,
@@ -81,7 +114,30 @@ const initialState: InitialState = {
     description: '',
     ticketStatus: '',
     createdAt: ''
-  }
+  },
+  brandOptions: [],
+  totalSurplusAssetCount:[],
+  totalAssetCount:[],
+  filterOptions: {
+    category: [],
+    status: [],
+    processor: [],
+    screen_size: [],
+    ram: [],
+    screen_type: [],
+    asset_location: [],
+    operating_system: [],
+    cableType: [],
+    connectivity:[],
+    ssd:[],
+    hdd:[],
+    brandName:[]
+  },
+  assetTrasactionLogs:[],
+
+  
+
+
 }
 
 const adminReducer = (
@@ -160,8 +216,19 @@ const adminReducer = (
       return {
         ...state,
         serviceDetails: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
+
+      
+        case ASSET_TRANSACTION_HISTORY:
+          return {
+            ...state,
+            assetTrasactionLogs: action.payload?.data,
+            
+            loading: false
+          }
+ 
+
 
     case DEALLOCATE_EMPLOYEE_ASSET:
       return {
@@ -170,6 +237,20 @@ const adminReducer = (
         loading: false
       }
 
+    case DELETE_ASSET:
+      return {
+        ...state,
+        message: action.payload?.message,
+        loading: false
+      }
+
+      case DELETE_EMPLOYEE: 
+      return {
+        ...state,
+        message: action.payload?.message,
+        loading: false
+      }
+      
     case ALLOCATE_EMPLOYEE_ASSET:
       return {
         ...state,
@@ -193,6 +274,28 @@ const adminReducer = (
       return {
         ...state,
         error: action.payload,
+        loading: false
+      }
+
+    case GET_BRAND_OPTIONS:
+      return {
+        ...state,
+        brandOptions: action.payload?.data,
+        loading: false
+      }
+
+      case GET_TOTAL_ASSETSCATEGORY_COUNT:
+        return {
+          ...state,
+          totalAssetCount: action.payload?.data?.totalAssetCount,
+          totalSurplusAssetCount: action.payload?.data?.totalSurplusCount,
+          loading:false
+        }
+
+    case GET_FILTER_OPTIONS:
+      return {
+        ...state,
+        filterOptions: action.payload?.data,
         loading: false
       }
 

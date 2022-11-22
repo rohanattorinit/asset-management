@@ -16,7 +16,8 @@ import {
   TableRow,
   TextField,
   Typography,
-  CircularProgress,
+ 
+  Tooltip,
 } from "@mui/material";
 import { Dispatch, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,7 +75,7 @@ function Services() {
           <Box my={3} sx={{ display: "flex", justifyContent: "space-between" }}>
             <FormControl sx={{ width: 300 }}>
               <TextField
-                label="search here by name..."
+                label="search by title..."
                 onChange={(e) => debounced(e?.target?.value)}
               ></TextField>
             </FormControl>
@@ -128,6 +129,11 @@ function Services() {
                           Ticket Status
                         </Typography>
                       </TableCell>
+                      <TableCell align="center">
+                        <Typography sx={{ fontWeight: "bold" }}>
+                          Details
+                        </Typography>
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -157,13 +163,20 @@ function Services() {
                         >
                           {serviceDetail?.ticketStatus?.toUpperCase()}
                         </TableCell>
-                        <IconButton
-                          onClick={() =>
-                            SetEmployeeDetails(serviceDetail?.ticketId)
-                          }
-                        >
-                          <OpenInNewIcon sx={{ color: "darkblue" }} />
-                        </IconButton>
+                        <TableCell align="right">
+                          <Tooltip
+                            title="Ticket Details"
+                            children={
+                              <IconButton
+                                onClick={() =>
+                                  SetEmployeeDetails(serviceDetail?.ticketId)
+                                }
+                              >
+                                <OpenInNewIcon sx={{ color: "darkblue" }} />
+                              </IconButton>
+                            }
+                          />
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

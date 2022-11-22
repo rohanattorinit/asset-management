@@ -15,7 +15,6 @@ export const get = (url: string) => {
       //@ts-ignore
       if (error.response.status === 403) {
         Cookies.remove("auth_token");
-
       }
       //@ts-ignore
       else if (error.response.status === 404) {
@@ -23,7 +22,6 @@ export const get = (url: string) => {
         //   type: SET_ERROR,
         //   payload: (error as any)?.response?.data?.error || "",
         // });
-
       }
       return reject(error);
     }
@@ -34,12 +32,16 @@ export const post = (url: string, payload: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       const auth_token = Cookies.get("auth_token");
-      
-      const res = await axios.post(`${BASE_URL}${url}`, {
-        ...payload,
-      },{
-        headers: { Authorization: `Bearer ${auth_token}` },
-      });
+
+      const res = await axios.post(
+        `${BASE_URL}${url}`,
+        {
+          ...payload,
+        },
+        {
+          headers: { Authorization: `Bearer ${auth_token}` },
+        }
+      );
       return resolve(res);
     } catch (error) {
       //@ts-ignore

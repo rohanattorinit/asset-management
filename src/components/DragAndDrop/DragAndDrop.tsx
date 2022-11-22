@@ -5,8 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
+import Alert from "../ConfirmAlert/Alert";
+
 export const DragAndDrop = () => {
   const [file, setFile] = useState<Blob | string>();
+  const [alert, setAlert] = useState(false)
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_API;
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,13 +30,18 @@ export const DragAndDrop = () => {
       });
       setFile(undefined);
       (event.target as HTMLFormElement)?.reset();
-      navigate(`/admin/employee`);
-      alert("Employees added successfully");
+      // navigate(`/admin/employee`);
+      // alert("Employees added successfully");
+      setAlert(true)
     } catch (error) {
       //handle error
       console.error(error);
     }
   };
+  const setNavigate=()=>{
+    navigate(`/admin/employee`);
+
+  }
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
 
@@ -54,7 +62,7 @@ export const DragAndDrop = () => {
         }}
       >
         <img src={upload} alt="upload" />
-
+        {alert && <Alert title="Employee added successfully" setNavigate={setNavigate}/>}
         <StyledTypography>Upload CSV</StyledTypography>
         <form
           id="fileUploadForm"
