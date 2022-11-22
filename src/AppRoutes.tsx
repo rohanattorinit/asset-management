@@ -20,6 +20,7 @@ import ProtectedAdminRoute, {
   ProtectedAdminRouteProps,
 } from "./utils/ProtectedAdminRoute";
 import ProtectedRoute, { ProtectedRouteProps } from "./utils/ProtectedRoute";
+import EmpAssetDetails from "./pages/employee/EmpAssetDetails";
 
 function AppRoutes() {
   const { authenticated, user } =
@@ -74,6 +75,16 @@ function AppRoutes() {
             <ProtectedRoute
               {...defaultProtectedRouteProps}
               outlet={<Asset />}
+            />
+          }
+        />
+
+        <Route
+          path="/assets/:assetId"
+          element={
+            <ProtectedRoute
+              {...defaultProtectedRouteProps}
+              outlet={<EmpAssetDetails />}
             />
           }
         />
@@ -171,8 +182,6 @@ function AppRoutes() {
 }
 
 export default AppRoutes;
-
-
 
 // import { useSelector } from "react-redux";
 // import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -364,7 +373,6 @@ export default AppRoutes;
 //             />
 //           }
 //         />
-
 
 //         <Route path="*" element={<NotFound />} />
 //       </Routes>

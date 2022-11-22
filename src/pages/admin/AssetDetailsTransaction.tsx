@@ -1,10 +1,10 @@
-import { Grid, Tab, Tabs, Typography } from '@mui/material'
-import { Box } from '@mui/system'
-import React from 'react'
-import AssetDetails from '../../components/AssetDetailsHistory/AssetDetails'
-import AssetTransactionHistory from '../../components/AssetDetailsHistory/AssetTransactionHistory'
-import Toast from '../../components/ErrorHandling/Toast'
-import SideBar from '../../components/Sidebar/Sidebar'
+import { Grid, Tab, Tabs, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import React from "react";
+import AssetDetails from "../../components/AssetDetailsHistory/AssetDetails";
+import AssetTransactionHistory from "../../components/AssetDetailsHistory/AssetTransactionHistory";
+import Toast from "../../components/ErrorHandling/Toast";
+import SideBar from "../../components/Sidebar/Sidebar";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -30,14 +30,13 @@ function TabPanel(props: TabPanelProps) {
     </div>
   );
 }
-const allyProps = (index: number) =>{
-  return{
-    id:`simple-tab-${index}`,
-    'aria-controls' : `simple-tabpanel-${index}`
-  }
-}
+const allyProps = (index: number) => {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+};
 function AssetDetailsTransaction() {
-
   const [value, setValue] = React.useState(0);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -46,24 +45,30 @@ function AssetDetailsTransaction() {
 
   return (
     <>
-    <Grid container sx={{ height: "100%" }}>
-      <SideBar />
-      <Toast />
-      <Grid item xs={12} md={10} p={3}>
-        
-​
-        <Box>
-          <Tabs value={value} onChange={handleTabChange} centered>
-            <Tab label="Asset Details" {...allyProps(0)} />
-            <Tab label="Asset Transaction History"  {...allyProps(1)}/>
-          </Tabs>
-        </Box>
-​        <TabPanel value={value} index={0}> <AssetDetails /></TabPanel>
-​        <TabPanel value={value} index={1}><AssetTransactionHistory /></TabPanel>
+      <Grid container sx={{ height: "100%", overflow: "hidden" }}>
+        <SideBar />
+        <Toast />
+        <Grid item xs={12} md={10} p={3}>
+          ​
+          <Box>
+            <Tabs value={value} onChange={handleTabChange} centered>
+              <Tab label="Asset Details" {...allyProps(0)} />
+              <Tab label="Asset Transaction History" {...allyProps(1)} />
+            </Tabs>
+          </Box>
+          ​{" "}
+          <TabPanel value={value} index={0}>
+            {" "}
+            <AssetDetails />
+          </TabPanel>
+          ​{" "}
+          <TabPanel value={value} index={1}>
+            <AssetTransactionHistory />
+          </TabPanel>
+        </Grid>
       </Grid>
-    </Grid>
     </>
-  )
+  );
 }
 
-export default AssetDetailsTransaction
+export default AssetDetailsTransaction;
