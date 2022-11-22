@@ -37,7 +37,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
 
   return (
     <>
-    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Typography
           sx={{
             fontSize: 20,
@@ -156,14 +156,24 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                   </TableCell>
                   <TableCell align="right">
                     <Tooltip
-                      title="Asset Details"
+                      title={
+                        !filteredAsset?.is_active
+                          ? "Deleted Asset"
+                          : "Asset Details"
+                      }
                       children={
                         <IconButton
                           onClick={() =>
                             setAssetDetails(filteredAsset?.assetId)
                           }
                         >
-                          <OpenInNewIcon sx={{ color: "darkblue" }} />
+                          <OpenInNewIcon
+                            sx={{
+                              color: !filteredAsset?.is_active
+                                ? "red"
+                                : "darkblue",
+                            }}
+                          />
                         </IconButton>
                       }
                     />
