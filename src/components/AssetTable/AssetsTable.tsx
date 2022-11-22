@@ -100,7 +100,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                 </TableRow>
               </TableHead>
               {assets?.map((filteredAsset) => (
-                <TableRow key={filteredAsset?.assetId}>
+                <TableRow key={filteredAsset?.assetId} sx={{background:!filteredAsset?.is_active?'lightgrey':""}}>
                   <TableCell align="center">{filteredAsset?.assetId}</TableCell>
                   <TableCell align="center">
                     {filteredAsset?.name?.toUpperCase()}
@@ -111,8 +111,11 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                   <TableCell align="center">
                     {filteredAsset?.category?.toUpperCase()}
                   </TableCell>
+
+                  <TableCell align="center">{filteredAsset?.screen_type?.length?filteredAsset?.screen_type:'-'}</TableCell>
+                  <TableCell align="center">{filteredAsset?.screen_size?filteredAsset?.screen_size:'-'}</TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.screen_type}
+                    {filteredAsset?.ram?filteredAsset?.ram:'-'}
                   </TableCell>
                   <TableCell align="center">
                     {filteredAsset?.screen_size}
@@ -122,10 +125,10 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                     {filteredAsset?.status?.toUpperCase()}
                   </TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.processor?.toUpperCase()}
+                    {filteredAsset?.processor?.length?filteredAsset?.processor?.toUpperCase():'-'}
                   </TableCell>
                   <TableCell align="center">
-                    {filteredAsset?.operating_system?.toUpperCase()}
+                    {filteredAsset?.operating_system?.length?filteredAsset?.operating_system.toUpperCase():'-'}
                   </TableCell>
                   <TableCell align="right">
                     <Tooltip

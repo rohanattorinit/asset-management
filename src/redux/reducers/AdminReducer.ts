@@ -1,17 +1,21 @@
 import {
+  AssetTransactionHistory,
+  
+  AssetCategoryCount,
+  ASSET_TRANSACTION_HISTORY,
+  
   BrandOptions,
   DELETE_ASSET,
   DELETE_EMPLOYEE,
   FilterOptions,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
+  GET_TOTAL_ASSETSCATEGORY_COUNT,
   SET_ADD_NOTE,
   SET_SINGLE_ASSET_DETAILS,
   SET_TICKET_STATUS,
   SingleAssetDetailsType,
-  UPDATE_ASSET_DETAILS
-} from './../types'
-import {
+  UPDATE_ASSET_DETAILS,
   AllocatedAssetType,
   ALLOCATE_EMPLOYEE_ASSET,
   DEALLOCATE_EMPLOYEE_ASSET,
@@ -29,21 +33,27 @@ import {
   SET_ERROR,
   ServiceType,
   SET_SERVICE_TICKET_DETAILS
-} from '../types'
+} from './../types'
+
 
 interface InitialState {
-  loading: boolean
-  employees: EmployeeType[]
-  assets: AssetTypes[]
-  employeeDetails: EmployeeType
-  singleAssetDetails: SingleAssetDetailsType
-  employeeassetsdetails: AllocatedAssetType[]
-  serviceDetails: ServiceType[]
-  serviceticketdetails: ServiceType
-  error?: string
-  message: string
-  brandOptions: BrandOptions[]
-  filterOptions: FilterOptions
+  loading: boolean;
+  employees: EmployeeType[];
+  assets: AssetTypes[];
+  employeeDetails: EmployeeType;
+  singleAssetDetails: SingleAssetDetailsType;
+  employeeassetsdetails: AllocatedAssetType[];
+  serviceDetails: ServiceType[];
+  serviceticketdetails: ServiceType;
+  error?: string;
+  message: string;
+  brandOptions: BrandOptions[];
+  totalAssetCount : AssetCategoryCount[]
+  totalSurplusAssetCount : AssetCategoryCount[]
+  filterOptions: FilterOptions;
+  
+  assetTrasactionLogs:AssetTransactionHistory[];
+  
 }
 
 const initialState: InitialState = {
@@ -95,6 +105,7 @@ const initialState: InitialState = {
   },
   employeeassetsdetails: [],
   serviceDetails: [],
+  
   serviceticketdetails: {
     empId: '',
     assetId: 0,
@@ -105,6 +116,8 @@ const initialState: InitialState = {
     createdAt: ''
   },
   brandOptions: [],
+  totalSurplusAssetCount:[],
+  totalAssetCount:[],
   filterOptions: {
     category: [],
     status: [],
@@ -119,7 +132,12 @@ const initialState: InitialState = {
     ssd:[],
     hdd:[],
     brandName:[]
-  }
+  },
+  assetTrasactionLogs:[],
+
+  
+
+
 }
 
 const adminReducer = (
@@ -198,8 +216,19 @@ const adminReducer = (
       return {
         ...state,
         serviceDetails: action.payload?.data,
-        loading: false
-      }
+        loading: false,
+      };
+
+      
+        case ASSET_TRANSACTION_HISTORY:
+          return {
+            ...state,
+            assetTrasactionLogs: action.payload?.data,
+            
+            loading: false
+          }
+ 
+
 
     case DEALLOCATE_EMPLOYEE_ASSET:
       return {
@@ -254,6 +283,14 @@ const adminReducer = (
         brandOptions: action.payload?.data,
         loading: false
       }
+
+      case GET_TOTAL_ASSETSCATEGORY_COUNT:
+        return {
+          ...state,
+          totalAssetCount: action.payload?.data?.totalAssetCount,
+          totalSurplusAssetCount: action.payload?.data?.totalSurplusCount,
+          loading:false
+        }
 
     case GET_FILTER_OPTIONS:
       return {

@@ -1,12 +1,15 @@
+
 import {
   ALLOCATE_EMPLOYEE_ASSET,
   AssetTypes,
+  ASSET_TRANSACTION_HISTORY,
   CreateAssetType,
   DEALLOCATE_EMPLOYEE_ASSET,
   DELETE_ASSET,
   DELETE_EMPLOYEE,
   GET_BRAND_OPTIONS,
   GET_FILTER_OPTIONS,
+  GET_TOTAL_ASSETSCATEGORY_COUNT,
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
@@ -503,3 +506,47 @@ export const getFiltersByCategory =
       });
     }
   };
+  
+  
+  export const getAssetTransactionLog =
+  (assetId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/transactions/logs/${assetId}`);
+console.log({res})
+      dispatch({ type: ASSET_TRANSACTION_HISTORY , payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching brands`,
+      });
+    }
+  };
+
+  export const getTotalAssetCategoryCount =
+  () => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/transactions/categoryCount`);
+      
+      dispatch({ type: GET_TOTAL_ASSETSCATEGORY_COUNT, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching count of Toatal Assets`,
+      });
+    }
+  };
+
+
+
+
+

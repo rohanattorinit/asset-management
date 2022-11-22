@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  SelectChangeEvent,
-  Tab,
-  Tabs,
-  TextField,
-} from "@mui/material";
+import { Box, Button,  Grid, Tab, Tabs, TextField } from "@mui/material";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,12 +10,12 @@ import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getAssets } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
-import Filter from "../../components/Button/Filter";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 import { AssetTypes } from "../../redux/types";
+import Filter from "../../components/Button/Filter";
 function Assets() {
   const [value, setValue] = useState(0);
-  const [isRented, setIsRented] = useState<boolean>(false);
+  const [isRented, setIsRented] = useState<number>(0);
   const { message, assets } = useSelector((state: RootStore) => state.admin);
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
@@ -35,11 +27,11 @@ function Assets() {
       setSearch(search);
     },
     // delay in ms
-    300
+    300,
   );
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-    newValue ? setIsRented(true) : setIsRented(false);
+    newValue === 0 ? setIsRented(0) : newValue === 1 ? setIsRented(1) : newValue === 2 && setIsRented(1);
   };
   useEffect(() => {
     dispatch(
@@ -75,12 +67,7 @@ function Assets() {
           </Grid>
           <Grid item xs={3}>
             <Box display="flex" justifyContent="flex-end">
-              <Button
-                variant="outlined"
-                color="primary"
-                component={RouterLink}
-                to="/admin/assets/create"
-              >
+              <Button variant="outlined" color="primary" component={RouterLink} to="/admin/assets/create">
                 Add new Asset
               </Button>
             </Box>
