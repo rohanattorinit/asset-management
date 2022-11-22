@@ -316,7 +316,7 @@ export const deallocateAssets =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post(
-        `/api/admin/deallocateAsset/${empId}/${assetId}`,
+        `/api/admin/deallocateAsset/${empId}/${assetId}`, 
         {}
       );
 

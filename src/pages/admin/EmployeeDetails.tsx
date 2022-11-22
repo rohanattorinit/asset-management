@@ -94,7 +94,7 @@ export default function EmployeeDetails() {
   const [empEdit, setEmpEdit]= useState(false)
   const [openConfirm, setOpenConfirm] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
-
+  const [currentAssetId,setCurrentAssetId]=useState(0);
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
@@ -345,7 +345,7 @@ export default function EmployeeDetails() {
                             <RemoveCircleIcon
                               sx={{ color: "#DC2626" }}
                               onClick={() => {
-
+                                setCurrentAssetId(asset?.assetId)
                                 setOpenConfirmDeallocate(true);
                                 
                               }}
@@ -362,7 +362,7 @@ export default function EmployeeDetails() {
         <DialogTitle>Are you sure?</DialogTitle>
         
         <DialogActions>
-          <Button onClick={()=>{HandleDeallocate(asset?.assetId)
+          <Button onClick={()=>{HandleDeallocate(currentAssetId)
           
           }}>OK</Button>
           <Button onClick={()=>{setOpenConfirmDeallocate(false)}}>CANCEL</Button>

@@ -48,7 +48,7 @@ const AllocateAsset = ({
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
   // const [datecheck, setDatecheck]= useState(false)
   const [dateID, setDateID] = useState<Array<number>>([])
-  console.log('allocationObj',allocationObj, 'assetIdCheck', assetIdCheck, 'dateID', dateID);
+  // console.log('allocationObj',allocationObj, 'assetIdCheck', assetIdCheck, 'dateID', dateID);
   const dispatch: Dispatch<any> = useDispatch();
   const { employeeDetails, assets, loading, message } = useSelector(
     (state: RootStore) => state.admin
