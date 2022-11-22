@@ -24,7 +24,7 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
   const setAssetDetails = (assetId: number) => {
-    navigate(`/admin/filteredAsset/${assetId}`);
+    navigate(`/admin/assets/${assetId}`);
   };
   const { assets, loading } = useSelector((state: RootStore) => state.admin);
   const [filteredAsset, setFilteredAssets] = useState<AssetTypes[]>([]);

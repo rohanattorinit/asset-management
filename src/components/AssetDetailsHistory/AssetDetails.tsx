@@ -43,7 +43,7 @@ const navigate = useNavigate();
     console.log(singleAssetDetails)
   console.log(assets)
 
-  const state = useSelector((state: RootStore) => state);
+  
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
@@ -168,7 +168,7 @@ const navigate = useNavigate();
             {assetConfirmdel && <Confirm  title="Are you sure?" handleOk={()=>{handleDelConfirm(singleAssetDetails.assetId)}} handlecancel={()=>{setAssetConfirmdel(false)}}/>}
           </Box>
 ):(
-  <Typography  sx={{ fontSize: 20 , color : "red"}}>THIS ASSET IS DELETED </Typography>
+  <Typography  sx={{ fontSize: 16 , color : "red"}}>This Asset is Deleted !!! </Typography>
 )}
 
         </Box>

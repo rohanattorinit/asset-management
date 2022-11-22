@@ -1,16 +1,27 @@
 import { useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import upload from "../../assets/upload.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
 import { LOADING_DATA, SET_ERROR } from "../../redux/types";
 import Alert from "../ConfirmAlert/Alert";
+import { RootStore } from "../../redux/store";
+
+
+
 export const AssetCsv = () => {
   const [file, setFile] = useState<Blob | string>();
   const [alert, setAlert]= useState(false)
+
+  const {  loading } = useSelector(
+    (state: RootStore) => state.admin
+  );
+  //const loading = true;
+
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_API;
   const dispatch = useDispatch()
@@ -96,8 +107,9 @@ export const AssetCsv = () => {
               size="large"
               type="submit"
               variant="contained"
+              disabled={loading}
             >
-              Upload CSV
+              {loading ? <CircularProgress color="secondary" size={25} /> : "Upload CSV"}
             </Button>
           </Box>
         </form>

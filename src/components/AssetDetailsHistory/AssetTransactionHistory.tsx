@@ -12,6 +12,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BuildIcon from '@mui/icons-material/Build';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import Loader from "../Loader/Loader";
 
 
 function AssetTransactionHistory() {
@@ -20,7 +21,7 @@ function AssetTransactionHistory() {
   const id = location.pathname.split("/")[3];
   const dispatch: Dispatch<any> = useDispatch();
 
-  const { assetTrasactionLogs } = useSelector((state: RootStore) => state.admin);
+  const { assetTrasactionLogs,loading } = useSelector((state: RootStore) => state.admin);
 
   
   
@@ -33,6 +34,7 @@ function AssetTransactionHistory() {
    
         
         <Grid item xs={12} md={10} p={3} >
+    { loading ? (<Loader/>):(
       <Box >
        
         <Timeline
@@ -129,6 +131,7 @@ function AssetTransactionHistory() {
         </Timeline>
         
       </Box>
+)}
     </Grid>
     
     
