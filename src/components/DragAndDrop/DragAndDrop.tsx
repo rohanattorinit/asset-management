@@ -6,11 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
 import Alert from "../ConfirmAlert/Alert";
+import { SET_ERROR } from "../../redux/types";
+import { useDispatch } from "react-redux";
 
 export const DragAndDrop = () => {
   const [file, setFile] = useState<Blob | string>();
-  const [alert, setAlert] = useState(false)
+  const [alert, setAlert] = useState(false);
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   const BASE_URL = process.env.REACT_APP_BASE_API;
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,16 +35,23 @@ export const DragAndDrop = () => {
       (event.target as HTMLFormElement)?.reset();
       // navigate(`/admin/employee`);
       // alert("Employees added successfully");
-      setAlert(true)
+      setAlert(true);
     } catch (error) {
       //handle error
-      console.error(error);
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response?.status
+          }: Error occured while Adding Employee Details`,
+      });
     }
   };
-  const setNavigate=()=>{
+  const setNavigate = () => {
     navigate(`/admin/employee`);
+  };
 
-  }
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
 
@@ -62,7 +72,12 @@ export const DragAndDrop = () => {
         }}
       >
         <img src={upload} alt="upload" />
-        {alert && <Alert title="Employee added successfully" setNavigate={setNavigate}/>}
+        {alert && (
+          <Alert
+            title="Employee added successfully"
+            setNavigate={setNavigate}
+          />
+        )}
         <StyledTypography>Upload CSV</StyledTypography>
         <form
           id="fileUploadForm"
@@ -93,3 +108,6 @@ export const DragAndDrop = () => {
     </>
   );
 };
+// function dispatch(arg0: { type: any; payload: any }) {
+//   throw new Error("Function not implemented.");
+// }
