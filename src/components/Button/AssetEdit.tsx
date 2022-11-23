@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Grid,
@@ -41,7 +41,6 @@ interface Iprops {
 }
 function AssetEdit(props: Iprops) {
   const dispatch: Dispatch<any> = useDispatch();
-  // const [category, setCategory] = useState<string[]>([])
   const { singleAssetDetails, message, filterOptions, } =
     useSelector((state: RootStore) => state.admin);
 

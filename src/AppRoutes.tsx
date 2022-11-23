@@ -43,7 +43,8 @@ function AppRoutes() {
   };
 
   return (
-    // <>App</>
+   
+
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -181,3 +182,4 @@ function AppRoutes() {
 }
 
 export default AppRoutes;
+

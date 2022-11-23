@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-import { Dispatch, useEffect } from "react";
+import { Dispatch } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -48,11 +48,7 @@ const AddEmployee = () => {
     navigate("/admin/employee");
   }
 
-  // useEffect(() => {
-  //   if (message) {
-  //     navigate("/admin/employee");
-  //   }
-  // }, [message]);
+  
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>

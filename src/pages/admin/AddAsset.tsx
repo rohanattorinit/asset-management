@@ -12,7 +12,6 @@ import {
   Select,
 } from "@mui/material";
 import { Dispatch, useEffect, useState } from "react";
-
 import FormLabel from "@mui/material/FormLabel";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
@@ -53,7 +52,7 @@ const AddAsset = () => {
     values.rent = parseInt(values.rent.split(",").join(""), 10);
     values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
-    console.log(values);
+    
     resetForm({ values: "" });
   };
   const setChangeCategory = (value: string) => {

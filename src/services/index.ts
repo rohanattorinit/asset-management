@@ -20,10 +20,7 @@ export const get = (url: string) => {
       }
       //@ts-ignore
       else if (error.response.status === 404) {
-        // Dispatch({
-        //   type: SET_LOGOUT,
-        //   payload: (error as any)?.response?.data?.error || "",
-        // });
+       
       }
       return reject(error);
     }

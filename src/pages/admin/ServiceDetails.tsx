@@ -56,8 +56,6 @@ export const ServiceDetails = () => {
       dispatch(changeTicketStatus(serviceticketdetails?.ticketId, select));
     }
     (event.target as HTMLFormElement).reset();
-   // alert("Ticket Updated Successfully!");
-    //navigate(`/admin/service`);
   };
 
   const setNavigate = ()=>{
