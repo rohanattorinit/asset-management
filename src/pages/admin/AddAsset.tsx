@@ -12,7 +12,6 @@ import {
   Select,
 } from "@mui/material";
 import { Dispatch, useEffect, useState } from "react";
-
 import FormLabel from "@mui/material/FormLabel";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
@@ -55,7 +54,7 @@ const AddAsset = () => {
     values.rent = parseInt(values.rent.split(",").join(""), 10);
     values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
-    console.log(values);
+    
     resetForm({ values: "" });
   };
   const setChangeCategory = (value: string) => {
@@ -65,8 +64,6 @@ const AddAsset = () => {
   }
 
   useEffect(() => {
-    // dispatch(getBrandOptions());
-    //dispatch(getfilterOptions());
     dispatch(getFiltersByCategory(category))
     dispatch(getEmployees({ name: "" }));
   }, [category]);
@@ -488,12 +485,7 @@ const AddAsset = () => {
                               values?.ssd,
                               handleChange
                             )}
-                             {/* {dropdownComp(
-                              "OS Version",
-                              "os_version",
-                              values?.os_version,
-                              handleChange
-                            )} */}
+                            
 
                             
                             <Grid item xs={12} sm={6} md={6}>

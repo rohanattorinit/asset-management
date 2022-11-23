@@ -27,22 +27,6 @@ import { getFilterIcon, getFilterName } from "../../utils/objectMappers";
 
 type Anchor = "right";
 
-interface FILTEROBJ {
-  screen_type: Array<string>;
-  ram: Array<string>;
-  status: Array<string>;
-  assetType: Array<string>;
-  category: Array<string>;
-  operating_system: Array<string>;
-  processor: Array<string>;
-  screen_size: Array<string>;
-  hdd: Array<string>;
-  ssd: Array<string>;
-  asset_location: Array<string>;
-  cableType: Array<string>;
-  brandName: Array<string>;
-  connectivity: Array<string>;
-}
 
 const FilterState = {
   screen_type: [],

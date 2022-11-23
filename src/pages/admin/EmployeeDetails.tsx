@@ -88,7 +88,6 @@ export default function EmployeeDetails() {
   const location = useLocation();
   const empId = location?.pathname.replace("/admin/employee/", "");
 
-  const [empEdit, setEmpEdit]= useState(false)
   const [openConfirm, setOpenConfirm] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
   const [currentAssetId,setCurrentAssetId]=useState(0);
@@ -111,7 +110,8 @@ export default function EmployeeDetails() {
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
     setEmpOpen(false);
-    setEmpEdit(true);
+    setOpenAlert(true);
+    setAlertMessage("Employee details updated successfully")
   };
 
   const HandleDelete = (assetId: string) => {
@@ -119,20 +119,11 @@ export default function EmployeeDetails() {
       setOpenAlert(true);
       setAlertMessage("First deallocate all the assets allocated to employee!");
 
-      // alert("First deallocate all the assets allocated to employee!")
+      
     } else {
       setOpenConfirm(true);
       setAlertMessage("Are you sure?");
-      // if (window.confirm("Are you sure you want to delete this employee?")) {
-
-      //   dispatch(deleteEmployee(employeeDetails.empId))
-      //   navigate("/admin/employee/");
-      //  }
     }
-  };
-
-  const setMessage = () => {
-    setEmpEdit(false);
   };
 
   const handleOK = () => {
@@ -173,14 +164,6 @@ export default function EmployeeDetails() {
         <Alert title={alertMessage} setNavigate={setNavigate} />
       ) : (
         <> </>
-      )}
-      {empEdit ? (
-        <Alert
-          title="Employee details updated successfully"
-          setNavigate={setMessage}
-        />
-      ) : (
-        <></>
       )}
       {openAlrtDeallocate && (
         <Alert title="Asset deallocated" setNavigate={handleAlrtDeallocate} />

@@ -1,10 +1,7 @@
 import {
   Box,
-  CircularProgress,
-  Grid,
   IconButton,
-  Paper,
-  Table,
+    Table,
   TableCell,
   TableContainer,
   TableHead,
@@ -13,15 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { Stack } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
 import Loader from "../Loader/Loader";
-import { AssetTypes, LOADING } from "../../redux/types";
-import { Dispatch, useEffect, useState } from "react";
-import { getSingleAssetDetails } from "../../redux/actions/AdminActions";
-import Asset from "../../pages/employee/Asset";
+import { AssetTypes } from "../../redux/types";
+import { Dispatch} from "react";
 import CountUp from "react-countup";
 
 const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
