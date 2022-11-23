@@ -1,4 +1,4 @@
-import { Box, Button,  Grid, Tab, Tabs, TextField } from "@mui/material";
+import { Box, Button, Grid, Tab, Tabs, TextField, Badge } from "@mui/material";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ function Assets() {
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
   const [filteredAsset, setFilteredAssets] = useState<AssetTypes[]>([]);
-  
+
   // Debounce callback
   const debounced = useDebouncedCallback(
     // function
@@ -28,16 +28,21 @@ function Assets() {
       setSearch(search);
     },
     // delay in ms
-    300,
+    300
   );
+
+  const selectedFilters = JSON.parse(localStorage.getItem("openObject")!);
+  const appliedFilterCount = Object.keys(selectedFilters)?.length;
+  console.log("appliedFilterCount", appliedFilterCount);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-    newValue === 0 ? setIsRented(0) : newValue === 1 ? setIsRented(1) : newValue === 2 && setIsRented(1);
+    newValue === 0
+      ? setIsRented(0)
+      : newValue === 1
+      ? setIsRented(1)
+      : newValue === 2 && setIsRented(1);
   };
-
-  console.log('assests hey', assets)
-  console.log('filteredAsset hey',filteredAsset)
 
   // useEffect(() => {
   //   dispatch(
@@ -64,7 +69,19 @@ function Assets() {
       <Grid item xs={12} md={10} p={3}>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
-            <Filter name={search}/>
+            <Badge badgeContent={appliedFilterCount} sx={{
+            ".css-fvc8ir-MuiBadge-badge": {
+              bgcolor: "#009EFF",
+              color: "black",
+              // height: { xs: 20, md: 30 },
+              // width: { xs: 10, md: 10 },
+              // minWidth: { xs: 10, md: 20 },
+              // fontSize: { xs: "0.5rem", md: "0.75rem" },
+              fontSize: 15, height: 20, minWidth: 25
+            }
+          }}>
+              <Filter name={search} />
+            </Badge>
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -75,7 +92,12 @@ function Assets() {
           </Grid>
           <Grid item xs={3}>
             <Box display="flex" justifyContent="flex-end">
-              <Button variant="outlined" color="primary" component={RouterLink} to="/admin/assets/create">
+              <Button
+                variant="outlined"
+                color="primary"
+                component={RouterLink}
+                to="/admin/assets/create"
+              >
                 Add new Asset
               </Button>
             </Box>
