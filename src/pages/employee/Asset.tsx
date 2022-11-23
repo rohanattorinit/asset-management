@@ -84,7 +84,7 @@ export default function Asset() {
       title: "",
       description: "",
     });
-    // navigate(`/ticket`);
+   
   };
   const setAlrt = () => {
     setAlert(false);

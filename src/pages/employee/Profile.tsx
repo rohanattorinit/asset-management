@@ -79,7 +79,7 @@ export default function Profile() {
     } else {
       e.preventDefault();
       setPassAlert(true)
-      // alert("Password must match!!");
+     
     }
   };
   useEffect(() => {

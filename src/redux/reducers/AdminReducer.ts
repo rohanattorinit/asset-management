@@ -81,7 +81,6 @@ const initialState: InitialState = {
     modelNo: 0,
     description: '',
     status: '',
-    //usability: '',
     isRented: 0,
     empName: '',
     empId: '',

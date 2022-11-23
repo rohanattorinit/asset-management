@@ -168,7 +168,6 @@ export const addAsset =
     try {
       const res = await post("/api/assets/addAsset", assetDetails);
 
-      //alert((res as any)?.data?.message);
       dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -188,9 +187,6 @@ export const updateAssetDetails =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post(`/api/assets/update/${assetId}`, updateData);
-
-      //alert('Asset Details Updated Successfully!')
-
       dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -506,7 +502,6 @@ export const getAssetTransactionLog =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/transactions/logs/${assetId}`);
-      console.log({ res });
       dispatch({
         type: ASSET_TRANSACTION_HISTORY,
         payload: (res as any)?.data,

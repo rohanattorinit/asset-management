@@ -4,15 +4,14 @@ import { Pie ,getElementAtEvent} from 'react-chartjs-2';
 import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../redux/store';
-//import { useNavigate } from 'react-router-dom';
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PiechartOne() {
     const { totalAssetCount } = useSelector((state: RootStore) => state.admin);
     const chartRef =  useRef();
-    // const [dataSet, setDataSet] = useState<Array<any>>([])
-    // const navigate= useNavigate()
+    
     
     
     const handlePieChartClick = (event:any) => {

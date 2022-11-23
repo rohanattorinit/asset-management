@@ -144,7 +144,6 @@ export interface SingleAssetDetailsType {
   modelNo: number
   description: string
   status: string
-  //usability: string
   asset_location: string
   empName: string
   empId: string
@@ -567,7 +566,6 @@ interface setBrandOptions {
  
   type: typeof GET_BRAND_OPTIONS;
   payload: {
-    // message: string
     data: BrandOptions[]
   }
 }
