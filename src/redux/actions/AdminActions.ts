@@ -1,4 +1,3 @@
-
 import {
   ALLOCATE_EMPLOYEE_ASSET,
   AssetTypes,
@@ -34,8 +33,8 @@ import { get, post } from "../../services";
 
 interface GetAssetParams {
   name?: string;
-  allocate?:boolean,
-  isRented?:0|1
+  allocate?: boolean;
+  isRented?: 0 | 1;
 }
 
 interface GetEmployeeParams {
@@ -81,7 +80,7 @@ export const getEmployees =
     }
   };
 
-  export const setAssetFilters =
+export const setAssetFilters =
   (filterParams: SetFilterParams = {}) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
@@ -104,24 +103,24 @@ export const getAssets =
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
 
-  try {
-    const { name, allocate,  isRented } = assetParams
+    try {
+      const { name, allocate, isRented } = assetParams;
 
-    const res = await get(
-      `/api/assets?allocate=${allocate}&isRented=${isRented}&name=${name}`
-    )
-    dispatch({ type: SET_ASSETS, payload: (res as any).data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while fetching asset data`
-    })
-  }
-}
+      const res = await get(
+        `/api/assets?allocate=${allocate}&isRented=${isRented}&name=${name}`
+      );
+      dispatch({ type: SET_ASSETS, payload: (res as any).data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching asset data`,
+      });
+    }
+  };
 
 export const getTickets =
   (ticketParams: GetTicketParams = {}) =>
@@ -190,20 +189,20 @@ export const updateAssetDetails =
     try {
       const res = await post(`/api/assets/update/${assetId}`, updateData);
 
-     //alert('Asset Details Updated Successfully!')
-   
-    dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while Updating Asset Information`
-    })
-  }
-}
+      //alert('Asset Details Updated Successfully!')
+
+      dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Updating Asset Information`,
+      });
+    }
+  };
 
 export const getEmployeeDetails =
   (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
@@ -305,8 +304,6 @@ export const getSingleAssetDetails =
     }
   };
 
-
-
 export const deallocateAssets =
   (empId: string, assetId: number) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
@@ -334,13 +331,14 @@ export const deallocateAssets =
   };
 
 export const allocateAssets =
-  (empId: string, allocationObj:any) =>
+  (empId: string, allocationObj: any) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
 
     try {
-      
-      const res = await post(`/api/admin/allocateAsset/${empId}/`, { allocationObj });
+      const res = await post(`/api/admin/allocateAsset/${empId}/`, {
+        allocationObj,
+      });
 
       dispatch({ type: ALLOCATE_EMPLOYEE_ASSET, payload: (res as any)?.data });
     } catch (error) {
@@ -355,132 +353,131 @@ export const allocateAssets =
     }
   };
 
-export const changeTicketStatus = (ticketId: number, status: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
-      status
-    })
-    dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while updating ticket status`
-    })
-  }
-}
+export const changeTicketStatus =
+  (ticketId: number, status: string) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post(`/api/tickets/changeStatus/${ticketId}`, {
+        status,
+      });
+      dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while updating ticket status`,
+      });
+    }
+  };
 
-export const addNote = (ticketId: number, note: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post(`/api/tickets/note/${ticketId}`, { note })
-    dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${(error as any).response.status}: Error occured while submitting note`
-    })
-  }
-}
+export const addNote =
+  (ticketId: number, note: string) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post(`/api/tickets/note/${ticketId}`, { note });
+      dispatch({ type: SET_TICKET_STATUS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while submitting note`,
+      });
+    }
+  };
 
-export const getBrandOptions = () => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await get(`/api/brands`)
+export const getBrandOptions =
+  () => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/brands`);
 
-    dispatch({ type: GET_BRAND_OPTIONS, payload: (res as any)?.data })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${(error as any).response.status}: Error occured while fetching brands`
-    })
-  }
-}
+      dispatch({ type: GET_BRAND_OPTIONS, payload: (res as any)?.data });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while fetching brands`,
+      });
+    }
+  };
 
-export const getfilterOptions = () => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await get(`/api/assets/filterOptions`)
+export const getfilterOptions =
+  () => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await get(`/api/assets/filterOptions`);
 
-    dispatch({
-      type: GET_FILTER_OPTIONS,
-      payload: (res as any)?.data
-    })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while Deleting an Assets`
-    })
-  }
-}
+      dispatch({
+        type: GET_FILTER_OPTIONS,
+        payload: (res as any)?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Deleting an Assets`,
+      });
+    }
+  };
 
-export const deleteAsset = (empId: string, assetId: number) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post(`/api/assets/delete/${assetId}`, {})
+export const deleteAsset =
+  (empId: string, assetId: number) =>
+  async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post(`/api/assets/delete/${assetId}`, {});
 
-    dispatch({
-      type: DELETE_ASSET,
-      payload: (res as any)?.data
-    })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while Deleting an Assets`
-    })
-  }
-}
+      dispatch({
+        type: DELETE_ASSET,
+        payload: (res as any)?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Deleting an Assets`,
+      });
+    }
+  };
 
+export const deleteEmployee =
+  (empId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
+    dispatch({ type: LOADING_DATA });
+    try {
+      const res = await post(`/api/employees/delete/${empId}`, {});
 
-export const deleteEmployee = (empId: string) => async (
-  dispatch: Dispatch<DispatchTypes>
-) => {
-  dispatch({ type: LOADING_DATA })
-  try {
-    const res = await post(`/api/employees/delete/${empId}`, {})
-
-    dispatch({
-      type: DELETE_EMPLOYEE,
-      payload: (res as any)?.data
-    })
-  } catch (error) {
-    dispatch({
-      type: SET_ERROR,
-      payload:
-        (error as any)?.response?.data?.error ||
-        `${
-          (error as any).response.status
-        }: Error occured while Deleting an Assets`
-    })
-  }
-}
-
+      dispatch({
+        type: DELETE_EMPLOYEE,
+        payload: (res as any)?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SET_ERROR,
+        payload:
+          (error as any)?.response?.data?.error ||
+          `${
+            (error as any).response.status
+          }: Error occured while Deleting an Assets`,
+      });
+    }
+  };
 
 export const getFiltersByCategory =
   (category: string[]) => async (dispatch: Dispatch<DispatchTypes>) => {
@@ -503,15 +500,17 @@ export const getFiltersByCategory =
       });
     }
   };
-  
-  
-  export const getAssetTransactionLog =
+
+export const getAssetTransactionLog =
   (assetId: string) => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/transactions/logs/${assetId}`);
-console.log({res})
-      dispatch({ type: ASSET_TRANSACTION_HISTORY , payload: (res as any)?.data });
+      console.log({ res });
+      dispatch({
+        type: ASSET_TRANSACTION_HISTORY,
+        payload: (res as any)?.data,
+      });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -524,13 +523,16 @@ console.log({res})
     }
   };
 
-  export const getTotalAssetCategoryCount =
+export const getTotalAssetCategoryCount =
   () => async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/transactions/categoryCount`);
-      
-      dispatch({ type: GET_TOTAL_ASSETSCATEGORY_COUNT, payload: (res as any)?.data });
+
+      dispatch({
+        type: GET_TOTAL_ASSETSCATEGORY_COUNT,
+        payload: (res as any)?.data,
+      });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -542,8 +544,3 @@ console.log({res})
       });
     }
   };
-
-
-
-
-

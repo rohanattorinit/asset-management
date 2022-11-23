@@ -29,45 +29,45 @@ const EmpAssetDetails = () => {
       <>
         {
           // @ts-ignore
-        singleAssetDetails[value] && (
-          <Grid item xs={2} sm={4} md={4}>
-            <Typography
-              fontFamily="serif"
-              fontWeight="bold"
-              variant="h6"
-              mt={2}
-              sx={{
-                textTransform: "capitalize",
-                wordWrap: "break-word",
-                width: {
-                  md: "31.25rem",
-                  xs: "15rem",
-                  sm: "30rem",
-                },
-              }}
-            >
-              {label} :{" "}
-              <Typography>
-                {
-                  // @ts-ignore
+          singleAssetDetails[value] && (
+            <Grid item xs={2} sm={4} md={4}>
+              <Typography
+                fontFamily="serif"
+                fontWeight="bold"
+                variant="h6"
+                mt={2}
+                sx={{
+                  textTransform: "capitalize",
+                  wordWrap: "break-word",
+                  width: {
+                    md: "31.25rem",
+                    xs: "15rem",
+                    sm: "30rem",
+                  },
+                }}
+              >
+                {label} :{" "}
+                <Typography>
+                  {
+                    // @ts-ignore
 
-                  singleAssetDetails[value]
-                }
+                    singleAssetDetails[value]
+                  }
+                </Typography>
               </Typography>
-            </Typography>
-          </Grid>
-        )}
+            </Grid>
+          )
+        }
       </>
     );
   };
 
-
   return (
     <>
-      <Grid container sx={{ height: "100%", overflow: "hidden"}}>
+      <Grid container sx={{ height: "100%", overflow: "hidden" }}>
         <SideBar />
         <Toast />
-        <Grid item xs={12} md={10} p={2} >
+        <Grid item xs={12} md={10} p={2}>
           <Box
             sx={{
               display: "flex",
@@ -79,8 +79,7 @@ const EmpAssetDetails = () => {
           </Box>
 
           <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
-
-<Grid container spacing={1}>
+            <Grid container spacing={1}>
               {!singleAssetDetails?.empId?.length && loading ? (
                 <Loader />
               ) : (
@@ -90,7 +89,7 @@ const EmpAssetDetails = () => {
                   {detailsComp("category", "Category")}
                   {detailsComp("status", "Status")}
                   {detailsComp("asset_location", "Location")}
-                 
+
                   {detailsComp("brandName", "Brand Name")}
                   {detailsComp("modelNo", "Model No")}
 

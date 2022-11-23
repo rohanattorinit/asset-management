@@ -19,9 +19,8 @@ import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
 
 import {
-
   updateAssetDetails,
-  getFiltersByCategory
+  getFiltersByCategory,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
@@ -48,8 +47,6 @@ function AssetEdit(props: Iprops) {
 
 
   useEffect(() => {
-    // dispatch(getBrandOptions());
-    // dispatch(getfilterOptions());
     dispatch(getFiltersByCategory([singleAssetDetails?.category]));
 
   }, [message, singleAssetDetails]);

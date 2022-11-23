@@ -1,7 +1,7 @@
 import {
   Box,
   IconButton,
-    Table,
+  Table,
   TableCell,
   TableContainer,
   TableHead,
@@ -10,22 +10,19 @@ import {
   Typography,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootStore } from "../../redux/store";
 import Loader from "../Loader/Loader";
 import { AssetTypes } from "../../redux/types";
-import { Dispatch} from "react";
 import CountUp from "react-countup";
 
 const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
   const navigate = useNavigate();
   const { loading } = useSelector((state: RootStore) => state.admin);
 
-  const dispatch: Dispatch<any> = useDispatch();
 
   const setAssetDetails = (assetId: number) => {
-    // dispatch(getSingleAssetDetails(assetId));
     navigate(`/admin/assets/${assetId}`);
   };
 

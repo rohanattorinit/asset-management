@@ -6,21 +6,21 @@ import AppRoutes from "./AppRoutes";
 import AuthRoutes from "./AuthRoutes";
 import { RootStore } from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/types";
-
-import { get } from "./services";
-
+import Cookies from "js-cookie";
 
 function App() {
-  const [response, setResponse] = useState("");
+  const BASE_URL = process.env.REACT_APP_BASE_API;
   const [showLoader, setShowLoader] = useState(true);
   const dispatch = useDispatch();
+  const auth_token = Cookies.get("auth_token") || "";
   const { authenticated } = useSelector((state: RootStore) => state.login);
 
   useEffect(() => {
     (async () => {
       try {
-
-        const res = (await get(`/api/auth/profile`)) as any;
+        const res = (await axios.get(`${BASE_URL}/api/auth/profile`, {
+          headers: { Authorization: `Bearer ${auth_token}` },
+        })) as any;
 
         dispatch({ type: SET_AUTHENTICATED, payload: res.data });
       } catch (error) {
@@ -31,7 +31,7 @@ function App() {
         setShowLoader(false);
       }
     })();
-  }, [dispatch]);
+  }, []);
 
   return !showLoader ? (
     <>{!showLoader && authenticated ? <AppRoutes /> : <AuthRoutes />}</>
@@ -40,5 +40,3 @@ function App() {
   );
 }
 export default App;
-
-

@@ -16,6 +16,7 @@ import { RootStore } from "../../redux/store";
 export const AssetCsv = () => {
   const [file, setFile] = useState<Blob | string>();
   const [alert, setAlert]= useState(false)
+ const [isUploading,setIsUploading]=useState(false)
 
   const {  loading } = useSelector(
     (state: RootStore) => state.admin
@@ -28,7 +29,8 @@ export const AssetCsv = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch({ type: LOADING_DATA });
+    // dispatch({ type: LOADING_DATA });
+    setIsUploading(true)
     const formData = new FormData();
     formData?.append("csvFile", file!);
     try {
@@ -57,8 +59,9 @@ export const AssetCsv = () => {
             (error as any).response?.status
           }: Error occured while Adding Assets Details`,
       });
-      console.error(error);
+      
     }
+    setIsUploading(false)
   };
   const setNavigate=()=>{
     navigate(`/admin/assets`);
@@ -107,9 +110,9 @@ export const AssetCsv = () => {
               size="large"
               type="submit"
               variant="contained"
-              disabled={loading}
+              disabled={isUploading}
             >
-              {loading ? <CircularProgress color="secondary" size={25} /> : "Upload CSV"}
+              {isUploading ? <CircularProgress color="secondary" size={25} /> : "Upload CSV"}
             </Button>
           </Box>
         </form>

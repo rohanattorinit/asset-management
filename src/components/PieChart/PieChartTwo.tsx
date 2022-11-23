@@ -11,10 +11,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export function PiechartTwo() {
     const { totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
 
-    //console.log('totalAssetCount',Object.values(totalAssetCount))
     const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset','mobile','keyboard','mouse'].includes(category?.category) && category )    
     const moreNewData = newData?.filter((category) => category !== false)
-    //console.log('moreNewData',moreNewData)
 
     const data = {
       // @ts-ignore
@@ -26,10 +24,9 @@ export function PiechartTwo() {
           // @ts-ignore
            data: moreNewData?.map(({count}) => count),
            backgroundColor: [
-            
-            "#dc2626",
-            "#fbbf24",
             "#22c55e",
+            "#fbbf24",
+            "#dc2626",
             "#a21caf",
             "#14b8a6",
             "#a78bfa",
