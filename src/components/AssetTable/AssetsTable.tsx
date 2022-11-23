@@ -45,7 +45,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
         <Loader />
       ) : (
         <TableContainer sx={{ marginY: 3 }}>
-          {assets.length ? (
+          {assets?.length ? (
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
