@@ -69,17 +69,18 @@ function Assets() {
       <Grid item xs={12} md={10} p={3}>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
-            <Badge badgeContent={appliedFilterCount} sx={{
-            ".css-fvc8ir-MuiBadge-badge": {
-              bgcolor: "#009EFF",
-              color: "black",
-              // height: { xs: 20, md: 30 },
-              // width: { xs: 10, md: 10 },
-              // minWidth: { xs: 10, md: 20 },
-              // fontSize: { xs: "0.5rem", md: "0.75rem" },
-              fontSize: 15, height: 20, minWidth: 25
-            }
-          }}>
+            <Badge
+              badgeContent={appliedFilterCount}
+              sx={{
+                ".css-fvc8ir-MuiBadge-badge": {
+                  bgcolor: "#009EFF",
+                  color: "black",
+                  fontSize: 15,
+                  height: 20,
+                  minWidth: 25,
+                },
+              }}
+            >
               <Filter name={search} />
             </Badge>
           </Grid>
