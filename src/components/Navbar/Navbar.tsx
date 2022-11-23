@@ -32,8 +32,9 @@ export default function Navbar() {
         alignItems: "center",
         justifyContent: "space-between",
         position: "sticky",
-        top: "0px",
-        zIndex: 1,
+        top: 0,
+        right: 0,
+        zIndex: 20,
       }}
     >
       <Box

@@ -40,14 +40,17 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
           }}
         >
           Total Asset :
-          <CountUp end={filteredAsset?.length} duration={2} />
+          <CountUp
+            end={filteredAsset?.filter((asset) => asset.is_active).length}
+            duration={2}
+          />
         </Typography>
       </Box>
       <Box>
         {loading ? (
           <Loader />
         ) : (
-          <TableContainer sx={{ marginY: 3 }} >
+          <TableContainer sx={{ marginY: 3 }}>
             {filteredAsset.length ? (
               <Table aria-label="simple table">
                 <TableHead>
@@ -95,28 +98,56 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                   </TableRow>
                 </TableHead>
                 {filteredAsset?.map((rentalAsset) => (
-                  <TableRow key={rentalAsset?.assetId}>
+                  <TableRow
+                    key={rentalAsset?.assetId}
+                    sx={{
+                      background: !rentalAsset?.is_active ? "lightgrey" : "",
+                    }}
+                  >
                     <TableCell align="center">{rentalAsset?.assetId}</TableCell>
-                    <TableCell align="center">{rentalAsset?.name}</TableCell>
-                    <TableCell align="center">{rentalAsset?.vendor}</TableCell>
-                    <TableCell align="center">{rentalAsset?.rent}</TableCell>
+
                     <TableCell align="center">
-                      {rentalAsset?.rentStartDate?.slice(0, 10)}
+                      {rentalAsset?.name?.toUpperCase()}
                     </TableCell>
                     <TableCell align="center">
-                      {rentalAsset?.rentEndDate?.slice(0, 10)}
+                      {rentalAsset?.vendor ? rentalAsset?.vendor?.toUpperCase() : "-"}
                     </TableCell>
-                    <TableCell align="center">{rentalAsset?.deposit}</TableCell>
+                    <TableCell align="center">
+                      {rentalAsset?.rent ? rentalAsset?.rent : "-"}
+                    </TableCell>
+                    <TableCell align="center">
+                      {rentalAsset?.rentStartDate?.slice(0, 10)
+                        ? rentalAsset?.rentStartDate?.slice(0, 10)
+                        : "-"}
+                    </TableCell>
+                    <TableCell align="center">
+                      {rentalAsset?.rentEndDate?.slice(0, 10)
+                        ? rentalAsset?.rentEndDate?.slice(0, 10)
+                        : "-"}
+                    </TableCell>
+                    <TableCell align="center">
+                      {rentalAsset?.deposit ? rentalAsset?.deposit : "-"}
+                    </TableCell>
                     <TableCell align="right">
                       <Tooltip
-                        title="Asset Details"
+                        title={
+                          !rentalAsset?.is_active
+                            ? "Deleted Asset"
+                            : "Asset Details"
+                        }
                         children={
                           <IconButton
                             onClick={() =>
                               setAssetDetails(rentalAsset?.assetId)
                             }
                           >
-                            <OpenInNewIcon sx={{ color: "darkblue" }} />
+                            <OpenInNewIcon
+                              sx={{
+                                color: !rentalAsset?.is_active
+                                  ? "red"
+                                  : "darkblue",
+                              }}
+                            />
                           </IconButton>
                         }
                       />
