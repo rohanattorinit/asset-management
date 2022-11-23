@@ -8,7 +8,7 @@ import AssetsTable from "../../components/AssetTable/AssetsTable";
 import RentedAssetsTable from "../../components/AssetTable/RentedAssetsTable";
 import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
-import { getAssets } from "../../redux/actions/AdminActions";
+import { getAssets, setAssetFilters } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 import { AssetTypes } from "../../redux/types";
@@ -20,6 +20,7 @@ function Assets() {
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
   const [filteredAsset, setFilteredAssets] = useState<AssetTypes[]>([]);
+  
   // Debounce callback
   const debounced = useDebouncedCallback(
     // function
@@ -29,17 +30,23 @@ function Assets() {
     // delay in ms
     300,
   );
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     newValue === 0 ? setIsRented(0) : newValue === 1 ? setIsRented(1) : newValue === 2 && setIsRented(1);
   };
-  useEffect(() => {
-    dispatch(
-      getAssets({
-        name: search,
-      })
-    );
-  }, [dispatch, message, search]);
+
+  console.log('assests hey', assets)
+  console.log('filteredAsset hey',filteredAsset)
+
+  // useEffect(() => {
+  //   dispatch(
+  //     setAssetFilters({
+  //       name: search,
+  //     })
+  //   );
+  // }, [message, search]);
+
   useEffect(() => {
     if (isRented) {
       //@ts-ignore
@@ -49,14 +56,15 @@ function Assets() {
       setFilteredAssets(assets?.filter((asset) => asset?.isRented === 0));
     }
   }, [assets, isRented]);
+
   return (
-    <Grid container sx={{ height: "100%"  }} >
+    <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
       <Grid item xs={12} md={10} p={3}>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
-            <Filter />
+            <Filter name={search}/>
           </Grid>
           <Grid item xs={6}>
             <TextField

@@ -81,11 +81,12 @@ export const getEmployees =
   };
 
 export const setAssetFilters =
-  (filterParams: SetFilterParams = {}) =>
+  (filterParams: SetFilterParams = {},searchParams:GetAssetParams={}) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await post(`/api/assets/filter`, filterParams);
+      const { name, allocate, isRented } = searchParams;
+      const res = await post(`/api/assets/filter?allocate=${allocate}&isRented=${isRented}&name=${name}`, filterParams);
       dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -109,6 +110,7 @@ export const getAssets =
       const res = await get(
         `/api/assets?allocate=${allocate}&isRented=${isRented}&name=${name}`
       );
+
       dispatch({ type: SET_ASSETS, payload: (res as any).data });
     } catch (error) {
       dispatch({
@@ -168,6 +170,7 @@ export const addAsset =
     try {
       const res = await post("/api/assets/addAsset", assetDetails);
 
+      //alert((res as any)?.data?.message);
       dispatch({ type: SET_ADDASSET, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -187,6 +190,9 @@ export const updateAssetDetails =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post(`/api/assets/update/${assetId}`, updateData);
+
+      //alert('Asset Details Updated Successfully!')
+
       dispatch({ type: UPDATE_ASSET_DETAILS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -306,7 +312,7 @@ export const deallocateAssets =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await post(
-        `/api/admin/deallocateAsset/${empId}/${assetId}`, 
+        `/api/admin/deallocateAsset/${empId}/${assetId}`,
         {}
       );
 
@@ -502,6 +508,7 @@ export const getAssetTransactionLog =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/transactions/logs/${assetId}`);
+      console.log({ res });
       dispatch({
         type: ASSET_TRANSACTION_HISTORY,
         payload: (res as any)?.data,
