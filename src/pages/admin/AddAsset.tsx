@@ -499,12 +499,6 @@ const AddAsset = () => {
                                 values?.ssd,
                                 handleChange
                               )}
-                            {/* {dropdownComp(
-                              "OS Version",
-                              "os_version",
-                              values?.os_version,
-                              handleChange
-                            )} */}
 
                             <Grid item xs={12} sm={6} md={6}>
                               <Field
