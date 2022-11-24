@@ -81,11 +81,12 @@ export const getEmployees =
   };
 
 export const setAssetFilters =
-  (filterParams: SetFilterParams = {}) =>
+  (filterParams: SetFilterParams = {},searchParams:GetAssetParams={}) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
-      const res = await post(`/api/assets/filter`, filterParams);
+      const { name, allocate, isRented } = searchParams;
+      const res = await post(`/api/assets/filter?allocate=${allocate}&isRented=${isRented}&name=${name}`, filterParams);
       dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -109,6 +110,7 @@ export const getAssets =
       const res = await get(
         `/api/assets?allocate=${allocate}&isRented=${isRented}&name=${name}`
       );
+
       dispatch({ type: SET_ASSETS, payload: (res as any).data });
     } catch (error) {
       dispatch({

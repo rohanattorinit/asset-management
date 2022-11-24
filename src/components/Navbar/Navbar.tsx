@@ -1,13 +1,20 @@
 import { Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
 import { useState, Dispatch } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/actions/AuthAction";
 import { RootStore } from "../../redux/store";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  console.log("pathname", pathname);
+
+  // if (pathname !== "/admin/assets") {
+  //   localStorage.removeItem("filterObject");
+  //   localStorage.removeItem("openObject");
+  // }
 
   const open = Boolean(anchorEl);
   const dispatch: Dispatch<any> = useDispatch();
@@ -32,8 +39,9 @@ export default function Navbar() {
         alignItems: "center",
         justifyContent: "space-between",
         position: "sticky",
-        top: "0px",
-        zIndex: 1,
+        top: 0,
+        right: 0,
+        zIndex: 20,
       }}
     >
       <Box

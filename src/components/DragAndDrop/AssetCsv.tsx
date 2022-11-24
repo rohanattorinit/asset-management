@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
-import { LOADING_DATA, SET_ERROR } from "../../redux/types";
+import { SET_ERROR } from "../../redux/types";
 import Alert from "../ConfirmAlert/Alert";
 import { RootStore } from "../../redux/store";
 
@@ -21,7 +21,7 @@ export const AssetCsv = () => {
   const {  loading } = useSelector(
     (state: RootStore) => state.admin
   );
-  //const loading = true;
+  
 
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_API;
@@ -29,7 +29,6 @@ export const AssetCsv = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // dispatch({ type: LOADING_DATA });
     setIsUploading(true)
     const formData = new FormData();
     formData?.append("csvFile", file!);
@@ -47,8 +46,6 @@ export const AssetCsv = () => {
       setFile(undefined);
       (event.target as HTMLFormElement)?.reset();
       setAlert(true)
-      //navigate(`/admin/assets`);
-     // alert("Assets added successfully");
     } catch (error) {
       //handle error
       dispatch({

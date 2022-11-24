@@ -21,7 +21,6 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
   const navigate = useNavigate();
   const { loading } = useSelector((state: RootStore) => state.admin);
 
-
   const setAssetDetails = (assetId: number) => {
     navigate(`/admin/assets/${assetId}`);
   };
@@ -38,14 +37,17 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
           }}
         >
           Total Assets :
-          <CountUp end={assets?.length} duration={2} />
+          <CountUp
+            end={assets?.filter((asset) => asset.is_active).length}
+            duration={2}
+          />
         </Typography>
       </Box>
       {loading ? (
         <Loader />
       ) : (
         <TableContainer sx={{ marginY: 3 }}>
-          {assets.length ? (
+          {assets?.length ? (
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>

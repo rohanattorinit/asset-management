@@ -47,7 +47,6 @@ const AllocateAsset = ({
   
   const [assetIdCheck, setAssetId] = useState<number[]>([]);
   const [dateID, setDateID] = useState<Array<number>>([])
-  //console.log('allocationObj',allocationObj, 'assetIdCheck', assetIdCheck, 'dateID', dateID);
   const dispatch: Dispatch<any> = useDispatch();
   const { employeeDetails, assets, loading, message } = useSelector(
     (state: RootStore) => state.admin
@@ -85,9 +84,7 @@ const AllocateAsset = ({
 
   const handleDateChange = (e: any, id:number) =>{
     setDate(e?.target?.value)
-    // setDatecheck(true)
     if(dateID?.includes(id)){
-      // @ts-ignore
       if(!e?.target?.value){
         setDateID(dateID?.filter((ID) => id !== ID ))
       }
@@ -115,7 +112,7 @@ const AllocateAsset = ({
     setOpenAlert(true)
     setAssetId([]);
     setAlertMessage('Asset Allocated')
-   // navigate("/admin/employee/");
+  
   }
   const handleCancel= () =>{
     setOpenConfirm(false)
@@ -126,7 +123,7 @@ const AllocateAsset = ({
   }
   return (
     <>
-      {/* Allocate an Asset */}
+    
       {openConfirm &&<Confirm  title={alertMessage} handleOk={handleOK} handlecancel={handleCancel}></Confirm>}
       {openAlert ? (<Alert title={alertMessage} setNavigate={setNavigate}/>): (<> </>)}
       <Dialog open={open} onClose={handleClose}>
@@ -166,7 +163,7 @@ const AllocateAsset = ({
                   </TableHead>
                   <TableBody>
                     {assets?.map((asset) => (
-                      // @ts-ignore
+                     
                       <TableRow
                         key={asset?.assetId}
                         sx={{
@@ -180,7 +177,7 @@ const AllocateAsset = ({
                         <TableCell align="right"> <TextField variant="filled" type="date" name={`${asset.assetId}date`} onChange={(e) => handleDateChange(e, asset.assetId)} required ={assetIdCheck?.includes(asset?.assetId)? true: false}> </TextField></TableCell>
                         <TableCell align="right">
                           <Checkbox
-                      //  @ts-ignore
+                      
                             checked={assetIdCheck?.includes(asset.assetId)}
                            disabled={!dateID?.includes(asset.assetId)}
                             sx={{ color: "darkblue" }}

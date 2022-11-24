@@ -34,8 +34,6 @@ export const DragAndDrop = () => {
       });
       setFile(undefined);
       (event.target as HTMLFormElement)?.reset();
-      // navigate(`/admin/employee`);
-      // alert("Employees added successfully");
       setAlert(true);
     } catch (error) {
       //handle error
@@ -111,6 +109,4 @@ export const DragAndDrop = () => {
     </>
   );
 };
-// function dispatch(arg0: { type: any; payload: any }) {
-//   throw new Error("Function not implemented.");
-// }
+

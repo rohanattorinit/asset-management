@@ -37,7 +37,7 @@ const navigate = useNavigate();
   const id = location.pathname.split("/")[3];
 
   const dispatch: Dispatch<any> = useDispatch();
-  const { singleAssetDetails, loading, message,assets } = useSelector(
+  const { singleAssetDetails, loading, message } = useSelector(
     (state: RootStore) => state.admin
   );
     
@@ -66,7 +66,7 @@ const navigate = useNavigate();
     if (singleAssetDetails.status === "allocated") {
       setOpenAlert(true)
       setAlertMessage("First deallocate this asset and then try deleting it" )
-       //alert("First deallocate this asset and then try deleting it");
+   
       
     } else {
       setAssetConfirmdel(true)
@@ -129,6 +129,7 @@ const navigate = useNavigate();
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            
           }}
         >
           <Typography variant="h5">Asset Details</Typography>
