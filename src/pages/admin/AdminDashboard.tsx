@@ -205,8 +205,8 @@ function AdminDashboard() {
                   end={
                     assets?.filter(
                       (asset) =>
-                        asset?.status !== "Repairable" &&
-                        asset?.status !== "Broken"
+                        asset?.status === "Allocated" ||
+                        asset?.status === "Surplus"
                     ).length
                   }
                   duration={2}

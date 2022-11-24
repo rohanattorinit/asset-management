@@ -27,7 +27,6 @@ import { getFilterIcon, getFilterName } from "../../utils/objectMappers";
 
 type Anchor = "right";
 
-
 const FilterState = {
   screen_type: [],
   ram: [],
@@ -61,7 +60,7 @@ const initialOpenState = {
   connectivityOpen: false,
 };
 
-export default function SwipeableTemporaryDrawer() {
+export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
   const dispatch: Dispatch<any> = useDispatch();
   const { filterOptions }: any = useSelector((state: RootStore) => state.admin);
   const [filterObject, setFilterObject] = useState<any>(FilterState);
@@ -89,14 +88,42 @@ export default function SwipeableTemporaryDrawer() {
     if (JSON.stringify(openObject) === JSON.stringify(initialOpenState)) {
       setOpenObject(JSON.parse(localStorage.getItem("openObject")!));
     }
+    const chartValue = localStorage.getItem("pieChartItem");
+    const valueInCapital =
+      chartValue?.charAt(0).toUpperCase() + chartValue?.slice(1)!;
+
+    if (valueInCapital) {
+      if (
+        !selectedCategory.includes(valueInCapital) ||
+        !filterObject.category.includes(valueInCapital)
+      ) {
+        setSelectedCategory([...selectedCategory, valueInCapital]);
+
+        setFilterObject({
+          ...filterObject,
+          category: [...filterObject.category, valueInCapital],
+        });
+
+        console.log("first", openObject.menuOpen);
+
+        if (!openObject.menuOpen) {
+          setOpenObject((prev: any) => ({ ...prev, category: true }));
+        }
+      }
+    } else {
+      setSelectedCategory(
+        JSON.parse(localStorage.getItem("filterObject")!)?.category
+      );
+    }
+    localStorage.removeItem("pieChartItem");
   }, []);
 
   useEffect(() => {
     localStorage.setItem("filterObject", JSON.stringify(filterObject));
     localStorage.setItem("openObject", JSON.stringify(openObject));
 
-    dispatch(setAssetFilters(filterObject));
-  }, [filterObject, openObject]);
+    dispatch(setAssetFilters(filterObject, { name }));
+  }, [filterObject, openObject, name]);
 
   const handleSubmitFilter = (key: string, value: string) => {
     if (key === "category") {

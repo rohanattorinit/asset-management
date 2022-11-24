@@ -32,7 +32,7 @@ function RentedAssetsTable() {
             borderRadius: 1,
           }}
         >
-          Total Assets :
+          Active Assets :
           <CountUp
             end={assets?.filter((asset) => asset.is_active).length}
             duration={2}
