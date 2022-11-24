@@ -26,9 +26,9 @@ const commonStyles = {
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    if(!assets?.length){
+    
      dispatch(getAssets({ name: "" }))
-    }
+    
     dispatch(getEmployees({ name: "" }))
     dispatch(getTotalAssetCategoryCount())
   }, []);

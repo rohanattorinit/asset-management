@@ -36,9 +36,6 @@ function Assets() {
     newValue === 0 ? setIsRented(0) : newValue === 1 ? setIsRented(1) : newValue === 2 && setIsRented(1);
   };
 
-  console.log('assests hey', assets)
-  console.log('filteredAsset hey',filteredAsset)
-
   // useEffect(() => {
   //   dispatch(
   //     setAssetFilters({

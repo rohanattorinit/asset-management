@@ -72,8 +72,7 @@ export function PiechartOne() {
   // @ts-ignore
     onClick={(event) => handlePieChartClick(event)}
     ref={chartRef}
-  
- />
+/>
   </>
 )}
 
