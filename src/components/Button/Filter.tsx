@@ -89,9 +89,33 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
       setOpenObject(JSON.parse(localStorage.getItem("openObject")!));
     }
     const chartValue = localStorage.getItem("pieChartItem");
+    const chartValue2 = localStorage.getItem("pieChartItem2");
     const valueInCapital =
       chartValue?.charAt(0).toUpperCase() + chartValue?.slice(1)!;
+    const valueInCapital2 =
+      chartValue2?.charAt(0).toUpperCase() + chartValue?.slice(1)!;
 
+    if(valueInCapital2){
+      if(!selectedCategory.includes(valueInCapital2) ||
+      !filterObject.category.includes(valueInCapital2)){
+        setSelectedCategory([...selectedCategory, valueInCapital2]);
+
+        setFilterObject({
+          ...filterObject,
+          category: [...filterObject.category, valueInCapital2],
+        });
+        
+        if (!openObject.menuOpen) {
+          setOpenObject((prev: any) => ({ ...prev, category: true }));
+        }
+      }
+    }
+    else{
+      setSelectedCategory(
+        JSON.parse(localStorage.getItem("filterObject")!)?.category
+      );
+    }
+      
     if (valueInCapital) {
       if (
         !selectedCategory.includes(valueInCapital) ||
@@ -104,8 +128,6 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
           category: [...filterObject.category, valueInCapital],
         });
 
-        console.log("first", openObject.menuOpen);
-
         if (!openObject.menuOpen) {
           setOpenObject((prev: any) => ({ ...prev, category: true }));
         }
@@ -116,6 +138,7 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
       );
     }
     localStorage.removeItem("pieChartItem");
+    localStorage.renoveItem("pieChartItem2")
   }, []);
 
   useEffect(() => {
