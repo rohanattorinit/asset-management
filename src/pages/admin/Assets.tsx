@@ -17,9 +17,10 @@ function Assets() {
   const [isRented, setIsRented] = useState<number>(0);
   const { assets } = useSelector((state: RootStore) => state.admin);
   const [search, setSearch] = useState("");
+  const filterObject = localStorage.getItem("filterObject");
   // const dispatch: Dispatch<any> = useDispatch();
   const [filteredAsset, setFilteredAssets] = useState<AssetTypes[]>([]);
-
+  const [badgeCount,setBadgeCount]=useState<string[]>([]);
   // Debounce callback
   const debounced = useDebouncedCallback(
     // function
@@ -29,13 +30,17 @@ function Assets() {
     // delay in ms
     300
   );
-
-  const selectedFilters = JSON.parse(localStorage.getItem("filterObject")!);
-  const appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
-    if (selectedFilters[filter]?.length) {
-      return filter;
-    }
-  });
+    useEffect(()=>{
+     
+      const selectedFilters = JSON.parse(filterObject!);
+      const appliedFilterCount = Object.keys(selectedFilters)?.filter((filterTemp) => {
+        if (selectedFilters[filterTemp]?.length) {
+          return filterTemp;
+        }
+      });
+      setBadgeCount(appliedFilterCount)   
+    },[filterObject])
+  
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -64,7 +69,7 @@ function Assets() {
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
             <Badge
-              badgeContent={appliedFilterCount?.length}
+              badgeContent={badgeCount?.length}
               sx={{
                 ".css-fvc8ir-MuiBadge-badge": {
                   bgcolor: "#011E41",
