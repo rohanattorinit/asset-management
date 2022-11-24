@@ -1,14 +1,13 @@
 import { Box, Button, Grid, Tab, Tabs, TextField, Badge } from "@mui/material";
 import { useDebouncedCallback } from "use-debounce";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
-import { Dispatch } from "redux";
 import AssetsTable from "../../components/AssetTable/AssetsTable";
-import RentedAssetsTable from "../../components/AssetTable/RentedAssetsTable";
+// import RentedAssetsTable from "../../components/AssetTable/RentedAssetsTable";
 import Toast from "../../components/ErrorHandling/Toast";
 import SideBar from "../../components/Sidebar/Sidebar";
-import { getAssets, setAssetFilters } from "../../redux/actions/AdminActions";
+// import { getAssets, setAssetFilters } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 import { AssetTypes } from "../../redux/types";
@@ -16,9 +15,9 @@ import Filter from "../../components/Button/Filter";
 function Assets() {
   const [value, setValue] = useState(0);
   const [isRented, setIsRented] = useState<number>(0);
-  const { message, assets } = useSelector((state: RootStore) => state.admin);
+  const { assets } = useSelector((state: RootStore) => state.admin);
   const [search, setSearch] = useState("");
-  const dispatch: Dispatch<any> = useDispatch();
+  // const dispatch: Dispatch<any> = useDispatch();
   const [filteredAsset, setFilteredAssets] = useState<AssetTypes[]>([]);
 
   // Debounce callback
@@ -31,9 +30,12 @@ function Assets() {
     300
   );
 
-  const selectedFilters = JSON.parse(localStorage.getItem("openObject")!);
-  const appliedFilterCount = Object.keys(selectedFilters)?.length;
-  console.log("appliedFilterCount", appliedFilterCount);
+  const selectedFilters = JSON.parse(localStorage.getItem("filterObject")!);
+  const appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
+    if (selectedFilters[filter]?.length) {
+      return filter;
+    }
+  });
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -43,14 +45,6 @@ function Assets() {
       ? setIsRented(1)
       : newValue === 2 && setIsRented(1);
   };
-
-  // useEffect(() => {
-  //   dispatch(
-  //     setAssetFilters({
-  //       name: search,
-  //     })
-  //   );
-  // }, [message, search]);
 
   useEffect(() => {
     if (isRented) {
@@ -70,11 +64,11 @@ function Assets() {
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
             <Badge
-              badgeContent={appliedFilterCount}
+              badgeContent={appliedFilterCount?.length}
               sx={{
                 ".css-fvc8ir-MuiBadge-badge": {
-                  bgcolor: "#009EFF",
-                  color: "black",
+                  bgcolor: "#011E41",
+                  color: "white",
                   fontSize: 15,
                   height: 20,
                   minWidth: 25,
