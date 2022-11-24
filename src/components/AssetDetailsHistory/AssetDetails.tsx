@@ -35,7 +35,7 @@ const AssetDetails = () => {
     dispatch(getSingleAssetDetails(id));
     console.log(singleAssetDetails);
   }, [message]);
-  
+
   const closeFunc = (value: boolean) => {
     setAssetOpen(value);
     setOpenAlertEdit(true);
@@ -101,7 +101,6 @@ const AssetDetails = () => {
   };
   return (
     <>
-      
       {openAlert ? (
         <Alert title={alertMessage} setNavigate={setNavigate} />
       ) : (
@@ -251,7 +250,12 @@ const AssetDetails = () => {
                 {detailsComp("os_version", "OS Version")}
                 {detailsComp("imeiNo", "IMEI Number")}
                 {detailsComp("cableType", "Cable type")}
-                {detailsComp("description", "Description")}
+                <Typography
+                  variant="body1"
+                  sx={{ p: 1, wordWrap: "break-word" }}
+                >
+                  {detailsComp("description", "Description")}
+                </Typography>
               </>
             )}
           </Grid>
