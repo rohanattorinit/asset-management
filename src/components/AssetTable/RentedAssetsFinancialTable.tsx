@@ -39,7 +39,7 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
             borderRadius: 1,
           }}
         >
-          Total Asset :
+          Active Asset :
           <CountUp
             end={filteredAsset?.filter((asset) => asset.is_active).length}
             duration={2}
@@ -110,7 +110,9 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                       {rentalAsset?.name?.toUpperCase()}
                     </TableCell>
                     <TableCell align="center">
-                      {rentalAsset?.vendor ? rentalAsset?.vendor?.toUpperCase() : "-"}
+                      {rentalAsset?.vendor
+                        ? rentalAsset?.vendor?.toUpperCase()
+                        : "-"}
                     </TableCell>
                     <TableCell align="center">
                       {rentalAsset?.rent ? rentalAsset?.rent : "-"}

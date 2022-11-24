@@ -25,17 +25,12 @@ const AssetDetails = () => {
   const navigate = useNavigate();
   const id = location.pathname.split("/")[3];
   const dispatch: Dispatch<any> = useDispatch();
-  const { singleAssetDetails, loading, message, assets } = useSelector(
+  const { singleAssetDetails, loading, message } = useSelector(
     (state: RootStore) => state.admin
   );
-  console.log(singleAssetDetails);
-  console.log(assets);
-  const state = useSelector((state: RootStore) => state);
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
-    console.log(singleAssetDetails);
   }, [message]);
-  
   const closeFunc = (value: boolean) => {
     setAssetOpen(value);
     setOpenAlertEdit(true);
@@ -101,7 +96,6 @@ const AssetDetails = () => {
   };
   return (
     <>
-      
       {openAlert ? (
         <Alert title={alertMessage} setNavigate={setNavigate} />
       ) : (
@@ -149,7 +143,9 @@ const AssetDetails = () => {
             )}
           </Box>
         ) : (
-          <Typography textAlign={"center"}>Asset is deleted</Typography>
+          <Typography sx={{ fontSize: 16, color: "red" }}>
+            This Asset is Deleted !!!{" "}
+          </Typography>
         )}
       </Box>
       {loading ? (
@@ -237,7 +233,6 @@ const AssetDetails = () => {
                     </Typography>
                   </Grid>
                 )}
-
                 {detailsComp("screen_type", "Screen Type ")}
                 {detailsComp("processor", "Processor")}
                 {detailsComp("ram", "RAM")}
@@ -251,7 +246,12 @@ const AssetDetails = () => {
                 {detailsComp("os_version", "OS Version")}
                 {detailsComp("imeiNo", "IMEI Number")}
                 {detailsComp("cableType", "Cable type")}
-                {detailsComp("description", "Description")}
+                <Typography
+                  variant="body1"
+                  sx={{ p: 1, wordWrap: "break-word" }}
+                >
+                  {detailsComp("description", "Description")}
+                </Typography>
               </>
             )}
           </Grid>
