@@ -138,7 +138,7 @@ const commonStyles = {
               >
                 <CountUp
                    end={
-                    assets?.filter((asset) => asset?.status === "Allocated" ||  "Surplus")
+                    assets?.filter((asset) => asset?.status === "Allocated" || asset?.status === "Surplus")
                        .length
                    }
                    duration={2}
