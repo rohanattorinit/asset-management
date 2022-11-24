@@ -45,7 +45,7 @@ const AssetDetails = () => {
     setOpenAlertEdit(false);
   };
   const HandleDelete = (assetId: number) => {
-    if (singleAssetDetails.status === "allocated") {
+    if (singleAssetDetails.status === "Allocated") {
       setOpenAlert(true);
       setAlertMessage("First deallocate this asset and then try deleting it");
     } else {
