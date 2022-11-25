@@ -68,18 +68,7 @@ function Assets() {
       <Grid item xs={12} md={10} p={3}>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={3}>
-            <Badge
-              badgeContent={badgeCount?.length}
-              sx={{
-                ".css-fvc8ir-MuiBadge-badge": {
-                  bgcolor: "#011E41",
-                  color: "white",
-                  fontSize: 15,
-                  height: 20,
-                  minWidth: 25,
-                },
-              }}
-            >
+            <Badge badgeContent={badgeCount?.length} color="primary">
               <Filter name={search} />
             </Badge>
           </Grid>
