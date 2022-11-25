@@ -20,7 +20,7 @@ function Assets() {
   const filterObject = localStorage.getItem("filterObject");
   // const dispatch: Dispatch<any> = useDispatch();
   const [filteredAsset, setFilteredAssets] = useState<AssetTypes[]>([]);
-  const [badgeCount,setBadgeCount]=useState<string[]>([]);
+  const [badgeCount, setBadgeCount] = useState<string[]>([]);
   // Debounce callback
   const debounced = useDebouncedCallback(
     // function
@@ -30,17 +30,17 @@ function Assets() {
     // delay in ms
     300
   );
-    useEffect(()=>{
-     
-      const selectedFilters = JSON.parse(filterObject!);
-      const appliedFilterCount = Object.keys(selectedFilters)?.filter((filterTemp) => {
+  useEffect(() => {
+    const selectedFilters = JSON.parse(filterObject!);
+    const appliedFilterCount = Object.keys(selectedFilters)?.filter(
+      (filterTemp) => {
         if (selectedFilters[filterTemp]?.length) {
           return filterTemp;
         }
-      });
-      setBadgeCount(appliedFilterCount)   
-    },[filterObject])
-  
+      }
+    );
+    setBadgeCount(appliedFilterCount);
+  }, [filterObject]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

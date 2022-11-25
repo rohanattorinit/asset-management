@@ -88,6 +88,7 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
     if (JSON.stringify(openObject) === JSON.stringify(initialOpenState)) {
       setOpenObject(JSON.parse(localStorage.getItem("openObject")!));
     }
+
     const chartValue = localStorage.getItem("pieChartItem");
     const valueInCapital =
       chartValue?.charAt(0).toUpperCase() + chartValue?.slice(1)!;
@@ -122,7 +123,18 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
     localStorage.setItem("filterObject", JSON.stringify(filterObject));
     localStorage.setItem("openObject", JSON.stringify(openObject));
 
+    // const appliedFilterCount = Object.keys(filterObject)?.filter(
+    //   (filterTemp) => {
+    //     if (filterObject[filterTemp]?.length) {
+    //       return filterTemp;
+    //     }
+    //   }
+    // );
+    console.log("filterObject", filterObject);
+
+    // if (appliedFilterCount?.length) {
     dispatch(setAssetFilters(filterObject, { name }));
+    // }
   }, [filterObject, openObject, name]);
 
   const handleSubmitFilter = (key: string, value: string) => {
