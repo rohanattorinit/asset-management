@@ -15,6 +15,7 @@ export const SET_ADDEMPLOYEE = "SET_ADDEMPLOYEE";
 export const SET_ADDASSET = "SET_ADDASSET";
 export const SET_EMPLOYEE_DETAILS = "SET_EMPLOYEE_DETAILS";
 export const SET_SINGLE_ASSET_DETAILS = "SET_SINGLE_ASSET_DETAILS";
+export const SET_SINGLE_ASSET_TICKETS = "SET_SINGLE_ASSET_TICKETS"
 export const SET_EMPLOYEE_ASSETS_DETAILS = "SET_EMPLOYEE_ASSETS_DETAILS";
 export const DEALLOCATE_EMPLOYEE_ASSET = "DEALLOCATE_EMPLOYEE_ASSET";
 export const ALLOCATE_EMPLOYEE_ASSET = "ALLOCATE_EMPLOYEE_ASSET";
@@ -168,6 +169,7 @@ export interface SingleAssetDetailsType {
   os_version: string
   make_year: string
   is_active?:boolean
+
 }
 
 export interface EmployeeAssetType {
@@ -486,6 +488,10 @@ interface SetSingleAssetDetails {
   type: typeof SET_SINGLE_ASSET_DETAILS
   payload: { message: string; data: SingleAssetDetailsType }
 }
+interface SetSingleAssetTickets {
+  type: typeof SET_SINGLE_ASSET_TICKETS
+  payload: { message: string; data: ServiceType[]}
+}
 
 interface setEmployeeAssetDetails {
   type: typeof SET_EMPLOYEE_ASSETS_DETAILS
@@ -628,6 +634,7 @@ export type DispatchTypes =
   | SetTicketStatus
   | SetAddNote
   | SetSingleAssetDetails
+  | SetSingleAssetTickets
   | UpdateAssetDetails
   | GetAddNote
   | setBrandOptions

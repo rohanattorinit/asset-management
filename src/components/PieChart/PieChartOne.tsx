@@ -18,6 +18,8 @@ export function PiechartOne() {
     
     const handlePieChartClick = (event:any) => {
       // @ts-ignore
+      console.log(totalAssetCount[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category )
+      // @ts-ignore
       localStorage.setItem('pieChartItem',totalAssetCount[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category )
       navigate('/admin/assets')
     }    
@@ -72,6 +74,7 @@ export function PiechartOne() {
   // @ts-ignore
     onClick={(event) => handlePieChartClick(event)}
     ref={chartRef}
+    
 />
   </>
 )}

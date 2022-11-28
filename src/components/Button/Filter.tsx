@@ -91,7 +91,7 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
     const chartValue = localStorage.getItem('pieChartItem');
     const surpluesItem = localStorage.getItem('surplusPieChart')
     const valueInCapital = chartValue?.charAt(0).toUpperCase() + chartValue?.slice(1)!;
-    
+    const surplusPieItem = surpluesItem?.charAt(0).toUpperCase() + surpluesItem?.slice(1)!;
 
     if(valueInCapital){
       if (!selectedCategory.includes(valueInCapital) || !filterObject.category.includes(valueInCapital)) {
@@ -102,8 +102,6 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
           category: [...filterObject.category, valueInCapital],
         });
 
-        console.log("first", openObject.menuOpen);
-
         if (!openObject.menuOpen) {
           setOpenObject((prev: any) => ({ ...prev, category: true }));
         }
@@ -113,7 +111,33 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
         JSON.parse(localStorage.getItem("filterObject")!)?.category
       );
     }
+
+    if(surplusPieItem){
+      if (!selectedCategory.includes(surplusPieItem) || !filterObject.category.includes(surplusPieItem)) {
+        setSelectedCategory([...selectedCategory, surplusPieItem]);
+
+        setFilterObject({
+          ...filterObject,
+          category: [...filterObject.category, surplusPieItem],
+          status:[...filterObject.status, "Surplus"]
+        });
+
+        if (!openObject.menuOpen) {
+          setOpenObject((prev: any) => ({ ...prev, menuOpen: true }));
+        }
+
+        if (!openObject.statusOpen) {
+          setOpenObject((prev: any) => ({ ...prev, statusOpen: true }));
+        }
+      }
+    } else {
+      setSelectedCategory(
+        JSON.parse(localStorage.getItem("filterObject")!)?.category
+      );
+    }
+
     localStorage.removeItem("pieChartItem");
+    localStorage.removeItem("surplusPieChart");
   }, []);
 
   useEffect(() => {

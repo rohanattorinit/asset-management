@@ -12,7 +12,9 @@ import {
   SET_ADDASSET,
   SET_ADDEMPLOYEE,
   SET_EMPLOYEE_ASSETS_DETAILS,
+  SET_EMPTICKETS,
   SET_SINGLE_ASSET_DETAILS,
+  SET_SINGLE_ASSET_TICKETS,
   SET_TICKET_STATUS,
   UPDATE_ASSET_DETAILS,
 } from "./../types";
@@ -289,11 +291,12 @@ export const getSingleAssetDetails =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/assets/singleAsset/${assetId}`);
-
+console.log(res)
       dispatch({
         type: SET_SINGLE_ASSET_DETAILS,
-        payload: (res as any)?.data,
+        payload: {message:(res as any)?.data?.message, data: (res as any)?.data?.data?.asset},
       });
+      dispatch({ type: SET_SINGLE_ASSET_TICKETS, payload: {message:(res as any)?.data?.message, data: (res as any)?.data?.data?.tickets}})
     } catch (error) {
       dispatch({
         type: SET_ERROR,
