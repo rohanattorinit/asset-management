@@ -181,7 +181,7 @@ function EmpList() {
                           >
                             <OpenInNewIcon sx={{ color: "darkblue" }} />
                           </IconButton> */}
-                          <TableCell align="right">
+                          <TableCell align="center">
                             <Tooltip
                               title="Employee Details"
                               children={

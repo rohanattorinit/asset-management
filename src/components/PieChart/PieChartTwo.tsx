@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Pie,getElementAtEvent } from 'react-chartjs-2';
 import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PiechartTwo() {
     const { totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
+   
+
 
     const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset','mobile','keyboard','mouse'].includes(category?.category) && category )    
     const moreNewData = newData?.filter((category) => category !== false)
 
+   
+   
     const data = {
       // @ts-ignore
         labels: moreNewData?.map(({category}) => category),
@@ -62,6 +67,8 @@ export function PiechartTwo() {
    Surplus Assets
   </Typography>
   {/* @ts-ignore */}
-  <Pie data={data} />
+  <Pie data={data}
+ 
+   />
   </>
 )}

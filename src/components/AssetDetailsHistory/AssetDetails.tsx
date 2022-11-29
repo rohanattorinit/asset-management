@@ -25,9 +25,13 @@ const AssetDetails = () => {
   const navigate = useNavigate();
   const id = location.pathname.split("/")[3];
   const dispatch: Dispatch<any> = useDispatch();
-  const { singleAssetDetails, loading, message } = useSelector(
+
+  const { singleAssetDetails, loading, message , singleAssetTickets} = useSelector(
     (state: RootStore) => state.admin
   );
+  const ticket = singleAssetTickets?.filter((ticket) => ticket?.ticketStatus === "pending" || ticket?.ticketStatus === "active")
+
+
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
   }, [message]);
@@ -37,7 +41,7 @@ const AssetDetails = () => {
   };
   const setNavigate = () => {
     setOpenAlert(false);
-    if (alertMessage === "asset Deleted successfully") {
+    if (alertMessage === "Asset Deleted Successfully") {
       navigate("/admin/assets/");
     }
   };
@@ -45,10 +49,16 @@ const AssetDetails = () => {
     setOpenAlertEdit(false);
   };
   const HandleDelete = (assetId: number) => {
-    if (singleAssetDetails.status === "Allocated") {
+
+    
+    if (singleAssetDetails.status === "Allocated" ) {
+
       setOpenAlert(true);
       setAlertMessage("First deallocate this asset and then try deleting it");
-    } else {
+    } else if(ticket?.length !== 0){
+      setOpenAlert(true);
+      setAlertMessage("First closed asset tickets  and then try deleting it");
+    }else {
       setAssetConfirmdel(true);
     }
   };
@@ -56,7 +66,7 @@ const AssetDetails = () => {
     dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
     setAssetConfirmdel(false);
     setOpenAlert(true);
-    setAlertMessage("asset Deleted successfully");
+    setAlertMessage("Asset Deleted Successfully");
   };
   const detailsComp = (value: any, label: string) => {
     return (

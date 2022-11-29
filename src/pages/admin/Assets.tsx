@@ -30,17 +30,19 @@ function Assets() {
     // delay in ms
     300
   );
-  useEffect(() => {
-    const selectedFilters = JSON.parse(filterObject!);
-    const appliedFilterCount = Object.keys(selectedFilters)?.filter(
-      (filterTemp) => {
-        if (selectedFilters[filterTemp]?.length) {
-          return filterTemp;
-        }
+
+
+  const selectedFilters = JSON.parse(localStorage.getItem("filterObject")!);
+  console.log({selectedFilters})
+  let appliedFilterCount: any;
+  if(selectedFilters !== null){
+     appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
+      if (selectedFilters[filter]?.length) {
+        return filter;
       }
-    );
-    setBadgeCount(appliedFilterCount);
-  }, [filterObject]);
+    });
+  }
+
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -50,6 +52,14 @@ function Assets() {
       ? setIsRented(1)
       : newValue === 2 && setIsRented(1);
   };
+
+  // useEffect(() => {
+  //   dispatch(
+  //     setAssetFilters({
+  //       name: search,
+  //     })
+  //   );
+  // }, [message, search]);
 
   useEffect(() => {
     if (isRented) {

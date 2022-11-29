@@ -130,7 +130,7 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                     <TableCell align="center">
                       {rentalAsset?.deposit ? rentalAsset?.deposit : "-"}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <Tooltip
                         title={
                           !rentalAsset?.is_active

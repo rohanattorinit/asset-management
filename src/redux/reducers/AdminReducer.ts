@@ -33,6 +33,7 @@ import {
   SET_ERROR,
   ServiceType,
   SET_SERVICE_TICKET_DETAILS,
+  SET_SINGLE_ASSET_TICKETS,
   
 } from './../types'
 
@@ -44,6 +45,7 @@ interface InitialState {
   assets: AssetTypes[];
   employeeDetails: EmployeeType;
   singleAssetDetails: SingleAssetDetailsType;
+  singleAssetTickets:  ServiceType[];
   employeeassetsdetails: AllocatedAssetType[];
   serviceDetails: ServiceType[];
   serviceticketdetails: ServiceType;
@@ -106,6 +108,7 @@ const initialState: InitialState = {
     make_year: "",
     is_active:true,
   },
+  singleAssetTickets: [],
   employeeassetsdetails: [],
   serviceDetails: [],
   
@@ -210,9 +213,18 @@ const adminReducer = (
         loading: false
       }
     case SET_SINGLE_ASSET_DETAILS:
+      console.log(action)
       return {
         ...state,
         singleAssetDetails: action.payload?.data,
+        loading: false
+      }
+
+      case SET_SINGLE_ASSET_TICKETS:
+      console.log(action)
+      return {
+        ...state,
+        singleAssetTickets: action.payload?.data,
         loading: false
       }
 

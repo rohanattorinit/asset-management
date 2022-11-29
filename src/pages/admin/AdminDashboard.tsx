@@ -28,9 +28,11 @@ function AdminDashboard() {
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssets({ name: "" }));
-    dispatch(getEmployees({ name: "" }));
-    dispatch(getTotalAssetCategoryCount());
+    
+     dispatch(getAssets({ name: "" }))
+    
+    dispatch(getEmployees({ name: "" }))
+    dispatch(getTotalAssetCategoryCount())
   }, []);
 
   return (
@@ -296,10 +298,10 @@ function AdminDashboard() {
               justifyContent: "space-around",
             }}
           >
-            <Box sx={{ padding: 5, justifyContent: "space-between" }}>
-              <PiechartOne />
+            <Box sx={{ cursor:"pointer", padding: 5, justifyContent: "space-between" }}>
+              <PiechartOne  />
             </Box>
-            <Box sx={{ padding: 5, justifyContent: "space-between" }}>
+            <Box sx={{ cursor:"pointer",padding: 5, justifyContent: "space-between" }}>
               <PiechartTwo />
             </Box>
           </Grid>

@@ -47,7 +47,7 @@ export default function SideBar() {
   };
   const MobileNav = () => {
     return (
-      <Toolbar>
+      <Toolbar sx={{ zIndex: 1200}}>
         <Drawer
           open={openDrawer}
           onClose={() => setOpenDrawer(false)}

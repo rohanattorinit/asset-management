@@ -48,6 +48,7 @@ export const logout = () => async (dispatch: Dispatch<DispatchTypes>) => {
     const res = await post("/api/auth/logout", {});
     Cookies.remove("auth_token");
     delete axios.defaults.headers.common["Authorization"];
+    localStorage.clear();
     dispatch({ type: SET_LOGOUT });
   } catch (error) {
     dispatch({

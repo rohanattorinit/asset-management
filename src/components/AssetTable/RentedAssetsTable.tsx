@@ -146,7 +146,7 @@ function RentedAssetsTable() {
 
                     {/* <TableCell align="center">{rentalAsset?.usability?.toUpperCase()}</TableCell> */}
 
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <Tooltip
                         title="Asset Details"
                         children={

@@ -147,7 +147,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                       ? filteredAsset?.operating_system.toUpperCase()
                       : "-"}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     <Tooltip
                       title={
                         !filteredAsset?.is_active
