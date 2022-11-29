@@ -110,7 +110,9 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                       {rentalAsset?.name?.toUpperCase()}
                     </TableCell>
                     <TableCell align="center">
-                      {rentalAsset?.vendor ? rentalAsset?.vendor?.toUpperCase() : "-"}
+                      {rentalAsset?.vendor
+                        ? rentalAsset?.vendor?.toUpperCase()
+                        : "-"}
                     </TableCell>
                     <TableCell align="center">
                       {rentalAsset?.rent ? rentalAsset?.rent : "-"}
