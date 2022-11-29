@@ -25,10 +25,12 @@ const AssetDetails = () => {
   const navigate = useNavigate();
   const id = location.pathname.split("/")[3];
   const dispatch: Dispatch<any> = useDispatch();
+
   const { singleAssetDetails, loading, message , singleAssetTickets} = useSelector(
     (state: RootStore) => state.admin
   );
   const ticket = singleAssetTickets?.filter((ticket) => ticket?.ticketStatus === "pending" || ticket?.ticketStatus === "active")
+
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
@@ -47,8 +49,10 @@ const AssetDetails = () => {
     setOpenAlertEdit(false);
   };
   const HandleDelete = (assetId: number) => {
+
     
     if (singleAssetDetails.status === "Allocated" ) {
+
       setOpenAlert(true);
       setAlertMessage("First deallocate this asset and then try deleting it");
     } else if(ticket?.length !== 0){
