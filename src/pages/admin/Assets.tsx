@@ -32,16 +32,18 @@ function Assets() {
   );
 
 
-  const selectedFilters = JSON.parse(localStorage.getItem("filterObject")!);
-  console.log({selectedFilters})
-  let appliedFilterCount: any;
-  if(selectedFilters !== null){
-     appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
-      if (selectedFilters[filter]?.length) {
-        return filter;
-      }
-    });
-  }
+ useEffect(() => {
+    const selectedFilters = JSON.parse(filterObject!);
+    let appliedFilterCount: any;
+    if (selectedFilters !== null) {
+      appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
+        if (selectedFilters[filter]?.length) {
+          return filter;
+        }
+      });
+    }
+    setBadgeCount(appliedFilterCount);
+  }, [filterObject]);
 
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
