@@ -138,7 +138,9 @@ function Services() {
                   </TableHead>
                   <TableBody>
                     {serviceDetails?.map((serviceDetail) => (
-                      <TableRow key={serviceDetail?.ticketId}>
+                      <TableRow key={serviceDetail?.ticketId} sx={{
+                        background: serviceDetail?.ticketStatus === "closed" ?  "lightgrey" : "",
+                      }}>
                         <TableCell component="th" scope="row">
                           # {serviceDetail?.ticketId}
                         </TableCell>
@@ -159,9 +161,11 @@ function Services() {
                         </TableCell>
                         <TableCell
                           align="center"
-                          sx={{ textTransform: "capitalize" }}
+                           sx={{ textTransform: "capitalize" }}
+                          
                         >
                           {serviceDetail?.ticketStatus?.toUpperCase()}
+                          
                         </TableCell>
                         <TableCell align="center">
                           <Tooltip

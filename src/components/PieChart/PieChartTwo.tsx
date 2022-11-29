@@ -38,7 +38,8 @@ export function PiechartTwo() {
             "#3f6212",
             "#404040",
             "#831843",
-            "#7f1d1d"
+            "#7f1d1d",
+            "#84cc16"
            
            ],
            borderColor: [
@@ -52,6 +53,7 @@ export function PiechartTwo() {
              '#f5f5f4',
              '#f5f5f4',
              '#f5f5f4',
+             '#f5f5f4'
            ],
             borderWidth: 3,
           },

@@ -29,8 +29,8 @@ export function PiechartOne() {
             "#3f6212",
             "#404040",
             "#831843",
-            "#7f1d1d"
-           
+            "#7f1d1d",
+           "#84cc16"
            ],
            borderColor: [
              '#f5f5f4',
@@ -43,6 +43,7 @@ export function PiechartOne() {
              '#f5f5f4',
              '#f5f5f4',
              '#f5f5f4',
+             '#f5f5f4'
 
            ],
             borderWidth: 3,
