@@ -39,7 +39,7 @@ const AssetDetails = () => {
   };
   const setNavigate = () => {
     setOpenAlert(false);
-    if (alertMessage === "asset Deleted successfully") {
+    if (alertMessage === "Asset Deleted Successfully") {
       navigate("/admin/assets/");
     }
   };
@@ -62,7 +62,7 @@ const AssetDetails = () => {
     dispatch(deleteAsset(singleAssetDetails?.empId, assetId));
     setAssetConfirmdel(false);
     setOpenAlert(true);
-    setAlertMessage("asset Deleted successfully");
+    setAlertMessage("Asset Deleted Successfully");
   };
   const detailsComp = (value: any, label: string) => {
     return (

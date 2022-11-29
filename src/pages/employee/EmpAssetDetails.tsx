@@ -175,7 +175,15 @@ const EmpAssetDetails = () => {
                   {detailsComp("os_version", "OS Version")}
                   {detailsComp("imeiNo", "IMEI Number")}
                   {detailsComp("cableType", "Cable type")}
-                  {detailsComp("description", "Description")}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      p: 1,
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {detailsComp("description", "Description")}
+                  </Typography>
                 </>
               )}
             </Grid>

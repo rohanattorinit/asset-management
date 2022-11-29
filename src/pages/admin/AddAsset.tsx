@@ -28,6 +28,7 @@ import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 import Alert from "../../components/ConfirmAlert/Alert";
+import { FormInitialValues } from "../../components/InitialValues/FormInitialValues";
 
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
@@ -166,37 +167,7 @@ const AddAsset = () => {
           >
             <Grid item xs={12} md={5}>
               <Formik
-                initialValues={{
-                  brandName: "",
-                  assetType: "",
-                  assetName: "",
-                  category: "",
-                  modelNo: "",
-                  asset_location: "",
-                  received_date: "",
-                  description: "",
-                  status: "",
-                  vendor: "",
-                  rent: "",
-                  deposit: "",
-                  rentStartDate: "",
-                  rentEndDate: "",
-                  isRented: false,
-                  screen_type: "",
-                  ram: "",
-                  operating_system: "",
-                  processor: "",
-                  screen_size: "",
-                  empId: "",
-                  imeiNo: "",
-                  connectivity: "",
-                  cableType: "",
-                  ssd: "",
-                  hdd: "",
-                  os_version: "",
-                  make_year: "",
-                  allocationTime: "",
-                }}
+                initialValues={FormInitialValues}
                 validationSchema={AssetValidationSchema}
                 onSubmit={onSubmit}
               >
@@ -480,7 +451,7 @@ const AddAsset = () => {
                               </FormControl>
                             </Grid>
                             {dropdownComp(
-                              "Screen Size",
+                              "Screen Size(in)",
                               "screen_size",
                               values?.screen_size,
                               handleChange
@@ -499,12 +470,6 @@ const AddAsset = () => {
                                 values?.ssd,
                                 handleChange
                               )}
-                            {/* {dropdownComp(
-                              "OS Version",
-                              "os_version",
-                              values?.os_version,
-                              handleChange
-                            )} */}
 
                             <Grid item xs={12} sm={6} md={6}>
                               <Field

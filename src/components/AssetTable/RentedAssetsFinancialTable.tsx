@@ -39,7 +39,7 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
             borderRadius: 1,
           }}
         >
-          Total Asset :
+          Active Asset :
           <CountUp
             end={filteredAsset?.filter((asset) => asset.is_active).length}
             duration={2}
@@ -128,7 +128,7 @@ function RentedfilteredAssetFinancialTable({ search }: { search: string }) {
                     <TableCell align="center">
                       {rentalAsset?.deposit ? rentalAsset?.deposit : "-"}
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <Tooltip
                         title={
                           !rentalAsset?.is_active

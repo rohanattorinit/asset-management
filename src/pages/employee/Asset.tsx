@@ -84,7 +84,6 @@ export default function Asset() {
       title: "",
       description: "",
     });
-   
   };
   const setAlrt = () => {
     setAlert(false);
@@ -128,25 +127,25 @@ export default function Asset() {
                       <TableCell sx={{ fontWeight: "bold" }}>
                         Asset ID
                       </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      <TableCell align="center" sx={{ fontWeight: "bold" }}>
                         Model No.
                       </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      <TableCell align="center" sx={{ fontWeight: "bold" }}>
                         Asset Name
                       </TableCell>
 
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      <TableCell align="center" sx={{ fontWeight: "bold" }}>
                         Category
                       </TableCell>
 
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      <TableCell align="center" sx={{ fontWeight: "bold" }}>
                         Description
                       </TableCell>
 
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      <TableCell align="center" sx={{ fontWeight: "bold" }}>
                         Date of Allocation
                       </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                      <TableCell align="center" sx={{ fontWeight: "bold" }}>
                         Details
                       </TableCell>
                     </TableRow>
@@ -159,19 +158,25 @@ export default function Asset() {
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        <TableCell component="th" scope="row">
+                        <TableCell component="th" scope="row" align="center">
                           {asset?.assetId}
                         </TableCell>
-                        <TableCell align="right">{asset?.modelno}</TableCell>
-                        <TableCell align="right">{asset?.name}</TableCell>
-                        <TableCell align="right">{asset?.category}</TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">{asset?.modelno}</TableCell>
+                        <TableCell align="center">{asset?.name}</TableCell>
+                        <TableCell align="center">{asset?.category}</TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{
+                            wordWrap: "break-word",
+                            maxWidth: "15px",
+                          }}
+                        >
                           {asset?.description}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">
                           {asset?.allocationTime?.slice(0, 10)}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">
                           <Tooltip title="Asset Details">
                             <IconButton
                               onClick={() => setAssetDetails(asset?.assetId)}

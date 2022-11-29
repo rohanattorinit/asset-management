@@ -36,7 +36,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
             borderRadius: 1,
           }}
         >
-          Total Assets :
+          Active Assets :
           <CountUp
             end={assets?.filter((asset) => asset.is_active).length}
             duration={2}
@@ -147,7 +147,7 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                       ? filteredAsset?.operating_system.toUpperCase()
                       : "-"}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     <Tooltip
                       title={
                         !filteredAsset?.is_active

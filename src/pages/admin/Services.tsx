@@ -163,7 +163,7 @@ function Services() {
                         >
                           {serviceDetail?.ticketStatus?.toUpperCase()}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="center">
                           <Tooltip
                             title="Ticket Details"
                             children={

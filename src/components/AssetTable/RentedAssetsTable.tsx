@@ -32,7 +32,7 @@ function RentedAssetsTable() {
             borderRadius: 1,
           }}
         >
-          Total Assets :
+          Active Assets :
           <CountUp
             end={assets?.filter((asset) => asset.is_active).length}
             duration={2}
@@ -146,7 +146,7 @@ function RentedAssetsTable() {
 
                     {/* <TableCell align="center">{rentalAsset?.usability?.toUpperCase()}</TableCell> */}
 
-                    <TableCell align="right">
+                    <TableCell align="center">
                       <Tooltip
                         title="Asset Details"
                         children={
