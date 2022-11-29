@@ -136,7 +136,7 @@ const AllocateAsset = ({
               Allocate Asset
             </Typography>
             <TextField
-              label="search here by name..."
+              label="search by asset name..."
               onChange={(e) => debounced(e?.target?.value)}
             ></TextField>
             <TableContainer sx={{ maxHeight: "350px" }} component={Paper}>
