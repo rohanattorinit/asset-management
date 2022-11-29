@@ -188,7 +188,7 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
     };
 
   let filtersEl: any;
-
+console.log({filterOptions})
   filtersEl = Object.keys(filterOptions)?.map((filter) => {
     const FilterIcon = getFilterIcon(filter);
     return (

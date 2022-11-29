@@ -31,11 +31,15 @@ function Assets() {
   );
 
   const selectedFilters = JSON.parse(localStorage.getItem("filterObject")!);
-  const appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
-    if (selectedFilters[filter]?.length) {
-      return filter;
-    }
-  });
+  console.log({selectedFilters})
+  let appliedFilterCount: any;
+  if(selectedFilters !== null){
+     appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
+      if (selectedFilters[filter]?.length) {
+        return filter;
+      }
+    });
+  }
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
