@@ -204,6 +204,7 @@ function AdminDashboard() {
                 color="primary"
               >
                 <CountUp
+
                   end={
                     assets?.filter(
                       (asset) =>
@@ -216,6 +217,7 @@ function AdminDashboard() {
               </Typography>
               <Typography
                 sx={{ fontSize: "18px" }}
+
                 variant="h5"
                 color="primary"
               >
