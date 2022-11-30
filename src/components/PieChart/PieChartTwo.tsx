@@ -67,8 +67,6 @@ export function PiechartTwo() {
    Surplus Assets
   </Typography>
   {/* @ts-ignore */}
-  <Pie data={data}
- 
-   />
+  { data ? (<Pie data={data} />) : <></>}
   </>
 )}
