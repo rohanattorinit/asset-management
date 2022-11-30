@@ -11,7 +11,18 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PiechartOne() {
     const { totalAssetCount } = useSelector((state: RootStore) => state.admin);
-   
+    const chartRef =  useRef();
+    // const [dataSet, setDataSet] = useState<Array<any>>([])
+    const navigate= useNavigate()
+    
+    
+    const handlePieChartClick = (event:any) => {
+      // @ts-ignore
+      console.log(totalAssetCount[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category )
+      // @ts-ignore
+      localStorage.setItem('pieChartItem',totalAssetCount[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category )
+      navigate('/admin/assets')
+    }    
 
       const data = {
         labels: totalAssetCount?.map(({category}) => category),
@@ -60,8 +71,10 @@ export function PiechartOne() {
   </Typography>
   {/* @ts-ignore */}
   <Pie data={data} 
-  
-   
+  // @ts-ignore
+    onClick={(event) => handlePieChartClick(event)}
+    ref={chartRef}
+    
 />
   </>
 )}
