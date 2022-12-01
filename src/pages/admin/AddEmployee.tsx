@@ -44,11 +44,9 @@ const AddEmployee = () => {
     resetForm({ values: "" });
   };
 
-  const setNavigate = ()=>{
+  const setNavigate = () => {
     navigate("/admin/employee");
-  }
-
-  
+  };
 
   return (
     <Grid container sx={{ bgcolor: "#F1F5F9", height: "100%" }}>
@@ -104,7 +102,6 @@ const AddEmployee = () => {
                               required
                               role={"option"}
                             >
-                               <MenuItem>None</MenuItem>
                               {options.map((item) => (
                                 <MenuItem key={item.value} value={item.value}>
                                   {item.label}
@@ -178,7 +175,7 @@ const AddEmployee = () => {
             </Grid>
           </CardContent>
         </Card>
-        {message && <Alert title={message} setNavigate={setNavigate}/>}
+        {message && <Alert title={message} setNavigate={setNavigate} />}
       </Grid>
     </Grid>
   );
