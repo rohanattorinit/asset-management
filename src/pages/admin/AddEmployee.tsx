@@ -104,7 +104,7 @@ const AddEmployee = () => {
                               required
                               role={"option"}
                             >
-                               <MenuItem>None</MenuItem>
+                               {/* <MenuItem>None</MenuItem> */}
                               {options.map((item) => (
                                 <MenuItem key={item.value} value={item.value}>
                                   {item.label}

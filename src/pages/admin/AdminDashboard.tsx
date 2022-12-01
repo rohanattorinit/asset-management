@@ -38,7 +38,7 @@ function AdminDashboard() {
 
   return (
     <>
-      {loading ? <Loader/> :(<Grid container sx={{ height: "100%" }}>
+      {loading ? <></> :(<Grid container sx={{ height: "100%" }}>
         <SideBar />
 
         <Grid item xs={12} md={10}>
