@@ -3,7 +3,6 @@ import { Box } from "@mui/system";
 import { Dispatch, useEffect } from "react";
 import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../components/Loader/Loader";
 import { PiechartOne } from "../../components/PieChart/PieChartOne";
 import { PiechartTwo } from "../../components/PieChart/PieChartTwo";
 
@@ -25,7 +24,7 @@ const commonStyles = {
 };
 
 function AdminDashboard() {
-  const { assets ,loading} = useSelector((state: RootStore) => state.admin);
+  const { assets } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
@@ -38,7 +37,7 @@ function AdminDashboard() {
 
   return (
     <>
-      {loading ? <Loader/> : (<Grid container sx={{ height: "100%" }}>
+      <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
         <Grid item xs={12} md={10}>
@@ -307,7 +306,7 @@ function AdminDashboard() {
             </Box>
           </Grid>
         </Grid>
-      </Grid>)}
+      </Grid>
     </>
   );
 }

@@ -20,7 +20,7 @@ export function PiechartOne() {
       // @ts-ignore
       console.log(totalAssetCount[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category )
       // @ts-ignore
-      localStorage.setItem('pieChartItem',totalAssetCount[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category )
+      localStorage.setItem('pieChartItem',JSON.stringify({category:totalAssetCount[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category,surplus:false}))
       navigate('/admin/assets')
     }    
 

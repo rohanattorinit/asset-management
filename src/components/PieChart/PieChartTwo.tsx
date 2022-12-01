@@ -20,10 +20,7 @@ export function PiechartTwo() {
 
     const handlePieChartClick = (event:any) => {
       // @ts-ignore
-
-      console.log(moreNewData[getElementAtEvent(chartRef?.current, event)?.[0]?.index]);
-// @ts-ignore
-      localStorage.setItem('surplusPieChart',moreNewData[getElementAtEvent(chartRef?.current, event)?.[0]?.index].category )
+      localStorage.setItem('pieChartItem',JSON.stringify({category:moreNewData[getElementAtEvent(chartRef?.current, event)?.[0]?.index]?.category,surplus:true}) )
       navigate('/admin/assets')
     }    
 
