@@ -130,7 +130,7 @@ export default function EmployeeDetails() {
     dispatch(deleteEmployee(employeeDetails.empId));
     setOpenConfirm(false);
     setOpenAlert(true);
-    setAlertMessage("Emplyoee deleted");
+    setAlertMessage("Emplyoee deleted")
   };
   const handleCancel = () => {
     setOpenConfirm(false);
@@ -156,8 +156,9 @@ export default function EmployeeDetails() {
       {openConfirm && (
         <Confirm
           title={alertMessage}
-          handleOk={handleOK}
+           handleOk={handleOK}
           handlecancel={handleCancel}
+         
         ></Confirm>
       )}
       {openAlert ? (
