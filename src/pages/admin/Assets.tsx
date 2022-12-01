@@ -30,15 +30,17 @@ function Assets() {
     // delay in ms
     300
   );
+
   useEffect(() => {
     const selectedFilters = JSON.parse(filterObject!);
-    const appliedFilterCount = Object.keys(selectedFilters)?.filter(
-      (filterTemp) => {
-        if (selectedFilters[filterTemp]?.length) {
-          return filterTemp;
+    let appliedFilterCount: any;
+    if (selectedFilters !== null) {
+      appliedFilterCount = Object.keys(selectedFilters)?.filter((filter) => {
+        if (selectedFilters[filter]?.length) {
+          return filter;
         }
-      }
-    );
+      });
+    }
     setBadgeCount(appliedFilterCount);
   }, [filterObject]);
 

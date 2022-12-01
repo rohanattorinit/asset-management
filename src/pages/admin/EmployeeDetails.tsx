@@ -88,9 +88,9 @@ export default function EmployeeDetails() {
   const location = useLocation();
   const empId = location?.pathname.replace("/admin/employee/", "");
 
-  const [openConfirm, setOpenConfirm] = useState(false)
-  const [alertMessage, setAlertMessage] = useState('')
-  const [currentAssetId,setCurrentAssetId]=useState(0);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [currentAssetId, setCurrentAssetId] = useState(0);
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
@@ -111,15 +111,13 @@ export default function EmployeeDetails() {
     dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
     setEmpOpen(false);
     setOpenAlert(true);
-    setAlertMessage("Employee details updated successfully")
+    setAlertMessage("Employee details updated successfully");
   };
 
   const HandleDelete = (assetId: string) => {
     if (employeeassetsdetails?.length) {
       setOpenAlert(true);
       setAlertMessage("First deallocate all the assets allocated to employee!");
-
-      
     } else {
       setOpenConfirm(true);
       setAlertMessage("Are you sure?");
@@ -280,7 +278,7 @@ export default function EmployeeDetails() {
             </>
           </Paper>
 
-          <Paper sx={{ marginY: 3 }} elevation={5}>
+          <Paper sx={{ height: "20vh", marginY: 3 }} elevation={5}>
             <Box
               sx={{
                 display: "flex",
@@ -342,29 +340,38 @@ export default function EmployeeDetails() {
                             <RemoveCircleIcon
                               sx={{ color: "#DC2626" }}
                               onClick={() => {
-                                setCurrentAssetId(asset?.assetId)
+                                setCurrentAssetId(asset?.assetId);
                                 setOpenConfirmDeallocate(true);
                               }}
                             />
-                             {openConfirmDeallocate &&  <Dialog
-        open={true}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={()=>{
-          
-        }}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>Are you sure?</DialogTitle>
-        
-        <DialogActions>
-          <Button onClick={()=>{HandleDeallocate(currentAssetId)
-          
-          }}>OK</Button>
-          <Button onClick={()=>{setOpenConfirmDeallocate(false)}}>CANCEL</Button>
-        </DialogActions>
-      </Dialog>}
-                            
+                            {openConfirmDeallocate && (
+                              <Dialog
+                                open={true}
+                                TransitionComponent={Transition}
+                                keepMounted
+                                onClose={() => {}}
+                                aria-describedby="alert-dialog-slide-description"
+                              >
+                                <DialogTitle>Are you sure?</DialogTitle>
+
+                                <DialogActions>
+                                  <Button
+                                    onClick={() => {
+                                      HandleDeallocate(currentAssetId);
+                                    }}
+                                  >
+                                    OK
+                                  </Button>
+                                  <Button
+                                    onClick={() => {
+                                      setOpenConfirmDeallocate(false);
+                                    }}
+                                  >
+                                    CANCEL
+                                  </Button>
+                                </DialogActions>
+                              </Dialog>
+                            )}
                           </IconButton>
                         </TableCell>
                       </TableRow>
@@ -373,7 +380,7 @@ export default function EmployeeDetails() {
                 </Table>
               </TableContainer>
             ) : (
-              <></>
+              <Typography textAlign={"center"}>No Asset Allocated!</Typography>
             )}
           </Paper>
         </Grid>

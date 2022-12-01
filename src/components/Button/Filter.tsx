@@ -120,22 +120,16 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
   }, []);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     localStorage.setItem("filterObject", JSON.stringify(filterObject));
     localStorage.setItem("openObject", JSON.stringify(openObject));
-
-    // const appliedFilterCount = Object.keys(filterObject)?.filter(
-    //   (filterTemp) => {
-    //     if (filterObject[filterTemp]?.length) {
-    //       return filterTemp;
-    //     }
-    //   }
-    // );
-    console.log("filterObject", filterObject);
-
-    // if (appliedFilterCount?.length) {
-    dispatch(setAssetFilters(filterObject, { name }));
-    // }
-  }, [filterObject, openObject, name]);
+    dispatch(setAssetFilters(filterObject, { name }, signal));
+    return () => {
+      controller.abort();
+    };
+  }, [filterObject, name]);
 
   const handleSubmitFilter = (key: string, value: string) => {
     if (key === "category") {
