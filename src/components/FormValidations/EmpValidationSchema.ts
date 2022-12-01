@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const uppercaseRegEx = /(?=.*[A-Z])/
 const re = /^[A-Z/a-z/ \b]+$/
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const phoneRegExp = /^((?!(0))[0-9]{10})$/
 
 export const EmpValidationSchema = Yup.object().shape({
   empId: Yup.string()
