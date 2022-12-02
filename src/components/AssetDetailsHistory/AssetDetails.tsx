@@ -74,7 +74,7 @@ const AssetDetails = () => {
         {
           // @ts-ignore
           singleAssetDetails[value] && (
-            <Grid item xs={2} sm={4} md={4}>
+            // <Grid item xs={2} sm={4} md={4}>
               <Typography
                 fontFamily="serif"
                 fontWeight="bold"
@@ -98,7 +98,7 @@ const AssetDetails = () => {
                   }
                 </Typography>
               </Typography>
-            </Grid>
+            //  </Grid>
           )
         }
       </>
@@ -161,12 +161,20 @@ const AssetDetails = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
-          <Grid container spacing={1}>
+        
+        
+        <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={10} >
+         
+          
+         
+     
             {!singleAssetDetails?.empId?.length && loading && !open ? (
               <Loader />
             ) : (
               <>
+               <Grid container sx={{padding:7}}> 
+
+              <Grid item md={4}>  
                 {detailsComp("assetId", "Asset ID")}
                 {detailsComp("name", "Asset Name")}
                 {detailsComp("category", "Category")}
@@ -174,7 +182,7 @@ const AssetDetails = () => {
                 {detailsComp("asset_location", "Location")}
                 {detailsComp("brandName", "Brand Name")}
                 {detailsComp("modelNo", "Model No")}
-                <Grid item xs={2} sm={4} md={4}>
+                {/* <Grid item xs={2} sm={4} md={4}> */}
                   <Typography
                     fontFamily="serif"
                     fontWeight="bold"
@@ -191,12 +199,17 @@ const AssetDetails = () => {
                       {singleAssetDetails?.received_date?.slice(0, 10)}
                     </Typography>
                   </Typography>
+                  
                 </Grid>
+                
+
+               
+                <Grid item md={4} > 
                 {detailsComp("vendor", "Vendor")}
                 {detailsComp("rent", "Rent")}
                 {detailsComp("deposit", "Deposit")}
                 {singleAssetDetails?.rentStartDate && (
-                  <Grid item xs={2} sm={4} md={4}>
+                 
                     <Typography
                       fontFamily="serif"
                       fontWeight="bold"
@@ -217,10 +230,11 @@ const AssetDetails = () => {
                         {singleAssetDetails?.rentStartDate?.slice(0, 10)}
                       </Typography>
                     </Typography>
-                  </Grid>
+                 
                 )}
                 {singleAssetDetails?.rentEndDate && (
-                  <Grid item xs={2} sm={4} md={4}>
+                  <> 
+                  
                     <Typography
                       fontFamily="serif"
                       fontWeight="bold"
@@ -241,30 +255,42 @@ const AssetDetails = () => {
                         {singleAssetDetails?.rentEndDate?.slice(0, 10)}
                       </Typography>
                     </Typography>
-                  </Grid>
+                    </>
+                   
                 )}
-                {detailsComp("screen_type", "Screen Type ")}
-                {detailsComp("processor", "Processor")}
-                {detailsComp("ram", "RAM")}
-                {detailsComp("screen_size", "Screen Size")}
-                {detailsComp("empName", "Employee Name")}
-                {detailsComp("empId", "Employee ID")}
-                {detailsComp("ssd", "SSD")}
-                {detailsComp("hdd", "HDD")}
-                {detailsComp("connectivity", " Connectivity")}
-                {detailsComp("make_year", "Make Year")}
-                {detailsComp("os_version", "OS Version")}
-                {detailsComp("imeiNo", "IMEI Number")}
-                {detailsComp("cableType", "Cable type")}
-                <Typography
-                  variant="body1"
-                  sx={{ p: 1, wordWrap: "break-word" }}
-                >
-                  {detailsComp("description", "Description")}
-                </Typography>
+
+                
+                
+                </Grid>
+
+                <Grid item md={4}> 
+
+{detailsComp("screen_type", "Screen Type ")}
+{detailsComp("processor", "Processor")}
+{detailsComp("ram", "RAM")}
+{detailsComp("screen_size", "Screen Size")}
+{detailsComp("empName", "Employee Name")}
+{detailsComp("empId", "Employee ID")}
+{detailsComp("ssd", "SSD")}
+{detailsComp("hdd", "HDD")}
+{detailsComp("connectivity", " Connectivity")}
+{detailsComp("make_year", "Make Year")}
+{detailsComp("os_version", "OS Version")}
+{detailsComp("imeiNo", "IMEI Number")}
+{detailsComp("cableType", "Cable type")}
+
+
+
+</Grid>
+                  
+              
+               
+                </Grid>
               </>
             )}
-          </Grid>
+        
+        
+          
         </Paper>
       )}
       <Dialog open={assetOpen} onClose={() => setAssetOpen(false)}>
