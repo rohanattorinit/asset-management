@@ -25,9 +25,6 @@ import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
 import Alert from "../../components/ConfirmAlert/Alert";
 import { FormInitialValues } from "../../components/InitialValues/FormInitialValues";
-import moment from "moment";
-
-
 
 const assetTypeOptions = [
   { label: "Hardware", value: "hardware" },
