@@ -83,7 +83,10 @@ function EmpList() {
                 }}
               >
                 Total Employees :
-                <CountUp end={employees?.length} duration={2} />
+                <CountUp
+                  end={employees?.filter((emp) => emp.is_active).length}
+                  duration={2}
+                />
               </Typography>
             
             </Grid>
@@ -167,7 +170,12 @@ function EmpList() {
                     </TableHead>
                     <TableBody>
                       {employees?.map((employee) => (
-                        <TableRow key={employee?.empId}>
+                        <TableRow
+                          key={employee?.empId}
+                          sx={{
+                            background: !employee?.is_active ? "lightgrey" : "",
+                          }}
+                        >
                           <TableCell align="center" component="th" scope="row">
                             {employee?.empId}
                           </TableCell>
@@ -183,21 +191,26 @@ function EmpList() {
                           <TableCell align="center">
                             {employee?.location.toUpperCase()}
                           </TableCell>
-                          {/* <IconButton
-                            onClick={() => setEmployeeDetails(employee?.empId)}
-                          >
-                            <OpenInNewIcon sx={{ color: "darkblue" }} />
-                          </IconButton> */}
                           <TableCell align="center">
                             <Tooltip
-                              title="Employee Details"
+                              title={
+                                !employee?.is_active
+                                  ? "Deleted Employee"
+                                  : "Employee Details"
+                              }
                               children={
                                 <IconButton
                                   onClick={() =>
                                     setEmployeeDetails(employee?.empId)
                                   }
                                 >
-                                  <OpenInNewIcon sx={{ color: "darkblue" }} />
+                                  <OpenInNewIcon
+                                    sx={{
+                                      color: !employee?.is_active
+                                        ? "red"
+                                        : "darkblue",
+                                    }}
+                                  />
                                 </IconButton>
                               }
                             />

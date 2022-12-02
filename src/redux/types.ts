@@ -127,6 +127,7 @@ export interface EmployeeType {
   location: string
   isAdmin: boolean
   jobTitle: string
+  is_active? : boolean
 }
 export interface ServiceType {
   empId: string

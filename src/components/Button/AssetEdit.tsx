@@ -29,11 +29,11 @@ import { TextField } from "formik-material-ui";
 import moment from "moment";
 
 const time = moment().format("MMMM DD YYYY, hh:mm:ss");
+const currentYear = new Date().getFullYear();
 
 const validationSchema = Yup.object().shape({
- 
-    rentStartDate: Yup.date().nullable(),
-
+  make_year: Yup.number().max(currentYear, "Make year can not be in the future"),
+  rentStartDate: Yup.date().nullable(),
   rentEndDate: Yup.date().min(Yup.ref("rentStartDate")),
   received_date: Yup.date().max(time,'Future dates can not be selected')
   
@@ -68,9 +68,7 @@ function AssetEdit(props: Iprops) {
   }, [message, singleAssetDetails]);
 
   const onSubmit = (values: any) => {
-    // if(values.rentStartDate > values.rentEndDate) {
-    //   alert("Enter valid rent start and end date")
-    // }
+    
     console.log(values)
     dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
     props.closeFunc(false);
@@ -444,7 +442,7 @@ function AssetEdit(props: Iprops) {
                               <Select
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                label="os"
+                                label="Operating System"
                                 value={values?.operating_system}
                                 onChange={handleChange}
                                 name="operating_system"

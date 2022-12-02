@@ -45,9 +45,10 @@ import Alert from "../../components/ConfirmAlert/Alert";
 import Confirm from "../../components/ConfirmAlert/Confirm";
 import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
+import { post } from "../../services";
 
-const phoneRegExp =/^((?!(0))[0-9]{10})$/
-  // /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp = /^((?!(0))[0-9]{10})$/;
+// /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const re = /^[A-Z/a-z/ \b]+$/;
 let validationSchema = Yup?.object()?.shape({
   phone: Yup.string()
@@ -88,9 +89,11 @@ export default function EmployeeDetails() {
   const location = useLocation();
   const empId = location?.pathname.replace("/admin/employee/", "");
 
-  const [openConfirm, setOpenConfirm] = useState(false)
-  const [alertMessage, setAlertMessage] = useState('')
-  const [currentAssetId,setCurrentAssetId]=useState(0);
+  const [confirmActivate, setConfirmActivate] = useState<boolean>(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [currentAssetId, setCurrentAssetId] = useState(0);
+
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
@@ -111,15 +114,13 @@ export default function EmployeeDetails() {
     dispatch(updateEmployeeDetails(employeeDetails?.empId, values));
     setEmpOpen(false);
     setOpenAlert(true);
-    setAlertMessage("Employee details updated successfully")
+    setAlertMessage("Employee details updated successfully");
   };
 
   const HandleDelete = (assetId: string) => {
     if (employeeassetsdetails?.length) {
       setOpenAlert(true);
       setAlertMessage("First deallocate all the assets allocated to employee!");
-
-      
     } else {
       setOpenConfirm(true);
       setAlertMessage("Are you sure?");
@@ -139,7 +140,10 @@ export default function EmployeeDetails() {
   const handleAlrtDeallocate = () => {
     setOpenAlrtDeallocate(false);
   };
-
+  const handleActivate = async (empId: string) => {
+    await post(`/api/employees/reactive/${empId}`, {});
+    navigate("/admin/employee");
+  };
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
       children: React.ReactElement<any, any>;
@@ -153,6 +157,17 @@ export default function EmployeeDetails() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
+      {confirmActivate && (
+        <Confirm
+          title="Are you sure you want to re-activate this employee?"
+          handleOk={() => {
+            handleActivate(employeeDetails?.empId);
+          }}
+          handlecancel={() => {
+            setConfirmActivate(false);
+          }}
+        />
+      )}
       {openConfirm && (
         <Confirm
           title={alertMessage}
@@ -184,22 +199,46 @@ export default function EmployeeDetails() {
                 <Typography m={2} variant="h5">
                   Employee Details
                 </Typography>
-                <Box m={2}>
-                  <Button variant="outlined" onClick={() => setEmpOpen(true)}>
-                    Edit
-                  </Button>
-                  <> </>
-                  <Button
-                    variant="outlined"
-                    color="warning"
-                    onClick={() => {
-                      HandleDelete(employeeDetails.empId);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </Box>
+                {employeeDetails?.is_active ? (
+                  <Box m={2}>
+                    <Button variant="outlined" onClick={() => setEmpOpen(true)}>
+                      Edit
+                    </Button>
+                    <> </>
+                    <Button
+                      variant="outlined"
+                      color="warning"
+                      onClick={() => {
+                        HandleDelete(employeeDetails.empId);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </Box>
+                ) : (
+                  <>
+                    <Typography
+                      m={2}
+                      variant="h5"
+                      sx={{ fontSize: 16, color: "red" }}
+                    >
+                      This Employee is Deleted !!!
+                    </Typography>
+                    <Button
+                      sx={{ mr: 2, my: 2 }}
+                      color="primary"
+                      size="small"
+                      variant={"contained"}
+                      onClick={() => {
+                        setConfirmActivate(true);
+                      }}
+                    >
+                      Re-active Employee
+                    </Button>
+                  </>
+                )}
               </Box>
+
               <Grid display="flex" padding={1} container m={2}>
                 <Grid item xs={12} md={4}>
                   <Typography fontFamily="serif" fontWeight="bold" variant="h6">
@@ -279,103 +318,115 @@ export default function EmployeeDetails() {
               </Grid>
             </>
           </Paper>
-
-          <Paper sx={{ marginY: 3 }} elevation={5}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "10px",
-              }}
-            >
-              <Typography m={2} variant="h5" mb={5}>
-                Current Asset
-              </Typography>
-              <Box m={2} display="flex">
-                <Button variant="outlined" onClick={handleClickOpen}>
-                  Allocate
-                </Button>
+          {employeeDetails?.is_active ? (
+            <Paper sx={{ marginY: 3 }} elevation={5}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "10px",
+                }}
+              >
+                <Typography m={2} variant="h5" mb={5}>
+                  Current Asset
+                </Typography>
+                <Box m={2} display="flex">
+                  <Button variant="outlined" onClick={handleClickOpen}>
+                    Allocate
+                  </Button>
+                </Box>
               </Box>
-            </Box>
 
-            {!loading && employeeassetsdetails?.length ? (
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Asset ID
-                      </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Asset Name
-                      </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Model No
-                      </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Category
-                      </TableCell>
-                      <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                        Allocation Date
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {employeeassetsdetails?.map((asset) => (
-                      <TableRow
-                        key={asset?.assetId}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell align="right" component="th" scope="row">
-                          {asset?.assetId}
+              {!loading && employeeassetsdetails?.length ? (
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                          Asset ID
                         </TableCell>
-                        <TableCell align="right">{asset?.name}</TableCell>
-                        <TableCell align="right">{asset?.modelno}</TableCell>
-                        <TableCell align="right">{asset?.category}</TableCell>
-                        <TableCell align="right">
-                          {asset?.allocationTime?.slice(0, 10)}
+                        <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                          Asset Name
                         </TableCell>
-                        <TableCell align="right">
-                          <IconButton>
-                            <RemoveCircleIcon
-                              sx={{ color: "#DC2626" }}
-                              onClick={() => {
-                                setCurrentAssetId(asset?.assetId)
-                                setOpenConfirmDeallocate(true);
-                              }}
-                            />
-                             {openConfirmDeallocate &&  <Dialog
-        open={true}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={()=>{
-          
-        }}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>Are you sure?</DialogTitle>
-        
-        <DialogActions>
-          <Button onClick={()=>{HandleDeallocate(currentAssetId)
-          
-          }}>OK</Button>
-          <Button onClick={()=>{setOpenConfirmDeallocate(false)}}>CANCEL</Button>
-        </DialogActions>
-      </Dialog>}
-                            
-                          </IconButton>
+                        <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                          Model No
+                        </TableCell>
+                        <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                          Category
+                        </TableCell>
+                        <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                          Allocation Date
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            ) : (
-              <></>
-            )}
-          </Paper>
+                    </TableHead>
+                    <TableBody>
+                      {employeeassetsdetails?.map((asset) => (
+                        <TableRow
+                          key={asset?.assetId}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell align="right" component="th" scope="row">
+                            {asset?.assetId}
+                          </TableCell>
+                          <TableCell align="right">{asset?.name}</TableCell>
+                          <TableCell align="right">{asset?.modelno}</TableCell>
+                          <TableCell align="right">{asset?.category}</TableCell>
+                          <TableCell align="right">
+                            {asset?.allocationTime?.slice(0, 10)}
+                          </TableCell>
+                          <TableCell align="right">
+                            <IconButton>
+                              <RemoveCircleIcon
+                                sx={{ color: "#DC2626" }}
+                                onClick={() => {
+                                  setCurrentAssetId(asset?.assetId);
+                                  setOpenConfirmDeallocate(true);
+                                }}
+                              />
+                              {openConfirmDeallocate && (
+                                <Dialog
+                                  open={true}
+                                  TransitionComponent={Transition}
+                                  keepMounted
+                                  onClose={() => {}}
+                                  aria-describedby="alert-dialog-slide-description"
+                                >
+                                  <DialogTitle>Are you sure?</DialogTitle>
+
+                                  <DialogActions>
+                                    <Button
+                                      onClick={() => {
+                                        HandleDeallocate(currentAssetId);
+                                      }}
+                                    >
+                                      OK
+                                    </Button>
+                                    <Button
+                                      onClick={() => {
+                                        setOpenConfirmDeallocate(false);
+                                      }}
+                                    >
+                                      CANCEL
+                                    </Button>
+                                  </DialogActions>
+                                </Dialog>
+                              )}
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              ) : (
+                <></>
+              )}
+            </Paper>
+          ) : (
+            <></>
+          )}
         </Grid>
       )}
 
@@ -485,5 +536,3 @@ export default function EmployeeDetails() {
     </Grid>
   );
 }
-
-
