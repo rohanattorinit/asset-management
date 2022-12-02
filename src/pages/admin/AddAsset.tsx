@@ -349,7 +349,7 @@ const AddAsset = () => {
 
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            type="date"
+                            type="date" 
                             label="Received date"
                             variant="outlined"
                             fullWidth
