@@ -26,15 +26,16 @@ import {
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import { TextField } from "formik-material-ui";
+import moment from "moment";
+
+const time = moment().format("MMMM DD YYYY, hh:mm:ss");
 
 const validationSchema = Yup.object().shape({
  
-  // rentEndDate: Yup.string().max(
-  //   Yup.ref('rentStartDate'),"end date can't be before start date" )
+    rentStartDate: Yup.date().nullable(),
 
-  rentStartDate: Yup.date().nullable(),
-
-  rentEndDate: Yup.date().min(Yup.ref("rentStartDate"))
+  rentEndDate: Yup.date().min(Yup.ref("rentStartDate")),
+  received_date: Yup.date().max(time,'Future dates can not be selected')
   
       })
 
