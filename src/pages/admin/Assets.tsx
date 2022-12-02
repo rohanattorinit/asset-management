@@ -12,6 +12,7 @@ import { RootStore } from "../../redux/store";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 import { AssetTypes } from "../../redux/types";
 import Filter from "../../components/Button/Filter";
+
 function Assets() {
   const [value, setValue] = useState(0);
   const [isRented, setIsRented] = useState<number>(0);
@@ -121,6 +122,7 @@ function Assets() {
           )}
         </Box>
       </Grid>
+   
     </Grid>
   );
 }

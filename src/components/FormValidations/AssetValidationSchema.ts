@@ -1,7 +1,9 @@
+import moment from 'moment';
 import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const re = /^[A-Z/a-z/ \b]+$/
 const amount = /[0-9]+([,.][0-9]{1,2})?/
+const time = moment().format("MMMM DD YYYY, hh:mm:ss");
 
 export const AssetValidationSchema = Yup.object().shape({
   status: Yup.string().required('Required'),
@@ -72,5 +74,8 @@ export const AssetValidationSchema = Yup.object().shape({
         }
       ),
     otherwise: Yup.date().nullable()
-  })
+  }),
+
+  received_date: Yup.date().max(time,'Future dates can not be selected')
+
 })
