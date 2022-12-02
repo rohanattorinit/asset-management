@@ -28,6 +28,7 @@ import Toast from "../../components/ErrorHandling/Toast";
 import { useDebouncedCallback } from "use-debounce";
 import Loader from "../../components/Loader/Loader";
 import CountUp from "react-countup";
+import { bgcolor } from "@mui/system";
 function EmpList() {
   const [search, setSearch] = useState("");
   const dispatch: Dispatch<any> = useDispatch();
@@ -58,24 +59,21 @@ function EmpList() {
 
   return (
     <>
-      <Grid container sx={{ height: "100%" }}>
+      <Grid container >
         <SideBar />
         <Toast />
         <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
-          <Box marginY={2}></Box>
-          <Box
-            sx={{
+          
+          <Grid container sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+             
             }}
           >
-            <TextField
-              label="search by name..."
-              onChange={(e) => debounced(e?.target?.value)}
-            ></TextField>
-
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+           
+<Grid item>
+           
               <Typography
                 sx={{
                   fontSize: 20,
@@ -87,8 +85,16 @@ function EmpList() {
                 Total Employees :
                 <CountUp end={employees?.length} duration={2} />
               </Typography>
-            </Box>
-
+            
+            </Grid>
+            <Grid item>
+            <TextField
+              label="search by name..."
+              onChange={(e) => debounced(e?.target?.value)}
+              fullWidth
+            ></TextField>
+            </Grid>
+<Grid item>
             <Button
               variant="outlined"
               color="primary"
@@ -97,7 +103,8 @@ function EmpList() {
             >
               Add new Employee
             </Button>
-          </Box>
+          </Grid>
+          </Grid>
 
           <Box my={3}>
             {loading ? (
