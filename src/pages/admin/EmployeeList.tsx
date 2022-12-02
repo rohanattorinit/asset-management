@@ -85,7 +85,10 @@ function EmpList() {
                 }}
               >
                 Total Employees :
-                <CountUp end={employees?.length} duration={2} />
+                <CountUp
+                  end={employees?.filter((emp) => emp.is_active).length}
+                  duration={2}
+                />
               </Typography>
             </Box>
 
