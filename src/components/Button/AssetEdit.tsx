@@ -68,9 +68,7 @@ function AssetEdit(props: Iprops) {
   }, [message, singleAssetDetails]);
 
   const onSubmit = (values: any) => {
-    // if(values.rentStartDate > values.rentEndDate) {
-    //   alert("Enter valid rent start and end date")
-    // }
+    
     console.log(values)
     dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
     props.closeFunc(false);
@@ -444,7 +442,7 @@ function AssetEdit(props: Iprops) {
                               <Select
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                label="os"
+                                label="Operating System"
                                 value={values?.operating_system}
                                 onChange={handleChange}
                                 name="operating_system"
