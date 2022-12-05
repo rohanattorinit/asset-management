@@ -74,10 +74,11 @@ export function PiechartTwo() {
    Preffered Surplus Assets
   </Typography>
   {/* @ts-ignore */}
-  <Pie data={data}
+  { data ? ( <Pie data={data} 
   // @ts-ignore
-  onClick={(event) => handlePieChartClick(event)}
+    onClick={(event) => handlePieChartClick(event)}
     ref={chartRef}
-   />
+    
+/>): <></>}
   </>
 )}

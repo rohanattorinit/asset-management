@@ -38,10 +38,10 @@ function AdminDashboard() {
 
   return (
     <>
-      {loading ? <></> :(<Grid container sx={{ height: "100%" }}>
+      <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
-        <Grid item xs={12} md={10}>
+        {loading ? <></> :(<Grid item xs={12} md={10}>
           <Grid
             container
             sx={{
@@ -306,8 +306,8 @@ function AdminDashboard() {
               <PiechartTwo />
             </Box>
           </Grid>
-        </Grid>
-      </Grid>)}
+        </Grid>)}
+      </Grid>
     </>
   );
 }

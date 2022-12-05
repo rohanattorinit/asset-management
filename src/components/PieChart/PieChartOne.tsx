@@ -68,12 +68,12 @@ export function PiechartOne() {
    Total Assets
   </Typography>
   {/* @ts-ignore */}
-    <Pie data={data} 
+  { data ? ( <Pie data={data} 
   // @ts-ignore
     onClick={(event) => handlePieChartClick(event)}
     ref={chartRef}
     
-/>
+/>): <></>}
   </>
 )}
 
