@@ -23,7 +23,6 @@ import { RootStore } from "../../redux/store";
 import { useDebouncedCallback } from "use-debounce";
 import Confirm from "../ConfirmAlert/Confirm";
 import Alert from "../ConfirmAlert/Alert";
-import { findByLabelText } from "@testing-library/react";
 
 interface AllocateObj {
   empId: string;

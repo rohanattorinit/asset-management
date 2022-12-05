@@ -182,6 +182,7 @@ const AssetDetails = () => {
                 {detailsComp("asset_location", "Location")}
                 {detailsComp("brandName", "Brand Name")}
                 {detailsComp("modelNo", "Model No")}
+                
                 {/* <Grid item xs={2} sm={4} md={4}> */}
                   <Typography
                     fontFamily="serif"
@@ -199,6 +200,7 @@ const AssetDetails = () => {
                       {singleAssetDetails?.received_date?.slice(0, 10)}
                     </Typography>
                   </Typography>
+                  {detailsComp("description", "Description")}
                   
                 </Grid>
                 
