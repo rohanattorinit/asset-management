@@ -12,6 +12,7 @@ import { RootStore } from "../../redux/store";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 import { AssetTypes } from "../../redux/types";
 import Filter from "../../components/Button/Filter";
+import { bgcolor } from "@mui/system";
 
 function Assets() {
   const [value, setValue] = useState(0);
@@ -75,25 +76,30 @@ function Assets() {
   }, [assets, isRented]);
 
   return (
-    <Grid container sx={{ height: "100%" }}>
+    <Grid container >
       <SideBar />
       <Toast />
-      <Grid item xs={12} md={10} p={3}>
-        <Grid container alignItems="center" spacing={3}>
-          <Grid item xs={3}>
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto"}}>
+        <Grid container  sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              
+            }}>
+          <Grid item >
             <Badge badgeContent={badgeCount?.length} color="primary">
               <Filter name={search} />
             </Badge>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item >
             <TextField
               label="search by asset name..."
               onChange={(e) => debounced(e?.target?.value)}
-              fullWidth
+              fullWidth 
             />
           </Grid>
-          <Grid item xs={3}>
-            <Box display="flex" justifyContent="flex-end">
+          <Grid item >
+            
               <Button
                 variant="outlined"
                 color="primary"
@@ -102,7 +108,7 @@ function Assets() {
               >
                 Add new Asset
               </Button>
-            </Box>
+            
           </Grid>
         </Grid>
         <Box>
