@@ -12,6 +12,8 @@ import { RootStore } from "../../redux/store";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
 import { AssetTypes } from "../../redux/types";
 import Filter from "../../components/Button/Filter";
+import { bgcolor } from "@mui/system";
+
 function Assets() {
   const [value, setValue] = useState(0);
   const [isRented, setIsRented] = useState<number>(0);
@@ -31,8 +33,7 @@ function Assets() {
     300
   );
 
-
- useEffect(() => {
+  useEffect(() => {
     const selectedFilters = JSON.parse(filterObject!);
     let appliedFilterCount: any;
     if (selectedFilters !== null) {
@@ -45,7 +46,6 @@ function Assets() {
     setBadgeCount(appliedFilterCount);
   }, [filterObject]);
 
-
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     newValue === 0
@@ -54,14 +54,6 @@ function Assets() {
       ? setIsRented(1)
       : newValue === 2 && setIsRented(1);
   };
-
-  // useEffect(() => {
-  //   dispatch(
-  //     setAssetFilters({
-  //       name: search,
-  //     })
-  //   );
-  // }, [message, search]);
 
   useEffect(() => {
     if (isRented) {
@@ -77,31 +69,37 @@ function Assets() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      <Grid item xs={12} md={10} p={3}>
-        <Grid container alignItems="center" spacing={3}>
-          <Grid item xs={3}>
+      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
+        <Grid
+          container
+          md={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Grid item md={2}>
             <Badge badgeContent={badgeCount?.length} color="primary">
               <Filter name={search} />
             </Badge>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item md={4}>
             <TextField
               label="search by asset name..."
               onChange={(e) => debounced(e?.target?.value)}
               fullWidth
             />
           </Grid>
-          <Grid item xs={3}>
-            <Box display="flex" justifyContent="flex-end">
-              <Button
-                variant="outlined"
-                color="primary"
-                component={RouterLink}
-                to="/admin/assets/create"
-              >
-                Add new Asset
-              </Button>
-            </Box>
+          <Grid item md={2}>
+            <Button
+              variant="outlined"
+              color="primary"
+              component={RouterLink}
+              to="/admin/assets/create"
+            >
+              Add new Asset
+            </Button>
           </Grid>
         </Grid>
         <Box>

@@ -83,12 +83,20 @@ export const getEmployees =
   };
 
 export const setAssetFilters =
-  (filterParams: SetFilterParams = {},searchParams:GetAssetParams={}) =>
+  (
+    filterParams: SetFilterParams = {},
+    searchParams: GetAssetParams = {},
+    signal: any
+  ) =>
   async (dispatch: Dispatch<DispatchTypes>) => {
     dispatch({ type: LOADING_DATA });
     try {
       const { name, allocate, isRented } = searchParams;
-      const res = await post(`/api/assets/filter?allocate=${allocate}&isRented=${isRented}&name=${name}`, filterParams);
+      const res = await post(
+        `/api/assets/filter?allocate=${allocate}&isRented=${isRented}&name=${name}`,
+        filterParams,
+        signal
+      );
       dispatch({ type: SET_ASSETS, payload: (res as any)?.data });
     } catch (error) {
       dispatch({
@@ -291,12 +299,20 @@ export const getSingleAssetDetails =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/assets/singleAsset/${assetId}`);
-console.log(res)
       dispatch({
         type: SET_SINGLE_ASSET_DETAILS,
-        payload: {message:(res as any)?.data?.message, data: (res as any)?.data?.data?.asset},
+        payload: {
+          message: (res as any)?.data?.message,
+          data: (res as any)?.data?.data?.asset,
+        },
       });
-      dispatch({ type: SET_SINGLE_ASSET_TICKETS, payload: {message:(res as any)?.data?.message, data: (res as any)?.data?.data?.tickets}})
+      dispatch({
+        type: SET_SINGLE_ASSET_TICKETS,
+        payload: {
+          message: (res as any)?.data?.message,
+          data: (res as any)?.data?.data?.tickets,
+        },
+      });
     } catch (error) {
       dispatch({
         type: SET_ERROR,
@@ -511,7 +527,6 @@ export const getAssetTransactionLog =
     dispatch({ type: LOADING_DATA });
     try {
       const res = await get(`/api/transactions/logs/${assetId}`);
-      console.log({ res });
       dispatch({
         type: ASSET_TRANSACTION_HISTORY,
         payload: (res as any)?.data,

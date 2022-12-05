@@ -11,11 +11,18 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function PiechartTwo() {
     const { totalSurplusAssetCount  } = useSelector((state: RootStore) => state.admin);
-   
+    const chartRef = useRef(); 
+    const navigate= useNavigate()
 
 
     const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset','mobile','keyboard','mouse'].includes(category?.category) && category )    
     const moreNewData = newData?.filter((category) => category !== false)
+
+    const handlePieChartClick = (event:any) => {
+      // @ts-ignore
+      localStorage.setItem('pieChartItem',JSON.stringify({category:moreNewData[getElementAtEvent(chartRef?.current, event)?.[0]?.index]?.category,surplus:true}) )
+      navigate('/admin/assets')
+    }    
 
    
    
@@ -64,11 +71,13 @@ export function PiechartTwo() {
    variant="h5"
    color="primary"
  >
-   Surplus Assets
+   Preffered Surplus Assets
   </Typography>
   {/* @ts-ignore */}
   <Pie data={data}
- 
+  // @ts-ignore
+  onClick={(event) => handlePieChartClick(event)}
+    ref={chartRef}
    />
   </>
 )}

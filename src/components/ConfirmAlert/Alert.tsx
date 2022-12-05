@@ -42,6 +42,10 @@ export default function Alert(props:Iprops) {
               boxShadow: '2',
             },
           }}
+          sx={{
+            backdropFilter: "blur(7px)",
+            
+          }}
       >
         <DialogTitle>{props.title}</DialogTitle>
         

@@ -213,7 +213,6 @@ const adminReducer = (
         loading: false
       }
     case SET_SINGLE_ASSET_DETAILS:
-      console.log(action)
       return {
         ...state,
         singleAssetDetails: action.payload?.data,
@@ -221,7 +220,6 @@ const adminReducer = (
       }
 
       case SET_SINGLE_ASSET_TICKETS:
-      console.log(action)
       return {
         ...state,
         singleAssetTickets: action.payload?.data,

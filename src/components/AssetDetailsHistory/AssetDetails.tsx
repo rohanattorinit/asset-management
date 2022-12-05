@@ -26,11 +26,12 @@ const AssetDetails = () => {
   const id = location.pathname.split("/")[3];
   const dispatch: Dispatch<any> = useDispatch();
 
-  const { singleAssetDetails, loading, message , singleAssetTickets} = useSelector(
-    (state: RootStore) => state.admin
+  const { singleAssetDetails, loading, message, singleAssetTickets } =
+    useSelector((state: RootStore) => state.admin);
+  const ticket = singleAssetTickets?.filter(
+    (ticket) =>
+      ticket?.ticketStatus === "pending" || ticket?.ticketStatus === "active"
   );
-  const ticket = singleAssetTickets?.filter((ticket) => ticket?.ticketStatus === "pending" || ticket?.ticketStatus === "active")
-
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
@@ -49,16 +50,13 @@ const AssetDetails = () => {
     setOpenAlertEdit(false);
   };
   const HandleDelete = (assetId: number) => {
-
-    
-    if (singleAssetDetails.status === "Allocated" ) {
-
+    if (singleAssetDetails.status === "Allocated") {
       setOpenAlert(true);
       setAlertMessage("First deallocate this asset and then try deleting it");
-    } else if(ticket?.length !== 0){
+    } else if (ticket?.length !== 0) {
       setOpenAlert(true);
       setAlertMessage("First closed asset tickets  and then try deleting it");
-    }else {
+    } else {
       setAssetConfirmdel(true);
     }
   };
@@ -74,31 +72,29 @@ const AssetDetails = () => {
         {
           // @ts-ignore
           singleAssetDetails[value] && (
-            <Grid item xs={2} sm={4} md={4}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-                sx={{
-                  textTransform: "capitalize",
-                  wordWrap: "break-word",
-                  width: {
-                    md: "31.25rem",
-                    xs: "15rem",
-                    sm: "30rem",
-                  },
-                }}
-              >
-                {label} :{" "}
-                <Typography>
-                  {
-                    // @ts-ignore
-                    singleAssetDetails[value]
-                  }
-                </Typography>
+            <Typography
+              fontFamily="serif"
+              fontWeight="bold"
+              variant="h6"
+              mt={2}
+              sx={{
+                textTransform: "capitalize",
+                wordWrap: "break-word",
+                width: {
+                  md: "31.25rem",
+                  xs: "15rem",
+                  sm: "30rem",
+                },
+              }}
+            >
+              {label} :{" "}
+              <Typography>
+                {
+                  // @ts-ignore
+                  singleAssetDetails[value]
+                }
               </Typography>
-            </Grid>
+            </Typography>
           )
         }
       </>
@@ -161,20 +157,21 @@ const AssetDetails = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
-          <Grid container spacing={1}>
-            {!singleAssetDetails?.empId?.length && loading && !open ? (
-              <Loader />
-            ) : (
-              <>
-                {detailsComp("assetId", "Asset ID")}
-                {detailsComp("name", "Asset Name")}
-                {detailsComp("category", "Category")}
-                {detailsComp("status", "Status")}
-                {detailsComp("asset_location", "Location")}
-                {detailsComp("brandName", "Brand Name")}
-                {detailsComp("modelNo", "Model No")}
-                <Grid item xs={2} sm={4} md={4}>
+        <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={10}>
+          {!singleAssetDetails?.empId?.length && loading && !open ? (
+            <Loader />
+          ) : (
+            <>
+              <Grid container sx={{ padding: 7 }}>
+                <Grid item md={4}>
+                  {detailsComp("assetId", "Asset ID")}
+                  {detailsComp("name", "Asset Name")}
+                  {detailsComp("category", "Category")}
+                  {detailsComp("status", "Status")}
+                  {detailsComp("asset_location", "Location")}
+                  {detailsComp("brandName", "Brand Name")}
+                  {detailsComp("modelNo", "Model No")}
+
                   <Typography
                     fontFamily="serif"
                     fontWeight="bold"
@@ -191,12 +188,14 @@ const AssetDetails = () => {
                       {singleAssetDetails?.received_date?.slice(0, 10)}
                     </Typography>
                   </Typography>
+                  {detailsComp("description", "Description")}
                 </Grid>
-                {detailsComp("vendor", "Vendor")}
-                {detailsComp("rent", "Rent")}
-                {detailsComp("deposit", "Deposit")}
-                {singleAssetDetails?.rentStartDate && (
-                  <Grid item xs={2} sm={4} md={4}>
+
+                <Grid item md={4}>
+                  {detailsComp("vendor", "Vendor")}
+                  {detailsComp("rent", "Rent")}
+                  {detailsComp("deposit", "Deposit")}
+                  {singleAssetDetails?.rentStartDate && (
                     <Typography
                       fontFamily="serif"
                       fontWeight="bold"
@@ -217,54 +216,51 @@ const AssetDetails = () => {
                         {singleAssetDetails?.rentStartDate?.slice(0, 10)}
                       </Typography>
                     </Typography>
-                  </Grid>
-                )}
-                {singleAssetDetails?.rentEndDate && (
-                  <Grid item xs={2} sm={4} md={4}>
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                      sx={{
-                        textTransform: "capitalize",
-                        wordWrap: "break-word",
-                        width: {
-                          md: "31.25rem",
-                          xs: "15rem",
-                          sm: "30rem",
-                        },
-                      }}
-                    >
-                      Rent End Date :{" "}
-                      <Typography>
-                        {singleAssetDetails?.rentEndDate?.slice(0, 10)}
+                  )}
+                  {singleAssetDetails?.rentEndDate && (
+                    <>
+                      <Typography
+                        fontFamily="serif"
+                        fontWeight="bold"
+                        variant="h6"
+                        mt={2}
+                        sx={{
+                          textTransform: "capitalize",
+                          wordWrap: "break-word",
+                          width: {
+                            md: "31.25rem",
+                            xs: "15rem",
+                            sm: "30rem",
+                          },
+                        }}
+                      >
+                        Rent End Date :{" "}
+                        <Typography>
+                          {singleAssetDetails?.rentEndDate?.slice(0, 10)}
+                        </Typography>
                       </Typography>
-                    </Typography>
-                  </Grid>
-                )}
-                {detailsComp("screen_type", "Screen Type ")}
-                {detailsComp("processor", "Processor")}
-                {detailsComp("ram", "RAM")}
-                {detailsComp("screen_size", "Screen Size")}
-                {detailsComp("empName", "Employee Name")}
-                {detailsComp("empId", "Employee ID")}
-                {detailsComp("ssd", "SSD")}
-                {detailsComp("hdd", "HDD")}
-                {detailsComp("connectivity", " Connectivity")}
-                {detailsComp("make_year", "Make Year")}
-                {detailsComp("os_version", "OS Version")}
-                {detailsComp("imeiNo", "IMEI Number")}
-                {detailsComp("cableType", "Cable type")}
-                <Typography
-                  variant="body1"
-                  sx={{ p: 1, wordWrap: "break-word" }}
-                >
-                  {detailsComp("description", "Description")}
-                </Typography>
-              </>
-            )}
-          </Grid>
+                    </>
+                  )}
+                </Grid>
+
+                <Grid item md={4}>
+                  {detailsComp("screen_type", "Screen Type ")}
+                  {detailsComp("processor", "Processor")}
+                  {detailsComp("ram", "RAM")}
+                  {detailsComp("screen_size", "Screen Size")}
+                  {detailsComp("empName", "Employee Name")}
+                  {detailsComp("empId", "Employee ID")}
+                  {detailsComp("ssd", "SSD")}
+                  {detailsComp("hdd", "HDD")}
+                  {detailsComp("connectivity", " Connectivity")}
+                  {detailsComp("make_year", "Make Year")}
+                  {detailsComp("os_version", "OS Version")}
+                  {detailsComp("imeiNo", "IMEI Number")}
+                  {detailsComp("cableType", "Cable type")}
+                </Grid>
+              </Grid>
+            </>
+          )}
         </Paper>
       )}
       <Dialog open={assetOpen} onClose={() => setAssetOpen(false)}>

@@ -6,23 +6,42 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  TextField,
   Select,
   FormControl,
   InputLabel,
   MenuItem,
 } from "@mui/material";
-import { Form, Formik } from "formik";
+import { Form, Formik, Field } from "formik";
+// import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
+import * as Yup from "yup";
 
 import {
   updateAssetDetails,
   getFiltersByCategory,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
+import { TextField } from "formik-material-ui";
+import moment from "moment";
+
+const time = moment().format("MMMM DD YYYY, hh:mm:ss");
+const currentYear = new Date().getFullYear();
+const numericRegEx = /^[A-Z/a-z/0-9 \b]+$/;
+
+const validationSchema = Yup.object().shape({
+  make_year: Yup.number().max(
+    currentYear,
+    "Make year can not be in the future"
+  ),
+  rentStartDate: Yup.date().nullable(),
+  rentEndDate: Yup.date().min(Yup.ref("rentStartDate")),
+  received_date: Yup.date().max(time, "Future dates can not be selected"),
+  modelNo: Yup.string().matches(numericRegEx, "Invalid model no!"),
+  imeiNo: Yup.string().matches(numericRegEx, "Invalid IMEI no!"),
+});
 
 const connectivityOptions = [
   { label: "Wired", value: "wired" },
@@ -69,7 +88,7 @@ function AssetEdit(props: Iprops) {
   ) => {
     return (
       <Grid item xs={12} sm={6} md={6}>
-        <TextField
+        <Field
           label={label}
           variant="outlined"
           fullWidth
@@ -77,6 +96,7 @@ function AssetEdit(props: Iprops) {
           id={id}
           onChange={handleChange}
           value={value}
+          component={TextField}
           required
         />
       </Grid>
@@ -200,6 +220,7 @@ function AssetEdit(props: Iprops) {
             os_version: singleAssetDetails.os_version,
             make_year: singleAssetDetails.make_year,
           }}
+          validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
           {({ dirty, isValid, values, handleChange, handleBlur, errors }) => {
@@ -222,7 +243,6 @@ function AssetEdit(props: Iprops) {
                         values?.description,
                         handleChange
                       )}
-                      {/* { singleAssetDetails?.status !== "Allocated" && dropdownComp("Status", "status", values?.status, handleChange) } */}
 
                       {singleAssetDetails?.status !== "Allocated" && (
                         <Grid item xs={12} sm={6} md={6}>
@@ -335,7 +355,7 @@ function AssetEdit(props: Iprops) {
                       )}
 
                       <Grid item xs={12} sm={6} md={6}>
-                        <TextField
+                        <Field
                           type="date"
                           InputLabelProps={{ shrink: true }}
                           label="Received Date"
@@ -345,6 +365,7 @@ function AssetEdit(props: Iprops) {
                           id="received_date"
                           value={values?.received_date?.slice(0, 10)}
                           onChange={handleChange}
+                          component={TextField}
                         />
                       </Grid>
                       {textField(
@@ -416,7 +437,7 @@ function AssetEdit(props: Iprops) {
                               <Select
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                label="os"
+                                label="Operating System"
                                 value={values?.operating_system}
                                 onChange={handleChange}
                                 name="operating_system"
@@ -530,7 +551,7 @@ function AssetEdit(props: Iprops) {
                           )}
 
                           <Grid item xs={12} sm={6} md={6}>
-                            <TextField
+                            <Field
                               required
                               label="Rent Start Date"
                               variant="outlined"
@@ -541,11 +562,12 @@ function AssetEdit(props: Iprops) {
                               onChange={handleChange}
                               value={values?.rentStartDate}
                               InputLabelProps={{ shrink: true }}
+                              component={TextField}
                             />
                           </Grid>
 
                           <Grid item xs={12} sm={6} md={6}>
-                            <TextField
+                            <Field
                               required
                               label="Rent End Date"
                               type="date"
@@ -556,6 +578,7 @@ function AssetEdit(props: Iprops) {
                               onChange={handleChange}
                               value={values?.rentEndDate}
                               InputLabelProps={{ shrink: true }}
+                              component={TextField}
                             />
                           </Grid>
                         </>
@@ -569,7 +592,7 @@ function AssetEdit(props: Iprops) {
                   </CardContent>
                   <CardActions>
                     <Button type="submit" size="large" variant="contained">
-                      EDIT
+                      SAVE
                     </Button>
                   </CardActions>
                 </Form>

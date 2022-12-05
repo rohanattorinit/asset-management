@@ -64,8 +64,7 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
   const dispatch: Dispatch<any> = useDispatch();
   const { filterOptions }: any = useSelector((state: RootStore) => state.admin);
   const [filterObject, setFilterObject] = useState<any>(FilterState);
-  const localFilterObject = localStorage.getItem('filterObject');
-  const localOpenObject = localStorage.getItem('openObject');
+
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
 
   const [state, setState] = useState({
@@ -83,31 +82,76 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
   }, [selectedCategory]);
 
   useEffect(() => {
-    if (JSON.stringify(filterObject) === JSON.stringify(FilterState)) {
-      localFilterObject && setFilterObject(JSON.parse(localFilterObject));
-    }
-    if (JSON.stringify(openObject) === JSON.stringify(initialOpenState)) {
-      localOpenObject && setOpenObject(JSON.parse(localOpenObject));
-    }
+    const localFilterOptions = localStorage.getItem("filterObject");
+    const localOpenObject = localStorage.getItem("openObject");
+    const chartValue = localStorage.getItem("pieChartItem");
 
+    if (chartValue?.length) {
+      const valueInCapital =
+        JSON.parse(chartValue)?.category?.charAt(0).toUpperCase() +
+        JSON.parse(chartValue)?.category?.slice(1);
+
+      const isSurplus = JSON.parse(chartValue)?.surplus;
+
+
+      if (
+        !selectedCategory.includes(valueInCapital) ||
+        !filterObject.category.includes(valueInCapital)
+      ) {
+        setSelectedCategory((prev) => [...prev, valueInCapital]);
+
+        if (isSurplus) {
+          setFilterObject((prev: any) => ({
+            ...prev,
+            category: [...prev.category, valueInCapital],
+            status: [...prev.status, "Surplus"],
+          }));
+
+          setOpenObject({
+            category: true,
+            status: true,
+          });
+        } else {
+          setFilterObject((prev: any) => {
+            return {
+              ...prev,
+              category: [...prev.category, valueInCapital],
+            };
+          });
+          if (!openObject.menuOpen) {
+            setOpenObject((prev: any) => ({ category: true }));
+          }
+        }
+      }
+    } else {
+      if (
+        localFilterOptions &&
+        localFilterOptions !== JSON.stringify(FilterState)
+      ) {
+        setSelectedCategory(JSON.parse(localFilterOptions!)?.category);
+        setFilterObject(JSON.parse(localFilterOptions));
+      }
+      if (
+        localOpenObject &&
+        localFilterOptions !== JSON.stringify(initialOpenState)
+      ) {
+        setOpenObject(JSON.parse(localOpenObject));
+      }
+    }
+    localStorage.removeItem("pieChartItem");
   }, []);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     localStorage.setItem("filterObject", JSON.stringify(filterObject));
     localStorage.setItem("openObject", JSON.stringify(openObject));
 
-    // const appliedFilterCount = Object.keys(filterObject)?.filter(
-    //   (filterTemp) => {
-    //     if (filterObject[filterTemp]?.length) {
-    //       return filterTemp;
-    //     }
-    //   }
-    // );
-    console.log("filterObject", filterObject);
-
-    // if (appliedFilterCount?.length) {
-    dispatch(setAssetFilters(filterObject, { name }));
-    // }
+    dispatch(setAssetFilters(filterObject, { name }, signal));
+    return () => {
+      controller.abort();
+    };
   }, [filterObject, openObject, name]);
 
   const handleSubmitFilter = (key: string, value: string) => {
@@ -150,9 +194,11 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
       setState({ ...state, [anchor]: open });
     };
 
-  let filtersEl: any
+  let filtersEl: any;
+
   filtersEl = Object.keys(filterOptions)?.map((filter) => {
     const FilterIcon = getFilterIcon(filter);
+
     return (
       <>
         <ListItemButton
