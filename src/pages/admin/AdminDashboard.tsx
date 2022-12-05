@@ -33,7 +33,7 @@ function AdminDashboard() {
     
     dispatch(getTotalAssetCategoryCount())
   }, []);
-
+console.log("admin dash")
   return (
     <>
       <Grid container sx={{ height: "100%" }}>
