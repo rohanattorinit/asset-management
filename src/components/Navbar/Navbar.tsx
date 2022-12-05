@@ -9,12 +9,6 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  console.log("pathname", pathname);
-
-  // if (pathname !== "/admin/assets") {
-  //   localStorage.removeItem("filterObject");
-  //   localStorage.removeItem("openObject");
-  // }
 
   const open = Boolean(anchorEl);
   const dispatch: Dispatch<any> = useDispatch();

@@ -59,7 +59,7 @@ function EmpList() {
 
   return (
     <>
-      <Grid container >
+      <Grid container sx={{height:"100%"}} >
         <SideBar />
         <Toast />
         <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
@@ -82,7 +82,7 @@ function EmpList() {
                   borderRadius: 1,
                 }}
               >
-                Total Employees :
+                Active Employees :
                 <CountUp
                   end={employees?.filter((emp) => emp.is_active).length}
                   duration={2}
