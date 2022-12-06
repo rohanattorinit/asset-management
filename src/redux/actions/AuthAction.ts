@@ -28,7 +28,6 @@ export const login =
 
       const auth_token = `Bearer ${(res as any)?.data?.token}`;
       // axios.defaults.headers.common["Authorization"] = auth_token;
-
       //set auth token
       Cookies.set("auth_token", (res as any)?.data?.token, {
         expires: expiryTime,

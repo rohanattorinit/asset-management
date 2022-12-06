@@ -6,19 +6,18 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  
   Select,
   FormControl,
   InputLabel,
   MenuItem,
 } from "@mui/material";
-import { Form, Formik, Field} from "formik";
+import { Form, Formik, Field } from "formik";
 // import { Form, Formik } from "formik";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Dispatch } from "redux";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 
 import {
   updateAssetDetails,
@@ -30,18 +29,19 @@ import moment from "moment";
 
 const time = moment().format("MMMM DD YYYY, hh:mm:ss");
 const currentYear = new Date().getFullYear();
+const numericRegEx = /^[A-Z/a-z/0-9 \b]+$/;
 
 const validationSchema = Yup.object().shape({
-  make_year: Yup.number().max(currentYear, "Make year can not be in the future"),
+  make_year: Yup.number().max(
+    currentYear,
+    "Make year can not be in the future"
+  ),
   rentStartDate: Yup.date().nullable(),
   rentEndDate: Yup.date().min(Yup.ref("rentStartDate")),
-  received_date: Yup.date().max(time,'Future dates can not be selected')
-  
-      })
-
-
-
-
+  received_date: Yup.date().max(time, "Future dates can not be selected"),
+  modelNo: Yup.string().matches(numericRegEx, "Invalid model no!"),
+  imeiNo: Yup.string().matches(numericRegEx, "Invalid IMEI no!"),
+});
 
 const connectivityOptions = [
   { label: "Wired", value: "wired" },
@@ -68,8 +68,6 @@ function AssetEdit(props: Iprops) {
   }, [message, singleAssetDetails]);
 
   const onSubmit = (values: any) => {
-    
-    console.log(values)
     dispatch(updateAssetDetails(singleAssetDetails?.assetId, values));
     props.closeFunc(false);
   };
@@ -222,9 +220,8 @@ function AssetEdit(props: Iprops) {
             os_version: singleAssetDetails.os_version,
             make_year: singleAssetDetails.make_year,
           }}
-         validationSchema={validationSchema}
+          validationSchema={validationSchema}
           onSubmit={onSubmit}
-          
         >
           {({ dirty, isValid, values, handleChange, handleBlur, errors }) => {
             return (
@@ -246,7 +243,6 @@ function AssetEdit(props: Iprops) {
                         values?.description,
                         handleChange
                       )}
-                      {/* { singleAssetDetails?.status !== "Allocated" && dropdownComp("Status", "status", values?.status, handleChange) } */}
 
                       {singleAssetDetails?.status !== "Allocated" && (
                         <Grid item xs={12} sm={6} md={6}>
@@ -370,7 +366,6 @@ function AssetEdit(props: Iprops) {
                           value={values?.received_date?.slice(0, 10)}
                           onChange={handleChange}
                           component={TextField}
-
                         />
                       </Grid>
                       {textField(
@@ -568,7 +563,6 @@ function AssetEdit(props: Iprops) {
                               value={values?.rentStartDate}
                               InputLabelProps={{ shrink: true }}
                               component={TextField}
-                              
                             />
                           </Grid>
 
@@ -612,4 +606,3 @@ function AssetEdit(props: Iprops) {
 }
 
 export default AssetEdit;
-

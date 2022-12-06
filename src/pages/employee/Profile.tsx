@@ -30,22 +30,27 @@ import * as Yup from "yup";
 import { getUserProfile } from "../../redux/actions/AuthAction";
 import Alert from "../../components/ConfirmAlert/Alert";
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp = /^((?!(0))[0-9]{10})$/;
+
 const re = /^[A-Z/a-z/ \b]+$/;
+
 let validationSchema = Yup?.object()?.shape({
   phone: Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .min(10, "to short")
     .max(10, "to long")
     .required("Required"),
-  location: Yup?.string()
+
+  location: Yup.string()
     .matches(re, "Location can have letters only!")
-    .required("Required"),
-  name: Yup?.string()
+    .min(3, "Location is too small")
+    .max(28, "Location is too long")
+    .required("Location Required!"),
+  name: Yup.string()
     .matches(re, "Name can have letters only!")
-    .required("Please enter valid name")
-    .nullable(),
+    .min(3, "Name is too small")
+    .max(36, "Name is too long")
+    .required("Full name required"),
 });
 interface NewPasswordType {
   password?: string;
@@ -59,9 +64,9 @@ export default function Profile() {
   const [password, setPassword] = useState<NewPasswordType>();
   const [open, setOpen] = useState(false);
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
-  const [alertmsg, setAlertmsg] = useState(false)
-  const [passAlert, setPassAlert] = useState (false)
-  const [passChangeAlrt, setPassChangeAlrt] = useState (false)
+  const [alertmsg, setAlertmsg] = useState(false);
+  const [passAlert, setPassAlert] = useState(false);
+  const [passChangeAlrt, setPassChangeAlrt] = useState(false);
   const dispatch: Dispatch<any> = useDispatch();
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -74,12 +79,11 @@ export default function Profile() {
     if (password?.password === password?.confirmPassword) {
       e.preventDefault();
       dispatch(changePassword(password?.password!));
-      setPassChangeAlrt(true)
+      setPassChangeAlrt(true);
       setOpenPasswordDialog(false);
     } else {
       e.preventDefault();
-      setPassAlert(true)
-     
+      setPassAlert(true);
     }
   };
   useEffect(() => {
@@ -89,28 +93,34 @@ export default function Profile() {
   const onSubmit = (values: any) => {
     dispatch(updateEmployeeDetails(user?.empId, values));
     setOpen(false);
-    setAlertmsg (true)
-    
+    setAlertmsg(true);
   };
 
-  const setNavigate =()=>{
-    setAlertmsg(false)
-    
-  }
+  const setNavigate = () => {
+    setAlertmsg(false);
+  };
 
-  const setPassAlrt =()=>{
-    setPassAlert (false)
-  }
+  const setPassAlrt = () => {
+    setPassAlert(false);
+  };
 
-  const setPas=()=>{
-    setPassChangeAlrt(false)
-
-  }
+  const setPas = () => {
+    setPassChangeAlrt(false);
+  };
   return (
     <Grid container sx={{ height: "100%" }}>
-      {alertmsg  && <Alert title="Profile details updated successfully" setNavigate={setNavigate}/>}
-      {passAlert  && <Alert title="Password must match" setNavigate={setPassAlrt}/>}
-      {passChangeAlrt && <Alert title="Password updated successfully!" setNavigate={setPas}/>}
+      {alertmsg && (
+        <Alert
+          title="Profile details updated successfully"
+          setNavigate={setNavigate}
+        />
+      )}
+      {passAlert && (
+        <Alert title="Password must match" setNavigate={setPassAlrt} />
+      )}
+      {passChangeAlrt && (
+        <Alert title="Password updated successfully!" setNavigate={setPas} />
+      )}
 
       <Sidebar />
       <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
@@ -262,7 +272,6 @@ export default function Profile() {
                           onChange={handleChange}
                           value={values?.jobTitle}
                           component={TextField}
-                          
                         />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>

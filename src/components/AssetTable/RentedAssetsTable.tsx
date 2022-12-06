@@ -143,9 +143,6 @@ function RentedAssetsTable() {
                         ? rentalAsset?.operating_system.toUpperCase()
                         : "-"}
                     </TableCell>
-
-                    {/* <TableCell align="center">{rentalAsset?.usability?.toUpperCase()}</TableCell> */}
-
                     <TableCell align="center">
                       <Tooltip
                         title="Asset Details"

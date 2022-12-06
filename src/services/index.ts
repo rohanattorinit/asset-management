@@ -20,14 +20,13 @@ export const get = (url: string) => {
       }
       //@ts-ignore
       else if (error.response.status === 404) {
-       
       }
       return reject(error);
     }
   });
 };
 
-export const post = (url: string, payload: any) => {
+export const post = (url: string, payload: any, signal?: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       const auth_token = Cookies.get("auth_token");
@@ -39,17 +38,22 @@ export const post = (url: string, payload: any) => {
         },
         {
           headers: { Authorization: `Bearer ${auth_token}` },
+          signal: signal,
         }
       );
       return resolve(res);
     } catch (error) {
-      //@ts-ignore
-      if (error.response.status === 403) {
-        await axios.post(`${BASE_URL}/api/auth/logout`);
-        Cookies.remove("auth_token");
-      }
+      if (axios.isCancel(error)) {
+        // do nothing
+      } else {
+        //@ts-ignore
+        if (error?.response?.status === 403) {
+          await axios.post(`${BASE_URL}/api/auth/logout`);
+          Cookies.remove("auth_token");
+        }
 
-      return reject(error);
+        return reject(error);
+      }
     }
   });
 };

@@ -1,7 +1,6 @@
 import * as Yup from 'yup'
 const numericRegEx = /(?=.*[0-9])/
 const uppercaseRegEx = /(?=.*[A-Z])/
-//  const re = /^[A-Z/a-z/ \b]+$/
 const re =/^[a-zA-Z ]+$/
 const phoneRegExp = /^((?!(0))[0-9]{10})$/
 

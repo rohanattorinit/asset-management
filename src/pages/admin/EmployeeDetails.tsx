@@ -56,13 +56,12 @@ let validationSchema = Yup?.object()?.shape({
     .min(10, "to short")
     .max(10, "to long")
     .required("Required"),
-  location: Yup?.string()
-    .matches(re, "Location can have letters only!")
-    .required("Required"),
-  name: Yup?.string()
-    .matches(re, "Name can have letters only!")
-    .required("Please enter valid name")
-    .nullable(),
+  location: Yup.string()
+    .matches(re, 'Location can have letters only!').min(3,'Location is too small').max(28,'Location is too long')
+    .required('Location Required!'),
+    name: Yup.string()
+    .matches(re, 'Name can have letters only!').min(3,'Name is too small').max(36,'Name is too long')
+    .required('Full name required'),
   email: Yup.string().required("Required"),
   jobTitle: Yup.string().required("Required"),
 });

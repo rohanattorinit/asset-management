@@ -23,7 +23,6 @@ import { RootStore } from "../../redux/store";
 import { useDebouncedCallback } from "use-debounce";
 import Confirm from "../ConfirmAlert/Confirm";
 import Alert from "../ConfirmAlert/Alert";
-import { findByLabelText } from "@testing-library/react";
 
 interface AllocateObj {
   empId: string;
@@ -158,9 +157,6 @@ const AllocateAsset = ({
                 <CircularProgress sx={{ marginTop: "20PX" }} />
               ) : (
                 <TableContainer sx={{ maxHeight: "350px" }} component={Paper}>
-                  {/* {loading ? (
-                <CircularProgress />
-              ) : */}
                   {assets?.length ? (
                     <Table aria-label="simple table">
                       <TableHead>

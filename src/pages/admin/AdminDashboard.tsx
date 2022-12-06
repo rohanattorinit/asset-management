@@ -3,14 +3,14 @@ import { Box } from "@mui/system";
 import { Dispatch, useEffect } from "react";
 import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../components/Loader/Loader";
+//import Loader from "../../components/Loader/Loader";
 import { PiechartOne } from "../../components/PieChart/PieChartOne";
 import { PiechartTwo } from "../../components/PieChart/PieChartTwo";
 
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
   getAssets,
-  getEmployees,
+ // getEmployees,
   getTotalAssetCategoryCount,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -27,21 +27,19 @@ const commonStyles = {
 function AdminDashboard() {
   const { assets,loading } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
-
   useEffect(() => {
     
      dispatch(getAssets({ name: "" }))
     
-    dispatch(getEmployees({ name: "" }))
     dispatch(getTotalAssetCategoryCount())
   }, []);
-
+console.log("admin dash")
   return (
     <>
-      {loading ? <></> :(<Grid container sx={{ height: "100%" }}>
+      <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
-        <Grid item xs={12} md={10}>
+        {loading ? <></> :(<Grid item xs={12} md={10}>
           <Grid
             container
             sx={{
@@ -306,8 +304,8 @@ function AdminDashboard() {
               <PiechartTwo />
             </Box>
           </Grid>
-        </Grid>
-      </Grid>)}
+        </Grid>)}
+      </Grid>
     </>
   );
 }
