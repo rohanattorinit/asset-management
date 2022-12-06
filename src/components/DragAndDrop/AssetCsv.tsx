@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
-import { SET_ERROR } from "../../redux/types";
+import { LOADING_DATA, SET_ERROR } from "../../redux/types";
 import Alert from "../ConfirmAlert/Alert";
 import { RootStore } from "../../redux/store";
 
@@ -32,6 +32,7 @@ export const AssetCsv = () => {
     setIsUploading(true)
     const formData = new FormData();
     formData?.append("csvFile", file!);
+    dispatch({ type: LOADING_DATA });
     try {
       const auth_token = Cookies.get("auth_token");
       await axios({
