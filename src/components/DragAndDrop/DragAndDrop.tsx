@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { StyledTypography } from "../../components/Styled/StyledComponent";
 import Cookies from "js-cookie";
 import Alert from "../ConfirmAlert/Alert";
-import { SET_ERROR } from "../../redux/types";
+import { LOADING_DATA, SET_ERROR } from "../../redux/types";
 import { useDispatch } from "react-redux";
 
 export const DragAndDrop = () => {
@@ -21,6 +21,7 @@ export const DragAndDrop = () => {
     setIsUploading(true)
     const formData = new FormData();
     formData.append("csvFile", file!);
+     dispatch({ type: LOADING_DATA });
     try {
       const auth_token = Cookies.get("auth_token");
       await axios({
