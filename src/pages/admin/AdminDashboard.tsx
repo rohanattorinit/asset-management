@@ -10,7 +10,7 @@ import { PiechartTwo } from "../../components/PieChart/PieChartTwo";
 import SideBar from "../../components/Sidebar/Sidebar";
 import {
   getAssets,
- // getEmployees,
+  // getEmployees,
   getTotalAssetCategoryCount,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
@@ -25,286 +25,301 @@ const commonStyles = {
 };
 
 function AdminDashboard() {
-  const { assets,loading } = useSelector((state: RootStore) => state.admin);
+  const { assets, loading } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
   useEffect(() => {
-    
-     dispatch(getAssets({ name: "" }))
-    
-    dispatch(getTotalAssetCategoryCount())
+    dispatch(getAssets({ name: "" }));
+    dispatch(getTotalAssetCategoryCount());
   }, []);
-console.log("admin dash")
+  console.log("admin dash");
   return (
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
-        {loading ? <></> :(<Grid item xs={12} md={10}>
-          <Grid
-            container
-            sx={{
-              padding: 3,
-              display: " flex",
-              justifyContent: "space-around",
-            }}
-          >
+        {loading ? (
+          <></>
+        ) : (
+          <Grid item xs={12} md={10}>
             <Grid
-              item
-              xs={12}
-              md={2}
+              container
               sx={{
-                ...commonStyles,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
+                padding: 3,
+                display: " flex",
+                justifyContent: "space-around",
               }}
             >
-              <Typography
-                sx={{ fontSize: "28px" }}
-                variant="h5"
-                color="primary"
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                <CountUp end={assets?.length} duration={2} />
-              </Typography>
-              <Typography
-                sx={{ fontSize: "18px" }}
-                variant="h5"
-                color="primary"
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp end={assets?.length} duration={2} />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Total Assets
+                </Typography>
+              </Grid>
+
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                Total Assets
-              </Typography>
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp
+                    end={assets?.filter((asset) => !asset?.isRented).length}
+                    duration={2}
+                  />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Owned Assets
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp
+                    end={assets?.filter((asset) => asset?.isRented).length}
+                    duration={2}
+                  />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Rented Assets
+                </Typography>
+              </Grid>
             </Grid>
 
             <Grid
-              item
-              xs={12}
-              md={2}
+              container
               sx={{
-                ...commonStyles,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
+                padding: 3,
+                display: " flex",
+                justifyContent: "space-around",
               }}
             >
-              <Typography
-                sx={{ fontSize: "28px" }}
-                variant="h5"
-                color="primary"
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                <CountUp
-                  end={assets?.filter((asset) => !asset?.isRented).length}
-                  duration={2}
-                />
-              </Typography>
-              <Typography
-                sx={{ fontSize: "18px" }}
-                variant="h5"
-                color="primary"
-              >
-                Owned Assets
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={2}
-              sx={{
-                ...commonStyles,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "28px" }}
-                variant="h5"
-                color="primary"
-              >
-                <CountUp
-                  end={assets?.filter((asset) => asset?.isRented).length}
-                  duration={2}
-                />
-              </Typography>
-              <Typography
-                sx={{ fontSize: "18px" }}
-                variant="h5"
-                color="primary"
-              >
-                Rented Assets
-              </Typography>
-            </Grid>
-          </Grid>
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp
+                    end={
+                      assets?.filter((asset) => asset?.status === "Surplus")
+                        .length
+                    }
+                    duration={2}
+                  />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Surplus Assets
+                </Typography>
+              </Grid>
 
-          <Grid
-            container
-            sx={{
-              padding: 3,
-              display: " flex",
-              justifyContent: "space-around",
-            }}
-          >
-            <Grid
-              item
-              xs={12}
-              md={2}
-              sx={{
-                ...commonStyles,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "28px" }}
-                variant="h5"
-                color="primary"
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                <CountUp
-                  end={
-                    assets?.filter((asset) => asset?.status === "Surplus")
-                      .length
-                  }
-                  duration={2}
-                />
-              </Typography>
-              <Typography
-                sx={{ fontSize: "18px" }}
-                variant="h5"
-                color="primary"
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp
+                    end={
+                      assets?.filter(
+                        (asset) =>
+                          asset?.status === "Allocated" ||
+                          asset?.status === "Surplus"
+                      ).length
+                    }
+                    duration={2}
+                  />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Working Assets
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                Surplus Assets
-              </Typography>
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={2}
-              sx={{
-                ...commonStyles,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "28px" }}
-                variant="h5"
-                color="primary"
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp
+                    end={
+                      assets?.filter((asset) => asset?.status === "Repairable")
+                        .length
+                    }
+                    duration={2}
+                  />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Repairable Assets
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                <CountUp
-                  end={
-                    assets?.filter(
-                      (asset) =>
-                        asset?.status === "Allocated" ||
-                        asset?.status === "Surplus"
-                    ).length
-                  }
-                  duration={2}
-                />
-              </Typography>
-              <Typography
-                sx={{ fontSize: "18px" }}
-                variant="h5"
-                color="primary"
-              >
-                Working Assets
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={2}
-              sx={{
-                ...commonStyles,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "28px" }}
-                variant="h5"
-                color="primary"
-              >
-                <CountUp
-                  end={
-                    assets?.filter((asset) => asset?.status === "Repairable")
-                      .length
-                  }
-                  duration={2}
-                />
-              </Typography>
-              <Typography
-                sx={{ fontSize: "18px" }}
-                variant="h5"
-                color="primary"
-              >
-                Repairable Assets
-              </Typography>
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp
+                    end={
+                      assets?.filter((asset) => asset?.status === "Broken")
+                        .length
+                    }
+                    duration={2}
+                  />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Broken Assets
+                </Typography>
+              </Grid>
             </Grid>
             <Grid
-              item
-              xs={12}
-              md={2}
+              container
               sx={{
-                ...commonStyles,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
+                padding: 1,
+                display: " flex",
+                justifyContent: "space-around",
               }}
             >
-              <Typography
-                sx={{ fontSize: "28px" }}
-                variant="h5"
-                color="primary"
+              <Box
+                sx={{
+                  cursor: "pointer",
+                  padding: 5,
+                  justifyContent: "space-between",
+                }}
               >
-                <CountUp
-                  end={
-                    assets?.filter((asset) => asset?.status === "Broken").length
-                  }
-                  duration={2}
-                />
-              </Typography>
-              <Typography
-                sx={{ fontSize: "18px" }}
-                variant="h5"
-                color="primary"
+                <PiechartOne />
+              </Box>
+              <Box
+                sx={{
+                  cursor: "pointer",
+                  padding: 5,
+                  justifyContent: "space-between",
+                }}
               >
-                Broken Assets
-              </Typography>
+                <PiechartTwo />
+              </Box>
             </Grid>
           </Grid>
-          <Grid
-            container
-            sx={{
-              padding: 1,
-              display: " flex",
-              justifyContent: "space-around",
-            }}
-          >
-            <Box sx={{ cursor:"pointer", padding: 5, justifyContent: "space-between" }}>
-              <PiechartOne  />
-            </Box>
-            <Box sx={{ cursor:"pointer",padding: 5, justifyContent: "space-between" }}>
-              <PiechartTwo />
-            </Box>
-          </Grid>
-        </Grid>)}
+        )}
       </Grid>
     </>
   );
