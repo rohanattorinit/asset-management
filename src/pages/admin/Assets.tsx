@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Tab, Tabs, TextField, Badge } from "@mui/material";
 import { useDebouncedCallback } from "use-debounce";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { Dispatch, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import AssetsTable from "../../components/AssetTable/AssetsTable";
 // import RentedAssetsTable from "../../components/AssetTable/RentedAssetsTable";
@@ -10,7 +10,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 // import { getAssets, setAssetFilters } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import RentedAssetsFinancialTable from "../../components/AssetTable/RentedAssetsFinancialTable";
-import { AssetTypes } from "../../redux/types";
+import { AssetTypes, SET_ASSETS } from "../../redux/types";
 import Filter from "../../components/Button/Filter";
 import { bgcolor } from "@mui/system";
 
@@ -54,6 +54,13 @@ function Assets() {
       ? setIsRented(1)
       : newValue === 2 && setIsRented(1);
   };
+  const dispatch: Dispatch<any> = useDispatch();
+  
+  useEffect(() => {
+    return () => {
+      dispatch({ type: SET_ASSETS, payload: [] });
+    };
+  }, []);
 
   useEffect(() => {
     if (isRented) {

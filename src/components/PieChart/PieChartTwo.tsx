@@ -16,8 +16,7 @@ export function PiechartTwo() {
 
 
     const newData = totalSurplusAssetCount?.map((category) => ['laptop','monitor','headset','mobile','keyboard','mouse'].includes(category?.category) && category )    
-    const moreNewData = newData?.filter((category) => category !== false)
-     console.log("pietwo");
+    const moreNewData = newData?.filter((category) => category !== false);
     const handlePieChartClick = (event:any) => {
       // @ts-ignore
       localStorage.setItem('pieChartItem',JSON.stringify({category:moreNewData[getElementAtEvent(chartRef?.current, event)?.[0]?.index]?.category,surplus:true}) )

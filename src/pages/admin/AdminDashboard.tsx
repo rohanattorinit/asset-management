@@ -14,6 +14,7 @@ import {
   getTotalAssetCategoryCount,
 } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
+import { GET_TOTAL_ASSETSCATEGORY_COUNT, SET_ASSETS } from "../../redux/types";
 
 const commonStyles = {
   bgcolor: "background.paper",
@@ -25,19 +26,30 @@ const commonStyles = {
 };
 
 function AdminDashboard() {
-  const { assets, loading } = useSelector((state: RootStore) => state.admin);
+  const { assets, totalAssetCount } = useSelector(
+    (state: RootStore) => state.admin
+  );
   const dispatch: Dispatch<any> = useDispatch();
   useEffect(() => {
+
     dispatch(getAssets({ name: "" }));
     dispatch(getTotalAssetCategoryCount());
+
+    return () => {
+      dispatch({ type: SET_ASSETS, payload: [] });
+      dispatch({
+        type: GET_TOTAL_ASSETSCATEGORY_COUNT,
+        payload: [],
+      });
+    };
   }, []);
-  console.log("admin dash");
+  const showPieComp = Boolean(assets?.length > 0 && totalAssetCount?.length > 0);
   return (
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
-        {loading ? (
+        {!showPieComp ? (
           <></>
         ) : (
           <Grid item xs={12} md={10}>

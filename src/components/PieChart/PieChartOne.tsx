@@ -14,7 +14,6 @@ export function PiechartOne() {
     const chartRef =  useRef();
     // const [dataSet, setDataSet] = useState<Array<any>>([])
     const navigate= useNavigate()
-    console.log("pie rendered")
     
     
     const handlePieChartClick = (event:any) => {
