@@ -8,6 +8,7 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import Carousel from "../../components/Carousel/Carousel";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
+import image1 from "../../assets/teamwork.gif";
 
 export default function Dashboard() {
   const dispatch: Dispatch<any> = useDispatch();
@@ -31,9 +32,10 @@ export default function Dashboard() {
       <SideBar />
       <Toast/>
       <Grid item xs={12} md={10} p={3}>
-        <Box p={2}>
-          <Carousel />
+        <Box sx={{backgroundImage: `url(${image1})`, height: "80%", width: "100%"}}> 
+
         </Box>
+       
         <Box mt={2}>
           <Typography variant="h5" marginY={2}>
             Your Active Tickets
