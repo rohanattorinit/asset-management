@@ -48,7 +48,10 @@ export default function Ticket() {
   };
 
   return (
-    <Grid container sx={{ height: "100%" }}>
+    <Grid
+      container
+      //  sx={{ height: "100%" }}
+    >
       <Sidebar />
       <Toast />
       <Grid item xs={12} md={10} p={3}>
@@ -116,7 +119,6 @@ export default function Ticket() {
                     </Typography>
                     <Typography variant="body1">
                       Note : {ticket?.note}
-                    
                       {noteDetails.length ? (
                         noteDetails.map((note) => {
                           return (

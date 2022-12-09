@@ -19,7 +19,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AssetCsv } from "../../components/DragAndDrop/AssetCsv";
 import SideBar from "../../components/Sidebar/Sidebar";
-import {addAsset,  getEmployees,  getFiltersByCategory} from "../../redux/actions/AdminActions";
+import {
+  addAsset,
+  getEmployees,
+  getFiltersByCategory,
+} from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 import Toast from "../../components/ErrorHandling/Toast";
 import { AssetValidationSchema } from "../../components/FormValidations/AssetValidationSchema";
@@ -49,7 +53,7 @@ const AddAsset = () => {
     values.rent = parseInt(values.rent.split(",").join(""), 10);
     values.deposit = parseInt(values.deposit.split(",").join(""), 10);
     dispatch(addAsset(values));
-    
+
     resetForm({ values: "" });
   };
   const setChangeCategory = (value: string) => {
@@ -342,11 +346,10 @@ const AddAsset = () => {
                             </Select>
                           </FormControl>
                         </Grid>
-                                
 
                         <Grid item xs={12} sm={6} md={6}>
                           <Field
-                            type="date" 
+                            type="date"
                             label="Received date"
                             variant="outlined"
                             fullWidth
@@ -355,10 +358,7 @@ const AddAsset = () => {
                             component={TextField}
                             InputLabelProps={{ shrink: true }}
                             onChange={handleChange}
-                           onKeyDown={(e: any) => e.preventDefault()}
-                         
-                           
-                            
+                            onKeyDown={(e: any) => e.preventDefault()}
                           />
                         </Grid>
 
@@ -735,5 +735,3 @@ const AddAsset = () => {
 };
 
 export default AddAsset;
-
-

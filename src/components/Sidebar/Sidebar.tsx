@@ -47,7 +47,7 @@ export default function SideBar() {
   };
   const MobileNav = () => {
     return (
-      <Toolbar sx={{ zIndex: 1200, minHeight:0}}>
+      <Toolbar sx={{ zIndex: 1200 }}>
         <Drawer
           open={openDrawer}
           onClose={() => setOpenDrawer(false)}
@@ -119,7 +119,8 @@ export default function SideBar() {
         md={2}
         sx={{
           bgcolor: "#011E41",
-          borderTop: "solid white 2px",
+          position: "sticky",
+          top: 0,
         }}
       >
         {isAdmin ? (
@@ -137,7 +138,12 @@ export default function SideBar() {
             ))}
           </Box>
         ) : (
-          <Box display="flex" flexDirection="column" justifyContent="center">
+          <Box
+            display="flex"
+            flexDirection="column"
+            // justifyContent="center"
+            height="86.5vh"
+          >
             {empTabs.map((empTab) => (
               <Button
                 key={empTab.path}
@@ -158,5 +164,3 @@ export default function SideBar() {
 
   return matches ? <MobileNav /> : <SideNav />;
 }
-
-

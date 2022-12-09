@@ -30,32 +30,31 @@ const EmpAssetDetails = () => {
         {
           // @ts-ignore
           singleAssetDetails[value] && (
-            <Grid item xs={2} sm={4} md={4}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-                sx={{
-                  textTransform: "capitalize",
-                  wordWrap: "break-word",
-                  width: {
-                    md: "31.25rem",
-                    xs: "15rem",
-                    sm: "30rem",
-                  },
-                }}
-              >
-                {label} :{" "}
-                <Typography>
-                  {
-                    // @ts-ignore
-
-                    singleAssetDetails[value]
-                  }
-                </Typography>
+            // <Grid item xs={2} sm={4} md={4}>
+            <Typography
+              fontFamily="serif"
+              fontWeight="bold"
+              variant="h6"
+              mt={2}
+              sx={{
+                textTransform: "capitalize",
+                wordWrap: "break-word",
+                // width: {
+                //   md: "31.25rem",
+                //   xs: "15rem",
+                //   sm: "30rem",
+                // },
+              }}
+            >
+              {label} :
+              <Typography>
+                {
+                  // @ts-ignore
+                  singleAssetDetails[value]
+                }
               </Typography>
-            </Grid>
+            </Typography>
+            // </Grid>
           )
         }
       </>
@@ -78,116 +77,6 @@ const EmpAssetDetails = () => {
             <Typography variant="h5">Assets Details</Typography>
           </Box>
 
-          {/* <Paper sx={{ display: "flex", padding: 1, marginY: 3 }} elevation={3}>
-            <Grid container spacing={1}>
-              {!singleAssetDetails?.empId?.length && loading ? (
-                <Loader />
-              ) : (
-                <>
-                  {detailsComp("assetId", "Asset ID")}
-                  {detailsComp("name", "Asset Name")}
-                  {detailsComp("category", "Category")}
-                  {detailsComp("status", "Status")}
-                  {detailsComp("asset_location", "Location")}
-
-                  {detailsComp("brandName", "Brand Name")}
-                  {detailsComp("modelNo", "Model No")}
-
-                  <Grid item xs={2} sm={4} md={4}>
-                    <Typography
-                      fontFamily="serif"
-                      fontWeight="bold"
-                      variant="h6"
-                      mt={2}
-                      sx={{
-                        textTransform: "capitalize",
-                        wordWrap: "break-word",
-                        width: { md: "31.25rem", xs: "15rem", sm: "30rem" },
-                      }}
-                    >
-                      Received Date:
-                      <Typography>
-                        {singleAssetDetails?.received_date?.slice(0, 10)}
-                      </Typography>
-                    </Typography>
-                  </Grid>
-                  {detailsComp("vendor", "Vendor")}
-                  {detailsComp("rent", "Rent")}
-                  {detailsComp("deposit", "Deposit")}
-                  {singleAssetDetails?.rentStartDate && (
-                    <Grid item xs={2} sm={4} md={4}>
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: {
-                            md: "31.25rem",
-                            xs: "15rem",
-                            sm: "30rem",
-                          },
-                        }}
-                      >
-                        Rent Start From :{" "}
-                        <Typography>
-                          {singleAssetDetails?.rentStartDate?.slice(0, 10)}
-                        </Typography>
-                      </Typography>
-                    </Grid>
-                  )}
-                  {singleAssetDetails?.rentEndDate && (
-                    <Grid item xs={2} sm={4} md={4}>
-                      <Typography
-                        fontFamily="serif"
-                        fontWeight="bold"
-                        variant="h6"
-                        mt={2}
-                        sx={{
-                          textTransform: "capitalize",
-                          wordWrap: "break-word",
-                          width: {
-                            md: "31.25rem",
-                            xs: "15rem",
-                            sm: "30rem",
-                          },
-                        }}
-                      >
-                        Rent End Date :{" "}
-                        <Typography>
-                          {singleAssetDetails?.rentEndDate?.slice(0, 10)}
-                        </Typography>
-                      </Typography>
-                    </Grid>
-                  )}
-                  {detailsComp("screen_type", "Screen Type ")}
-                  {detailsComp("processor", "Processor")}
-                  {detailsComp("ram", "RAM")}
-                  {detailsComp("screen_size", "Screen Size")}
-                  {detailsComp("empName", "Employee Name")}
-                  {detailsComp("empId", "Employee ID")}
-                  {detailsComp("ssd", "SSD")}
-                  {detailsComp("hdd", "HDD")}
-                  {detailsComp("connectivity", " Connectivity")}
-                  {detailsComp("make_year", "Make Year")}
-                  {detailsComp("os_version", "OS Version")}
-                  {detailsComp("imeiNo", "IMEI Number")}
-                  {detailsComp("cableType", "Cable type")}
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      p: 1,
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    {detailsComp("description", "Description")}
-                  </Typography>
-                </>
-              )}
-            </Grid>
-          </Paper> */}
           <Paper
             sx={{ display: "flex", padding: 1, marginY: 3 }}
             elevation={10}
@@ -196,7 +85,7 @@ const EmpAssetDetails = () => {
               <Loader />
             ) : (
               <>
-                <Grid container sx={{ padding: 7 }}>
+                <Grid container sx={{ padding: { xs: 3, md: 8 } }}>
                   <Grid item md={4}>
                     {detailsComp("assetId", "Asset ID")}
                     {detailsComp("name", "Asset Name")}

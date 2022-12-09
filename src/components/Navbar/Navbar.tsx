@@ -34,8 +34,10 @@ export default function Navbar() {
         justifyContent: "space-between",
         position: "sticky",
         top: 0,
-        right: 0,
-        zIndex: 20,
+        // right: 0,
+        // zIndex: 99999,
+        mb: "0.3px",
+        // width: "100%",
       }}
     >
       <Box

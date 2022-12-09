@@ -93,7 +93,6 @@ export default function SwipeableTemporaryDrawer({ name }: { name: string }) {
 
       const isSurplus = JSON.parse(chartValue)?.surplus;
 
-
       if (
         !selectedCategory.includes(valueInCapital) ||
         !filterObject.category.includes(valueInCapital)

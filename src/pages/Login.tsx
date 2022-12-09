@@ -31,7 +31,7 @@ function Login() {
   };
 
   return (
-    <Box sx={{overflow:"auto"}}>
+    <Box sx={{ overflow: "auto" }}>
       <Typography variant="h4" my={4} textAlign="center">
         Login Details
       </Typography>
