@@ -64,14 +64,24 @@ export interface EmpTicketType {
 
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
 
-export interface TotalAssetCountType {
-  totalAssetCount: AssetCategoryCount[];
-  totalSurplusCount: AssetCategoryCount[];
-}
+// export interface TotalAssetCountType {
+//   totalAssetCount: AssetCategoryCount[];
+//   totalSurplusCount: AssetCategoryCount[];
+// }
 
+export interface Counts {
+  totalAssets: number, 
+  ownAssets: number, 
+  rentedAssets: number, 
+  surplusAssets: number, 
+  WorkingAssets: number,
+  RepairabaleAssets: number, 
+  brokenAssets: number
+ }
 export interface TotalAssetCountType {
   totalAssetCount: AssetCategoryCount[];
   totalSurplusCount: AssetCategoryCount[];
+  counts: Counts
 }
 
 export interface CreateTicketType {

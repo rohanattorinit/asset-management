@@ -34,6 +34,7 @@ import {
   ServiceType,
   SET_SERVICE_TICKET_DETAILS,
   SET_SINGLE_ASSET_TICKETS,
+  Counts,
   
 } from './../types'
 
@@ -54,6 +55,7 @@ interface InitialState {
   brandOptions: BrandOptions[];
   totalAssetCount : AssetCategoryCount[]
   totalSurplusAssetCount : AssetCategoryCount[]
+  counts: Counts
   filterOptions: FilterOptions;
   
   assetTrasactionLogs:AssetTransactionHistory[];
@@ -124,6 +126,14 @@ const initialState: InitialState = {
   brandOptions: [],
   totalSurplusAssetCount:[],
   totalAssetCount:[],
+  counts:{
+    totalAssets: 0, 
+    ownAssets: 0, 
+    rentedAssets: 0, 
+    surplusAssets: 0, 
+    WorkingAssets: 0,
+    RepairabaleAssets: 0, 
+    brokenAssets: 0},
   filterOptions: {
     category: [],
     status: [],
@@ -303,6 +313,7 @@ const adminReducer = (
           ...state,
           totalAssetCount: action.payload?.data?.totalAssetCount,
           totalSurplusAssetCount: action.payload?.data?.totalSurplusCount,
+          counts: action.payload?.data?.counts,
           loading:false
         }
 
