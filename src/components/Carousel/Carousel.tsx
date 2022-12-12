@@ -4,10 +4,10 @@ import "../Carousel/Carousel.css";
 
 function HeroImage() {
   return (
-     <div className="slick-slide ">
+    <div className="slick-slide ">
       <img src={image1} alt="Hero" />
-     </div>
-    // <Grid container> 
+    </div>
+    // <Grid container>
     // <Grid  item sx={{backgroundImage: `url(${image1})`}}></Grid></Grid>
   );
 }

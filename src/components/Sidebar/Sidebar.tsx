@@ -47,7 +47,7 @@ export default function SideBar() {
   };
   const MobileNav = () => {
     return (
-      <Toolbar sx={{ zIndex: 1200 }}>
+      <Toolbar sx={{ zIndex: 2000, minHeight: matches ? 0 : 7 }}>
         <Drawer
           open={openDrawer}
           onClose={() => setOpenDrawer(false)}
@@ -119,7 +119,8 @@ export default function SideBar() {
         md={2}
         sx={{
           bgcolor: "#011E41",
-          position: "sticky",
+          borderTop: "solid white 2px",
+          // position: "sticky",
           top: 0,
         }}
       >

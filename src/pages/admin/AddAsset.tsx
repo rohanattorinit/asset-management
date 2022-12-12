@@ -583,6 +583,7 @@ const AddAsset = () => {
                                           xs: 48 * 4 + 8,
                                           sm: 36 * 4 + 8,
                                         },
+                                        width: "50px",
                                       },
                                     },
                                   }}

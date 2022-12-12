@@ -35,7 +35,7 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         // right: 0,
-        // zIndex: 99999,
+        zIndex: 1000,
         mb: "0.3px",
         // width: "100%",
       }}

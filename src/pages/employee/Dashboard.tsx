@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, ImageList, Typography, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Card, CardContent } from "@mui/material";
 import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
@@ -9,6 +9,7 @@ import Carousel from "../../components/Carousel/Carousel";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
 import image1 from "../../assets/teamwork.gif";
+import { theme } from "../../utils/theme";
 
 export default function Dashboard() {
   const dispatch: Dispatch<any> = useDispatch();
@@ -27,53 +28,69 @@ export default function Dashboard() {
     dispatch(getEmployeeTickets(user?.empId));
   }, [dispatch, user]);
 
-  return (
-    <Grid container sx={{ height: "100%" }}>
-      <SideBar />
-      <Toast/>
-      <Grid item xs={12} md={10} p={3}>
-        <Box sx={{backgroundImage: `url(${image1})`, height: "80%", width: "100%"}}> 
+  const isMDView = useMediaQuery("(min-width:600px)");
 
-        </Box>
-       
-        <Box mt={2}>
-          <Typography variant="h5" marginY={2}>
-            Your Active Tickets
-          </Typography>
-          {loading || filteredStatus.length ? (
-            <Grid container spacing={5}>
-              {loading ? (
-                <Loader />
-              ) : (
-                filteredStatus?.map((requeststatus) => {
-                  return (
-                    <Grid item xs={6} md={3}>
-                      <Card key={requeststatus?.ticketId}>
-                        <CardContent>
-                          <Typography variant="h5">
-                            {"# " + requeststatus?.ticketId}
-                          </Typography>
-                          <Typography variant="body1">
-                            Title : {requeststatus?.title}
-                          </Typography>
-                          <Typography variant="body1">
-                            Description :{" "}
-                            {requeststatus?.description?.slice(0, 20)}
-                          </Typography>
-                          <Typography variant="body1">
-                            Status : {requeststatus?.ticketStatus}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  );
-                })
-              )}
-            </Grid>
-          ) : (
-            <Typography textAlign={"center"}>No Active Tickets!!!</Typography>
-          )}
-        </Box>
+  return (
+    <Grid container>
+      {/* sx={{ height: "100%" }} */}
+      <SideBar />
+      <Toast />
+      <Grid item xs={12} md={10} p={3}>
+        <Grid container item xs={12} md={12}>
+          <Grid item xs={12} md={12}>
+            <Carousel />
+          </Grid>
+
+          <Grid item xs={12} md={12} p={3}>
+            <Typography variant="h5" marginY={2}>
+              Your Active Tickets
+            </Typography>
+            {loading || filteredStatus?.length ? (
+              <>
+                {loading ? (
+                  <Grid>
+                    <Loader />
+                  </Grid>
+                ) : (
+                  <ImageList cols={isMDView ? 3 : 1}>
+                    {filteredStatus?.map((requeststatus) => {
+                      return (
+                        <Grid
+                          item
+                          xs={12}
+                          md={12}
+                          sx={{
+                            bgcolor: "lightblue",
+                          }}
+                        >
+                          <Card key={requeststatus?.ticketId}>
+                            <CardContent>
+                              <Typography variant="h5">
+                                {"# " + requeststatus?.ticketId}
+                              </Typography>
+                              <Typography variant="body1">
+                                Title : {requeststatus?.title}
+                              </Typography>
+                              <Typography variant="body1">
+                                Description :{" "}
+                                {requeststatus?.description?.slice(0, 20)}
+                              </Typography>
+                              <Typography variant="body1">
+                                Status : {requeststatus?.ticketStatus}
+                              </Typography>
+                            </CardContent>
+                          </Card>
+                        </Grid>
+                      );
+                    })}
+                  </ImageList>
+                )}
+              </>
+            ) : (
+              <Typography textAlign={"center"}>No Active Tickets!!!</Typography>
+            )}
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

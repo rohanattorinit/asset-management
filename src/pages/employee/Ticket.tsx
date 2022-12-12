@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardContent,
   CircularProgress,
@@ -60,9 +61,22 @@ export default function Ticket() {
         </Typography>
 
         {tickets.length || loading ? (
-          <Grid container spacing={2}>
+          <Grid
+            container
+            spacing={2}
+            sx={{ justifyContent: "center", alignItems: "center" }}
+          >
             {loading && !open ? (
-              <Loader />
+              // <Loader />
+              <Box>
+                <CircularProgress
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                />
+              </Box>
             ) : (
               tickets?.map((ticket) => {
                 return (
