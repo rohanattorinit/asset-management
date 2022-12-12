@@ -29,6 +29,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { getUserProfile } from "../../redux/actions/AuthAction";
 import Alert from "../../components/ConfirmAlert/Alert";
+import Navbar from "../../components/Navbar/Navbar";
 
 const phoneRegExp = /^((?!(0))[0-9]{10})$/;
 
@@ -108,126 +109,128 @@ export default function Profile() {
     setPassChangeAlrt(false);
   };
   return (
-    <Grid container sx={{ height: "100%" }}>
-      {alertmsg && (
-        <Alert
-          title="Profile details updated successfully"
-          setNavigate={setNavigate}
-        />
-      )}
-      {passAlert && (
-        <Alert title="Password must match" setNavigate={setPassAlrt} />
-      )}
-      {passChangeAlrt && (
-        <Alert title="Password updated successfully!" setNavigate={setPas} />
-      )}
+    <>
+      <Grid container>
+        {alertmsg && (
+          <Alert
+            title="Profile details updated successfully"
+            setNavigate={setNavigate}
+          />
+        )}
+        {passAlert && (
+          <Alert title="Password must match" setNavigate={setPassAlrt} />
+        )}
+        {passChangeAlrt && (
+          <Alert title="Password updated successfully!" setNavigate={setPas} />
+        )}
+        <Sidebar />
 
-      <Sidebar />
-      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h5">Profile</Typography>
-          <Box display="flex">
-            <Button variant="outlined" onClick={() => setOpen(true)}>
-              Edit
-            </Button>
-            <Button
-              sx={{ ml: 1 }}
-              variant="outlined"
-              onClick={() => setOpenPasswordDialog(true)}
-            >
-              Change Password
-            </Button>
+        <Grid item xs={12} md={10} p={3}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h5">Profile</Typography>
+            <Box display="flex">
+              <Button variant="outlined" onClick={() => setOpen(true)}>
+                Edit
+              </Button>
+              <Button
+                sx={{ ml: 1 }}
+                variant="outlined"
+                onClick={() => setOpenPasswordDialog(true)}
+              >
+                Change Password
+              </Button>
+            </Box>
           </Box>
-        </Box>
-        <Paper
-          sx={{
-            display: "flex",
-            padding: 5,
-            marginY: 3,
-          }}
-          elevation={5}
-        >
-          <Grid container>
-            <Grid item xs={12} md={4}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                EmpId:
-                <Typography variant="body1">{user?.empId}</Typography>
-              </Typography>
-              <Typography
-                mt={2}
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-              >
-                Name:
+          <Paper
+            sx={{
+              display: "flex",
+              padding: 5,
+              marginY: 3,
+            }}
+            elevation={5}
+          >
+            <Grid container>
+              <Grid item xs={12} md={4}>
                 <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
                 >
-                  {user?.name}
+                  EmpId:
+                  <Typography variant="body1">{user?.empId}</Typography>
                 </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Job Title:
                 <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
+                  mt={2}
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
                 >
-                  {user?.jobTitle}
+                  Name:
+                  <Typography
+                    variant="body1"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {user?.name}
+                  </Typography>
                 </Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Email:
-                <Typography variant="body1">{user?.email}</Typography>
-              </Typography>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Job Title:
+                  <Typography
+                    variant="body1"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {user?.jobTitle}
+                  </Typography>
+                </Typography>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Email:
+                  <Typography variant="body1">{user?.email}</Typography>
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Phone:<Typography variant="body1">{user?.phone}</Typography>
+                </Typography>
+                <Typography
+                  fontFamily="serif"
+                  fontWeight="bold"
+                  variant="h6"
+                  mt={2}
+                >
+                  Location:
+                  <Typography
+                    variant="body1"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {user?.location}
+                  </Typography>
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Phone:<Typography variant="body1">{user?.phone}</Typography>
-              </Typography>
-              <Typography
-                fontFamily="serif"
-                fontWeight="bold"
-                variant="h6"
-                mt={2}
-              >
-                Location:
-                <Typography
-                  variant="body1"
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  {user?.location}
-                </Typography>
-              </Typography>
-            </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
+        </Grid>
       </Grid>
       <Dialog open={open} onClose={() => setOpen(false)}>
         <Card>
@@ -361,6 +364,6 @@ export default function Profile() {
           </DialogActions>
         </form>
       </Dialog>
-    </Grid>
+    </>
   );
 }

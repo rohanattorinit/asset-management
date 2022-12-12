@@ -90,7 +90,10 @@ export default function Asset() {
     navigate(`/ticket`);
   };
   return (
-    <Grid container sx={{ height: "100%" }}>
+    <Grid
+      container
+      // height={"100%"}
+    >
       {alert && (
         <Alert title="Ticket generated successfully" setNavigate={setAlrt} />
       )}
@@ -104,7 +107,7 @@ export default function Asset() {
         sx={{
           display: "inline-block",
           verticalAlign: "top",
-          height: "100%",
+          // height: "100%",
           overflow: "auto",
         }}
       >

@@ -21,6 +21,7 @@ import ProtectedAdminRoute, {
 } from "./utils/ProtectedAdminRoute";
 import ProtectedRoute, { ProtectedRouteProps } from "./utils/ProtectedRoute";
 import EmpAssetDetails from "./pages/employee/EmpAssetDetails";
+import SideBar from "./components/Sidebar/Sidebar";
 
 function AppRoutes() {
   const { authenticated, user } =
