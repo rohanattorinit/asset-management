@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { Dispatch, useEffect } from "react";
 import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../components/Loader/Loader";
 //import Loader from "../../components/Loader/Loader";
 import { PiechartOne } from "../../components/PieChart/PieChartOne";
 import { PiechartTwo } from "../../components/PieChart/PieChartTwo";
@@ -25,20 +26,18 @@ const commonStyles = {
 };
 
 function AdminDashboard() {
-  const { assets, loading } = useSelector((state: RootStore) => state.admin);
+  const { counts, loading } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
   useEffect(() => {
-    dispatch(getAssets({ name: "" }));
     dispatch(getTotalAssetCategoryCount());
   }, []);
-  console.log("admin dash");
   return (
     <>
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
         {loading ? (
-          <></>
+          <Loader />
         ) : (
           <Grid item xs={12} md={10}>
             <Grid
@@ -67,7 +66,7 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp end={assets?.length} duration={2} />
+                  <CountUp end={counts?.totalAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
@@ -96,10 +95,7 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp
-                    end={assets?.filter((asset) => !asset?.isRented).length}
-                    duration={2}
-                  />
+                  <CountUp end={counts?.ownAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
@@ -127,10 +123,7 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp
-                    end={assets?.filter((asset) => asset?.isRented).length}
-                    duration={2}
-                  />
+                  <CountUp end={counts?.rentedAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
@@ -168,13 +161,7 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp
-                    end={
-                      assets?.filter((asset) => asset?.status === "Surplus")
-                        .length
-                    }
-                    duration={2}
-                  />
+                  <CountUp end={counts?.surplusAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
@@ -203,16 +190,7 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp
-                    end={
-                      assets?.filter(
-                        (asset) =>
-                          asset?.status === "Allocated" ||
-                          asset?.status === "Surplus"
-                      ).length
-                    }
-                    duration={2}
-                  />
+                  <CountUp end={counts?.WorkingAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
@@ -240,13 +218,7 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp
-                    end={
-                      assets?.filter((asset) => asset?.status === "Repairable")
-                        .length
-                    }
-                    duration={2}
-                  />
+                  <CountUp end={counts?.RepairabaleAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
@@ -274,13 +246,7 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp
-                    end={
-                      assets?.filter((asset) => asset?.status === "Broken")
-                        .length
-                    }
-                    duration={2}
-                  />
+                  <CountUp end={counts?.brokenAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
