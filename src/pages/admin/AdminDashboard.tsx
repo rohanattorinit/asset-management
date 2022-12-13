@@ -4,16 +4,11 @@ import { Dispatch, useEffect } from "react";
 import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
-//import Loader from "../../components/Loader/Loader";
 import { PiechartOne } from "../../components/PieChart/PieChartOne";
 import { PiechartTwo } from "../../components/PieChart/PieChartTwo";
 
 import SideBar from "../../components/Sidebar/Sidebar";
-import {
-  getAssets,
-  // getEmployees,
-  getTotalAssetCategoryCount,
-} from "../../redux/actions/AdminActions";
+import { getTotalAssetCategoryCount } from "../../redux/actions/AdminActions";
 import { RootStore } from "../../redux/store";
 
 const commonStyles = {
@@ -37,7 +32,9 @@ function AdminDashboard() {
         <SideBar />
 
         {loading ? (
-          <Loader />
+          <Grid item xs={12} md={10} sx={{ marginY: "80px" }}>
+            <Loader />
+          </Grid>
         ) : (
           <Grid item xs={12} md={10}>
             <Grid
