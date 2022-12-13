@@ -82,7 +82,9 @@ const EmpAssetDetails = () => {
             elevation={10}
           >
             {!singleAssetDetails?.empId?.length && loading ? (
-              <Loader />
+              <Grid xs={12} md={10} sx={{ marginX: "50px" }}>
+                <Loader />
+              </Grid>
             ) : (
               <>
                 <Grid container sx={{ padding: { xs: 3, md: 8 } }}>
