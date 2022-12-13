@@ -8,8 +8,6 @@ import SideBar from "../../components/Sidebar/Sidebar";
 import Carousel from "../../components/Carousel/Carousel";
 import Toast from "../../components/ErrorHandling/Toast";
 import Loader from "../../components/Loader/Loader";
-import image1 from "../../assets/teamwork.gif";
-import { theme } from "../../utils/theme";
 
 export default function Dashboard() {
   const dispatch: Dispatch<any> = useDispatch();
