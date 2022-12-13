@@ -64,7 +64,11 @@ export default function Ticket() {
           <Grid
             container
             spacing={2}
-            sx={{ justifyContent: "center", alignItems: "center" }}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginY: "60px",
+            }}
           >
             {loading && !open ? (
               // <Loader />
