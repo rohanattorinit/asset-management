@@ -33,6 +33,7 @@ const options = [
   },
   { label: "Human Resourse", value: "Human Resourse" },
   { label: "Technical Delivery Manager", value: "Technical Delivery Manager" },
+  {label: "Other", value: "Other"}
 ];
 const AddEmployee = () => {
   const dispatch: Dispatch<any> = useDispatch();
