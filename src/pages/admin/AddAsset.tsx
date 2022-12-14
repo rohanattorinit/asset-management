@@ -282,6 +282,7 @@ const AddAsset = () => {
                             name="assetName"
                             value={values?.assetName}
                             component={TextField}
+                            required
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
@@ -299,6 +300,7 @@ const AddAsset = () => {
                             name="make_year"
                             value={values?.make_year}
                             component={TextField}
+                            required
                           />
                         </Grid>
 
@@ -310,6 +312,7 @@ const AddAsset = () => {
                             name="modelNo"
                             value={values?.modelNo}
                             component={TextField}
+                            required
                           />
                         </Grid>
 
@@ -358,6 +361,7 @@ const AddAsset = () => {
                             component={TextField}
                             InputLabelProps={{ shrink: true }}
                             onChange={handleChange}
+                            required
                             onKeyDown={(e: any) => e.preventDefault()}
                           />
                         </Grid>
@@ -374,6 +378,7 @@ const AddAsset = () => {
                             variant="outlined"
                             fullWidth
                             name="description"
+                            required
                             value={values?.description}
                             component={TextField}
                           />
@@ -394,6 +399,7 @@ const AddAsset = () => {
                                   name="imeiNo"
                                   value={values?.imeiNo}
                                   component={TextField}
+                                  required
                                 />
                               </Grid>
                             )}
@@ -476,6 +482,7 @@ const AddAsset = () => {
                                 label="OS Version"
                                 variant="outlined"
                                 fullWidth
+                                required
                                 name="os_version"
                                 value={values?.os_version}
                                 component={TextField}
@@ -608,6 +615,7 @@ const AddAsset = () => {
                                 name="allocationTime"
                                 value={values?.allocationTime}
                                 component={TextField}
+                                required
                                 InputLabelProps={{ shrink: true }}
                               />
                             </Grid>
@@ -638,6 +646,7 @@ const AddAsset = () => {
                                 fullWidth
                                 name="vendor"
                                 value={values?.vendor}
+                                
                                 component={TextField}
                               />
                             </Grid>
@@ -647,6 +656,7 @@ const AddAsset = () => {
                                 label="Rent per month (GST inclusive)"
                                 variant="outlined"
                                 fullWidth
+                                
                                 name="rent"
                                 value={values?.rent
                                   ?.replace(/,/gi, "")
@@ -662,6 +672,7 @@ const AddAsset = () => {
                                 variant="outlined"
                                 fullWidth
                                 name="deposit"
+                               
                                 value={values?.deposit
                                   ?.replace(/,/gi, "")
                                   .split(/(?=(?:\d{3})+$)/)
