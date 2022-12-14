@@ -71,7 +71,7 @@ export function PiechartTwo() {
    variant="h5"
    color="primary"
  >
-   Preffered Surplus Assets
+   Preferred Surplus Assets
   </Typography>
   {/* @ts-ignore */}
   { data ? ( <Pie data={data} 
