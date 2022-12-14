@@ -81,7 +81,7 @@ const EmpAssetDetails = () => {
             sx={{ display: "flex", padding: 1, marginY: 3 }}
             elevation={10}
           >
-            {!singleAssetDetails?.empId?.length && loading ? (
+            {loading ? (
               <Grid xs={12} md={10} sx={{ marginX: "50px" }}>
                 <Loader />
               </Grid>

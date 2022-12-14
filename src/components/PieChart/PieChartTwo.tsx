@@ -28,7 +28,7 @@ export function PiechartTwo() {
    
     const data = {
       // @ts-ignore
-        labels: moreNewData?.map(({category}) => category),
+        labels: moreNewData?.map(({category}) => category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()),
        datasets: [
          {
           // @ts-ignore
@@ -71,7 +71,7 @@ export function PiechartTwo() {
    variant="h5"
    color="primary"
  >
-   Preffered Surplus Assets
+   Preferred Surplus Assets
   </Typography>
   {/* @ts-ignore */}
   { data ? ( <Pie data={data} 

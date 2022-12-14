@@ -24,7 +24,7 @@ export function PiechartOne() {
     }    
 
       const data = {
-        labels: totalAssetCount?.map(({category}) => category),
+        labels: totalAssetCount?.map(({category}) => category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()),
        datasets: [
          {
            label:totalAssetCount?.map(({category}) => category) ,
