@@ -35,7 +35,8 @@ const validationSchema = Yup.object().shape({
   make_year: Yup.number().max(
     currentYear,
     "Make year can not be in the future"
-  ),
+  ).typeError("Characters are not allowed")
+,
   rentStartDate: Yup.date().nullable(),
   rentEndDate: Yup.date().min(Yup.ref("rentStartDate")),
   received_date: Yup.date().max(time, "Future dates can not be selected"),
