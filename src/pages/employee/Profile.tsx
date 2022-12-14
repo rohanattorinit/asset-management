@@ -325,7 +325,7 @@ export default function Profile() {
                   </CardContent>
                   <CardActions>
                     <Button type="submit" size="large" variant="contained">
-                      EDIT
+                      SAVE
                     </Button>
                   </CardActions>
                 </Form>
