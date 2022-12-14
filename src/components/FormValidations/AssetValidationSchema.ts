@@ -81,6 +81,7 @@ export const AssetValidationSchema = Yup.object().shape({
   make_year: Yup.number().max(
     currentYear,
     "Make year can not be in the future"
-  ),
+  )
+  .required("Required!"),
   imeiNo: Yup.string().matches(numericRegEx, "Invalid IMEI no!"),
 });
