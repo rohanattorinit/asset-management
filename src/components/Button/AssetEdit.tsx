@@ -41,7 +41,7 @@ const validationSchema = Yup.object().shape({
   rentEndDate: Yup.date().min(Yup.ref("rentStartDate")),
   received_date: Yup.date().max(time, "Future dates can not be selected"),
   modelNo: Yup.string().matches(numericRegEx, "Invalid model no!"),
-  imeiNo: Yup.string().matches(numericRegEx, "Invalid IMEI no!"),
+  imeiNo: Yup.string().matches(numericRegEx, "Invalid IMEI no!").nullable(),
 });
 
 const connectivityOptions = [
@@ -543,13 +543,7 @@ function AssetEdit(props: Iprops) {
                             handleChange
                           )}
 
-                          {textField(
-                            "Model No",
-                            "modelNo",
-                            "modelNo",
-                            values?.modelNo,
-                            handleChange
-                          )}
+                         
 
                           <Grid item xs={12} sm={6} md={6}>
                             <Field

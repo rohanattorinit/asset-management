@@ -22,7 +22,6 @@ export function PiechartTwo() {
       ) && category
   );
   const moreNewData = newData?.filter((category) => category !== false);
-  console.log("pietwo");
   const handlePieChartClick = (event: any) => {
     localStorage.setItem(
       "pieChartItem",

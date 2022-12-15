@@ -103,7 +103,7 @@ function AssetTransactionHistory() {
                         <SecurityUpdateGoodIcon sx={{ color: "#1e40af" }} />
                         <TimelineConnector />
                       </TimelineSeparator>
-                      <TimelineContent>{`Asset ${transaction?.update_feature} upgraded  (${transaction.update_description}) `}</TimelineContent>
+                      <TimelineContent>{` ${transaction?.update_feature.toUpperCase()} Changed  (${transaction.update_description}) `}</TimelineContent>
                     </TimelineItem>
                   )}
 

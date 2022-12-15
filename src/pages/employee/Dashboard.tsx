@@ -32,7 +32,6 @@ export default function Dashboard() {
     <Grid container>
       {/* sx={{ height: "100%" }} */}
       <SideBar />
-      <Toast />
       <Grid item xs={12} md={10} p={3}>
         <Grid container item xs={12} md={12}>
           <Grid item xs={12} md={12}>
@@ -71,7 +70,7 @@ export default function Dashboard() {
                               </Typography>
                               <Typography variant="body1">
                                 Description :{" "}
-                                {requeststatus?.description?.slice(0, 20)}
+                                {requeststatus?.description?.slice(0, 20)}...
                               </Typography>
                               <Typography variant="body1">
                                 Status : {requeststatus?.ticketStatus}
