@@ -543,13 +543,7 @@ function AssetEdit(props: Iprops) {
                             handleChange
                           )}
 
-                          {textField(
-                            "Model No",
-                            "modelNo",
-                            "modelNo",
-                            values?.modelNo,
-                            handleChange
-                          )}
+                         
 
                           <Grid item xs={12} sm={6} md={6}>
                             <Field
