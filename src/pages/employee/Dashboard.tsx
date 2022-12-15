@@ -71,7 +71,7 @@ export default function Dashboard() {
                               </Typography>
                               <Typography variant="body1">
                                 Description :{" "}
-                                {requeststatus?.description?.slice(0, 20)}
+                                {requeststatus?.description?.slice(0, 20)}...
                               </Typography>
                               <Typography variant="body1">
                                 Status : {requeststatus?.ticketStatus}
