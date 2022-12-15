@@ -171,6 +171,7 @@ const AssetDetails = () => {
                   {detailsComp("asset_location", "Location")}
                   {detailsComp("brandName", "Brand Name")}
                   {detailsComp("modelNo", "Model No")}
+                  {detailsComp("operating_system", "Operating System")}
 
                   <Typography
                     fontFamily="serif"
