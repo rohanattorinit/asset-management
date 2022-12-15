@@ -48,3 +48,13 @@
     transform: rotate(360deg);
   }
 }
+
+.body{
+  -ms-overflow-style: none;  
+  scrollbar-width: none;   
+  /* overflow: hidden; */
+}
+.container{
+  overflow-y: scroll;
+  height:1000px;
+}

@@ -9,7 +9,7 @@ import { SET_AUTHENTICATED } from "./redux/types";
 import Cookies from "js-cookie";
 
 function App() {
-  const BASE_URL = process.env.REACT_APP_BASE_API;
+  const BASE_URL = import.meta.env.VITE_BASE_API;
   const [showLoader, setShowLoader] = useState(true);
   const dispatch = useDispatch();
   const auth_token = Cookies.get("auth_token") || "";

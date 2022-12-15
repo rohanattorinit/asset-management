@@ -2,6 +2,7 @@ import {
   Box,
   IconButton,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
   TableHead,
@@ -46,9 +47,11 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
       {loading ? (
         <Loader />
       ) : (
-        <TableContainer sx={{ marginY: 3 }}>
+        <TableContainer sx={{ marginY: 3,height:'100%' }}>
           {assets?.length ? (
-            <Table aria-label="simple table">
+            <Table  sx={{
+              height: "max-content"
+            }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">
@@ -101,7 +104,8 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                   </TableCell>
                 </TableRow>
               </TableHead>
-
+              
+              <TableBody className="container">
               {assets?.map((filteredAsset) => (
                 <TableRow
                   key={filteredAsset?.assetId}
@@ -173,6 +177,8 @@ const AssetsTable = ({ assets }: { assets: AssetTypes[] }) => {
                   </TableCell>
                 </TableRow>
               ))}
+              </TableBody>
+              
             </Table>
           ) : (
             <Typography textAlign={"center"}>No Assets found!</Typography>

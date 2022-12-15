@@ -24,7 +24,7 @@ export const AssetCsv = () => {
   
 
   const navigate = useNavigate();
-  const BASE_URL = process.env.REACT_APP_BASE_API;
+  const BASE_URL = import.meta.env.VITE_BASE_API;
   const dispatch = useDispatch()
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

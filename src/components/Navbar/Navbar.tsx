@@ -28,6 +28,7 @@ export default function Navbar() {
   return (
     <Box
       sx={{
+        mb:"1px",
         bgcolor: "#011E41",
         display: "flex",
         alignItems: "center",

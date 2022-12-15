@@ -69,7 +69,7 @@ function Assets() {
     <Grid container sx={{ height: "100%" }}>
       <SideBar />
       <Toast />
-      <Grid item xs={12} md={10} p={3} sx={{ overflowX: "auto" }}>
+      <Grid item xs={12} md={10} p={3}>
         <Grid
           container
           md={12}

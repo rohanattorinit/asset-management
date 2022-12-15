@@ -119,7 +119,7 @@ export default function SideBar() {
         md={2}
         sx={{
           bgcolor: "#011E41",
-          borderTop: "solid white 2px",
+          // borderTop: "solid white 2px",
         }}
       >
         {isAdmin ? (

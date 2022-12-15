@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BASE_URL = process.env.REACT_APP_BASE_API;
+const BASE_URL = import.meta.env.VITE_BASE_API;
 
 export const get = (url: string) => {
   return new Promise(async (resolve, reject) => {

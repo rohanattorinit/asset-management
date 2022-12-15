@@ -15,7 +15,7 @@ export const DragAndDrop = () => {
   const [isUploading,setIsUploading]=useState(false)
   const navigate = useNavigate();
   const dispatch=useDispatch();
-  const BASE_URL = process.env.REACT_APP_BASE_API;
+  const BASE_URL = import.meta.env.VITE_BASE_API;
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsUploading(true)

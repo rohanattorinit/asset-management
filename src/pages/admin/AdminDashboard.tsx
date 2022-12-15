@@ -39,13 +39,14 @@ console.log("admin dash")
       <Grid container sx={{ height: "100%" }}>
         <SideBar />
 
-        {loading ? <></> :(<Grid item xs={12} md={10}>
+        {loading ? <></> :(<Grid className="container" item xs={12} md={10}>
           <Grid
             container
             sx={{
               padding: 3,
-              display: " flex",
+              display: "flex",
               justifyContent: "space-around",
+              
             }}
           >
             <Grid
