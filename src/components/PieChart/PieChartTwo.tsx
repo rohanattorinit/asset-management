@@ -28,8 +28,8 @@ export function PiechartTwo() {
       "pieChartItem",
       JSON.stringify({
         category:
-          // @ts-ignore
-          moreNewData[getElementAtEvent(chartRef?.current, event)?.[0]?.index]?.category,
+        // @ts-ignore
+        moreNewData[getElementAtEvent(chartRef?.current, event)?.[0]?.index]?.category,
         surplus: true,
       })
     );
@@ -85,9 +85,9 @@ export function PiechartTwo() {
       >
         Preferred Surplus Assets
       </Typography>
-      {data ? (
+       {totalSurplusAssetCount?.length ? (
         <Pie
-          //@ts-ignore
+          // @ts-ignore
           data={data}
           // @ts-ignore
           onClick={(event) => handlePieChartClick(event)}
