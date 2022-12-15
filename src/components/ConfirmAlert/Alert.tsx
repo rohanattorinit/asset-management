@@ -42,10 +42,7 @@ export default function Alert(props:Iprops) {
               boxShadow: '2',
             },
           }}
-          sx={{
-            backdropFilter: "blur(7px)",
-            
-          }}
+         sx={{bgcolor: ['Employee deleted Successfully','Asset Deleted Successfully'].includes(props.title) ? 'rgb(0,0,0,0.87)' : 'rgb(0,0,0,0)'}}>
       >
         <DialogTitle>{props.title}</DialogTitle>
         
