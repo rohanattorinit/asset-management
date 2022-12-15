@@ -78,7 +78,7 @@ export default function EmployeeDetails() {
   const [openAlrtDeallocate, setOpenAlrtDeallocate] = useState(false);
   const navigate = useNavigate();
   const setNavigate = () => {
-    alertMessage === "Employee deleted"
+    alertMessage === "Employee deleted Successfully"
       ? navigate("/admin/employee/")
       : setOpenAlert(false);
   };
@@ -134,7 +134,7 @@ export default function EmployeeDetails() {
     dispatch(deleteEmployee(employeeDetails.empId));
     setOpenConfirm(false);
     setOpenAlert(true);
-    setAlertMessage("Employee deleted");
+    setAlertMessage("Employee deleted Successfully");
   };
   const handleCancel = () => {
     setOpenConfirm(false);
