@@ -41,7 +41,7 @@ const validationSchema = Yup.object().shape({
   rentEndDate: Yup.date().min(Yup.ref("rentStartDate")),
   received_date: Yup.date().max(time, "Future dates can not be selected"),
   modelNo: Yup.string().matches(numericRegEx, "Invalid model no!"),
-  imeiNo: Yup.string().matches(numericRegEx, "Invalid IMEI no!"),
+  imeiNo: Yup.string().matches(numericRegEx, "Invalid IMEI no!").nullable(),
 });
 
 const connectivityOptions = [
