@@ -117,10 +117,13 @@ export const ServiceDetails = () => {
                     variant="h6"
                     mt={2}
                   >
-                    Time:
+                    Date :
                     <Typography variant="body1">
-                      {serviceticketdetails?.createdAt?.slice(0, 10)} <>&</>
-                      {serviceticketdetails?.createdAt?.slice(11, 19)}
+                      {serviceticketdetails?.createdAt
+                        ?.slice(0, 10)
+                        .split("-")
+                        .reverse()
+                        .join("-")}{" "}
                     </Typography>
                   </Typography>
                 </Grid>
