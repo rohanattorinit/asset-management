@@ -100,6 +100,7 @@ export default function EmployeeDetails() {
   useEffect(() => {
     dispatch(getEmployeeDetails(empId));
     dispatch(getAssetDetails(empId));
+    window.scrollTo(0, 0);
   }, [dispatch, empId, message, empMessage]);
 
   const handleClickOpen = () => {
@@ -157,7 +158,7 @@ export default function EmployeeDetails() {
   });
 
   return (
-    <Grid container sx={{ height: "100%" }}>
+    <Grid container>
       <SideBar />
       <Toast />
       {confirmActivate && (
@@ -388,7 +389,8 @@ export default function EmployeeDetails() {
                               {asset?.modelno}
                             </TableCell>
                             <TableCell align="right">
-                              {asset?.category}
+                              {asset?.category.charAt(0).toUpperCase() +
+                                asset?.category.slice(1)}
                             </TableCell>
                             <TableCell align="right">
                               {asset?.allocationTime

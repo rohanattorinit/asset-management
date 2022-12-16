@@ -22,6 +22,7 @@ const EmpAssetDetails = () => {
 
   useEffect(() => {
     dispatch(getSingleAssetDetails(id));
+    window.scrollTo(0, 0);
   }, [message, dispatch, id]);
 
   const detailsComp = (value: any, label: string) => {

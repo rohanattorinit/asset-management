@@ -1,6 +1,6 @@
 import { Grid, Tab, Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import AssetDetails from "../../components/AssetDetailsHistory/AssetDetails";
 import AssetTransactionHistory from "../../components/AssetDetailsHistory/AssetTransactionHistory";
 import Toast from "../../components/ErrorHandling/Toast";
@@ -13,6 +13,10 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div

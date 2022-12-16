@@ -43,6 +43,7 @@ export const ServiceDetails = () => {
   useEffect(() => {
     dispatch(getServiceTicketDetails(ticketId));
     setSelect(serviceticketdetails?.ticketStatus);
+    window.scrollTo(0, 0);
   }, [dispatch, ticketId, serviceticketdetails?.ticketStatus]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

@@ -130,6 +130,34 @@ function AdminDashboard() {
                   Rented Assets
                 </Typography>
               </Grid>
+              <Grid
+                item
+                xs={12}
+                md={2}
+                sx={{
+                  ...commonStyles,
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "28px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  <CountUp end={counts?.WorkingAssets} duration={2} />
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "18px" }}
+                  variant="h5"
+                  color="primary"
+                >
+                  Working Assets
+                </Typography>
+              </Grid>
             </Grid>
 
             <Grid
@@ -187,14 +215,14 @@ function AdminDashboard() {
                   variant="h5"
                   color="primary"
                 >
-                  <CountUp end={counts?.WorkingAssets} duration={2} />
+                  <CountUp end={counts?.allocatedAssets} duration={2} />
                 </Typography>
                 <Typography
                   sx={{ fontSize: "18px" }}
                   variant="h5"
                   color="primary"
                 >
-                  Working Assets
+                  Allocated Assets
                 </Typography>
               </Grid>
               <Grid
