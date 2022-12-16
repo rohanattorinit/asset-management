@@ -177,7 +177,11 @@ export default function Asset() {
                           {asset?.description}
                         </TableCell>
                         <TableCell align="center">
-                          {asset?.allocationTime?.slice(0, 10)}
+                          {asset?.allocationTime
+                            ?.slice(0, 10)
+                            .split("-")
+                            .reverse()
+                            .join("-")}
                         </TableCell>
                         <TableCell align="center">
                           <Tooltip title="Asset Details">
