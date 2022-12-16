@@ -388,7 +388,8 @@ export default function EmployeeDetails() {
                               {asset?.modelno}
                             </TableCell>
                             <TableCell align="right">
-                              {asset?.category}
+                              {asset?.category.charAt(0).toUpperCase() +
+                                asset?.category.slice(1)}
                             </TableCell>
                             <TableCell align="right">
                               {asset?.allocationTime?.slice(0, 10)}

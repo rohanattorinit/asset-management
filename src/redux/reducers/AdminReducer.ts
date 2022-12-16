@@ -128,6 +128,7 @@ const initialState: InitialState = {
     WorkingAssets: 0,
     RepairabaleAssets: 0,
     brokenAssets: 0,
+    allocatedAssets: 0,
   },
   filterOptions: {
     category: [],

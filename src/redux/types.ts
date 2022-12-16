@@ -76,7 +76,8 @@ export interface Counts {
   surplusAssets: number, 
   WorkingAssets: number,
   RepairabaleAssets: number, 
-  brokenAssets: number
+  brokenAssets: number,
+  allocatedAssets: number
  }
 export interface TotalAssetCountType {
   totalAssetCount: AssetCategoryCount[];
