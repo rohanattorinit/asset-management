@@ -50,7 +50,7 @@ function AssetTransactionHistory() {
               },
             }}
           >
-            {assetTrasactionLogs?.map((transaction) => {
+            {assetTrasactionLogs?.map((transaction, id) => {
               return (
                 <>
                   {transaction?.event_name === "Asset Received" && (
@@ -60,7 +60,14 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <AddToQueueIcon sx={{ color: "#0369a1" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
                       <TimelineContent>
                         {`Asset ${transaction?.asset_id} Recived in Organisation`}{" "}
@@ -75,7 +82,14 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <AssignmentIndIcon sx={{ color: "#16a34a" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
                       <TimelineContent>{`Asset allocated to ${transaction?.emp_name}(${transaction.emp_id}) `}</TimelineContent>
                     </TimelineItem>
@@ -88,7 +102,14 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <BuildIcon sx={{ color: "#1e40af" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
                       <TimelineContent>{`Ticket ${transaction?.ticket_id} raised by ${transaction?.emp_name}(${transaction.emp_id})`}</TimelineContent>
                     </TimelineItem>
@@ -101,9 +122,18 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <SecurityUpdateGoodIcon sx={{ color: "#1e40af" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
-                      <TimelineContent>{` ${transaction?.update_feature.toUpperCase()} Changed  (${transaction.update_description}) `}</TimelineContent>
+                      <TimelineContent>{` ${transaction?.update_feature.toUpperCase()} Changed  (${
+                        transaction.update_description
+                      }) `}</TimelineContent>
                     </TimelineItem>
                   )}
 
@@ -114,7 +144,14 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <ThumbUpAltIcon sx={{ color: "#0369a1" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
                       <TimelineContent>{`Ticket ${transaction?.ticket_id} resolved by Admin`}</TimelineContent>
                     </TimelineItem>
@@ -127,7 +164,14 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <RemoveCircleIcon sx={{ color: "#dc2626" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
                       <TimelineContent>{`Asset deallocated from  ${transaction?.emp_name}(${transaction.emp_id})`}</TimelineContent>
                     </TimelineItem>
@@ -140,7 +184,14 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <AutorenewIcon sx={{ color: "#fbbf24" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
                       <TimelineContent>{`Asset status changed from ${transaction?.asset_status}`}</TimelineContent>
                     </TimelineItem>
@@ -153,7 +204,14 @@ function AssetTransactionHistory() {
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <DeleteIcon sx={{ color: "#dc2626" }} />
-                        <TimelineConnector />
+                        <TimelineConnector
+                          sx={{
+                            display:
+                              id === assetTrasactionLogs?.length - 1
+                                ? "none"
+                                : "",
+                          }}
+                        />
                       </TimelineSeparator>
                       <TimelineContent>{`Asset deleted from orgnization`}</TimelineContent>
                     </TimelineItem>

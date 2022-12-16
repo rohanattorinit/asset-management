@@ -78,7 +78,7 @@ export default function EmployeeDetails() {
   const [openAlrtDeallocate, setOpenAlrtDeallocate] = useState(false);
   const navigate = useNavigate();
   const setNavigate = () => {
-    alertMessage === "Employee deleted Successfully"
+    alertMessage === "Employee deleted successfully"
       ? navigate("/admin/employee/")
       : setOpenAlert(false);
   };
@@ -124,7 +124,7 @@ export default function EmployeeDetails() {
   const HandleDelete = (assetId: string) => {
     if (employeeassetsdetails?.length) {
       setOpenAlert(true);
-      setAlertMessage("First deallocate all the assets allocated to employee!");
+      setAlertMessage("First deallocate all the assets allocated to employee");
     } else {
       setOpenConfirm(true);
       setAlertMessage("Are you sure?");
@@ -222,7 +222,7 @@ export default function EmployeeDetails() {
                           HandleDelete(employeeDetails.empId);
                         }}
                       >
-                        Delete
+                        Deactivate
                       </Button>
                     </Box>
                   ) : (
@@ -416,7 +416,9 @@ export default function EmployeeDetails() {
                                     onClose={() => {}}
                                     aria-describedby="alert-dialog-slide-description"
                                   >
-                                    <DialogTitle>Are you sure?</DialogTitle>
+                                    <DialogTitle style={{ width: "300px" }}>
+                                      Are you sure?
+                                    </DialogTitle>
 
                                     <DialogActions>
                                       <Button

@@ -110,7 +110,7 @@ const AllocateAsset = ({
     setOpenConfirm(false);
     setOpenAlert(true);
     setAssetId([]);
-    setAlertMessage("Asset Allocated");
+    setAlertMessage("Asset allocated");
   };
   const handleCancel = () => {
     setOpenConfirm(false);
