@@ -125,7 +125,12 @@ export default function SideBar() {
         }}
       >
         {isAdmin ? (
-          <Box display="flex" flexDirection="column" justifyContent="center">
+          <Box
+            display="flex"
+            flexDirection="column"
+            // justifyContent="center"
+            height="86.1vh"
+          >
             {adminTabs?.map((adminTab) => (
               <Button
                 sx={{ marginY: 2, marginX: 2, fontSize: "20px" }}
