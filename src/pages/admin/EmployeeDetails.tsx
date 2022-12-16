@@ -393,7 +393,11 @@ export default function EmployeeDetails() {
                                 asset?.category.slice(1)}
                             </TableCell>
                             <TableCell align="right">
-                              {asset?.allocationTime?.slice(0, 10)}
+                              {asset?.allocationTime
+                                ?.slice(0, 10)
+                                .split("-")
+                                .reverse()
+                                .join("-")}
                             </TableCell>
                             <TableCell align="right">
                               <IconButton>

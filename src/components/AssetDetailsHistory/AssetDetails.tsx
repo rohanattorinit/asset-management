@@ -186,7 +186,11 @@ const AssetDetails = () => {
                   >
                     Received Date:
                     <Typography>
-                      {singleAssetDetails?.received_date?.slice(0, 10)}
+                      {singleAssetDetails?.received_date
+                        ?.slice(0, 10)
+                        .split("-")
+                        .reverse()
+                        .join("-")}
                     </Typography>
                   </Typography>
                   {detailsComp("description", "Description")}
