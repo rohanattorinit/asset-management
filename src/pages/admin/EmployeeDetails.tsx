@@ -414,7 +414,7 @@ export default function EmployeeDetails() {
                                 <RemoveCircleIcon
                                   sx={{ color: "#DC2626" }}
                                   onClick={() => {
-                                    if (asset?.count) setIsOpenAlert(true);
+                                    if (asset?.pendingTickets) setIsOpenAlert(true);
                                     else {
                                       setCurrentAssetId(asset?.assetId);
                                       setOpenConfirmDeallocate(true);

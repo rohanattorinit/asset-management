@@ -218,7 +218,7 @@ export interface AllocatedAssetType {
   category: string
   modelno: number
   allocationTime: string
-  count?: number
+  pendingTickets?: number
 }
 
 export interface DeAllocatAssetType {
