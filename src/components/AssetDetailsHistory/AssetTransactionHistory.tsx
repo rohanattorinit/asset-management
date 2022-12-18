@@ -56,7 +56,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Asset Received" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <AddToQueueIcon sx={{ color: "#0369a1" }} />
@@ -78,7 +82,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Asset Allocation" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <AssignmentIndIcon sx={{ color: "#16a34a" }} />
@@ -98,7 +106,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Ticket raised" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <BuildIcon sx={{ color: "#1e40af" }} />
@@ -118,7 +130,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Asset Update" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <SecurityUpdateGoodIcon sx={{ color: "#1e40af" }} />
@@ -140,7 +156,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Ticket solved" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <ThumbUpAltIcon sx={{ color: "#0369a1" }} />
@@ -160,7 +180,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Asset Deallocation" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <RemoveCircleIcon sx={{ color: "#dc2626" }} />
@@ -180,7 +204,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Asset status changed" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <AutorenewIcon sx={{ color: "#fbbf24" }} />
@@ -200,7 +228,11 @@ function AssetTransactionHistory() {
                   {transaction?.event_name === "Asset Deleted" && (
                     <TimelineItem>
                       <TimelineOppositeContent color="textSecondary">
-                        {transaction?.date?.replace("T", "~").slice(0, 19)}
+                        {transaction?.date
+                          ?.slice(0, 10)
+                          .split("-")
+                          .reverse()
+                          .join("-")}
                       </TimelineOppositeContent>
                       <TimelineSeparator>
                         <DeleteIcon sx={{ color: "#dc2626" }} />

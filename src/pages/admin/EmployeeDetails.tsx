@@ -82,7 +82,7 @@ export default function EmployeeDetails() {
       ? navigate("/admin/employee/")
       : setOpenAlert(false);
   };
-
+  const [isOpenAlert, setIsOpenAlert] = useState<boolean>(false);
   const {
     admin: { employeeDetails, employeeassetsdetails, loading, message },
     employee: { message: empMessage },
@@ -132,7 +132,7 @@ export default function EmployeeDetails() {
   };
 
   const handleOK = () => {
-    dispatch(deleteEmployee(employeeDetails.empId));
+    dispatch(deleteEmployee(employeeDetails?.empId));
     setOpenConfirm(false);
     setOpenAlert(true);
     setAlertMessage("Employee deleted Successfully");
@@ -156,11 +156,21 @@ export default function EmployeeDetails() {
   ) {
     return <Slide ref={ref} {...props} />;
   });
-
+  const handleAlert = () => {
+    setIsOpenAlert(false);
+  };
   return (
     <Grid container>
       <SideBar />
       <Toast />
+      {isOpenAlert ? (
+        <Alert
+          title={"Please resolve the active and pending tickets first!"}
+          setNavigate={handleAlert}
+        />
+      ) : (
+        <></>
+      )}
       {confirmActivate && (
         <Confirm
           title="Are you sure you want to re-activate this employee?"
@@ -389,8 +399,8 @@ export default function EmployeeDetails() {
                               {asset?.modelno}
                             </TableCell>
                             <TableCell align="right">
-                              {asset?.category.charAt(0).toUpperCase() +
-                                asset?.category.slice(1)}
+                              {asset?.category?.charAt(0)?.toUpperCase() +
+                                asset?.category?.slice(1)}
                             </TableCell>
                             <TableCell align="right">
                               {asset?.allocationTime
@@ -404,8 +414,11 @@ export default function EmployeeDetails() {
                                 <RemoveCircleIcon
                                   sx={{ color: "#DC2626" }}
                                   onClick={() => {
-                                    setCurrentAssetId(asset?.assetId);
-                                    setOpenConfirmDeallocate(true);
+                                    if (asset?.count) setIsOpenAlert(true);
+                                    else {
+                                      setCurrentAssetId(asset?.assetId);
+                                      setOpenConfirmDeallocate(true);
+                                    }
                                   }}
                                 />
                                 {openConfirmDeallocate && (
@@ -501,7 +514,7 @@ export default function EmployeeDetails() {
                             onChange={handleChange}
                             value={values?.jobTitle}
                             component={TextField}
-                            error={errors.jobTitle}
+                            error={errors?.jobTitle}
                           />
                         </Grid>
 
