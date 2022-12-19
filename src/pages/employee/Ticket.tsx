@@ -14,7 +14,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import {
   getEmployeeTickets,
   getNote,
-} from "../../redux/actions/EmployeeActions";
+} from "../../redux/actions/EmployeeController";
 import { RootStore } from "../../redux/store";
 import { EmpTicketType } from "../../redux/types";
 import Toast from "../../components/ErrorHandling/Toast";

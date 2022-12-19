@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Dispatch, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/actions/AuthAction";
+import { login } from "../redux/actions/AuthController";
 import { RootStore } from "../redux/store";
 interface credential {
   email?: string;

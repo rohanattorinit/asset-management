@@ -1,7 +1,7 @@
 import { Box, ImageList, Typography, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Card, CardContent } from "@mui/material";
-import { getEmployeeTickets } from "../../redux/actions/EmployeeActions";
+import { getEmployeeTickets } from "../../redux/actions/EmployeeController";
 import { Dispatch, useEffect } from "react";
 import { RootStore } from "../../redux/store";
 import SideBar from "../../components/Sidebar/Sidebar";

@@ -24,10 +24,10 @@ import { useDispatch } from "react-redux";
 import {
   changePassword,
   updateEmployeeDetails,
-} from "../../redux/actions/EmployeeActions";
+} from "../../redux/actions/EmployeeController";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { getUserProfile } from "../../redux/actions/AuthAction";
+import { getUserProfile } from "../../redux/actions/AuthController";
 import Alert from "../../components/ConfirmAlert/Alert";
 import Loader from "../../components/Loader/Loader";
 

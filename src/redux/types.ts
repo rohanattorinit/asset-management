@@ -35,6 +35,84 @@ export const ASSET_TRANSACTION_HISTORY="ASSET_TRANSACTION_HISTORY"
 
 
 
+
+export interface InitialState {
+  loading: boolean;
+
+  employees: EmployeeType[];
+  assets: AssetTypes[];
+  employeeDetails: EmployeeType;
+  singleAssetDetails: SingleAssetDetailsType;
+  singleAssetTickets: ServiceType[];
+  employeeassetsdetails: AllocatedAssetType[];
+  serviceDetails: ServiceType[];
+  serviceticketdetails: ServiceType;
+  error?: string;
+  message: string;
+  brandOptions: BrandOptions[];
+  totalAssetCount: AssetCategoryCount[];
+  totalSurplusAssetCount: AssetCategoryCount[];
+  counts: Counts;
+  filterOptions: FilterOptions;
+  assetTrasactionLogs: AssetTransactionHistory[];
+}
+export interface AuthInitialState {
+  authenticated: boolean;
+  user: EmployeeType;
+  loading: boolean;
+  error?: string;
+}
+export interface EmployeeInitialState {
+  loading: boolean
+  error?: string
+  message: string
+  assets: EmployeeAssetType[]
+  employee: EmployeeType
+  tickets: EmpTicketType[]
+  noteDetails: NoteType[]
+}
+
+export interface GetAssetParams {
+  name?: string;
+  allocate?: boolean;
+  isRented?: 0 | 1;
+}
+
+export interface GetEmployeeParams {
+  name?: string;
+}
+
+export interface GetTicketParams {
+  title?: string;
+  status?: string;
+}
+
+export interface SetFilterParams {
+  screen_type?: string[];
+  ram?: string[];
+  status?: string[];
+  assetType?: string[];
+  category?: string[];
+  operating_system?: string[];
+  harddisk?: string[];
+  processor?: string[];
+  screen_size?: string[];
+  asset_location?: string[];
+  brands?: string[];
+}
+
+export interface CredentialType {
+  email?: string;
+  password?: string;
+}
+
+export interface UpdateType {
+  name?: string
+  email?: string
+  phone?: string
+  location?: string
+  jobTitle?: string
+}
 export interface AssetTransactionHistory{
   log_id:number
   event_name:string

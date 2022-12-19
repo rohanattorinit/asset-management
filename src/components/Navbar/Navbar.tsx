@@ -2,7 +2,7 @@ import { Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
 import { useState, Dispatch } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { logout } from "../../redux/actions/AuthAction";
+import { logout } from "../../redux/actions/AuthController";
 import { RootStore } from "../../redux/store";
 
 export default function Navbar() {

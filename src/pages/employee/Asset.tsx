@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import {
   createTicket,
   getEmployeeAssets,
-} from "../../redux/actions/EmployeeActions";
+} from "../../redux/actions/EmployeeController";
 import BuildIcon from "@mui/icons-material/Build";
 import { useNavigate } from "react-router-dom";
 import Toast from "../../components/ErrorHandling/Toast";

@@ -39,7 +39,7 @@ import { RootStore } from "../../redux/store";
 import AllocateAsset from "../../components/AllocateAsset/AllocateAsset";
 import Toast from "../../components/ErrorHandling/Toast";
 import { Formik, Field, Form } from "formik";
-import { updateEmployeeDetails } from "../../redux/actions/EmployeeActions";
+import { updateEmployeeDetails } from "../../redux/actions/EmployeeController";
 import Loader from "../../components/Loader/Loader";
 import Alert from "../../components/ConfirmAlert/Alert";
 import Confirm from "../../components/ConfirmAlert/Confirm";

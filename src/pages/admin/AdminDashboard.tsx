@@ -9,6 +9,7 @@ import { PiechartTwo } from "../../components/PieChart/PieChartTwo";
 
 import SideBar from "../../components/Sidebar/Sidebar";
 import { getTotalAssetCategoryCount } from "../../redux/actions/AdminActions";
+import { getTotalAssetCategoryCounts } from "../../redux/actions/Admincontroller";
 import { RootStore } from "../../redux/store";
 
 const commonStyles = {
@@ -24,7 +25,7 @@ function AdminDashboard() {
   const { counts, loading } = useSelector((state: RootStore) => state.admin);
   const dispatch: Dispatch<any> = useDispatch();
   useEffect(() => {
-    dispatch(getTotalAssetCategoryCount());
+    dispatch(getTotalAssetCategoryCounts());
   }, []);
   return (
     <>

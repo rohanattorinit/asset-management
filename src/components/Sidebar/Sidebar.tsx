@@ -1,7 +1,7 @@
 import { Box, Button, Divider, useMediaQuery, useTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-import { logout } from "../../redux/actions/AuthAction";
+import { logout } from "../../redux/actions/AuthController";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import {
